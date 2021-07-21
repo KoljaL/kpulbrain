@@ -40,9 +40,11 @@ array_push($data, $res);
 //     echo "</tr>";
 //   }
 //   echo "</table>";
-
 $brainloadChart = "";
+$moodChart = "";
+$motivationChart = "";
 $labelChart = "[";
+$comments = array();
 foreach ($data as $key => $value) {
 
     foreach ($value as $k => $v) {
@@ -53,17 +55,18 @@ foreach ($data as $key => $value) {
             // echo $newdate."<br>";
             $labelChart .= "\"".$newdate."\",";
             $brainloadChart .= "{ t:'".$newdate."',";
-
-        
+            $moodChart .= "{ t:'".$newdate."',";
+              $motivationChart .= "{ t:'".$newdate."',";
         }
 
-        
         if($k=="brainload"){
-            // echo $v."<br>";
-            // $newdate = date("c",strtotime($v));
-            // echo $newdate."<br>";
-            $brainloadChart .= "y: ".$v."},";
-        
+          $brainloadChart .= "y: ".$v."},";
+        }
+        if($k=="mood"){
+          $moodChart .= "y: ".$v."},";
+        }
+        if($k=="motivation"){
+          $motivationChart .= "y: ".$v."},";
         }
 
         
@@ -71,20 +74,20 @@ foreach ($data as $key => $value) {
     
 }
 $labelChart .= "]";
+ 
 
-// echo $labelChart."<br>";
-// echo $brainloadChart."<br>";
-
-//   exit;
-
-//   labels: ["2015-03-15T13:03:00Z", "2015-03-15T13:02:00Z", "2015-03-16T14:12:00Z"],
-
-//   {
-//     t: '2015-03-15T13:03:00Z',
-//     y: 12
-//   },
+function getComment($date){
+  global $data;
+  foreach ($data as $key => $value) {
+    if ($date == $value['time'])
+   return $value['comment'];
+  }
+}
 
 
+// echo getComment('21.07.2021 11:04:26');
+// print_r($data);
+// exit;
 ?>
 
 <!DOCTYPE html>
@@ -98,12 +101,16 @@ $labelChart .= "]";
     <link rel="icon" type="image/svg+xml" href="brain.png">
     <!-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> -->
     <link rel="stylesheet" href="style.css">
-    
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.js"></script>
 
     <style>
-
+    .container {
+        display: block;
+        width: 80%;
+        height: 554px !important;
+    }
     </style>
 
 </head>
@@ -113,79 +120,130 @@ $labelChart .= "]";
     </div> -->
 
     <div class="container">
-  <canvas id="examChart"></canvas>
-</div>
+        <canvas id="examChart"></canvas>
+    </div>
 
 
     <script>
+    var ctx = document.getElementById("examChart").getContext("2d");
 
 
-var ctx = document.getElementById("examChart").getContext("2d");
-
-var myChart = new Chart(ctx, {
-  type: 'line',
-  options: {
-    scales: {
-      xAxes: [{
-        type: 'time',
-      }]
-    }
-  },
-  data: {
-    // labels: ["2015-03-15T13:03:00Z", "2015-03-15T13:02:00Z", "2015-03-16T14:12:00Z"],
-    labels: <?= $labelChart ?>,
-    datasets: [{
-      label: 'Demo',
-      borderColor: 'rgb(255, 99, 132)',
-      data: [ <?= $brainloadChart?> ],
-    //   data: [{
-    //       t: '2015-03-15T13:03:00Z',
-    //       y: 12
-    //     },
-    //     {
-    //       t: '2015-03-15T13:06:00Z',
-    //       y: 21
-    //     },
-    //     {
-    //       t: '2015-03-16T14:12:00Z',
-    //       y: 32
-    //     }
-    //   ]
-      borderWidth: 1
-    }]
-  }
-});
-
-
-
-    const labels = [
-        'January',
-        'February',
-        'March',
-        'April',
-        'May',
-        'June',
-    ];
-    const data = {
-        labels: labels,
-        datasets: [{
-            label: 'My First dataset',
-            backgroundColor: 'rgb(255, 99, 132)',
-            borderColor: 'rgb(255, 99, 132)',
-            data: [0, 10, 5, 2, 20, 30, 45],
-        }]
-    };
-    const config = {
+    var myChart = new Chart(ctx, {
         type: 'line',
-        data,
-        options: {}
-    };
+        options: {
+
+            tooltips: {
+
+                bodyFontSize: 14,
+                // bodyFontStyle: "bold",
+                // bodyFontColor: '#FFFFFF',
+                bodyFontFamily: "'LibreBaskerville_Regular', 'Arial', sans-serif",
+                footerFontSize: 20,
+                bodySpacing: 5,
+                intersect: false,
+                mode: 'index',
 
 
-    var myChart = new Chart(
-        document.getElementById('myChart'),
-        config
-    );
+                callbacks: {
+                    labelColor: function(tooltipItem, chart) {
+                        var dataset = chart.config.data.datasets[tooltipItem.datasetIndex];
+                        return {
+                            backgroundColor: dataset.borderColor,
+                            borderColor: 'rgb(0, 0, 0)',
+                            borderWidth:0
+                        }
+                    },
+                    labelTextColor: function(tooltipItem, chart) {
+                        var dataset = chart.config.data.datasets[tooltipItem.datasetIndex];
+                        return dataset.borderColor
+                    },
+
+
+                    // labelColor: function(context) {
+                    //       return {
+                    //           borderColor: 'rgb(0, 0, 255)',
+                    //           backgroundColor: 'rgb(255, 0, 0)',
+                    //           borderWidth: 2,
+                    //           borderDash: [2, 2],
+                    //           borderRadius: 2,
+                    //       };
+                    //   },
+                    //   labelTextColor: function(context) {
+                    //       return '#543453';
+                    //   },
+                    // title: function(tooltipItem, data) {
+                    //     return data['labels'][tooltipItem[0]['index']];
+                    // },
+                    // label: function(tooltipItem, data) {
+                    //     return data['datasets'][0]['data'][tooltipItem['index']];
+                    // },
+                    footer: function(tooltipItem, data) {
+                      // console.log(data['datasets'][0]['data'][tooltipItem[0]['index']]);
+                      console.log(tooltipItem[0]['label']);
+                      var time = "'"+tooltipItem[0]['label']+"'";
+                      var comment = <?php getComment(?>time<?php ); ?>
+                        var multistringText = ['<b>first string</b>'];
+                        multistringText.push('another string');
+                        return multistringText;
+                    }
+                }
+
+            },
+
+
+            scales: {
+                xAxes: [{
+                    type: 'time',
+                    distribution: 'linear',
+                    time: {
+                        tooltipFormat: 'DD.MM.YYYY HH:mm:ss',
+                        displayFormats: {
+                            'millisecond': 'HH:mm',
+                            'second': 'HH:mm',
+                            'minute': 'HH:mm',
+                            'hour': 'HH:mm',
+                            'day': 'HH:mm',
+                            'week': 'HH:mm',
+                            'month': 'HH:mm',
+                            'quarter': 'HH:mm',
+                            'year': 'HH:mm',
+                        },
+                        unit: 'hour',
+                    },
+                    ticks: {
+                        // max: 50,
+                        // min: 10,
+                        stepSize: 2,
+                    }
+                }]
+            }
+        },
+        data: {
+            labels: <?= $labelChart ?>,
+            datasets: [{
+                    label: 'Brainload',
+                    fill: false,
+                    borderColor: 'rgb(190, 80, 70)',
+                    data: [<?=$brainloadChart?>],
+                    borderWidth: 2
+                },
+                {
+                    label: 'Mood',
+                    fill: false,
+                    borderColor: 'rgb(97, 174, 238)',
+                    data: [<?=$moodChart?>],
+                    borderWidth: 2
+                },
+                {
+                    label: 'Motivation',
+                    fill: false,
+                    borderColor: 'rgb(152, 195, 121)',
+                    data: [<?=$motivationChart?>],
+                    borderWidth: 2
+                }
+            ]
+        }
+    });
     </script>
 </body>
 </html>
