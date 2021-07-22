@@ -4,7 +4,7 @@
 //
 // db connection
 //
-$db = new SQLite3('mood.sqlite', SQLITE3_OPEN_CREATE | SQLITE3_OPEN_READWRITE);
+$db = new SQLite3('timestamp.sqlite', SQLITE3_OPEN_CREATE | SQLITE3_OPEN_READWRITE);
 
 
 //
@@ -99,9 +99,14 @@ function getComment($date){
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- <link rel="shortcut icon" href="favicon.ico"> -->
     <link rel="icon" type="image/svg+xml" href="brain.png">
-    <!-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> -->
     <link rel="stylesheet" href="style.css">
 
+
+
+    <!-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/chart.js@3.4.1/dist/chart.js"></script> -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-moment@1.0.0/dist/chartjs-adapter-moment.min.js"></script> -->
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.js"></script>
 
@@ -115,6 +120,15 @@ function getComment($date){
 
 </head>
 <body>
+
+
+    <div id=links>
+        <a href="index.php">Formular</a>
+        <a href="error">Formular debug</a>
+        <a href="chart.php">Chart</a>
+        <a href="error?e=chart">Chart debug</a>
+        <a href="admin.php">DB</a>
+    </div>
     <!-- <div>
         <canvas id="myChart"></canvas>
     </div> -->
@@ -125,6 +139,54 @@ function getComment($date){
 
 
     <script>
+    // GLOBAL settings in graph.js
+    // http://microbuilder.io/blog/2016/01/10/plotting-json-data-with-chart-js.html
+
+    function getTimeString(date) {
+        var day = date.getDate();
+        var month = date.getMonth() + 1;
+        var year = date.getFullYear();
+
+        return day + '/' + month + '/' + year;
+    }
+
+
+    //
+    // get and sort JSON data from PHP
+    //  
+    // console.log(< ?= json_encode($data);?>)
+    var DataArray = <?= json_encode($data);?>;
+    var time = DataArray.map(function(e) {
+        // return e.timestamp;
+        return moment(e.time, "DD.MM.YYYY hh:mm:ss", true);
+    });
+    var situation = DataArray.map(function(e) {
+        return e.situation;
+    });
+    var comment = DataArray.map(function(e) {
+        return e.comment;
+    });
+    var brainload = DataArray.map(function(e) {
+        return e.brainload;
+    });
+    var mood = DataArray.map(function(e) {
+        return e.mood;
+    });
+    var motivation = DataArray.map(function(e) {
+        return e.motivation;
+    });
+
+    console.log(time);
+
+    console.log(situation);
+    // console.log(comment);
+    // console.log(brainload);
+    // console.log(mood);
+    // console.log(motivation);
+
+
+    // console.log(moment('24/12/2019 09:15:00', "DD/MM/YYYY hh:mm:ss", true));
+
     var ctx = document.getElementById("examChart").getContext("2d");
 
 
@@ -134,9 +196,7 @@ function getComment($date){
 
             tooltips: {
 
-                bodyFontSize: 14,
-                // bodyFontStyle: "bold",
-                // bodyFontColor: '#FFFFFF',
+                bodyFontSize: 14, 
                 bodyFontFamily: "'LibreBaskerville_Regular', 'Arial', sans-serif",
                 footerFontSize: 20,
                 bodySpacing: 5,
@@ -150,7 +210,7 @@ function getComment($date){
                         return {
                             backgroundColor: dataset.borderColor,
                             borderColor: 'rgb(0, 0, 0)',
-                            borderWidth:0
+                            borderWidth: 0
                         }
                     },
                     labelTextColor: function(tooltipItem, chart) {
@@ -177,15 +237,21 @@ function getComment($date){
                     // label: function(tooltipItem, data) {
                     //     return data['datasets'][0]['data'][tooltipItem['index']];
                     // },
+
+
                     footer: function(tooltipItem, data) {
-                      // console.log(data['datasets'][0]['data'][tooltipItem[0]['index']]);
-                      console.log(tooltipItem[0]['label']);
-                      var time = "'"+tooltipItem[0]['label']+"'";
-                      var comment = <?php getComment(?>time<?php ); ?>
-                        var multistringText = ['<b>first string</b>'];
-                        multistringText.push('another string');
+                        // console.log(data['datasets'][0]['data'][tooltipItem[0]['index']]);
+                        console.log(tooltipItem);
+                        var indexNr = tooltipItem[0]['index'];
+                        var situations = situation[indexNr];
+                        console.log();
+                        // var comment = 
+                        var multistringText = [situations];
+                        // multistringText.push('another string');
                         return multistringText;
                     }
+
+
                 }
 
             },
@@ -209,6 +275,7 @@ function getComment($date){
                             'year': 'HH:mm',
                         },
                         unit: 'hour',
+                        // round: 'hour',
                     },
                     ticks: {
                         // max: 50,
@@ -219,27 +286,35 @@ function getComment($date){
             }
         },
         data: {
-            labels: <?= $labelChart ?>,
+            labels: time,
             datasets: [{
                     label: 'Brainload',
                     fill: false,
                     borderColor: 'rgb(190, 80, 70)',
-                    data: [<?=$brainloadChart?>],
-                    borderWidth: 2
+                    data: brainload,
+                    borderWidth: 2,
+                    // cubicInterpolationMode: false,
+                    lineTension: 0,
+                    // steppedLine: 'before',
+                    // fill: -1
                 },
                 {
                     label: 'Mood',
                     fill: false,
                     borderColor: 'rgb(97, 174, 238)',
-                    data: [<?=$moodChart?>],
-                    borderWidth: 2
+                    data: mood,
+                    borderWidth: 2,
+                    lineTension: 0,
+
                 },
                 {
                     label: 'Motivation',
                     fill: false,
                     borderColor: 'rgb(152, 195, 121)',
-                    data: [<?=$motivationChart?>],
-                    borderWidth: 2
+                    data: motivation,
+                    borderWidth: 2,
+                    lineTension: 0,
+
                 }
             ]
         }

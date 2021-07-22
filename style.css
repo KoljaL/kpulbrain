@@ -38,6 +38,21 @@ body {
   font-style: normal;
   line-height: 1.5
 }
+
+#links{
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  font-size: 1.5em;
+  text-decoration: none;
+  display: grid;
+}
+#links a{
+  color:#61aeee;
+}
+#links a:hover{
+  color:#be5046;
+}
 #content {
   position: relative;
   top: 20px;

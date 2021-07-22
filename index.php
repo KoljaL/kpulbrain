@@ -22,7 +22,7 @@
 //
 // db connection
 //
-$db = new SQLite3('mood.sqlite', SQLITE3_OPEN_CREATE | SQLITE3_OPEN_READWRITE);
+$db = new SQLite3('timestamp.sqlite', SQLITE3_OPEN_CREATE | SQLITE3_OPEN_READWRITE);
 
 //
 // init db
@@ -30,6 +30,7 @@ $db = new SQLite3('mood.sqlite', SQLITE3_OPEN_CREATE | SQLITE3_OPEN_READWRITE);
 $db->query('CREATE TABLE IF NOT EXISTS "user_1" (
   "id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
   "time" DATETIME,
+  "timestamp" INTEGER,
   "situation" VARCHAR,
   "brainload" INTEGER,
   "mood" INTEGER,
@@ -71,6 +72,13 @@ $situations = array_filter(array_unique($situations));
 // exit;
 ?>
 
+<div id=links>
+  <a href="index.php">Formular</a>
+  <a href="error">Formular debug</a>
+  <a href="chart.php">Chart</a>
+  <a href="error?e=chart">Chart debug</a>
+  <a href="admin.php">DB</a>
+</div>
 
     <div id="content">
         <form action="" method="POST" name=form>
@@ -153,9 +161,10 @@ if(!empty($_POST)){
   $motivation = $_POST['motivation'];
   $comment = $_POST['comment'];
   $date = date("d.m.Y H:i:s");
+  $timestamp = time();
   $db->exec('BEGIN'); 
-  $db->query("INSERT INTO user_1 (situation,brainload, mood, motivation, comment,time) 
-              VALUES ('$situation', '$brainload','$mood','$motivation','$comment', '$date')");
+  $db->query("INSERT INTO user_1 (situation,brainload, mood, motivation, comment,time, timestamp) 
+              VALUES ('$situation', '$brainload','$mood','$motivation','$comment', '$date','$timestamp')");
   $db->exec('COMMIT');
 }
 
@@ -163,7 +172,7 @@ if(!empty($_POST)){
 //
 // db connection
 //
-$db = new SQLite3('mood.sqlite', SQLITE3_OPEN_CREATE | SQLITE3_OPEN_READWRITE);
+$db = new SQLite3('timestamp.sqlite', SQLITE3_OPEN_CREATE | SQLITE3_OPEN_READWRITE);
 
 //
 // get all data
@@ -185,6 +194,7 @@ if (1 == $error){
   echo "<tr>";
   echo "<td>id</td>";
   echo "<td>time</td>";
+  echo "<td>timestamp</td>";
   echo "<td>situation</td>";
   echo "<td>brainload</td>";
   echo "<td>mood</td>";
