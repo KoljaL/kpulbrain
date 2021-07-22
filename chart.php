@@ -116,6 +116,26 @@ function getComment($date){
         width: 80%;
         height: 554px !important;
     }
+
+    #chartjs-tooltip {
+        padding: .5em;
+        background: var(--dark);
+        border: 2px solid var(--salomon);
+        border-radius: 5px;
+        font-size: 1.2em;
+    }
+
+    #CTT_Situations {
+        color: var(--orange);
+    }
+
+    #CTT_Date {
+        color: var(--lightgrey);
+    }
+
+    #CTT_Comments {
+        color: var(--bluegreen);
+    }
     </style>
 
 </head>
@@ -176,7 +196,7 @@ function getComment($date){
         return e.motivation;
     });
 
-    // console.log(time);
+    console.log(time);
     // console.log(situation);
     // console.log(comment);
     // console.log(brainload);
@@ -192,157 +212,199 @@ function getComment($date){
     var myChart = new Chart(ctx, {
         type: 'line',
         options: {
+            events: ['click'],
 
             tooltips: {
-
+                // Disable the on-canvas tooltip
+                enabled: false,
+                intersect: false,
+                mode: 'index',
                 bodyFontSize: 14,
                 bodyFontFamily: "'LibreBaskerville_Regular', 'Arial', sans-serif",
                 footerFontSize: 20,
                 footerFontColor: 'rgb(209, 154, 102)',
                 TitleFontColor: 'rgb(9, 154, 102)',
-                bodySpacing: 5,
-                intersect: false,
-                mode: 'index',
+                bodySpacing: 5, 
                 footerMarginTop: 20,
                 footerSpacing: 15,
 
+                custom: function(tooltipModel) {
+                    // Tooltip Element
+                    var tooltipEl = document.getElementById('chartjs-tooltip');
 
-                callbacks: {
-                    labelColor: function(tooltipItem, chart) {
-                        var dataset = chart.config.data.datasets[tooltipItem.datasetIndex];
-                        return {
-                            backgroundColor: dataset.borderColor,
-                            borderColor: 'rgb(0, 0, 0)',
-                            borderWidth: 0
-                        }
-                    },
-                    labelTextColor: function(tooltipItem, chart) {
-                        var dataset = chart.config.data.datasets[tooltipItem.datasetIndex];
-                        return dataset.borderColor
-                    },
+                    // Create element on first render
+                    if (!tooltipEl) {
+                        tooltipEl = document.createElement('div');
+                        tooltipEl.id = 'chartjs-tooltip';
+                        tooltipEl.innerHTML = '<div id="CustomTooltip"></div>';
+                        document.body.appendChild(tooltipEl);
+                    }
 
+                    // Hide if no tooltip
+                    if (tooltipModel.opacity === 0) {
+                        tooltipEl.style.opacity = 0;
+                        return;
+                    }
 
-                    //
-                    // DATE & TIME
-                    //
-                    title: function(tooltipItem, data) {
-                        // console.log(data)
-                        var niceDate = data['labels'][tooltipItem[0]['index']]
-                        niceDate = moment(niceDate).format("DD.MM.YYYY hh:mm");
-                        return niceDate;
-                    },
+                    // Set caret Position
+                    tooltipEl.classList.remove('above', 'below', 'no-transform');
+                    if (tooltipModel.yAlign) {
+                        tooltipEl.classList.add(tooltipModel.yAlign);
+                    } else {
+                        tooltipEl.classList.add('no-transform');
+                    }
 
+                    function getBody(bodyItem) {
+                        return bodyItem.lines;
+                    }
 
-                    //
-                    // SITUATIONS
-                    //
-                    beforeTitle: function(tooltipItem, data) {
-                        // console.log(data['datasets'][0]['data'][tooltipItem[0]['index']]);
-                        // console.log(tooltipItem);
-                        var indexNr = tooltipItem[0]['index'];
-                        var situations = situation[indexNr];
-                        return situations;
-                    },
+                    // Set Text
+                    if (tooltipModel.body) {
+                        var titleLines = tooltipModel.title || [];
+                        var bodyLines = tooltipModel.body.map(getBody);
 
+                        var innerHtml = '';
 
-                    //
-                    // COMMENTS
-                    //
-                    afterFooter: function(tooltipItem, data) {
-                        // console.log(data['datasets'][0]['data'][tooltipItem[0]['index']]);
-                        // console.log(tooltipItem);
-                        var indexNr = tooltipItem[0]['index'];
-                        var comments = comment[indexNr];
-                        return comments;
-                    },
+                        //
+                        // DATE
+                        //
+                        titleLines.forEach(function(title) {
+                            innerHtml += '<div id=CTT_Date>' + title + '</div>';
+                        });
 
 
+                        //
+                        // SITUATIONS
+                        //
+                        var TT_index = tooltipModel.dataPoints[0].index;
+                        console.log(situation[TT_index])
+                        innerHtml += '<div id=CTT_Situations>' + situation[TT_index] + '</div>';
 
 
 
 
-                            // labelColor: function(context) {
-                    //       return {
-                    //           borderColor: 'rgb(0, 0, 255)',
-                    //           backgroundColor: 'rgb(255, 0, 0)',
-                    //           borderWidth: 2,
-                    //           borderDash: [2, 2],
-                    //           borderRadius: 2,
-                    //       };
-                    //   },
-                    //   labelTextColor: function(context) {
-                    //       return '#543453';
-                    //   },
-                    // title: function(tooltipItem, data) {
-                    //     return data['labels'][tooltipItem[0]['index']];
-                    // },
-                    // label: function(tooltipItem, data) {
-                    //     return data['datasets'][0]['data'][tooltipItem['index']];
-                    // },
+                        //
+                        // VALUES
+                        //
+                        bodyLines.forEach(function(body, i) {
+                            var colors = tooltipModel.labelColors[i];
+                            // console.log(tooltipModel.labelColors[i].borderColor)
+                            // var style = 'background:' + colors.backgroundColor;
+                            // style += '; border-color:' + colors.borderColor;
+                            var style = '; color:' + colors.borderColor;
+                            // style += '; border-width: 2px';
+                            innerHtml += '<div style="' + style + '">' + body + '</div>';
+                            // innerHtml += '<tr><td>' + span + '</td></tr>';
+                        });
+
+                        //
+                        // COMMENT
+                        //
+                        innerHtml += '<div id=CTT_Comments>' + comment[TT_index] + '</div>';
 
 
+
+                        var tableRoot = tooltipEl.querySelector('div#CustomTooltip');
+                        tableRoot.innerHTML = innerHtml;
+                    }
+
+                    // `this` will be the overall tooltip
+                    var position = this._chart.canvas.getBoundingClientRect();
+
+                    // Display, position, and set styles for font
+                    tooltipEl.style.opacity = 1;
+                    tooltipEl.style.position = 'absolute';
+                    tooltipEl.style.left = position.left + window.pageXOffset + tooltipModel.caretX + 'px';
+                    tooltipEl.style.top = position.top + window.pageYOffset + tooltipModel.caretY + 'px';
+                    tooltipEl.style.fontFamily = tooltipModel._bodyFontFamily;
+                    tooltipEl.style.fontSize = tooltipModel.bodyFontSize + 'px';
+                    tooltipEl.style.fontStyle = tooltipModel._bodyFontStyle;
+                    tooltipEl.style.padding = tooltipModel.yPadding + 'px ' + tooltipModel.xPadding + 'px';
+                    tooltipEl.style.pointerEvents = 'none';
                 }
-
             },
-
 
             scales: {
                 xAxes: [{
                     type: 'time',
-                    distribution: 'linear',
+                    display: true,
+                    distribution: 'series',
+                    // distribution: 'linear',
                     time: {
+                        // stepSize: 10000,
+                        bounds: 'ticks',
+                        parser: "YYYY-MM-DDTHH:mm:ss",
+
                         tooltipFormat: 'DD.MM.YYYY HH:mm',
                         displayFormats: {
                             'millisecond': 'HH:mm',
                             'second': 'HH:mm',
                             'minute': 'HH:mm',
                             'hour': 'HH:mm',
-                            'day': 'HH:mm',
+                            'day': 'DD.MM.YYYY HH:mm',
                             'week': 'HH:mm',
                             'month': 'HH:mm',
                             'quarter': 'HH:mm',
                             'year': 'HH:mm',
                         },
-                        unit: 'hour',
+                        unit: "hour",
+                        min: '21.07.2021 10:44:12',
+                        max: '23.07.2021 20:44:12',
+
+                        // unit: 'hour',
                         // round: 'hour',
                     },
                     ticks: {
                         // max: 50,
                         // min: 10,
-                        stepSize: 2,
+                        // stepSize: 1,
                     }
                 }]
             }
         },
         data: {
             labels: time,
+            radius:5,
+
             datasets: [{
                     label: 'Brainload',
-                    fill: false,
-                    borderColor: 'rgb(190, 80, 70)',
                     data: brainload,
-                    borderWidth: 2,
-                    // cubicInterpolationMode: false,
+                    backgroundColor: 'rgb(190, 80, 70)',
+                    borderColor: 'rgb(190, 80, 70)',
+                    pointStyle: 'circle',
+                    radius:10,
+                    // borderColor: '#282c34',
+                    borderWidth: 0,
                     lineTension: 0,
+                    fill: false,
+                    // cubicInterpolationMode: false,
                     // steppedLine: 'before',
                     // fill: -1
                 },
                 {
                     label: 'Mood',
-                    fill: false,
-                    borderColor: 'rgb(97, 174, 238)',
                     data: mood,
+                    backgroundColor: 'rgb(97, 174, 238)',
+                    borderColor: 'rgb(97, 174, 238)',
+                    pointStyle: 'circle',
+                    radius:10,
+                    // borderColor: '#282c34',
                     borderWidth: 2,
                     lineTension: 0,
+                    fill: false,
 
                 },
                 {
                     label: 'Motivation',
-                    fill: false,
-                    borderColor: 'rgb(152, 195, 121)',
                     data: motivation,
+                    backgroundColor: 'rgb(152, 195, 121)',
+                    borderColor: 'rgb(152, 195, 121)',
+                    pointStyle: 'circle',
+                    radius:10,
+                    // borderColor: '#282c34',
                     borderWidth: 2,
                     lineTension: 0,
+                    fill: false,
 
                 }
             ]
@@ -351,3 +413,84 @@ function getComment($date){
     </script>
 </body>
 </html>
+
+
+<!-- 
+
+
+// tooltips: {
+            //     bodyFontSize: 14,
+            //     bodyFontFamily: "'LibreBaskerville_Regular', 'Arial', sans-serif",
+            //     footerFontSize: 20,
+            //     footerFontColor: 'rgb(209, 154, 102)',
+            //     TitleFontColor: 'rgb(9, 154, 102)',
+            //     bodySpacing: 5,
+            //     intersect: false,
+            //     mode: 'index',
+            //     footerMarginTop: 20,
+            //     footerSpacing: 15,
+            //     callbacks: {
+            //         labelColor: function(tooltipItem, chart) {
+            //             var dataset = chart.config.data.datasets[tooltipItem.datasetIndex];
+            //             return {
+            //                 backgroundColor: dataset.borderColor,
+            //                 borderColor: 'rgb(0, 0, 0)',
+            //                 borderWidth: 0
+            //             }
+            //         },
+            //         labelTextColor: function(tooltipItem, chart) {
+            //             var dataset = chart.config.data.datasets[tooltipItem.datasetIndex];
+            //             return dataset.borderColor
+            //         },
+            //         //
+            //         // DATE & TIME
+            //         //
+            //         title: function(tooltipItem, data) {
+            //             // console.log(data)
+            //             var niceDate = data['labels'][tooltipItem[0]['index']]
+            //             niceDate = moment(niceDate).format("DD.MM.YYYY hh:mm");
+            //             return niceDate;
+            //         },
+            //         //
+            //         // SITUATIONS
+            //         //
+            //         beforeTitle: function(tooltipItem, data) {
+            //             // console.log(data['datasets'][0]['data'][tooltipItem[0]['index']]);
+            //             // console.log(tooltipItem);
+            //             var indexNr = tooltipItem[0]['index'];
+            //             var situations = situation[indexNr];
+            //             return situations;
+            //         },
+            //         //
+            //         // COMMENTS
+            //         //
+            //         afterFooter: function(tooltipItem, data) {
+            //             // console.log(data['datasets'][0]['data'][tooltipItem[0]['index']]);
+            //             // console.log(tooltipItem);
+            //             var indexNr = tooltipItem[0]['index'];
+            //             var comments = comment[indexNr];
+            //             return comments;
+            //         },
+            //                 // labelColor: function(context) {
+            //         //       return {
+            //         //           borderColor: 'rgb(0, 0, 255)',
+            //         //           backgroundColor: 'rgb(255, 0, 0)',
+            //         //           borderWidth: 2,
+            //         //           borderDash: [2, 2],
+            //         //           borderRadius: 2,
+            //         //       };
+            //         //   },
+            //         //   labelTextColor: function(context) {
+            //         //       return '#543453';
+            //         //   },
+            //         // title: function(tooltipItem, data) {
+            //         //     return data['labels'][tooltipItem[0]['index']];
+            //         // },
+            //         // label: function(tooltipItem, data) {
+            //         //     return data['datasets'][0]['data'][tooltipItem['index']];
+            //         // },
+            //     }
+            // },
+
+
+             -->
