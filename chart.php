@@ -221,118 +221,132 @@ function getComment($date){
                         return dataset.borderColor
                     },
 
+
+                    //
+                    // DATE & TIME
+                    //
                     title: function(tooltipItem, data) {
                         // console.log(data)
                         var niceDate = data['labels'][tooltipItem[0]['index']]
                         niceDate = moment(niceDate).format("DD.MM.YYYY hh:mm");
-
-                    return niceDate;
-                },
-
-
-                // labelColor: function(context) {
-                //       return {
-                //           borderColor: 'rgb(0, 0, 255)',
-                //           backgroundColor: 'rgb(255, 0, 0)',
-                //           borderWidth: 2,
-                //           borderDash: [2, 2],
-                //           borderRadius: 2,
-                //       };
-                //   },
-                //   labelTextColor: function(context) {
-                //       return '#543453';
-                //   },
-                // title: function(tooltipItem, data) {
-                //     return data['labels'][tooltipItem[0]['index']];
-                // },
-                // label: function(tooltipItem, data) {
-                //     return data['datasets'][0]['data'][tooltipItem['index']];
-                // },
-
-
-                beforeTitle: function(tooltipItem, data) {
-                    // console.log(data['datasets'][0]['data'][tooltipItem[0]['index']]);
-                    // console.log(tooltipItem);
-                    var indexNr = tooltipItem[0]['index'];
-                    var situations = situation[indexNr];
-                    return situations;
-                },
-
-                afterFooter: function(tooltipItem, data) {
-                    // console.log(data['datasets'][0]['data'][tooltipItem[0]['index']]);
-                    // console.log(tooltipItem);
-                    var indexNr = tooltipItem[0]['index'];
-                    var comments = comment[indexNr];
-                    return comments;
-                }
-
-
-            }
-
-        },
-
-
-        scales: {
-            xAxes: [{
-                type: 'time',
-                distribution: 'linear',
-                time: {
-                    tooltipFormat: 'DD.MM.YYYY HH:mm',
-                    displayFormats: {
-                        'millisecond': 'HH:mm',
-                        'second': 'HH:mm',
-                        'minute': 'HH:mm',
-                        'hour': 'HH:mm',
-                        'day': 'HH:mm',
-                        'week': 'HH:mm',
-                        'month': 'HH:mm',
-                        'quarter': 'HH:mm',
-                        'year': 'HH:mm',
+                        return niceDate;
                     },
-                    unit: 'hour',
-                    // round: 'hour',
-                },
-                ticks: {
-                    // max: 50,
-                    // min: 10,
-                    stepSize: 2,
+
+
+                    //
+                    // SITUATIONS
+                    //
+                    beforeTitle: function(tooltipItem, data) {
+                        // console.log(data['datasets'][0]['data'][tooltipItem[0]['index']]);
+                        // console.log(tooltipItem);
+                        var indexNr = tooltipItem[0]['index'];
+                        var situations = situation[indexNr];
+                        return situations;
+                    },
+
+
+                    //
+                    // COMMENTS
+                    //
+                    afterFooter: function(tooltipItem, data) {
+                        // console.log(data['datasets'][0]['data'][tooltipItem[0]['index']]);
+                        // console.log(tooltipItem);
+                        var indexNr = tooltipItem[0]['index'];
+                        var comments = comment[indexNr];
+                        return comments;
+                    },
+
+
+
+
+
+
+                            // labelColor: function(context) {
+                    //       return {
+                    //           borderColor: 'rgb(0, 0, 255)',
+                    //           backgroundColor: 'rgb(255, 0, 0)',
+                    //           borderWidth: 2,
+                    //           borderDash: [2, 2],
+                    //           borderRadius: 2,
+                    //       };
+                    //   },
+                    //   labelTextColor: function(context) {
+                    //       return '#543453';
+                    //   },
+                    // title: function(tooltipItem, data) {
+                    //     return data['labels'][tooltipItem[0]['index']];
+                    // },
+                    // label: function(tooltipItem, data) {
+                    //     return data['datasets'][0]['data'][tooltipItem['index']];
+                    // },
+
+
                 }
-            }]
-        }
-    },
-    data: {
-        labels: time,
-        datasets: [{
-                label: 'Brainload',
-                fill: false,
-                borderColor: 'rgb(190, 80, 70)',
-                data: brainload,
-                borderWidth: 2,
-                // cubicInterpolationMode: false,
-                lineTension: 0,
-                // steppedLine: 'before',
-                // fill: -1
-            },
-            {
-                label: 'Mood',
-                fill: false,
-                borderColor: 'rgb(97, 174, 238)',
-                data: mood,
-                borderWidth: 2,
-                lineTension: 0,
 
             },
-            {
-                label: 'Motivation',
-                fill: false,
-                borderColor: 'rgb(152, 195, 121)',
-                data: motivation,
-                borderWidth: 2,
-                lineTension: 0,
 
+
+            scales: {
+                xAxes: [{
+                    type: 'time',
+                    distribution: 'linear',
+                    time: {
+                        tooltipFormat: 'DD.MM.YYYY HH:mm',
+                        displayFormats: {
+                            'millisecond': 'HH:mm',
+                            'second': 'HH:mm',
+                            'minute': 'HH:mm',
+                            'hour': 'HH:mm',
+                            'day': 'HH:mm',
+                            'week': 'HH:mm',
+                            'month': 'HH:mm',
+                            'quarter': 'HH:mm',
+                            'year': 'HH:mm',
+                        },
+                        unit: 'hour',
+                        // round: 'hour',
+                    },
+                    ticks: {
+                        // max: 50,
+                        // min: 10,
+                        stepSize: 2,
+                    }
+                }]
             }
-        ]
-    }
+        },
+        data: {
+            labels: time,
+            datasets: [{
+                    label: 'Brainload',
+                    fill: false,
+                    borderColor: 'rgb(190, 80, 70)',
+                    data: brainload,
+                    borderWidth: 2,
+                    // cubicInterpolationMode: false,
+                    lineTension: 0,
+                    // steppedLine: 'before',
+                    // fill: -1
+                },
+                {
+                    label: 'Mood',
+                    fill: false,
+                    borderColor: 'rgb(97, 174, 238)',
+                    data: mood,
+                    borderWidth: 2,
+                    lineTension: 0,
+
+                },
+                {
+                    label: 'Motivation',
+                    fill: false,
+                    borderColor: 'rgb(152, 195, 121)',
+                    data: motivation,
+                    borderWidth: 2,
+                    lineTension: 0,
+
+                }
+            ]
+        }
     });
     </script>
 </body>
