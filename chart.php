@@ -199,7 +199,7 @@ function getComment($date){
                 bodyFontFamily: "'LibreBaskerville_Regular', 'Arial', sans-serif",
                 footerFontSize: 20,
                 footerFontColor: 'rgb(209, 154, 102)',
-                afterFooterFontColor: 'rgb(9, 154, 102)',
+                TitleFontColor: 'rgb(9, 154, 102)',
                 bodySpacing: 5,
                 intersect: false,
                 mode: 'index',
@@ -222,7 +222,7 @@ function getComment($date){
                     },
 
                     title: function(tooltipItem, data) {
-                        console.log(data)
+                        // console.log(data)
                         var niceDate = data['labels'][tooltipItem[0]['index']]
                         niceDate = moment(niceDate).format("DD.MM.YYYY hh:mm");
 
@@ -255,25 +255,15 @@ function getComment($date){
                     // console.log(tooltipItem);
                     var indexNr = tooltipItem[0]['index'];
                     var situations = situation[indexNr];
-                    var comments = comment[indexNr];
-                    // console.log();
-                    // var comment = 
-                    var multistringText = [situations];
-                    // multistringText.push('\n\n'+comments);
-                    return multistringText;
+                    return situations;
                 },
 
                 afterFooter: function(tooltipItem, data) {
                     // console.log(data['datasets'][0]['data'][tooltipItem[0]['index']]);
                     // console.log(tooltipItem);
                     var indexNr = tooltipItem[0]['index'];
-                    // var situations = situation[indexNr];
                     var comments = comment[indexNr];
-                    // console.log();
-                    // var comment = 
-                    var multistringText = [comments];
-                    // multistringText.push('\n\n'+comments);
-                    return multistringText;
+                    return comments;
                 }
 
 
