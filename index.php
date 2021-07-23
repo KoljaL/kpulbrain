@@ -173,7 +173,7 @@ if ($error){
         } else {
             submitButton.disabled = true;
         }
-    }
+    } 
 
 
 
