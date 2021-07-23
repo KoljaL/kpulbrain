@@ -41,12 +41,11 @@ array_push($data, $res);
 
 <!DOCTYPE html>
 <html lang="de">
-
 <head>
     <meta charset="UTF-8">
     <title>Brain Overload</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon" type="image/svg+xml" href="brain.png">
+    <link rel="icon" type="image/svg+xml" href="assets/brain.png">
     <link rel="stylesheet" href="style.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.js"></script>
@@ -84,13 +83,29 @@ array_push($data, $res);
 
 </head>
 <body>
-    <!-- <div id=links>
-        <a href="index.php">Formular</a>
-        <a href="error">Formular debug</a>
-        <a href="chart.php">Chart</a>
-        <a href="error?e=chart">Chart debug</a>
-        <a href="admin.php">DB</a>
-    </div> -->
+<?php
+if ($error){
+
+  echo <<< HTML
+  <div id=links>
+    <a href="index.php">Formular</a>
+    <a href="error">Formular debug</a>
+    <a href="chart.php">Chart</a>
+    <a href="error?e=chart">Chart debug</a>
+    <a href="assets/admin.php">DB</a>
+  </div>
+  HTML;
+
+}else{
+  
+  echo <<< HTML
+  <div id=links>
+    <a href="index.php"><img src="assets/FormIcon.png" alt="FormIcon"></a>
+  </div>
+  HTML;
+
+}
+?>
 
     <div class="container">
         <canvas id="brainChart"></canvas>

@@ -5,8 +5,7 @@
     <meta charset="UTF-8">
     <title>Brain Overload</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- <link rel="shortcut icon" href="favicon.ico"> -->
-    <link rel="icon" type="image/svg+xml" href="brain.png">
+    <link rel="icon" type="image/svg+xml" href="assets/brain.png">
     <link rel="stylesheet" href="style.css">
     <style>
 
@@ -69,31 +68,45 @@ foreach ($data as $key => $value) {
 $situations = array_filter(array_unique($situations));
 // print_r($situations);
 
+
+
 // exit;
+if ($error){
+
+  echo <<< HTML
+  <div id=links>
+    <a href="index.php">Formular</a>
+    <a href="error">Formular debug</a>
+    <a href="chart.php">Chart</a>
+    <a href="error?e=chart">Chart debug</a>
+    <a href="assets/admin.php">DB</a>
+  </div>
+  HTML;
+
+}else{
+  
+  echo <<< HTML
+  <div id=links>
+    <a href="chart.php"><img src="assets/ChartIcon.png" alt="ChartIcon"></a>
+  </div>
+  HTML;
+
+}
 ?>
-
-<div id=links>
-  <a href="index.php">Formular</a>
-  <a href="error">Formular debug</a>
-  <a href="chart.php">Chart</a>
-  <a href="error?e=chart">Chart debug</a>
-  <a href="admin.php">DB</a>
-</div>
-
     <div id="content">
-        <form action="" method="POST" name=form>
+        <form action="" method="POST" name=form autocomplete=off>
             <fieldset>
                 <legend>How do you feel?</legend>
                 <!-- SITUATIONS -->
                 <label class="itemLabel situation" for=situation>Situation: </label>
-                <div class=SituationCheckboxes>
+                <div id=SituationCheckboxes>
                     <?php
             foreach ($situations as $key => $value) {
               $id = random_int(1000,9999);
               echo "<input type=checkbox class=hidden_checkbox id=$id name=situations[] value=$value>";
               echo "<label class=text_checkbox for=$id>$value</label>";
             }
-            echo "<input type=text class=newSituation id=xxx name=situations[] placeholder='new situation'>";
+            echo "<input type=text class=newSituation name=situations[] placeholder='new situation'>";
           ?>
                 </div>
                 <!-- SLIDER  -->
@@ -112,7 +125,7 @@ $situations = array_filter(array_unique($situations));
                 <label class="itemLabel comment" for=comment>Comment: </label>
                 <textarea name="comment" id="comment"></textarea>
                 <!-- BUTTON -->
-                <input type="submit" class=button value="Submit" name="submit">
+                <input type="submit" id=submitButton class=button value="Submit" name="submit" disabled>
             </fieldset>
         </form>
     </div>
@@ -131,6 +144,59 @@ $situations = array_filter(array_unique($situations));
     document.getElementById("brainloadSlider").oninput = function() {
         document.getElementById("brainloadSliderOutput").innerHTML = this.value;
     }
+
+    //
+    // show submit button only if a situation is set
+    //
+    var allSituations = document.getElementById("SituationCheckboxes")
+    var submitButton = document.getElementById("submitButton")
+    var allCheckboxes = allSituations.querySelectorAll('input[type=checkbox]');
+    var allTextInput = allSituations.querySelectorAll('input[type=text]');
+    allSituations.addEventListener('change', checkSituations);
+    allSituations.addEventListener('input', checkSituations);
+    function checkSituations() {
+        var oneSituation = 0;
+        for (let checkbox of allCheckboxes) {
+            if (checkbox.checked) {
+                oneSituation = 1;
+                break;
+            };
+        }
+        for (let TextInput of allTextInput) {
+            if (TextInput.value.length > 0) {
+                oneSituation = 1;
+                break;
+            }
+        };
+        if (oneSituation) {
+            submitButton.disabled = false;
+        } else {
+            submitButton.disabled = true;
+        }
+    }
+
+
+
+    // allSituations.addEventListener('change', function() {
+    //     for (let checkbox of allCheckboxes) {
+    //         if (checkbox.checked) {
+    //             submitButton.disabled = false;
+    //             break;
+    //         } else {
+    //             submitButton.disabled = true;
+    //         }
+    //     };
+    // });
+    // allSituations.addEventListener('input', function() {
+    //     for (let TextInput of allTextInput) {
+    //         if (TextInput.value.length > 0) {
+    //             submitButton.disabled = false;
+    //             break;
+    //         } else {
+    //             submitButton.disabled = true;
+    //         }
+    //     };
+    // });
     </script>
 </body>
 </html>
@@ -154,7 +220,7 @@ if (1 == $error){
 //
 // write to db
 //
-if(!empty($_POST)){
+if(!empty($_POST['situations'])){
   $situation = implode(", ",$_POST['situations']);
   $brainload = $_POST['brainload'];
   $mood = $_POST['mood'];
@@ -166,6 +232,7 @@ if(!empty($_POST)){
   $db->query("INSERT INTO user_1 (situation,brainload, mood, motivation, comment,time, timestamp) 
               VALUES ('$situation', '$brainload','$mood','$motivation','$comment', '$date','$timestamp')");
   $db->exec('COMMIT');
+  
 }
 
 
