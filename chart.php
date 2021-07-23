@@ -60,7 +60,7 @@ array_push($data, $res);
 
     #chartjs-tooltip {
       max-width:250px;
-        padding: 1em;
+        padding: 0em;
         background: var(--dark);
         border: 2px solid var(--salomon);
         border-radius: 5px;
@@ -69,14 +69,29 @@ array_push($data, $res);
 
     #CTT_Situations {
         color: var(--orange);
+        padding: .5em .5em .5em .5em;
+
+    }
+
+    #CTT_Values {
+        padding: 0 .5em 0 .5em;
+    }
+   
+    .b_value, .b_label{
+      padding-left:0.5em;
     }
 
     #CTT_Date {
-        color: var(--lightgrey);
+      background: var(--salomon);
+      padding: .2em .5em .2em .5em;
+      text-align:center;
+        color: var(--dark);
         white-space: nowrap;
     }
 
     #CTT_Comments {
+      padding: .5em;
+
         color: var(--bluegreen);
     }
     </style>
@@ -169,7 +184,7 @@ if ($error){
         type: 'line',
         options: {
             showLines: false,
-            // events: ['click'],
+            events: ['click'],
 
             // for better performance
             animation: {
@@ -267,11 +282,27 @@ if ($error){
                         //
                         // VALUES
                         //
+                        innerHtml += '<table>';
+
                         bodyLines.forEach(function(body, i) {
+                            var b_label = body[0].split(' ')[0];
+                            var b_value = body[0].split(' ')[1];
                             var colors = tooltipModel.labelColors[i].backgroundColor;
-                            var style = '; color:' + colors;
-                            innerHtml += '<div style="' + style + '">' + body + '</div>';
+                            var style = 'color:' + colors;
+                            innerHtml += '<tr id=CTT_Values style="' + style + '"><td class=b_label>' + b_label + '</td><td class=b_value>' + b_value + '</td></tr>';
                         });
+                        innerHtml += '</table>';
+
+
+                        // bodyLines.forEach(function(body, i) {
+                        //     var b_label = body[0].split(' ')[0];
+                        //     var b_value = body[0].split(' ')[1];
+                        //     var colors = tooltipModel.labelColors[i].backgroundColor;
+                        //     var style = 'color:' + colors;
+                        //     innerHtml += '<div id=CTT_Values style="' + style + '"><span class=b_label>' + b_label + '</span><span class=b_value>' + b_value + '</span></div>';
+                        // });
+
+
 
                         //
                         // COMMENT
@@ -292,7 +323,7 @@ if ($error){
                     tooltipEl.style.position = 'absolute';
                     tooltipEl.style.left = position.left + window.pageXOffset + tooltipModel.caretX + 'px';
                     tooltipEl.style.top = position.top + window.pageYOffset + tooltipModel.caretY + 'px';
-                    tooltipEl.style.padding = tooltipModel.yPadding + 'px ' + tooltipModel.xPadding + 'px';
+                    // tooltipEl.style.padding = tooltipModel.yPadding + 'px ' + tooltipModel.xPadding + 'px';
                     tooltipEl.style.pointerEvents = 'none';
                 }
             },
@@ -329,10 +360,7 @@ if ($error){
                         stepSize: 24,
 
                     },
-                    ticks: {
-                        // callback: function(value) {
-                        //     return new Date(value).getDate() + "-" + new Date(value).getMonth() + "-" + new Date(value).getFullYear();
-                        // },
+                    ticks: { 
                         fontColor: '#abb2bf',
                         fontSize: 16,
                         fontFamily: "'LibreBaskerville_Regular', 'Arial', sans-serif",
