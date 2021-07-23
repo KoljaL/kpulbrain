@@ -154,9 +154,9 @@ if ($error){
     lastDay = lastDay.getDate()+'.'+(lastDay.getMonth()+1)+'.'+lastDay.getFullYear();
     var firstDay = time[0];
     firstDay = firstDay.substr(0,10);
-    console.log(firstDay);
 
 
+    // console.log(firstDay);
     // console.log(time);
     // console.log(situation);
     // console.log(comment);
@@ -181,11 +181,11 @@ if ($error){
             responsiveAnimationDuration: 0,
 
             layout: {
-            margin: {
-                left: 50,
-                right: 0,
-                top: 0,
-                bottom: 0
+            padding: {
+                left: 10,
+                right: 10,
+                top: 10,
+                bottom: 10
             },
             },
             legend: {
@@ -268,8 +268,8 @@ if ($error){
                         // VALUES
                         //
                         bodyLines.forEach(function(body, i) {
-                            var colors = tooltipModel.labelColors[i];
-                            var style = '; color:' + colors.borderColor;
+                            var colors = tooltipModel.labelColors[i].backgroundColor;
+                            var style = '; color:' + colors;
                             innerHtml += '<div style="' + style + '">' + body + '</div>';
                         });
 
@@ -371,9 +371,9 @@ if ($error){
                     borderColor: 'rgb(190, 80, 70)',
                     pointStyle: 'circle',
                     radius: 10,
-                    borderWidth: 0,
-
-                    pointHoverBorderColor: 'rgb(190, 80, 70)',
+                    borderWidth: 1,
+                    pointBorderColor: '#1b1e23',
+                    pointHoverBorderColor:  '#1b1e23',
                     pointHoverBackgroundColor: 'rgb(190, 80, 70)',
                     pointHoverBorderWidth:0,
                     pointHoverRadius:10,
@@ -388,8 +388,9 @@ if ($error){
                     borderColor: 'rgb(97, 174, 238)',
                     pointStyle: 'circle',
                     radius: 10,
-                    borderWidth: 2,
-                    pointHoverBorderColor:  'rgb(97, 174, 238)',
+                    borderWidth: 1,
+                    pointBorderColor: '#1b1e23',
+                    pointHoverBorderColor:  '#1b1e23',
                     pointHoverBackgroundColor:  'rgb(97, 174, 238)',
                     pointHoverBorderWidth:0,
                     pointHoverRadius:10,
@@ -403,11 +404,12 @@ if ($error){
                     borderColor: 'rgb(152, 195, 121)',
                     pointStyle: 'circle',
                     radius: 10,
-                    pointHoverBorderColor: 'rgb(152, 195, 121)',
+                    pointHoverBorderColor:  '#1b1e23',
                     pointHoverBackgroundColor: 'rgb(152, 195, 121)',
                     pointHoverBorderWidth:0,
                     pointHoverRadius:10,
-                    borderWidth: 2,
+                    borderWidth: 1,
+                    pointBorderColor: '#1b1e23',
                     lineTension: 0,
                     fill: false,
                 }
