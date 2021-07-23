@@ -60,6 +60,7 @@ array_push($data, $res);
     }
 
     #chartjs-tooltip {
+      max-width:250px;
         padding: 1em;
         background: var(--dark);
         border: 2px solid var(--salomon);
