@@ -1,6 +1,7 @@
 <?php
 $case = 'index';
 include 'assets/functions.php';
+// NOW WITH JSON
 ?>
 <!DOCTYPE html>
 <html lang="de">
