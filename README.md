@@ -2,8 +2,8 @@
 
 ## Form
 #### Tell your Loads
-![](assets/Brainload_Form.png)
+![](templates/images/Brainload_Form.png)
 
 ## Chart
 #### View your Loads
-![](assets/Brainload_Chart.png)
+![](templates/images/Brainload_Chart.png)

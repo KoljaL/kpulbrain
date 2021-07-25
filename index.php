@@ -1,64 +1,153 @@
 <?php
-$case = 'index';
-include 'assets/functions.php';
-?>
-<!DOCTYPE html>
-<html lang="de">
-<head>
-    <meta charset="UTF-8">
-    <title>Brain Overload</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon" type="image/svg+xml" href="assets/brain.png">
-    <link rel="stylesheet" href="assets/style.css">
-</head>
-<body>
-    <div id=links>
-        <a href="chart.php"><img src="assets/ChartIcon.png" alt="ChartIcon"></a>
-    </div>
-    <div id="content">
-        <form action="<?php htmlspecialchars($_SERVER['PHP_SELF']) ?>" method="POST" name=form autocomplete=off>
-            <fieldset>
-                <legend>How do you feel?</legend>
+// print_r($_GET);
+// print_r(basename($_SERVER['REQUEST_URI']));
+// $basename = basename(__DIR__);
+$case = basename($_SERVER['REQUEST_URI']);
 
-                <!-- SITUATIONS -->
-                <label class="itemLabel situation" for=situation>Situation: </label>
-                <div id=SituationCheckboxes>
-                    <?php
-                      foreach ($situations as $key => $value) {
-                        $id = random_int(1000,9999);
-                        echo "<input type=checkbox class=hidden_checkbox id=$id name=situations[] value=$value>";
-                        echo "<label class=text_checkbox for=$id>$value</label>";
-                      }
-                      echo "<input type=text class=newSituation name=situations[] placeholder='new situation'>";
-                    ?>
-                </div>
 
-                <!-- SLIDER  -->
-                <label class="itemLabel brainload" for=brainloadSlider>Brainload: </label>
-                <div id=brainloadSliderOutput></div>
-                <input type="range" min="0" max="100" value="0" step="10" class="slider brainload" id=brainloadSlider name=brainload>
-                <!-- SLIDER  -->
-                <label class="itemLabel mood" for=moodSlider>Mood: </label>
-                <div id=moodSliderOutput></div>
-                <input type="range" min="0" max="100" value="0" step="10" class="slider mood" id=moodSlider name=mood>
-                <!-- SLIDER  -->
-                <label class="itemLabel motivation" for=motivationSlider>Motivation: </label>
-                <div id=motivationSliderOutput></div>
-                <input type="range" min="0" max="100" value="0" step="10" class="slider motivation" id=motivationSlider name=motivation>
-                <!-- COMMENT -->
-                <label class="itemLabel comment" for=comment>Comment: </label>
-                <textarea name="comment" id="comment"></textarea>
-                <!-- BUTTON -->
-                <input type="submit" id=submitButton class=button value="Submit" name="submit" disabled>
-            </fieldset>
-        </form>
-    </div>
-    <?php
-      if($error){
-        echo $datatable; 
-        echo $links;
+//
+// config
+//
+$filename = 'db/user1.json';
+$UID = 'UNIQUERANDOMUSERID';
+$date = date("d.m.Y H:i:s");
+ 
+
+
+//
+// init db file
+//
+$handle = @fopen($filename, 'r+');
+if ($handle == null){
+    $handle = fopen($filename, 'w+');
+    $dataArray = array('UID'=>$UID, 'date' => $date);           
+    fwrite($handle, json_encode(array($dataArray)));
+}
+
+
+//
+// write to db
+//
+if ($handle && !empty($_POST['situations'])){
+    $_POST  = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);  
+    $dataArray['UID'] = $UID;
+    $dataArray['date'] = $date;
+    $dataArray = array_merge($dataArray,$_POST);
+    unset($dataArray['submit']);    
+    fseek($handle, 0, SEEK_END);
+    if (ftell($handle) > 0){
+        fseek($handle, -1, SEEK_END);
+        fwrite($handle, ',', 1);
+        fwrite($handle, json_encode($dataArray) . ']');
+    } 
+    fclose($handle);
+}
+// print_r($dataArray);
+
+
+//
+// get all data
+//
+$JSONdata = file_get_contents($filename, true);
+$data = json_decode($JSONdata, true);
+unset($data[0]);
+// print json fiele
+// header('Content-Type: application/json');
+// print_r($data);
+// exit;
+
+
+/////////////////////////
+//
+// DATA
+//
+/////////////////////////
+
+//
+// get all difffenrent situations
+//
+$situations = array();
+foreach ($data as $key => $value) {
+  foreach ($value as $k => $v) {
+      if ($k == 'situations'){
+        // echo $v;
+    //   $situation = (explode(",",$v));
+      foreach ($v as $nr => $situation) {
+        array_push($situations, trim($situation));
       }
-    ?>
-    <script src="assets/BO_Form.js"></script>
-</body>
-</html>
+    }
+  }
+}
+$situations = array_filter(array_unique($situations));
+// echo "<br>";
+// print_r($situations);
+// exit;
+
+
+//
+// print data as table
+//
+$datatable = '';
+$data_r = array_reverse($data);
+$datatable .= "<table class=allData>";
+$datatable .= "<tr>";
+$datatable .= "<td>UID</td>";
+$datatable .= "<td>date</td>";
+$datatable .= "<td>situation</td>";
+$datatable .= "<td>brainload</td>";
+$datatable .= "<td>mood</td>";
+$datatable .= "<td>motivation</td>";
+$datatable .= "<td>comment</td>";
+$datatable .= "</tr>";
+foreach ($data_r as $DatarowKey => $DatarowValue) {
+    $datatable .= "<tr>";
+    foreach ($DatarowValue as $ItemKey => $ItemValue) {
+        if(is_array($ItemValue)){
+            $ItemString = "";
+            foreach ($ItemValue as $StringKey => $StringValue) {
+                $ItemString .= $StringValue.", "; 
+            }
+            $datatable .= "<td class=datacell>".$ItemString."</td>";
+        }else{
+            $datatable .= "<td class=datacell>".$ItemValue."</td>";
+        }
+    }
+    $datatable .= "</tr>";
+}
+$datatable .= "</table>";
+// echo $datatable;
+// exit;
+
+
+//
+// internal links
+//
+$links = <<< HTML
+<div id=links>
+    <a href="index.php">Formular</a>
+    <a href="error">Formular debug</a>
+    <a href="chart.php">Chart</a>
+    <a href="error?e=chart">Chart debug</a>
+    <a href="assets/admin.php">DB</a>
+</div>
+HTML;
+
+
+
+if('chart' == $case){
+  include 'templates/chart.php';
+}
+else{
+  include 'templates/form.php';
+}
+?>
+
+
+
+
+
+
+
+
+
+
