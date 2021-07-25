@@ -11,6 +11,9 @@
     <div id=links>
         <a href="chart"><img src="templates/images/ChartIcon.png" alt="ChartIcon"></a>
     </div>
+    <div id=logout>
+        <a href="logout"><img src="templates/images/ChartIcon.png" alt="ChartIcon"></a>
+    </div>
     <div id="content">
         <form action="<?php htmlspecialchars($_SERVER['PHP_SELF']) ?>" method="POST" name=form autocomplete=off>
             <fieldset>
@@ -50,9 +53,8 @@
         </form>
     </div>
     <?php
-      if($error){
+      if($deb){
         echo $datatable; 
-        echo $links;
       }
     ?>
     <script src="templates/form.js"></script>

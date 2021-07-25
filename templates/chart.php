@@ -13,6 +13,9 @@
     <div id=links>
         <a href="index"><img src="templates/images/FormIcon.png" alt="FormIcon"></a>
     </div>
+    <div id=logout>
+        <a href="logout"><img src="templates/images/ChartIcon.png" alt="ChartIcon"></a>
+    </div>
     <div class="container">
         <canvas id="brainChart"></canvas>
     </div>
@@ -20,5 +23,10 @@
       var DataArray = <?= json_encode($JSONdata);?>;
     </script>
     <script src="templates/chart.js"></script>
+    <?php
+      if($deb){
+        echo $datatable; 
+      }
+    ?>
 </body>
 </html>
