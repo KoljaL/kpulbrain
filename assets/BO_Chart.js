@@ -5,9 +5,10 @@
    //
    // get and sort JSON data from PHP
    //  
-   // console.log(< ?= json_encode($data);?>)
+   DataArray = JSON.parse(DataArray);
+   console.log(DataArray)
    var time = DataArray.map(function(e) {
-       return e.time;
+       return e.date;
        // return e.timestamp;
        // return moment(e.time, "DD.MM.YYYY hh:mm:ss", true);
    });

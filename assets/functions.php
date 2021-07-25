@@ -1,80 +1,16 @@
 <?php
-
-
 //
-// db connection
+// config
 //
-$db = new SQLite3('assets/timestamp.sqlite', SQLITE3_OPEN_CREATE | SQLITE3_OPEN_READWRITE);
-
-
-//
-// init db
-//
-$db->query('CREATE TABLE IF NOT EXISTS "user_1" (
-  "id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
-  "time" DATETIME,
-  "timestamp" INTEGER,
-  "situation" VARCHAR,
-  "brainload" INTEGER,
-  "mood" INTEGER,
-  "motivation" INTEGER,
-  "comment" VARCHAR
-)');
-
-
-//
-// write to db
-//
-if(!empty($_POST['situations'])){
-    $situation = implode(", ",$_POST['situations']);
-    $brainload = $_POST['brainload'];
-    $mood = $_POST['mood'];
-    $motivation = $_POST['motivation'];
-    $comment = $_POST['comment'];
-    $date = date("d.m.Y H:i:s");
-    $timestamp = time();
-    $db->exec('BEGIN'); 
-    $db->query("INSERT INTO user_1 (situation,brainload, mood, motivation, comment,time, timestamp) 
-                VALUES ('$situation', '$brainload','$mood','$motivation','$comment', '$date','$timestamp')");
-    $db->exec('COMMIT');
-}
-
-
-
-//
-// get all data
-//
-$results= $db->query("select * from user_1");
-$data = array();
-while ($res= $results->fetchArray(1)){
-  array_push($data, $res);
-}
-
-
-
-/////////////////////////
-//
-// JSON
-//
-/////////////////////////
 $filename = 'db/user1.json';
 $UID = 'UNIQUERANDOMUSERID';
 $date = date("d.m.Y H:i:s");
-
-// if(!is_file($file)){
-//     $contents = json_encode(array('UID'=>$UID, 'date' => $date));           
-//     file_put_contents($file, $contents, FILE_APPEND);      
-// }
-// header('Content-Type: application/json');
-// echo json_encode($dataArray);
-// file_put_contents($file, json_encode($dataArray), FILE_APPEND);   
-
+ 
 
 
 //
 // init db file
 //
-// read the file if present
 $handle = @fopen($filename, 'r+');
 if ($handle == null){
     $handle = fopen($filename, 'w+');
@@ -87,28 +23,19 @@ if ($handle == null){
 // write to db
 //
 if ($handle && !empty($_POST['situations'])){
-
     $dataArray['UID'] = $UID;
     $dataArray['date'] = $date;
     $dataArray = array_merge($dataArray,$_POST);
     unset($dataArray['submit']);    
-    // seek to the end
     fseek($handle, 0, SEEK_END);
-    // are we at the end of is the file empty
     if (ftell($handle) > 0){
-        // move back a byte
         fseek($handle, -1, SEEK_END);
-        // add the trailing comma
         fwrite($handle, ',', 1);
-        // add the new json string
         fwrite($handle, json_encode($dataArray) . ']');
     } 
-        // close the handle on the file
-        fclose($handle);
+    fclose($handle);
 }
-
- 
-    // print_r($dataArray);
+// print_r($dataArray);
 
 
 //
@@ -117,16 +44,10 @@ if ($handle && !empty($_POST['situations'])){
 $JSONdata = file_get_contents($filename, true);
 $data = json_decode($JSONdata, true);
 unset($data[0]);
-
-
 // print json fiele
 // header('Content-Type: application/json');
-print_r($data);
+// print_r($data);
 // exit;
-
-
-
-
 
 
 /////////////////////////
@@ -142,18 +63,19 @@ $situations = array();
 foreach ($data as $key => $value) {
   foreach ($value as $k => $v) {
       if ($k == 'situations'){
-        echo $k;
-      $situation = (explode(",",$v));
-      foreach ($situation as $nr => $sit) {
-        array_push($situations, trim($sit));
+        // echo $v;
+    //   $situation = (explode(",",$v));
+      foreach ($v as $nr => $situation) {
+        array_push($situations, trim($situation));
       }
     }
   }
 }
 $situations = array_filter(array_unique($situations));
-print_r($situations);
+// echo "<br>";
+// print_r($situations);
+// exit;
 
-exit;
 
 //
 // print data as table
@@ -162,25 +84,32 @@ $datatable = '';
 $data_r = array_reverse($data);
 $datatable .= "<table class=allData>";
 $datatable .= "<tr>";
-$datatable .= "<td>id</td>";
-$datatable .= "<td>time</td>";
-$datatable .= "<td>timestamp</td>";
+$datatable .= "<td>UID</td>";
+$datatable .= "<td>date</td>";
 $datatable .= "<td>situation</td>";
 $datatable .= "<td>brainload</td>";
 $datatable .= "<td>mood</td>";
 $datatable .= "<td>motivation</td>";
 $datatable .= "<td>comment</td>";
 $datatable .= "</tr>";
-foreach ($data_r as $key => $value) {
+foreach ($data_r as $DatarowKey => $DatarowValue) {
     $datatable .= "<tr>";
-    foreach ($value as $k => $v) {
-    $datatable .= "<td class=datacell>".$v."</td>";
+    foreach ($DatarowValue as $ItemKey => $ItemValue) {
+        if(is_array($ItemValue)){
+            $ItemString = "";
+            foreach ($ItemValue as $StringKey => $StringValue) {
+                $ItemString .= $StringValue.", "; 
+            }
+            $datatable .= "<td class=datacell>".$ItemString."</td>";
+        }else{
+            $datatable .= "<td class=datacell>".$ItemValue."</td>";
+        }
     }
     $datatable .= "</tr>";
 }
 $datatable .= "</table>";
-
 // echo $datatable;
+// exit;
 
 
 //
@@ -213,6 +142,56 @@ HTML;
 
 
 
+
+
+// //
+// // db connection
+// //
+// $db = new SQLite3('assets/timestamp.sqlite', SQLITE3_OPEN_CREATE | SQLITE3_OPEN_READWRITE);
+
+
+// //
+// // init db
+// //
+// $db->query('CREATE TABLE IF NOT EXISTS "user_1" (
+//   "id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+//   "time" DATETIME,
+//   "timestamp" INTEGER,
+//   "situation" VARCHAR,
+//   "brainload" INTEGER,
+//   "mood" INTEGER,
+//   "motivation" INTEGER,
+//   "comment" VARCHAR
+// )');
+
+
+// //
+// // write to db
+// //
+// if(!empty($_POST['situations'])){
+//     $situation = implode(", ",$_POST['situations']);
+//     $brainload = $_POST['brainload'];
+//     $mood = $_POST['mood'];
+//     $motivation = $_POST['motivation'];
+//     $comment = $_POST['comment'];
+//     $date = date("d.m.Y H:i:s");
+//     $timestamp = time();
+//     $db->exec('BEGIN'); 
+//     $db->query("INSERT INTO user_1 (situation,brainload, mood, motivation, comment,time, timestamp) 
+//                 VALUES ('$situation', '$brainload','$mood','$motivation','$comment', '$date','$timestamp')");
+//     $db->exec('COMMIT');
+// }
+
+
+
+// //
+// // get all data
+// //
+// $results= $db->query("select * from user_1");
+// $data = array();
+// while ($res= $results->fetchArray(1)){
+//   array_push($data, $res);
+// }
 
 
 

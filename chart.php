@@ -21,7 +21,7 @@ include 'assets/functions.php';
         <canvas id="brainChart"></canvas>
     </div>
     <script>
-      var DataArray = <?= json_encode($data);?>;
+      var DataArray = <?= json_encode($JSONdata);?>;
     </script>
     <script src="assets/BO_Chart.js"></script>
 </body>
