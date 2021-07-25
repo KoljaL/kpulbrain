@@ -23,6 +23,7 @@ if ($handle == null){
 // write to db
 //
 if ($handle && !empty($_POST['situations'])){
+    $_POST  = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);  
     $dataArray['UID'] = $UID;
     $dataArray['date'] = $date;
     $dataArray = array_merge($dataArray,$_POST);

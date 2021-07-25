@@ -1,42 +1,38 @@
 <?php
 $case = 'index';
 include 'assets/functions.php';
-// NOW WITH JSON
 ?>
 <!DOCTYPE html>
 <html lang="de">
-
 <head>
     <meta charset="UTF-8">
     <title>Brain Overload</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/svg+xml" href="assets/brain.png">
     <link rel="stylesheet" href="assets/style.css">
-    <style>
-
-    </style>
-
 </head>
 <body>
     <div id=links>
         <a href="chart.php"><img src="assets/ChartIcon.png" alt="ChartIcon"></a>
     </div>
     <div id="content">
-        <form action="" method="POST" name=form autocomplete=off>
+        <form action="<?php htmlspecialchars($_SERVER['PHP_SELF']) ?>" method="POST" name=form autocomplete=off>
             <fieldset>
                 <legend>How do you feel?</legend>
+
                 <!-- SITUATIONS -->
                 <label class="itemLabel situation" for=situation>Situation: </label>
                 <div id=SituationCheckboxes>
                     <?php
-            foreach ($situations as $key => $value) {
-              $id = random_int(1000,9999);
-              echo "<input type=checkbox class=hidden_checkbox id=$id name=situations[] value=$value>";
-              echo "<label class=text_checkbox for=$id>$value</label>";
-            }
-            echo "<input type=text class=newSituation name=situations[] placeholder='new situation'>";
-          ?>
+                      foreach ($situations as $key => $value) {
+                        $id = random_int(1000,9999);
+                        echo "<input type=checkbox class=hidden_checkbox id=$id name=situations[] value=$value>";
+                        echo "<label class=text_checkbox for=$id>$value</label>";
+                      }
+                      echo "<input type=text class=newSituation name=situations[] placeholder='new situation'>";
+                    ?>
                 </div>
+
                 <!-- SLIDER  -->
                 <label class="itemLabel brainload" for=brainloadSlider>Brainload: </label>
                 <div id=brainloadSliderOutput></div>
@@ -57,15 +53,12 @@ include 'assets/functions.php';
             </fieldset>
         </form>
     </div>
-
     <?php
-    if($error){
-      echo $datatable; 
-      echo $links;
-    }
+      if($error){
+        echo $datatable; 
+        echo $links;
+      }
     ?>
     <script src="assets/BO_Form.js"></script>
-
 </body>
 </html>
- 
