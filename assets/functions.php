@@ -40,15 +40,100 @@ if(!empty($_POST['situations'])){
 }
 
 
+
 //
 // get all data
 //
 $results= $db->query("select * from user_1");
-$data= array();
+$data = array();
 while ($res= $results->fetchArray(1)){
   array_push($data, $res);
 }
 
+
+
+/////////////////////////
+//
+// JSON
+//
+/////////////////////////
+$filename = 'db/user1.json';
+$UID = 'UNIQUERANDOMUSERID';
+$date = date("d.m.Y H:i:s");
+
+// if(!is_file($file)){
+//     $contents = json_encode(array('UID'=>$UID, 'date' => $date));           
+//     file_put_contents($file, $contents, FILE_APPEND);      
+// }
+// header('Content-Type: application/json');
+// echo json_encode($dataArray);
+// file_put_contents($file, json_encode($dataArray), FILE_APPEND);   
+
+
+
+//
+// init db file
+//
+// read the file if present
+$handle = @fopen($filename, 'r+');
+if ($handle == null){
+    $handle = fopen($filename, 'w+');
+    $dataArray = array('UID'=>$UID, 'date' => $date);           
+    fwrite($handle, json_encode(array($dataArray)));
+}
+
+
+//
+// write to db
+//
+if ($handle && !empty($_POST['situations'])){
+
+    $dataArray['UID'] = $UID;
+    $dataArray['date'] = $date;
+    $dataArray = array_merge($dataArray,$_POST);
+    unset($dataArray['submit']);    
+    // seek to the end
+    fseek($handle, 0, SEEK_END);
+    // are we at the end of is the file empty
+    if (ftell($handle) > 0){
+        // move back a byte
+        fseek($handle, -1, SEEK_END);
+        // add the trailing comma
+        fwrite($handle, ',', 1);
+        // add the new json string
+        fwrite($handle, json_encode($dataArray) . ']');
+    } 
+        // close the handle on the file
+        fclose($handle);
+}
+
+ 
+    // print_r($dataArray);
+
+
+//
+// get all data
+//
+$JSONdata = file_get_contents($filename, true);
+$data = json_decode($JSONdata, true);
+unset($data[0]);
+
+
+// print json fiele
+// header('Content-Type: application/json');
+print_r($data);
+// exit;
+
+
+
+
+
+
+/////////////////////////
+//
+// DATA
+//
+/////////////////////////
 
 //
 // get all difffenrent situations
@@ -56,7 +141,8 @@ while ($res= $results->fetchArray(1)){
 $situations = array();
 foreach ($data as $key => $value) {
   foreach ($value as $k => $v) {
-    if ($k == 'situation'){
+      if ($k == 'situations'){
+        echo $k;
       $situation = (explode(",",$v));
       foreach ($situation as $nr => $sit) {
         array_push($situations, trim($sit));
@@ -65,8 +151,9 @@ foreach ($data as $key => $value) {
   }
 }
 $situations = array_filter(array_unique($situations));
-// print_r($situations);
+print_r($situations);
 
+exit;
 
 //
 // print data as table
