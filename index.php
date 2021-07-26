@@ -15,9 +15,9 @@ unset($user_ID);
 
 
 
-echo "<pre>";
-print_r($_POST);
-echo "</pre>";
+// echo "<pre>";
+// print_r($_POST);
+// echo "</pre>";
 
 
 
@@ -147,36 +147,37 @@ $situations = array_filter(array_unique($situations));
 //
 // print data as table
 //
-$datatable = '';
-$data_r = array_reverse($data);
-$datatable .= "<table class=allData>";
-$datatable .= "<tr>";
-$datatable .= "<td>UID</td>";
-$datatable .= "<td>date</td>";
-$datatable .= "<td>situation</td>";
-$datatable .= "<td>brainload</td>";
-$datatable .= "<td>mood</td>";
-$datatable .= "<td>motivation</td>";
-$datatable .= "<td>comment</td>";
-$datatable .= "</tr>";
-foreach ($data_r as $DatarowKey => $DatarowValue) {
-    $datatable .= "<tr>";
-    foreach ($DatarowValue as $ItemKey => $ItemValue) {
-        if(is_array($ItemValue)){
-            $ItemString = "";
-            foreach ($ItemValue as $StringKey => $StringValue) {
-                $ItemString .= $StringValue.", "; 
-            }
-            $datatable .= "<td class=datacell>".$ItemString."</td>";
-        }else{
-            $datatable .= "<td class=datacell>".$ItemValue."</td>";
-        }
-    }
-    $datatable .= "</tr>";
-}
-$datatable .= "</table>";
+// $datatable = '';
+// $data_r = array_reverse($data);
+// $datatable .= "<table class=allData>";
+// $datatable .= "<tr>";
+// $datatable .= "<td>UID</td>";
+// $datatable .= "<td>date</td>";
+// $datatable .= "<td>situation</td>";
+// $datatable .= "<td>brainload</td>";
+// $datatable .= "<td>mood</td>";
+// $datatable .= "<td>motivation</td>";
+// $datatable .= "<td>comment</td>";
+// $datatable .= "</tr>";
+// foreach ($data_r as $DatarowKey => $DatarowValue) {
+//     $datatable .= "<tr>";
+//     foreach ($DatarowValue as $ItemKey => $ItemValue) {
+//         if(is_array($ItemValue)){
+//             $ItemString = "";
+//             foreach ($ItemValue as $StringKey => $StringValue) {
+//                 $ItemString .= $StringValue.", "; 
+//             }
+//             $datatable .= "<td class=datacell>".$ItemString."</td>";
+//         }else{
+//             $datatable .= "<td class=datacell>".$ItemValue."</td>";
+//         }
+//     }
+//     $datatable .= "</tr>";
+// }
+// $datatable .= "</table>";
 // echo $datatable;
 // exit;
+$datatable = "<pre>".json_encode($data, JSON_PRETTY_PRINT)."</pre>";
 
 
 //

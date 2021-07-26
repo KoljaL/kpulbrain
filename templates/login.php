@@ -13,10 +13,10 @@
             <fieldset>
                 <legend>Login</legend>
                 <label class="itemLabel situation" for=situation>Name: </label>
-                <input type="text" placeholder="name" name="u_name" class=newSituation value="">
+                <input type="text" placeholder="name" name="u_name" class=newSituation value="ADXS">
                 <br>
                 <label class="itemLabel situation" for=situation>Password: </label>
-                <input type="password" placeholder="password" class=newSituation name="u_password" value="">
+                <input type="password" placeholder="password" class=newSituation name="u_password" value="ADXS">
                 <input type="submit" id=submitButton class=button value="Submit" name="submit">
             </fieldset>
         </form>

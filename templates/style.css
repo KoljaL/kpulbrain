@@ -49,6 +49,7 @@ body {
     text-decoration: none;
     display: grid;
 }
+
 #links {
     position: absolute;
     top: 10px;
@@ -70,7 +71,8 @@ body {
     position: relative;
     top: 20px;
     margin: auto;
-    max-width: 600px
+    max-width: 500px;
+    padding-bottom: 30px;
 }
 
 h3 {
@@ -79,12 +81,12 @@ h3 {
     color: var(--blue)
 }
 
-:-ms-input-placeholder,
+/* :-ms-input-placeholder,
 ::-ms-input-placeholder,
 ::placeholder {
     color: var(--orange);
     opacity: .6
-}
+} */
 
 ::placeholder {
     color: var(--orange);
@@ -106,6 +108,7 @@ h3 {
 }
 
 fieldset {
+    /* width: max-content; */
     max-width: 500px;
     padding: 1em;
     margin: .5em;
@@ -125,9 +128,11 @@ label.itemLabel {
     display: inline-block
 }
 
+legend+label.itemLabel {
+    padding-top: 0px;
+}
 label.itemLabel.situation {
     color: var(--orange);
-    padding-top: 0px;
     padding-bottom: 0px;
 }
 
@@ -146,7 +151,9 @@ label.itemLabel.motivation {
 label.itemLabel.comment {
     color: var(--bluegreen)
 }
-
+.sliderValue{
+    display: inline;
+}
 .slider {
     -webkit-appearance: none;
     appearance: none;
@@ -209,10 +216,7 @@ label.itemLabel.comment {
     background: var(--blue);
     border-radius: 5px;
 }
-
-label+div {
-    display: inline
-}
+ 
 
 #brainloadSliderOutput {
     color: var(--red);
@@ -297,6 +301,92 @@ table.allData td {
     white-space: nowrap;
 }
 
+.medikation {  
+    color: var(--yellow); 
+
+}
+
+#medikation {
+    display: block;
+    width: max-content;
+    padding-bottom:20px; 
+
+}
+
+#medikation label {
+    display: inline-block;
+    width:140px;
+    padding-top:0px;
+    color: var(--yellow);
+}
+
+#medikation input {
+    display: inline;
+    margin-top: 10px;
+    font-family: LibreBaskerville_Regular, Garamond, serif;
+    font-size: 1.3em;
+    background-color: var(--dark);
+    /* padding: 0; */
+    padding: .2em;
+    color: var(--yellow);
+    border: 1px solid var(--yellow);
+    border-radius: 5px;
+}
+
+
+#medikation input::placeholder {
+    color: var(--yellow);
+    opacity: .4
+}
+
+/* #newMedikation::after{
+    display:block;
+    width:20px;
+    height:20px;
+    border: 1px solid #000;
+    border-radius: 3px;
+    font-size: 2em;
+    font-weight: bold;
+    line-height: 20px;
+    content: '+';
+    color: var(--dark);
+    background: var(--yellow);
+}
+*/
+#newMedikation:hover{ 
+    background: var(--red);
+} 
+
+#newMedikation{
+    cursor: pointer;
+
+    border:1px solid #000;
+    width:20px;
+    height:20px;
+    border-radius:5px;
+    position:relative;
+    display:block;
+    /* vertical-align:middle; */
+    background: var(--yellow);
+  }
+  #newMedikation:before,
+  #newMedikation:after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background:var(--dark);
+  }
+  #newMedikation:before{
+      width: 2px;
+      margin: 2px auto;
+  }
+  #newMedikation:after{
+      margin: auto 2px;
+      height: 2px;
+  }
 
 /* CHART */
 
@@ -330,7 +420,10 @@ table.allData td {
     color: var(--orange);
     padding: .5em .5em .5em .5em;
 }
-
+#CTT_MEDIKATION{
+    color: var(--yellow);
+    padding: .5em .5em .5em .5em; 
+}
 #CTT_Values {
     padding: 0 .5em 0 .5em;
 }

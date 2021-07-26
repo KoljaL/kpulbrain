@@ -14,7 +14,7 @@
         <a href="index"><img src="templates/images/FormIcon.png" alt="FormIcon"></a>
     </div>
     <div id=logout>
-        <a href="logout"><img src="templates/images/ChartIcon.png" alt="ChartIcon"></a>
+    <a href="logout">LOGOUT</a>
     </div>
     <div class="container">
         <canvas id="brainChart"></canvas>

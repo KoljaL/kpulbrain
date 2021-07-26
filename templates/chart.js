@@ -6,9 +6,11 @@
    // get and sort JSON data from PHP
    //  
    DataArray = JSON.parse(DataArray);
-//    console.log(DataArray)
+   //   console.log(DataArray)
    DataArray.shift();
-//    console.log(DataArray)
+   //   console.log(DataArray)
+   DataArray.filter(val => val)
+       //   console.log(DataArray)
 
    var time = DataArray.map(function(e) {
        return e.date;
@@ -18,6 +20,29 @@
    var situation = DataArray.map(function(e) {
        return e.situations;
    });
+   var medikation = DataArray.map(function(e) {
+
+       return e.Medikation;
+   });
+
+
+//    console.log(medikation)
+//    var medikationArray = [];
+//    for (const med of medikation) {
+//        var array = [];
+//        //    if (med) {
+//        //    console.log(med)
+//        for (let i = 0; i < med.length; i++) {
+//            var Dosierung = (med[i].Dosierung) ? med[i].Dosierung : '';
+//            var Medikament = (med[i].Medikament) ? med[i].Medikament : '';
+//            var Uhrzeit = (med[i].Uhrzeit) ? med[i].Uhrzeit : '';
+//            array.push(Dosierung + ' ' + Medikament + ' ' + Uhrzeit);
+//        }
+//        medikationArray.push(array);
+//        //    }
+//    }
+//    console.log(medikationArray)
+
    var comment = DataArray.map(function(e) {
        return e.comment;
    });
@@ -144,10 +169,28 @@
 
 
                        //
+                       // MEDIKATION
+                       //
+                       var TT_index = tooltipModel.dataPoints[0].index; 
+                       innerHtml += '<div id=CTT_MEDIKATION>';
+
+                       for (const med of medikation[TT_index]) {
+                           var Dosierung = (med.Dosierung) ? med.Dosierung : '';
+                           var Medikament = (med.Medikament) ? med.Medikament : '';
+                           var Uhrzeit = (med.Uhrzeit) ? med.Uhrzeit : '';
+                           innerHtml += '<div>' + Dosierung + 'mg ' + Medikament + ' ' + Uhrzeit + '</div>';
+
+                       }
+                    //    console.log(Dosierung)
+                    //    console.log(medikation[TT_index])
+                       innerHtml += '</div>';
+
+
+                       //
                        // SITUATIONS
                        //
                        var TT_index = tooltipModel.dataPoints[0].index;
-                    //    console.log(situation[TT_index])
+                       //    console.log(situation[TT_index])
                        innerHtml += '<div id=CTT_Situations>' + situation[TT_index] + '</div>';
 
                        //
@@ -328,4 +371,3 @@
            ]
        }
    });
- 
