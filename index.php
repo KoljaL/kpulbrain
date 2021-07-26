@@ -9,8 +9,24 @@ error_reporting(E_ALL);
 session_start();
 unset($user_ID);
 
+
+
+
+
+
+
+echo "<pre>";
+print_r($_POST);
+echo "</pre>";
+
+
+
+
+
+
+
 //
-// CONFOG
+// CONFIG
 //
 $case = basename($_SERVER['REQUEST_URI']);
 $url = (isset($_SERVER['HTTPS']) && 'on' === $_SERVER['HTTPS'] ? 'https' : 'http') . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
