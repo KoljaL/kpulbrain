@@ -6,14 +6,17 @@
    // get and sort JSON data from PHP
    //  
    DataArray = JSON.parse(DataArray);
-   console.log(DataArray)
+//    console.log(DataArray)
+   DataArray.shift();
+//    console.log(DataArray)
+
    var time = DataArray.map(function(e) {
        return e.date;
        // return e.timestamp;
        // return moment(e.time, "DD.MM.YYYY hh:mm:ss", true);
    });
    var situation = DataArray.map(function(e) {
-       return e.situation;
+       return e.situations;
    });
    var comment = DataArray.map(function(e) {
        return e.comment;
@@ -144,7 +147,7 @@
                        // SITUATIONS
                        //
                        var TT_index = tooltipModel.dataPoints[0].index;
-                       // console.log(situation[TT_index])
+                    //    console.log(situation[TT_index])
                        innerHtml += '<div id=CTT_Situations>' + situation[TT_index] + '</div>';
 
                        //
@@ -325,3 +328,4 @@
            ]
        }
    });
+ 

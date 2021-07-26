@@ -24,9 +24,9 @@
                 <div id=SituationCheckboxes>
                     <?php
                       foreach ($situations as $key => $value) {
-                        $id = random_int(1000,9999);
-                        echo "<input type=checkbox class=hidden_checkbox id=$id name=situations[] value=$value>";
-                        echo "<label class=text_checkbox for=$id>$value</label>";
+                        // $id = random_int(1000,9999);
+                        echo "<input type=checkbox class=hidden_checkbox id=$value name=situations[] value=$value>";
+                        echo "<label class=text_checkbox for=$value>$value</label>";
                       }
                       echo "<input type=text class=newSituation name=situations[] placeholder='new situation'>";
                     ?>
