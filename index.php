@@ -164,7 +164,7 @@ $datatable .= "</table>";
 
 
 //
-// internal linksx
+// internal links
 //
 $links = <<< HTML
 <div id=links>
