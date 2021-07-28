@@ -26,22 +26,22 @@
    });
 
 
-//    console.log(medikation)
-//    var medikationArray = [];
-//    for (const med of medikation) {
-//        var array = [];
-//        //    if (med) {
-//        //    console.log(med)
-//        for (let i = 0; i < med.length; i++) {
-//            var Dosierung = (med[i].Dosierung) ? med[i].Dosierung : '';
-//            var Medikament = (med[i].Medikament) ? med[i].Medikament : '';
-//            var Uhrzeit = (med[i].Uhrzeit) ? med[i].Uhrzeit : '';
-//            array.push(Dosierung + ' ' + Medikament + ' ' + Uhrzeit);
-//        }
-//        medikationArray.push(array);
-//        //    }
-//    }
-//    console.log(medikationArray)
+   //    console.log(medikation)
+   //    var medikationArray = [];
+   //    for (const med of medikation) {
+   //        var array = [];
+   //        //    if (med) {
+   //        //    console.log(med)
+   //        for (let i = 0; i < med.length; i++) {
+   //            var Dosierung = (med[i].Dosierung) ? med[i].Dosierung : '';
+   //            var Medikament = (med[i].Medikament) ? med[i].Medikament : '';
+   //            var Uhrzeit = (med[i].Uhrzeit) ? med[i].Uhrzeit : '';
+   //            array.push(Dosierung + ' ' + Medikament + ' ' + Uhrzeit);
+   //        }
+   //        medikationArray.push(array);
+   //        //    }
+   //    }
+   //    console.log(medikationArray)
 
    var comment = DataArray.map(function(e) {
        return e.comment;
@@ -78,6 +78,32 @@
    // console.log(motivation);
 
 
+   //
+   // DAY IN THE MIDDLE
+   //
+   // 
+   var TimeCenterScale = Chart.scaleService.getScaleConstructor('time').extend({
+       getPixelForTick: function(index) {
+           var ticks = this.getTicks();
+           if (index < 0 || index >= ticks.length) {
+               return null;
+           }
+           var px = this.getPixelForOffset(ticks[index].value);
+           var nextPx = this.right;
+           var nextTick = ticks[index + 1];
+           if (nextTick) {
+               nextPx = this.getPixelForOffset(nextTick.value);
+           } 
+           return px + (nextPx - px) / 2;
+       },
+   });
+   var defaults = Chart.scaleService.getScaleDefaults('time');
+   Chart.scaleService.registerScaleType('timecenter', TimeCenterScale, defaults);
+
+
+   //
+   // CHART
+   //
    var myChart = new Chart(document.getElementById("brainChart").getContext("2d"), {
        type: 'line',
        options: {
@@ -171,7 +197,7 @@
                        //
                        // MEDIKATION
                        //
-                       var TT_index = tooltipModel.dataPoints[0].index; 
+                       var TT_index = tooltipModel.dataPoints[0].index;
                        innerHtml += '<div id=CTT_MEDIKATION>';
 
                        for (const med of medikation[TT_index]) {
@@ -181,8 +207,8 @@
                            innerHtml += '<div>' + Dosierung + 'mg ' + Medikament + ' ' + Uhrzeit + '</div>';
 
                        }
-                    //    console.log(Dosierung)
-                    //    console.log(medikation[TT_index])
+                       //    console.log(Dosierung)
+                       //    console.log(medikation[TT_index])
                        innerHtml += '</div>';
 
 
@@ -235,67 +261,68 @@
            },
            scales: {
                xAxes: [{
-                   type: 'time',
-                   display: true,
-                   // distribution: 'series',
-
-                   distribution: 'linear',
-                   time: {
-
-                       parser: 'DD.MM.YYYY HH:mm',
-
-                       tooltipFormat: 'DD.MM.YYYY HH:mm',
-                       displayFormats: {
-                           'millisecond': 'HH:mm',
-                           'second': 'HH:mm',
-                           'minute': 'HH:mm',
-                           //    'hour': 'DD.MM.YYYY',
-                           'hour': 'HH:mm',
-                           'day': 'DD.MM.YYYY HH:mm',
-                           'week': 'HH:mm',
-                           'month': 'HH:mm',
-                           'quarter': 'HH:mm',
-                           'year': 'HH:mm',
+                       id: 'hours',
+                       type: 'time',
+                       display: true,
+                       distribution: 'linear',
+                       time: {
+                           parser: 'DD.MM.YYYY HH:mm',
+                           tooltipFormat: 'DD.MM.YYYY HH:mm',
+                           displayFormats: {
+                               //    'hour': 'DD.MM.YYYY',
+                               'hour': 'HH:mm',
+                           },
+                           min: firstDay,
+                           max: lastDay,
+                           unit: 'hour',
+                           stepSize: 6,
                        },
-                       // min:'22.07.2021',
-                       // max:'24.07.2021',
-                       min: firstDay,
-                       max: lastDay,
-                       unit: 'hour',
-                       stepSize: 6,
-
-                   },
-                   ticks: {
-                       fontColor: '#abb2bf',
-                       fontSize: 16,
-                       fontFamily: "'LibreBaskerville_Regular', 'Arial', sans-serif",
-                       padding: 10,
-
-                       //    bounds: 'ticks',
-                       //    source: 'labels',
-                       major: {
-                           enabled: true,
-                           stepSize: 24,
-                           lineHeight: 2,
+                       ticks: {
                            fontColor: '#abb2bf',
-                           fontSize: 18,
+                           fontSize: 16,
                            fontFamily: "'LibreBaskerville_Regular', 'Arial', sans-serif",
+                           padding: 10,
                        },
-                       callback: function(value, index, values) {
-                           if (values[index] !== undefined) {
-                               if (values[index].major == true) {
-                                   return moment(values[index].value).format('DD.MM.');
-                               } else {
-                                   return value;
-                               }
-                           }
-                       }
+                       gridLines: {
+                           drawBorder: false,
+                           offsetGridLines: false,
+                           lineWidth: 2,
+                           drawOnChartArea: true,
+
+                       },
                    },
-                   gridLines: {
-                       drawBorder: true,
-                       lineWidth: 2,
-                   },
-               }],
+                   {
+                       id: 'days',
+                       //    type: 'time',
+                       type: 'timecenter',
+                       display: true,
+                       distribution: 'linear',
+                       time: {
+                           parser: 'DD.MM.YYYY HH:mm',
+                           tooltipFormat: 'DD.MM.YYYY HH:mm',
+                           displayFormats: {
+                               'day': 'DD.MM.YYYY',
+                           },
+                           min: firstDay,
+                           max: lastDay,
+                           unit: 'day',
+                           stepSize: 1,
+                       },
+                       ticks: {
+                           fontColor: '#abb2bf',
+                           fontSize: 16,
+                           fontFamily: "'LibreBaskerville_Regular', 'Arial', sans-serif",
+                           padding: -10,
+                           callback: (value, index, values) => (index == (values.length - 1)) ? undefined : value,
+                       },
+                       gridLines: {
+                           offsetGridLines: false,
+                           drawBorder: false,
+                           drawOnChartArea: true,
+                           lineWidth: 0,
+                       },
+                   }
+               ],
                yAxes: [{
                    gridLines: {
                        drawBorder: true,

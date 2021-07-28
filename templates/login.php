@@ -17,7 +17,7 @@
                 <br>
                 <label class="itemLabel situation" for=situation>Password: </label>
                 <input type="password" placeholder="password" class=newSituation name="u_password" value="ADXS">
-                <input type="submit" id=submitButton class=button value="Submit" name="submit">
+                <input type="submit" id=submitButton class=button value="Login" name="submit">
             </fieldset>
         </form>
     </div>

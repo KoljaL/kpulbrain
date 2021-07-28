@@ -1,5 +1,6 @@
 @import url(https://fonts.rasal.de/?font=LibreBaskerville,Sentinel,OldStandardTT,NewComputerModern,NewComputerModern,JetBrainsMono);
 :root {
+    --black: #1b1e23;
     --dark: #282c34;
     --lightgrey: #abb2bf;
     --grey: #818896;
@@ -81,6 +82,7 @@ h3 {
     color: var(--blue)
 }
 
+
 /* :-ms-input-placeholder,
 ::-ms-input-placeholder,
 ::placeholder {
@@ -131,6 +133,7 @@ label.itemLabel {
 legend+label.itemLabel {
     padding-top: 0px;
 }
+
 label.itemLabel.situation {
     color: var(--orange);
     padding-bottom: 0px;
@@ -151,9 +154,11 @@ label.itemLabel.motivation {
 label.itemLabel.comment {
     color: var(--bluegreen)
 }
-.sliderValue{
+
+.sliderValue {
     display: inline;
 }
+
 .slider {
     -webkit-appearance: none;
     appearance: none;
@@ -161,16 +166,18 @@ label.itemLabel.comment {
     height: 10px;
     background: var(--darkgrey);
     outline: 0;
-    opacity: .7;
+    opacity: 1;
+    border-radius: 5px;
     -webkit-transition: .2s;
     transition: opacity .2s;
     margin-top: 5px;
     border: none
 }
 
-.slider:hover {
+
+/* .slider:hover {
     opacity: 1
-}
+} */
 
 .slider::-webkit-slider-thumb {
     -webkit-appearance: none;
@@ -184,22 +191,23 @@ label.itemLabel.comment {
 .slider::-moz-range-thumb {
     width: 25px;
     height: 25px;
-    cursor: pointer
+    cursor: pointer;
+    border: 1px solid var(--black);
 }
 
 .slider.brainload::-moz-range-thumb {
     background: var(--red);
-    border: none;
+    /* border: none; */
 }
 
 .slider.mood::-moz-range-thumb {
     background: var(--green);
-    border: none;
+    /* border: none; */
 }
 
 .slider.motivation::-moz-range-thumb {
     background: var(--blue);
-    border: none;
+    /* border: none; */
 }
 
 .slider.brainload::-webkit-slider-thumb {
@@ -216,7 +224,6 @@ label.itemLabel.comment {
     background: var(--blue);
     border-radius: 5px;
 }
- 
 
 #brainloadSliderOutput {
     color: var(--red);
@@ -260,13 +267,14 @@ label.text_checkbox {
     padding: 10px 10px 10px 10px;
     background-color: var(--darkgrey);
     color: var(--lightgrey);
+    border: 1px solid var(--black);
     border-radius: 5px;
     cursor: pointer;
-    transition: .2s;
+    transition: .5s;
     margin: 5px 10px 5px 0;
     display: inline-block
 }
-
+label.text_checkbox:hover,
 .hidden_checkbox:checked+label.text_checkbox {
     background-color: var(--orange);
     color: var(--dark)
@@ -301,22 +309,20 @@ table.allData td {
     white-space: nowrap;
 }
 
-.medikation {  
-    color: var(--yellow); 
-
+.medikation {
+    color: var(--yellow);
 }
 
 #medikation {
     display: block;
     width: max-content;
-    padding-bottom:20px; 
-
+    padding-bottom: 20px;
 }
 
 #medikation label {
     display: inline-block;
-    width:140px;
-    padding-top:0px;
+    width: 140px;
+    padding-top: 0px;
     color: var(--yellow);
 }
 
@@ -333,60 +339,51 @@ table.allData td {
     border-radius: 5px;
 }
 
-
 #medikation input::placeholder {
     color: var(--yellow);
     opacity: .4
 }
 
-/* #newMedikation::after{
-    display:block;
-    width:20px;
-    height:20px;
-    border: 1px solid #000;
-    border-radius: 3px;
-    font-size: 2em;
-    font-weight: bold;
-    line-height: 20px;
-    content: '+';
-    color: var(--dark);
-    background: var(--yellow);
-}
-*/
-#newMedikation:hover{ 
-    background: var(--red);
-} 
 
-#newMedikation{
+/* PLUS sign */
+
+#newMedikation {
     cursor: pointer;
-
-    border:1px solid #000;
-    width:20px;
-    height:20px;
-    border-radius:5px;
-    position:relative;
-    display:block;
+    border: 1px solid var(--black);
+    width: 20px;
+    height: 20px;
+    border-radius: 5px;
+    position: relative;
+    display: block;
     /* vertical-align:middle; */
     background: var(--yellow);
-  }
-  #newMedikation:before,
-  #newMedikation:after {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background:var(--dark);
-  }
-  #newMedikation:before{
-      width: 2px;
-      margin: 2px auto;
-  }
-  #newMedikation:after{
-      margin: auto 2px;
-      height: 2px;
-  }
+}
+
+#newMedikation:hover {
+    background: var(--red);
+}
+
+#newMedikation:before,
+#newMedikation:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--black);
+}
+
+#newMedikation:before {
+    width: 2px;
+    margin: 2px auto;
+}
+
+#newMedikation:after {
+    margin: auto 2px;
+    height: 2px;
+}
+
 
 /* CHART */
 
@@ -420,10 +417,12 @@ table.allData td {
     color: var(--orange);
     padding: .5em .5em .5em .5em;
 }
-#CTT_MEDIKATION{
+
+#CTT_MEDIKATION {
     color: var(--yellow);
-    padding: .5em .5em .5em .5em; 
+    padding: .5em .5em .5em .5em;
 }
+
 #CTT_Values {
     padding: 0 .5em 0 .5em;
 }

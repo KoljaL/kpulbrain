@@ -12,16 +12,37 @@ document.getElementById("moodSlider").oninput = function() {
 document.getElementById("brainloadSlider").oninput = function() {
     document.getElementById("brainloadSliderOutput").innerHTML = this.value;
 }
-
+ 
 //
 // show submit button only if a situation is set
 //
 var allSituations = document.getElementById("SituationCheckboxes")
+var allMedikation = document.querySelectorAll('.medikation input[type=text]');
 var submitButton = document.getElementById("submitButton")
 var allCheckboxes = allSituations.querySelectorAll('input[type=checkbox]');
 var allTextInput = allSituations.querySelectorAll('input[type=text]');
+
+
+console.log(allMedikation)
 allSituations.addEventListener('change', checkSituations);
 allSituations.addEventListener('input', checkSituations);
+
+for (const Medikation of allMedikation) {
+medikation.addEventListener('input', checkMedikation);
+    console.log(Medikation)
+}
+
+
+function checkMedikation(){
+    var oneMedikation = 0;
+    for (let input of allMedikation) {
+        if (input.value.length !== 0) {
+            oneMedikation = 1;
+            console.log(input.value)
+            break;
+        };
+    }
+}
 
 function checkSituations() {
     var oneSituation = 0;
@@ -50,7 +71,7 @@ function checkSituations() {
 var ct = 1;
 function newMedikation() {
     var new_medikation = document.createElement("div");
-    new_medikation.className = 'medikation_' + ct;
+    new_medikation.className = 'medikation';
     new_medikation.id = ct;
     new_medikation.innerHTML = document.getElementById("medikation").outerHTML.replaceAll('[0]', '[' + ct + ']');
     document.getElementById("newMedikation").before(new_medikation);

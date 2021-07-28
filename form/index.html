@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <title>PureCSS</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/svg+xml" href="https://dev.rasal.de/brainload/templates/images/brain.png">
+    <!-- <link rel="stylesheet" href="pure.css"> -->
+    <link rel="stylesheet" href="style.css">
+    <!-- <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.6/build/grids-responsive-min.css" /> -->
+
+</head>
+
+<body>
+    <div id="formcontent">
+
+    </div>
+    <div id="content">
+
+        <form id=ProfilForm>
+            <fieldset>
+                <legend>Profil</legend>
+                <div class="profil_1">
+                    <div class="alter">
+                        <label for="P_Alter">Jahrgang</label>
+                        <input type="number" id="P_Alter" name=Alter placeholder=1982>
+                    </div>
+                    <div class="geschlecht">
+                        <label for="P_Geschlecht">Geschlecht</label>
+                        <select id="P_Geschlecht" name=Geschlecht>
+                            <option disabled selected hidden></option>
+                            <option>divers</option>
+                            <option>weiblich</option>
+                            <option>männlich</option>
+                            <option>keine Angabe</option>
+                        </select>
+                    </div>
+                    <div class="zyklus">
+                        <label>Zyklus</label>
+                        <input type=checkbox class=hidden_checkbox id=P_Zyklus name=Zyklus>
+                        <label class=WirkungLabel for=P_Zyklus>abfragen</label>
+                    </div>
+                </div>
+                <div class="profil_2">
+                    <div class="subtyp">
+                        <label for="P_Subtyp">ADHS-Subtyp</label>
+                        <select id="P_Subtyp" name=Subtyp>
+                        <option disabled selected hidden></option>
+                        <option>ADHS</option>
+                        <option>ADS</option>
+                        <option>Mischtyp</option>
+                        <option>keine Angabe</option>
+                    </select>
+                    </div>
+
+
+                    <div class="diagnosen">
+                        <label for="P_Diagnosen">weitere Diagnosen</label>
+                        <input type="text" id="P_Diagnosen" name=Diagnosen>
+                    </div>
+                </div>
+
+
+
+                <!-- SITUATIONS -->
+                <label class="" for=situation>Wirkungen abfragen: </label>
+                <div id=WirkungCheckboxes>
+
+                    <input type=checkbox class=hidden_checkbox id=$value1 name=wirkung[0] value=Unruhe>
+                    <label class=WirkungLabel for=$value1>Unruhe</label>
+                    <input type=checkbox class=hidden_checkbox id=$value2 name=wirkung[1] value=Konzentration>
+                    <label class=WirkungLabel for=$value2>Konzentration</label>
+                    <input type=checkbox class=hidden_checkbox id=$value3 name=wirkung[2] value=Aufmerksamkeit>
+                    <label class=WirkungLabel for=$value3>Aufmerksamkeit</label>
+                    <input type=checkbox class=hidden_checkbox id=$value4 name=wirkung[3] value=Motivation>
+                    <label class=WirkungLabel for=$value4>Motivation</label>
+                    <input type=checkbox class=hidden_checkbox id=$value5 name=wirkung[4] value=Auslastung>
+                    <label class=WirkungLabel for=$value5>Auslastung</label>
+
+                    <input type=text class=newSituation name=wirkung[] placeholder='new situation'>
+
+
+
+                </div>
+                <div class="kommentar">
+                    <label class="itemLabel comment" for=P_Kommentar>Kommentar: </label>
+                    <textarea name="P_Kommentar" id="P_Kommentar"></textarea>
+                </div>
+                <br>
+                <button type="submit" id=validate>Absenden</button>
+            </fieldset>
+        </form>
+
+
+        <form id=MedikationForm>
+            <fieldset>
+                <legend>Medikation</legend>
+                <div id=Medikation_0>
+                    <div class="medikation">
+
+
+                        <div class="medikament">
+                            <label for="M_Medikament">Medikament</label>
+                            <select id="M_Medikament" name=Medikation[0][Medikament]>
+                            <option disabled selected hidden></option>
+                            <option>Elvanse</option>
+                            <option>Ritalin </option>
+                            <option>Strattera</option>
+                        </select>
+                        </div>
+
+                        <div class="dosierung">
+                            <label for="M_Dosierung">Dosierung</label>
+                            <select id="M_Dosierung" name=Medikation[0][Dosierung]>
+                            <option disabled selected hidden></option>
+                            <option>2.5 mg</option>
+                            <option>5 mg</option>
+                            <option>10 mg</option>
+                            <option>20 mg</option>
+                            <option>30 mg</option>
+                            <option>40 mg</option>
+                        </select>
+                        </div>
+
+                        <div class="zeitpunkt">
+                            <label for="M_Zeitpunkt">Zeit</label>
+                            <input type="time" id="M_Zeitpunkt" name=Medikation[0][Zeitpunkt]>
+                        </div>
+
+                    </div>
+                </div>
+                <div id=addMedikation class="width100p">
+                    <label class="width100" id=newMedikation onclick=newMedikation()></label>
+                    <label class="width100" id=delMedikation onclick=delMedikation()></label>
+                </div>
+                <br>
+                <button type="submit" id=validate class="pure-button pure-button-primary">Absenden</button>
+            </fieldset>
+        </form>
+
+
+
+
+
+
+
+
+
+
+        <form id=feelForm>
+            <fieldset>
+                <legend>How do you feel?</legend>
+
+
+
+
+
+                <!-- SITUATIONS -->
+                <label class="itemLabel situation" for=situation>Situation: </label>
+                <div id=SituationCheckboxes>
+
+                    <input type=checkbox class=hidden_checkbox id=$value11 name=situations[0] value=Zuhause>
+                    <label class=SituationLabel for=$value11>Zuhause</label>
+                    <input type=checkbox class=hidden_checkbox id=$value21 name=situations[1] value=Arbeit>
+                    <label class=SituationLabel for=$value21>Arbeit</label>
+                    <input type=checkbox class=hidden_checkbox id=$value31 name=situations[2] value=Park>
+                    <label class=SituationLabel for=$value31>Park</label>
+                    <input type=checkbox class=hidden_checkbox id=$value41 name=situations[3] value=Klo>
+                    <label class=SituationLabel for=$value41>Klo</label>
+                    <input type=checkbox class=hidden_checkbox id=$value51 name=situations[4] value=Bett>
+                    <label class=SituationLabel for=$value51>Bett</label>
+
+                    <input type=text class=newSituation name=situations[] placeholder='new situation'>
+                </div>
+
+                <div class="feelSlider">
+
+                    <!-- SLIDER  -->
+                    <label class="itemLabel brainload" for=brainloadSlider>Brainload: </label>
+                    <div class=sliderValue id=brainloadSliderOutput></div>
+                    <input type="range" min="0" max="100" value="0" step="10" class="slider brainload" id=brainloadSlider name=brainload>
+                    <!-- SLIDER  -->
+                    <label class="itemLabel mood" for=moodSlider>Mood: </label>
+                    <div class=sliderValue id=moodSliderOutput></div>
+                    <input type="range" min="0" max="100" value="0" step="10" class="slider mood" id=moodSlider name=mood>
+                    <!-- SLIDER  -->
+                    <label class="itemLabel motivation" for=motivationSlider>Motivation: </label>
+                    <div class=sliderValue id=motivationSliderOutput></div>
+                    <input type="range" min="0" max="100" value="0" step="10" class="slider motivation" id=motivationSlider name=motivation>
+                </div>
+                <div class="kommentar">
+
+                    <!-- COMMENT -->
+                    <label class="itemLabel comment" for=comment>Comment: </label>
+                    <textarea name="comment" id="comment"></textarea>
+                </div>
+
+                <br>
+                <br>
+                <!-- BUTTON -->
+                <button type="submit" id=validate class="pure-button pure-button-primary">absenden</button>
+
+            </fieldset>
+        </form>
+    </div>
+    <script></script>
+</body>
+
+
+
+<script>
+    //
+    // get POST from forms
+    //
+    var forms = document.getElementsByTagName("FORM");
+    // console.log(forms)
+    for (const form of forms) {
+        form.addEventListener("submit", function(evt) {
+            evt.preventDefault();
+            var arr = [];
+            Array.prototype.slice.call(form.elements).forEach(function(field) {
+                if (!field.name || field.disabled || ['file', 'reset', 'submit', 'button'].indexOf(field.type) > -1) return;
+                if (field.type === 'select-multiple') {
+                    Array.prototype.slice.call(field.options).forEach(function(option) {
+                        if (!option.selected) return;
+                        arr.push({
+                            name: field.name,
+                            value: option.value
+                        });
+                    });
+                    return;
+                }
+                if (['checkbox', 'radio'].indexOf(field.type) > -1 && !field.checked) return;
+                arr.push({
+                    name: field.name,
+                    value: field.value
+                });
+            });
+
+
+            // console.log(form.id);
+            // console.log(arr);
+
+            //
+            // Put the object into storage
+            //
+            localStorage.setItem(form.id, JSON.stringify(arr));
+
+            //
+            // DEBUG ON PAGE
+            //
+            var formContent = '<table>';
+            for (const el of arr) {
+                formContent += "<tr><td>" + el.name + " </td><td> " + el.value + "</td></tr>";
+            }
+            formContent += '</table>';
+            document.getElementById("formcontent").innerHTML = formContent;
+        });
+    }
+
+
+
+
+
+
+    //
+    // add fields for search & replace in SQL file
+    var ct = 1;
+
+    function newMedikation() {
+        var new_medikation = document.createElement("div");
+        new_medikation.className = 'pure-g';
+        new_medikation.id = "Medikation_" + ct;
+        new_medikation.innerHTML = document.getElementById("Medikation_0").innerHTML.replaceAll('[0]', '[' + ct + ']');
+        document.getElementById("addMedikation").before(new_medikation);
+        ct++;
+    }
+
+    function delMedikation() {
+        var delMedikation = document.querySelectorAll('[id^=Medikation_]');
+        if (delMedikation.length > 1) {
+            delMedikation[delMedikation.length - 1].remove();
+        }
+    }
+</script>
+
+</html>
