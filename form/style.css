@@ -1,4 +1,8 @@
-/* @import url(https://fonts.rasal.de/?font=LibreBaskerville,Sentinel,OldStandardTT,Roboto,NewComputerModern,JetBrainsMono); */
+/* 
+==========================================================================
+                            CONFIG & NORMALIZE
+========================================================================== 
+*/
 
 :root {
     --black: #1b1e23;
@@ -24,327 +28,89 @@
     margin: 0;
     border: none;
     text-decoration: none;
-    outline: 0;
+    outline: 0
 }
 
 body {
     font-family: LibreBaskerville_Regular, Garamond, serif;
     color: var(--lightgrey);
     background: var(--dark);
-    font-size: 18px;
+    font-size: 18px
 }
 
-#content {
-    max-width: 500px;
-    margin: auto;
-    padding: 1em;
-}
-
-#formcontent {
-    position: absolute;
-    top: 20px;
-    left: 20px;
-}
-
-
-/* PLUS sign */
-
-#newMedikation {
-    cursor: pointer;
-    border: 1px solid var(--black);
-    width: 20px;
-    height: 20px;
-    border-radius: 5px;
-    position: relative;
-    display: inline-block;
-    /* vertical-align:middle; */
-    background: var(--yellow);
-}
-
-#newMedikation:hover {
-    background: var(--red);
-}
-
-#newMedikation:before,
-#newMedikation:after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: var(--black);
-}
-
-#newMedikation:before {
-    width: 2px;
-    margin: 2px auto;
-}
-
-#newMedikation:after {
-    margin: auto 2px;
-    height: 2px;
-}
-
-#delMedikation {
-    cursor: pointer;
-    border: 1px solid var(--black);
-    width: 20px;
-    height: 20px;
-    border-radius: 5px;
-    position: relative;
-    display: inline-block;
-    /* vertical-align:middle; */
-    background: var(--red);
-    /* left: 50px; */
-}
-
-#delMedikation:hover {
-    background: var(--yellow);
-}
-
-#delMedikation:before,
-#delMedikation:after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: var(--black);
-}
-
-#delMedikation:before {
-    width: 0px;
-}
-
-#delMedikation:after {
-    margin: auto 2px;
-    height: 2px;
-}
-
-
-.hidden_checkbox {
+.hidden {
     display: none
 }
- 
+
+
+/* 
+==========================================================================
+                            COMMON TAGS
+========================================================================== 
+*/
+
 fieldset {
     border: 2px solid var(--salomon);
     border-radius: 5px;
     margin-top: 20px;
     padding: .75em;
-    padding-top: 0px;
-
-} 
+    padding-top: 0px
+}
 
 legend {
-
     font-size: 1.4em;
     display: block;
     width: max-content;
-    /* padding: .3em 0; */
-    /* margin-bottom: .3em; */
     color: var(--salomon);
-    border: none;
-}
-
-/* remove arrows from input number */
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-input[type=number] {
-  -moz-appearance: textfield;
-}
-
-
-input[type="color"],
-input[type="date"],
-input[type="datetime-local"],
-input[type="datetime"],
-input[type="email"],
-input[type="month"],
-input[type="number"],
-input[type="password"],
-input[type="search"],
-input[type="tel"],
-input[type="text"],
-input[type="time"],
-input[type="url"],
-input[type="week"],
-select,
-textarea {
-    padding: .5em .6em;
-    border-radius: 4px;
-    background: var(--dark);
-    color: var(--lightgrey);
-    border: 1px solid #ccc;
-    -webkit-box-shadow: none;
-    box-shadow: none;
-}
-
-
-button {
-    width: max-content;
-    padding: 10px 10px 10px 10px;
-    background-color: var(--blue);
-    color: var(--dark);
-    border: 1px solid var(--black);
-    border-radius: 5px;
-    cursor: pointer;
-    transition: .5s;
-    margin: 5px 10px 5px 0;
-    display: inline-block; 
-    font-family: inherit;
-    line-height: normal;
-    font-size: 18px;
-    white-space: nowrap;
-    vertical-align: middle;
-    text-align: center;
-    cursor: pointer;
-}
-button:hover{
-    background-color: var(--bluegreen);
-}
-
-input,
-label,
-select {
-    font-family: "Roboto_Regular", Garamond, serif;
-    font-size: 18px;
-    display: block;
-    margin: .25em 0;
-    width: 100%
+    border: none
 }
 
 label {
     font-family: LibreBaskerville_Regular, Garamond, serif;
     padding-left: .2em;
     padding-top: 1em;
-}
- 
- 
-
-#ProfilForm input,
-#ProfilForm select{
-    color: var(--blue);
-    border-color: var(--blue);
-}
-
-.profil_1 {
-    display: flex;
-    justify-content: space-between;
+    font-size: 18px;
+    display: block;
+    margin: .25em 0;
+    width: 100%
 }
 
 
-.profil_1 .alter{
-    width: 80px;   
-}
-.profil_1 .geschlecht{
-    width: 150px;   
-}
+/* ALL INPUTS */
 
-
-.profil_2 {
-    display: flex;
-    justify-content: space-between;
-}
-
-.profil_2 .subtyp{
-    width: 150px;
-}
-.profil_2 .diagnosen{
-    width: 200px;
-}
-
-
-
-#MedikationForm input,
-#MedikationForm select{
-    color: var(--yellow);
-    border-color: var(--yellow);
-}
-
-.medikation {
-    display: flex;
-    justify-content: space-between;
-}
-.medikation .medikament{
-    width: 170px;   
-
-}
-.medikation .dosierung,
-.medikation .zeitpunkt{
-    width: 100px;   
-}
-
-
-.zyklus label.WirkungLabel {
-    /* display: inline; */
-    position: relative;
-    top: -6px;
-}
-
- 
-
-textarea#P_Kommentar {
+input,
+select,
+textarea,
+button,
+.buttonlabel {
+    font-family: Roboto_Regular, Garamond, serif;
+    font-size: 18px;
+    display: block;
+    margin: .25em 0;
     width: 100%;
-    padding: 10px 20px 10px 10px;
-    background-color: var(--dark);
-    color: var(--blue);
-    border: 1px solid var(--blue);
-    border-radius: 5px;
-}
-#SituationCheckboxes input{
-
-    color: var(--orange);
-    border-color: var(--orange);
-
-}
- 
-.SituationLabel {
-    width: max-content;
-    padding: 10px 10px 10px 10px;
-    background-color: var(--darkgrey);
+    padding: .5em .6em;
+    border-radius: 4px;
+    background: var(--dark);
     color: var(--lightgrey);
-    border: 1px solid var(--black);
-    border-radius: 5px;
-    cursor: pointer;
-    transition: .5s;
-    margin: 5px 10px 5px 0;
-    display: inline-block
+    border: 1px solid #ccc;
+    -webkit-box-shadow: none;
+    box-shadow: none
 }
-.SituationLabel:hover,
-.hidden_checkbox:checked+label.SituationLabel {
-    background-color: var(--orange);
-    color: var(--dark)
+
+input::-webkit-inner-spin-button,
+input::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0
 }
-.WirkungLabel {
-    width: max-content;
-    padding: 10px 10px 10px 10px;
-    background-color: var(--darkgrey);
-    color: var(--lightgrey);
-    border: 1px solid var(--black);
-    border-radius: 5px;
-    cursor: pointer;
-    transition: .5s;
-    margin: 5px 10px 5px 0;
-    display: inline-block
-}
-.WirkungLabel:hover,
-.hidden_checkbox:checked+label.WirkungLabel {
-    background-color: var(--blue);
-    color: var(--dark)
+
+input[type=number] {
+    -moz-appearance: textfield
 }
 
 
+/* SLIDER */
 
-.sliderValue {
-    display: inline;
-}
-
-.slider {
+input[type=range] {
     -webkit-appearance: none;
     appearance: none;
     width: 100%;
@@ -359,12 +125,7 @@ textarea#P_Kommentar {
     border: none
 }
 
-
-/* .slider:hover {
-    opacity: 1
-} */
-
-.slider::-webkit-slider-thumb {
+input[type=range]::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
     width: 25px;
@@ -373,164 +134,409 @@ textarea#P_Kommentar {
     cursor: pointer
 }
 
-.slider::-moz-range-thumb {
+input[type=range]::-moz-range-thumb {
     width: 25px;
     height: 25px;
     cursor: pointer;
+    border: 1px solid var(--black)
+}
+
+button {
+    background-color: var(--blue);
+    color: var(--dark);
     border: 1px solid var(--black);
+    cursor: pointer;
+    transition: .5s;
+    display: inline-block;
+    white-space: nowrap;
+    vertical-align: middle;
+    text-align: center;
+    cursor: pointer
 }
 
-.slider.brainload::-moz-range-thumb {
-    background: var(--red);
-    /* border: none; */
+button:hover {
+    background-color: var(--bluegreen)
 }
 
-.slider.mood::-moz-range-thumb {
-    background: var(--green);
-    /* border: none; */
+#submitButton:disabled,
+#submitButton[disabled] {
+    opacity: .4
 }
 
-.slider.motivation::-moz-range-thumb {
-    background: var(--blue);
-    /* border: none; */
+
+/* 
+==========================================================================
+                        PAGE SETTINGS
+========================================================================== 
+*/
+
+#content {
+    max-width: 500px;
+    margin: auto;
+    padding: 1em
 }
 
-.slider.brainload::-webkit-slider-thumb {
-    background: var(--red);
+#formcontent {
+    position: absolute;
+    top: 20px;
+    left: 20px
+}
+
+
+/* 
+==========================================================================
+                        PLUS MINUS LABLE
+========================================================================== 
+*/
+
+.plusminus {
+    cursor: pointer;
+    border: 1px solid var(--black);
+    width: 20px;
+    height: 20px;
     border-radius: 5px;
+    position: relative;
+    display: inline-block;
 }
 
-.slider.mood::-webkit-slider-thumb {
-    background: var(--green);
-    border-radius: 5px;
+.plusminus.plus {
+    background: var(--yellow)
 }
 
-.slider.motivation::-webkit-slider-thumb {
-    background: var(--blue);
-    border-radius: 5px;
+.plusminus.minus {
+    background: var(--red)
 }
 
-#brainloadSliderOutput {
-    color: var(--red);
-    font-size: 1.3em;
+.plusminus.plus:hover {
+    background: var(--red)
 }
 
-#moodSliderOutput {
-    color: var(--green);
-    font-size: 1.3em;
+.plusminus.minus:hover {
+    background: var(--yellow)
 }
 
-#motivationSliderOutput {
+.plusminus:after,
+.plusminus:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--black)
+}
+
+.plusminus.plus:before {
+    width: 2px;
+    margin: 2px auto
+}
+
+.plusminus.minus:before {
+    width: 0
+}
+
+.plusminus:after {
+    margin: auto 2px;
+    height: 2px
+}
+
+
+/* 
+==========================================================================
+                        PROFIL
+========================================================================== 
+*/
+
+#ProfilForm input,
+#ProfilForm select {
     color: var(--blue);
-    font-size: 1.3em;
+    border-color: var(--blue)
 }
+
+.profil_1 {
+    display: flex;
+    justify-content: space-between
+}
+
+.profil_1 .alter {
+    width: 80px
+}
+
+.profil_1 .geschlecht {
+    width: 150px
+}
+
+.profil_1 .buttonlabel.zyklus {
+    width: max-content;
+    color: var(--blue);
+    background-color: var(--dark);
+    border: 1px solid var(--blue);
+    cursor: pointer;
+    transition: .5s;
+}
+
+.profil_2 {
+    display: flex;
+    gap: 20px
+}
+
+.profil_2 .subtyp {
+    width: 150px
+}
+
+.profil_2 .diagnosen {
+    max-width: 100%
+}
+
+.buttonlabel.wirkung {
+    width: max-content;
+    color: var(--blue);
+    background-color: var(--dark);
+    border: 1px solid var(--blue);
+    cursor: pointer;
+    transition: .5s;
+    display: inline-block
+}
+
+.buttonlabel.wirkung:hover,
+.hidden:checked+label.buttonlabel.wirkung,
+.buttonlabel.zyklus:hover,
+.hidden:checked+label.buttonlabel.zyklus {
+    background-color: var(--blue);
+    color: var(--dark)
+}
+
+.kommentar.profil textarea {
+    color: var(--blue);
+    border: 1px solid var(--blue);
+}
+
+.kommentar.profil label {
+    color: var(--lightgrey);
+}
+
+
+/* 
+==========================================================================
+                        MEDIKATION
+========================================================================== 
+*/
+
+.medikation input,
+.medikation select {
+    color: var(--yellow);
+    border-color: var(--yellow)
+}
+
+.medikation {
+    display: flex;
+    justify-content: space-between
+}
+
+.medikation label {
+    color: var(--yellow);
+}
+
+.medikation .medikament {
+    width: 170px
+}
+
+.medikation .dosierung,
+.medikation .zeitpunkt {
+    width: 100px
+}
+
+.kommentar.medikament textarea {
+    color: var(--yellow);
+    border: 1px solid var(--yellow);
+}
+
+.kommentar.medikament label {
+    color: var(--yellow);
+}
+
+#AddRemoveMedikation {
+    display: inline-flex;
+    gap: 20px
+}
+
+#RemoveMedikation {
+    display: none;
+}
+
+#showmore,
+#showless {
+    color: var(--yellow);
+    cursor: pointer;
+}
+#showmore:hover,
+#showless:hover {
+    color: var(--red);
+}
+#more {
+    color: var(--yellow);
+    display: none;
+}
+
+
+/* 
+==========================================================================
+                        MOOD
+========================================================================== 
+*/
 
 #SituationCheckboxes {
     display: block;
     padding: 5px 0
 }
 
-.feelSlider label{
-padding-top:10px;
-padding-bottom:10px;
+label.itemLabel.situation {
+    color: var(--orange);
+    border-color: var(--orange)
 }
 
-textarea#comment {
+.buttonlabel.situation {
+    width: max-content;
+    background-color: var(--dark);
+    color: var(--orange);
+    border: 1px solid var(--orange);
+    cursor: pointer;
+    transition: .5s;
+    display: inline-block
+}
+
+.buttonlabel.situation:hover,
+.hidden:checked+label.buttonlabel.situation {
+    background-color: var(--orange);
+    color: var(--dark);
+}
+
+input.newSituation {
+    color: var(--orange);
+    border-color: var(--orange)
+}
+
+.sliderValue {
+    display: inline
+}
+
+.MoodSlider label {
+    padding-top: 10px;
+    padding-bottom: 10px
+}
+
+input[type=range].brainload::-moz-range-thumb {
+    background: var(--red)
+}
+
+input[type=range].brainload::-webkit-slider-thumb {
+    background: var(--red);
+    border-radius: 5px
+}
+
+label.brainload,
+#brainloadSliderOutput {
+    color: var(--red);
+    /* font-size: 1.3em */
+}
+
+input[type=range].mood::-moz-range-thumb {
+    background: var(--green)
+}
+
+input[type=range].mood::-webkit-slider-thumb {
+    background: var(--green);
+    border-radius: 5px
+}
+
+label.mood,
+#moodSliderOutput {
+    color: var(--green);
+    /* font-size: 1.3em */
+}
+
+input[type=range].motivation::-moz-range-thumb {
+    background: var(--blue)
+}
+
+input[type=range].motivation::-webkit-slider-thumb {
+    background: var(--blue);
+    border-radius: 5px
+}
+
+label.motivation,
+#motivationSliderOutput {
+    color: var(--blue);
+    /* font-size: 1.3em */
+}
+
+.kommentar.mood textarea {
+    color: var(--bluegreen);
+    border: 1px solid var(--bluegreen);
+}
+
+.kommentar.mood label {
+    color: var(--bluegreen);
+}
+
+
+/* 
+==========================================================================
+                        UNSORTED
+========================================================================== 
+*/
+
+
+/* textarea#comment {
     width: 100%;
     padding: 10px 20px 10px 10px;
     background-color: var(--dark);
     color: var(--bluegreen);
     border: 1px solid var(--bluegreen);
     border-radius: 5px
-}
-
-#submitButton:disabled,
-#submitButton[disabled] {
-    opacity: .4;
-}
+} */
 
 
+/* 
+==========================================================================
+                        FLEX
+========================================================================== 
+*/
 
 .flex_gap {
     display: inline-flex;
     flex-wrap: wrap;
-    gap: 12px;
+    gap: 12px
 }
 
 .flex_just {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-between
 }
 
-[class*="width"] {
-    /* display: inline-block; */
+[class*=width] {
     letter-spacing: normal;
     word-spacing: normal;
     vertical-align: top;
-    text-rendering: auto;
+    text-rendering: auto
 }
 
 .width50 {
-    width: 50px;
+    width: 50px
 }
+
 .width100 {
-    width: 100px;
+    width: 100px
 }
+
 .width150 {
-   max-width: 150px;
+    max-width: 150px
 }
+
 .width200 {
-    max-width: 200px;
+    max-width: 200px
 }
 
 .width100p {
-    width: 100%;
+    width: 100%
 }
-/* 
-
-.pure-u-1,
-.pure-u-1-1,
-.pure-u-1-12,
-.pure-u-1-2,
-.pure-u-1-24,
-.pure-u-1-3,
-.pure-u-1-4,
-.pure-u-1-5,
-.pure-u-1-6,
-.pure-u-1-8,
-.pure-u-10-24,
-.pure-u-11-12,
-.pure-u-11-24,
-.pure-u-12-24,
-.pure-u-13-24,
-.pure-u-14-24,
-.pure-u-15-24,
-.pure-u-16-24,
-.pure-u-17-24,
-.pure-u-18-24,
-.pure-u-19-24,
-.pure-u-2-24,
-.pure-u-2-3,
-.pure-u-2-5,
-.pure-u-20-24,
-.pure-u-21-24,
-.pure-u-22-24,
-.pure-u-23-24,
-.pure-u-24-24,
-.pure-u-3-24,
-.pure-u-3-4,
-.pure-u-3-5,
-.pure-u-3-8,
-.pure-u-4-24,
-.pure-u-4-5,
-.pure-u-5-12,
-.pure-u-5-24,
-.pure-u-5-5,
-.pure-u-5-6,
-.pure-u-5-8,
-.pure-u-6-24,
-.pure-u-7-12,
-.pure-u-7-24,
-.pure-u-7-8,
-.pure-u-8-24,
-.pure-u-9-24 {} */

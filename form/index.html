@@ -17,7 +17,6 @@
 
     </div>
     <div id="content">
-
         <form id=ProfilForm>
             <fieldset>
                 <legend>Profil</legend>
@@ -38,8 +37,8 @@
                     </div>
                     <div class="zyklus">
                         <label>Zyklus</label>
-                        <input type=checkbox class=hidden_checkbox id=P_Zyklus name=Zyklus>
-                        <label class=WirkungLabel for=P_Zyklus>abfragen</label>
+                        <input type=checkbox class=hidden id=P_Zyklus name=Zyklus>
+                        <label class="buttonlabel zyklus" for=P_Zyklus>abfragen</label>
                     </div>
                 </div>
                 <div class="profil_2">
@@ -53,37 +52,26 @@
                         <option>keine Angabe</option>
                     </select>
                     </div>
-
-
                     <div class="diagnosen">
                         <label for="P_Diagnosen">weitere Diagnosen</label>
                         <input type="text" id="P_Diagnosen" name=Diagnosen>
                     </div>
                 </div>
-
-
-
-                <!-- SITUATIONS -->
                 <label class="" for=situation>Wirkungen abfragen: </label>
                 <div id=WirkungCheckboxes>
-
-                    <input type=checkbox class=hidden_checkbox id=$value1 name=wirkung[0] value=Unruhe>
-                    <label class=WirkungLabel for=$value1>Unruhe</label>
-                    <input type=checkbox class=hidden_checkbox id=$value2 name=wirkung[1] value=Konzentration>
-                    <label class=WirkungLabel for=$value2>Konzentration</label>
-                    <input type=checkbox class=hidden_checkbox id=$value3 name=wirkung[2] value=Aufmerksamkeit>
-                    <label class=WirkungLabel for=$value3>Aufmerksamkeit</label>
-                    <input type=checkbox class=hidden_checkbox id=$value4 name=wirkung[3] value=Motivation>
-                    <label class=WirkungLabel for=$value4>Motivation</label>
-                    <input type=checkbox class=hidden_checkbox id=$value5 name=wirkung[4] value=Auslastung>
-                    <label class=WirkungLabel for=$value5>Auslastung</label>
-
+                    <input type=checkbox class=hidden id=$value1 name=wirkung[0] value=Unruhe>
+                    <label class="buttonlabel wirkung" for=$value1>Unruhe</label>
+                    <input type=checkbox class=hidden id=$value2 name=wirkung[1] value=Konzentration>
+                    <label class="buttonlabel wirkung" for=$value2>Konzentration</label>
+                    <input type=checkbox class=hidden id=$value3 name=wirkung[2] value=Aufmerksamkeit>
+                    <label class="buttonlabel wirkung" for=$value3>Aufmerksamkeit</label>
+                    <input type=checkbox class=hidden id=$value4 name=wirkung[3] value=Motivation>
+                    <label class="buttonlabel wirkung" for=$value4>Motivation</label>
+                    <input type=checkbox class=hidden id=$value5 name=wirkung[4] value=Auslastung>
+                    <label class="buttonlabel wirkung" for=$value5>Auslastung</label>
                     <input type=text class=newSituation name=wirkung[] placeholder='new situation'>
-
-
-
                 </div>
-                <div class="kommentar">
+                <div class="kommentar profil">
                     <label class="itemLabel comment" for=P_Kommentar>Kommentar: </label>
                     <textarea name="P_Kommentar" id="P_Kommentar"></textarea>
                 </div>
@@ -93,122 +81,98 @@
         </form>
 
 
-        <form id=MedikationForm>
+        <form id=MoodForm>
             <fieldset>
-                <legend>Medikation</legend>
+                <legend>How do you feel?</legend>
+
                 <div id=Medikation_0>
                     <div class="medikation">
-
-
                         <div class="medikament">
                             <label for="M_Medikament">Medikament</label>
                             <select id="M_Medikament" name=Medikation[0][Medikament]>
-                            <option disabled selected hidden></option>
-                            <option>Elvanse</option>
-                            <option>Ritalin </option>
-                            <option>Strattera</option>
-                        </select>
+                                <option disabled selected hidden></option>
+                                <option>Elvanse</option>
+                                <option>Ritalin </option>
+                                <option>Strattera</option>
+                            </select>
                         </div>
-
                         <div class="dosierung">
                             <label for="M_Dosierung">Dosierung</label>
                             <select id="M_Dosierung" name=Medikation[0][Dosierung]>
-                            <option disabled selected hidden></option>
-                            <option>2.5 mg</option>
-                            <option>5 mg</option>
-                            <option>10 mg</option>
-                            <option>20 mg</option>
-                            <option>30 mg</option>
-                            <option>40 mg</option>
-                        </select>
+                                <option disabled selected hidden></option>
+                                <option>2.5 mg</option>
+                                <option>5 mg</option>
+                                <option>10 mg</option>
+                                <option>20 mg</option>
+                                <option>30 mg</option>
+                                <option>40 mg</option>
+                            </select>
                         </div>
-
                         <div class="zeitpunkt">
                             <label for="M_Zeitpunkt">Zeit</label>
                             <input type="time" id="M_Zeitpunkt" name=Medikation[0][Zeitpunkt]>
                         </div>
 
                     </div>
+                    <label id=showmore>more</label>
+                    <div id="more">
+                        <div class=medikation>
+                            <div class="seitwann">
+                                <label for="M_SeitWann">seit wann</label>
+                                <input type="date" id="M_SeitWann" name=SeitWann>
+                            </div>
+                        </div>
+                        <div class="kommentar medikament">
+                            <label class="itemLabel comment" for=comment>Anmerkungen: </label>
+                            <textarea name="comment" id="comment"></textarea>
+                        </div>
+                    <label id=showless>less</label>
+
+                    </div>
                 </div>
-                <div id=addMedikation class="width100p">
-                    <label class="width100" id=newMedikation onclick=newMedikation()></label>
-                    <label class="width100" id=delMedikation onclick=delMedikation()></label>
+                <div id=AddRemoveMedikation class="">
+                    <label id=AddMedikation class='plusminus plus' onclick=newMedikation()></label>
+                    <label id=RemoveMedikation class='plusminus minus' onclick=delMedikation()></label>
                 </div>
-                <br>
-                <button type="submit" id=validate class="pure-button pure-button-primary">Absenden</button>
-            </fieldset>
-        </form>
-
-
-
-
-
-
-
-
-
-
-        <form id=feelForm>
-            <fieldset>
-                <legend>How do you feel?</legend>
-
-
-
-
 
                 <!-- SITUATIONS -->
-                <label class="itemLabel situation" for=situation>Situation: </label>
                 <div id=SituationCheckboxes>
-
-                    <input type=checkbox class=hidden_checkbox id=$value11 name=situations[0] value=Zuhause>
-                    <label class=SituationLabel for=$value11>Zuhause</label>
-                    <input type=checkbox class=hidden_checkbox id=$value21 name=situations[1] value=Arbeit>
-                    <label class=SituationLabel for=$value21>Arbeit</label>
-                    <input type=checkbox class=hidden_checkbox id=$value31 name=situations[2] value=Park>
-                    <label class=SituationLabel for=$value31>Park</label>
-                    <input type=checkbox class=hidden_checkbox id=$value41 name=situations[3] value=Klo>
-                    <label class=SituationLabel for=$value41>Klo</label>
-                    <input type=checkbox class=hidden_checkbox id=$value51 name=situations[4] value=Bett>
-                    <label class=SituationLabel for=$value51>Bett</label>
-
+                    <label class="itemLabel situation" for=situation>Situation: </label>
+                    <input type=checkbox class=hidden id=$value11 name=situations[0] value=Zuhause>
+                    <label class="buttonlabel situation" for=$value11>Zuhause</label>
+                    <input type=checkbox class=hidden id=$value21 name=situations[1] value=Arbeit>
+                    <label class="buttonlabel situation" for=$value21>Arbeit</label>
+                    <input type=checkbox class=hidden id=$value31 name=situations[2] value=Park>
+                    <label class="buttonlabel situation" for=$value31>Park</label>
+                    <input type=checkbox class=hidden id=$value41 name=situations[3] value=Klo>
+                    <label class="buttonlabel situation" for=$value41>Klo</label>
+                    <input type=checkbox class=hidden id=$value51 name=situations[4] value=Bett>
+                    <label class="buttonlabel situation" for=$value51>Bett</label>
                     <input type=text class=newSituation name=situations[] placeholder='new situation'>
                 </div>
-
-                <div class="feelSlider">
-
-                    <!-- SLIDER  -->
+                <div class="MoodSlider">
                     <label class="itemLabel brainload" for=brainloadSlider>Brainload: </label>
                     <div class=sliderValue id=brainloadSliderOutput></div>
                     <input type="range" min="0" max="100" value="0" step="10" class="slider brainload" id=brainloadSlider name=brainload>
-                    <!-- SLIDER  -->
                     <label class="itemLabel mood" for=moodSlider>Mood: </label>
                     <div class=sliderValue id=moodSliderOutput></div>
                     <input type="range" min="0" max="100" value="0" step="10" class="slider mood" id=moodSlider name=mood>
-                    <!-- SLIDER  -->
                     <label class="itemLabel motivation" for=motivationSlider>Motivation: </label>
                     <div class=sliderValue id=motivationSliderOutput></div>
                     <input type="range" min="0" max="100" value="0" step="10" class="slider motivation" id=motivationSlider name=motivation>
                 </div>
-                <div class="kommentar">
-
-                    <!-- COMMENT -->
+                <div class="kommentar mood">
                     <label class="itemLabel comment" for=comment>Comment: </label>
                     <textarea name="comment" id="comment"></textarea>
                 </div>
-
                 <br>
                 <br>
-                <!-- BUTTON -->
                 <button type="submit" id=validate class="pure-button pure-button-primary">absenden</button>
-
             </fieldset>
         </form>
     </div>
     <script></script>
 </body>
-
-
-
 <script>
     //
     // get POST from forms
@@ -265,7 +229,7 @@
 
 
     //
-    // add fields for search & replace in SQL file
+    // add or delete medikations
     var ct = 1;
 
     function newMedikation() {
@@ -273,7 +237,8 @@
         new_medikation.className = 'pure-g';
         new_medikation.id = "Medikation_" + ct;
         new_medikation.innerHTML = document.getElementById("Medikation_0").innerHTML.replaceAll('[0]', '[' + ct + ']');
-        document.getElementById("addMedikation").before(new_medikation);
+        document.getElementById("AddRemoveMedikation").before(new_medikation);
+        document.getElementById("RemoveMedikation").style.display = 'inline';
         ct++;
     }
 
@@ -282,7 +247,69 @@
         if (delMedikation.length > 1) {
             delMedikation[delMedikation.length - 1].remove();
         }
+        if (delMedikation.length == 2) {
+            document.getElementById("RemoveMedikation").style.display = 'none';
+        }
     }
+
+
+    var showmore = document.getElementById("showmore");
+    var showless = document.getElementById("showless");
+
+    showmore.addEventListener("click", function(evt) {
+        document.getElementById("more").style.display = 'inline';
+        document.getElementById("showmore").style.display = 'none';
+    });
+    showless.addEventListener("click", function(evt) {
+        document.getElementById("more").style.display = 'none';
+        document.getElementById("showmore").style.display = 'inline';
+    });
 </script>
+
+
+
+
+<!-- <form id=MedikationForm>
+            <fieldset>
+                <legend>Medikation</legend>
+
+                <div id=Medikation_0>
+                    <div class="medikation">
+                        <div class="medikament">
+                            <label for="M_Medikament">Medikament</label>
+                            <select id="M_Medikament" name=Medikation[0][Medikament]>
+                                <option disabled selected hidden></option>
+                                <option>Elvanse</option>
+                                <option>Ritalin </option>
+                                <option>Strattera</option>
+                            </select>
+                        </div>
+                        <div class="dosierung">
+                            <label for="M_Dosierung">Dosierung</label>
+                            <select id="M_Dosierung" name=Medikation[0][Dosierung]>
+                                <option disabled selected hidden></option>
+                                <option>2.5 mg</option>
+                                <option>5 mg</option>
+                                <option>10 mg</option>
+                                <option>20 mg</option>
+                                <option>30 mg</option>
+                                <option>40 mg</option>
+                            </select>
+                        </div>
+                        <div class="zeitpunkt">
+                            <label for="M_Zeitpunkt">Zeit</label>
+                            <input type="time" id="M_Zeitpunkt" name=Medikation[0][Zeitpunkt]>
+                        </div>
+
+                    </div>
+                </div>
+                <div id=addMedikation class="">
+                    <label class='plusminus plus' onclick=newMedikation()></label>
+                    <label class='plusminus minus' onclick=delMedikation()></label>
+                </div>
+                <br>
+                <button type="submit" id=validate class="pure-button pure-button-primary">Absenden</button>
+            </fieldset>
+        </form> -->
 
 </html>

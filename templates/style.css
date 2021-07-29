@@ -391,8 +391,8 @@ table.allData td {
     position: relative;
     display: block;
     margin: auto;
-    max-height: 95vw !important;
-    max-width: 95vh !important;
+    max-height: 95vh !important;
+    max-width: 99vw !important;
 }
 
 #brainChart {
