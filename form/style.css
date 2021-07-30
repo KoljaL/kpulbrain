@@ -262,7 +262,9 @@ button:hover {
     width: 80px
 }
 
-.profil_1 .geschlecht {
+.profil_1 .geschlecht,
+.profil_1 .name,
+.profil_1 .password {
     width: 150px
 }
 
