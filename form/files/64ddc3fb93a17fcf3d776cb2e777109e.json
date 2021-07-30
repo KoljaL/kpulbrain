@@ -2,66 +2,15 @@
     {
         "Profil": {
             "Date": "30.7.2021",
-            "Freigeben": "on",
-            "Alter": "1855",
-            "Geschlecht": "weiblich",
-            "Subtyp": "ADS",
-            "Diagnosen": "wedwed, dwedewdew",
+            "Alter": "1111",
+            "Geschlecht": "m\u00e4nnlich",
+            "Zyklus": "on",
+            "Subtyp": "keine Angabe",
+            "Diagnosen": "wqswq,wqwqwe,qweqwe",
             "wirkung": {
-                "3": "Motivation",
-                "99": "qsqwsqw, wesdqedsqwe"
+                "2": "Aufmerksamkeit"
             },
-            "P_Kommentar": "wedwede wed wedewdewd  wedewdewd wedewd wedwe "
-        }
-    },
-    {
-        "Mood": {
-            "Date": "30.7.2021",
-            "brainload": "0",
-            "mood": "0",
-            "motivation": "0",
-            "comment": "wsqw"
-        }
-    },
-    {
-        "Mood": {
-            "Date": "30.7.2021",
-            "brainload": "0",
-            "mood": "0",
-            "motivation": "20",
-            "comment": "wsqw"
-        }
-    },
-    {
-        "Mood": {
-            "Date": "30.7.2021",
-            "Medikation": [
-                {
-                    "Medikament": "Attentin"
-                },
-                {
-                    "Medikament": "Medikinet Adult"
-                }
-            ],
-            "brainload": "0",
-            "mood": "0",
-            "motivation": "0"
-        }
-    },
-    {
-        "Mood": {
-            "Date": "30.7.2021",
-            "Medikation": [
-                {
-                    "Medikament": "Attentin"
-                },
-                {
-                    "Medikament": "Medikinet Adult"
-                }
-            ],
-            "brainload": "0",
-            "mood": "0",
-            "motivation": "0"
+            "P_Kommentar": "das ist toll"
         }
     }
 ]

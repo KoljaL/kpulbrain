@@ -35,7 +35,7 @@
                     </div>
                     <div class="freigeben">
                         <label>Daten</label>
-                        <input type=checkbox class=hidden id=P_Freigeben name=Freigeben checked=checked>
+                        <input type=checkbox class=hidden id=P_Freigeben name=Freigeben>
                         <label class="buttonlabel zyklus" for=P_Freigeben>freigeben</label>
                     </div>
                 </div>
@@ -255,44 +255,40 @@
     });
 
 
-    /**
-     * This function populates the form
-     * with data from localStorage
-     *
-     */
-    let form = document.getElementById('ProfilForm'); // select form
-    let formElements = form.elements; // get the elements in the form
+    //
+    // populate the ProfilForm
+    //
+    let ProfilFormElements = document.getElementById('ProfilForm').elements;
     const populateForm = () => {
         if (localStorage.key(localDataName)) {
             const localData = JSON.parse(localStorage.getItem(localDataName));
             // console.log(localData)
 
-            // find profil element
+            // find profil element in localData
             for (let i = 0; i < localData.length; i++) {
                 if (localData[i].hasOwnProperty('Profil')) {
-                    var profil = localData[i].Profil;
-                    // console.log(profil)
-                    console.log(formElements)
-
-                    for (const formE of formElements) {
-                        if (['input', 'checkbox', 'radio', 'textarea'].indexOf(formE.type)  && formE.name in profil) {
-                            // console.log(profil)
-                            // console.log(formE.type)
-                            // console.log(formE.name)
-                            formE.value = profil[formE.name];
-                            formE.checked = profil[formE.checked];
-                            // console.log(profil[formE.name])
-
+                    var localDataProfil = localData[i].Profil;
+                    // console.log(localDataProfil)
+                    // console.log(ProfilFormElements)
+                    for (const ProfilFormElement of ProfilFormElements) {
+                        if (['input', 'textarea'].indexOf(ProfilFormElement.type) && ProfilFormElement.name in localDataProfil) {
+                            ProfilFormElement.value = localDataProfil[ProfilFormElement.name];
+                        }
+                        if (('checkbox' == ProfilFormElement.type) &&
+                            // (ProfilFormElement.name in localDataProfil) &&
+                            ('on' == localDataProfil[ProfilFormElement.name])) {
+                            ProfilFormElement.checked = 'checked';
                         }
                     }
                     break;
                 }
             }
 
+            // console.log(ProfilFormElements)
 
 
-            // const message = "Form has been refilled with saved data!";
-            // displayAlert(message);
+
+
         }
     };
     document.onload = populateForm();
@@ -349,9 +345,9 @@
                 // save data local
                 localStorage.setItem(localDataName, JSON.stringify(localData));
                 // send data to server if allowed by user
-                if (DataFreigegeben.checked) {
-                    saveOnServer(localData, localDataName);
-                }
+                // if (DataFreigegeben.checked) {
+                saveOnServer(localData, localDataName);
+                // }
             }
 
             //
