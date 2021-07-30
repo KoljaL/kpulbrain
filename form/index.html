@@ -249,7 +249,7 @@
                     });
                     localStorage.setItem(localDataName, JSON.stringify(localData));
                 }
-                saveOnServer(localData);
+                saveOnServer(localData, localDataName);
             }
 
             //
@@ -260,9 +260,9 @@
         });
     }
 
-    function saveOnServer(data) {
+    function saveOnServer(data, localDataName) {
         var xhr = new XMLHttpRequest();
-        xhr.open("POST", "save.php");
+        xhr.open("POST", "save.php?n="+localDataName);
         xhr.onreadystatechange = function() {
             if (xhr.readyState === 4 && xhr.status === 200) {
                 console.log(xhr.responseText);
