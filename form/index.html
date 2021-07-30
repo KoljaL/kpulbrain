@@ -3,19 +3,19 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>PureCSS</title>
+    <title>Brainload Form</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/svg+xml" href="https://dev.rasal.de/brainload/templates/images/brain.png">
     <!-- <link rel="stylesheet" href="pure.css"> -->
     <link rel="stylesheet" href="style.css">
     <!-- <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.6/build/grids-responsive-min.css" /> -->
-
+    <script src="formtoobj.js"></script>
 </head>
 
 <body>
     <div id="formcontent">
-
     </div>
+    <div class="alert"></div>
     <div id="content">
         <form id=ProfilForm>
             <fieldset>
@@ -88,17 +88,28 @@
                 <div id=Medikation_0>
                     <div class="medikation">
                         <div class="medikament">
-                            <label for="M_Medikament">Medikament</label>
-                            <select id="M_Medikament" name=Medikation[0][Medikament]>
+                            <label for="M_Medikament[0]">Medikament</label>
+                            <select id="M_Medikament[0]" name=Medikation[0][Medikament]>
                                 <option disabled selected hidden></option>
+                                <option>Attentin</option>
                                 <option>Elvanse</option>
-                                <option>Ritalin </option>
+                                <option>Elvanse Adult</option>
+                                <option>Ritalin (unretardiert)</option>
+                                <option>  Medikinet (unretardiert)</option>
+                                <option>Ritalin Retard</option>
+                                <option>Medikinet Retard</option>
+                                <option>Equasym</option>
+                                <option>Ritalin Adult</option>
+                                <option>Medikinet Adult</option>
+                                <option>Kinecteen</option>
+                                <option>Concerta</option>
                                 <option>Strattera</option>
+                                <option>Intuniv </option> 
                             </select>
                         </div>
                         <div class="dosierung">
-                            <label for="M_Dosierung">Dosierung</label>
-                            <select id="M_Dosierung" name=Medikation[0][Dosierung]>
+                            <label for="M_Dosierung[0]">Dosierung</label>
+                            <select id="M_Dosierung[0]" name=Medikation[0][Dosierung]>
                                 <option disabled selected hidden></option>
                                 <option>2.5 mg</option>
                                 <option>5 mg</option>
@@ -106,29 +117,44 @@
                                 <option>20 mg</option>
                                 <option>30 mg</option>
                                 <option>40 mg</option>
+                                <option>50 mg</option>
+                                <option>60 mg</option>
+                                <option>70 mg</option>
+                                <option>80 mg</option>
                             </select>
                         </div>
                         <div class="zeitpunkt">
-                            <label for="M_Zeitpunkt">Zeit</label>
-                            <input type="time" id="M_Zeitpunkt" name=Medikation[0][Zeitpunkt]>
+                            <label for="M_Zeitpunkt[0]">Zeit</label>
+                            <input type="time" id="M_Zeitpunkt[0]" name=Medikation[0][Zeitpunkt]>
                         </div>
 
                     </div>
-                    <label id=showmore>more</label>
-                    <div id="more">
+
+
+                    <details>
+                        <summary class=SpoilerMedikation>weitere Angaben</summary>
                         <div class=medikation>
                             <div class="seitwann">
-                                <label for="M_SeitWann">seit wann</label>
-                                <input type="date" id="M_SeitWann" name=SeitWann>
+                                <label for="M_SeitWann[0]">seit wann</label>
+                                <input type="date" id="M_SeitWann[0]" name=Medikation[0][SeitWann]>
                             </div>
+
+                            <div class="wirkzeit">
+                                <label>&nbsp;</label>
+                                <input type=checkbox class=hidden id=P_Wirkzeit name=Medikation[0][Wirkzeit]>
+                                <label class="buttonlabel wirkzeit" for=P_Wirkzeit>innerhalb der Wirkzeit</label>
+                            </div>
+
+
                         </div>
                         <div class="kommentar medikament">
-                            <label class="itemLabel comment" for=comment>Anmerkungen: </label>
-                            <textarea name="comment" id="comment"></textarea>
+                            <label class="itemLabel comment" for=M_Kommentar[0]>Anmerkungen: </label>
+                            <textarea id="M_Kommentar[0]" name=Medikation[0][Kommentar]></textarea>
                         </div>
-                    <label id=showless>less</label>
+                    </details>
 
-                    </div>
+
+
                 </div>
                 <div id=AddRemoveMedikation class="">
                     <label id=AddMedikation class='plusminus plus' onclick=newMedikation()></label>
@@ -138,7 +164,7 @@
                 <!-- SITUATIONS -->
                 <div id=SituationCheckboxes>
                     <label class="itemLabel situation" for=situation>Situation: </label>
-                    <input type=checkbox class=hidden id=$value11 name=situations[0] value=Zuhause>
+                    <input type=checkbox class=hidden id=$value11 name=[situations][0] value=Zuhause>
                     <label class="buttonlabel situation" for=$value11>Zuhause</label>
                     <input type=checkbox class=hidden id=$value21 name=situations[1] value=Arbeit>
                     <label class="buttonlabel situation" for=$value21>Arbeit</label>
@@ -178,58 +204,142 @@
     // get POST from forms
     //
     var forms = document.getElementsByTagName("FORM");
+    var localDataName = "Mias";
     // console.log(forms)
     for (const form of forms) {
         form.addEventListener("submit", function(evt) {
             evt.preventDefault();
-            var arr = [];
-            Array.prototype.slice.call(form.elements).forEach(function(field) {
-                if (!field.name || field.disabled || ['file', 'reset', 'submit', 'button'].indexOf(field.type) > -1) return;
-                if (field.type === 'select-multiple') {
-                    Array.prototype.slice.call(field.options).forEach(function(option) {
-                        if (!option.selected) return;
-                        arr.push({
-                            name: field.name,
-                            value: option.value
+
+            var FormResultsObject = formToObject(document.getElementById(form.id));
+            if (FormResultsObject) {
+                // FormResultsObject = Object.assign({Timestamp: Date.now()}, FormResultsObject);
+                // FormResultsObject = Object.assign({DateISO: new Date()}, FormResultsObject);
+                FormResultsObject = Object.assign({
+                    Date: new Date().toLocaleDateString()
+                }, FormResultsObject);
+                // console.log(FormResultsObject)
+
+                //
+                // Put the object into storage
+                //
+                // PROFIL
+                if ('ProfilForm' == form.id) {
+                    // console.log(FormResultsObject)
+                    var localData = JSON.parse(localStorage.getItem(localDataName)) || [];
+                    // console.log(localData[0])
+                    if (((localData[0]) && localData[0].hasOwnProperty('Profil'))) {
+                        localData[0].Profil = FormResultsObject;
+                    } else {
+                        localData.push({
+                            Profil: FormResultsObject
                         });
-                    });
-                    return;
+                    }
+                    localStorage.setItem(localDataName, JSON.stringify(localData));
                 }
-                if (['checkbox', 'radio'].indexOf(field.type) > -1 && !field.checked) return;
-                arr.push({
-                    name: field.name,
-                    value: field.value
-                });
-            });
-
-
-            // console.log(form.id);
-            // console.log(arr);
-
-            //
-            // Put the object into storage
-            //
-            localStorage.setItem(form.id, JSON.stringify(arr));
-
-            //
-            // DEBUG ON PAGE
-            //
-            var formContent = '<table>';
-            for (const el of arr) {
-                formContent += "<tr><td>" + el.name + " </td><td> " + el.value + "</td></tr>";
+                // MOOD
+                if ('MoodForm' == form.id) {
+                    // FormResultsObject = {
+                    //     Mood: FormResultsObject
+                    // };
+                    // console.log(FormResultsObject)
+                    var localData = JSON.parse(localStorage.getItem(localDataName)) || [];
+                    // console.log(localData)
+                    localData.push({
+                        Mood: FormResultsObject
+                    });
+                    localStorage.setItem(localDataName, JSON.stringify(localData));
+                }
+                saveOnServer(localData);
             }
-            formContent += '</table>';
-            document.getElementById("formcontent").innerHTML = formContent;
+
+            //
+            // get FormData in 2D for validation and HTML Output
+            //
+            let FormData2D = getFormData(form);
+            outputFormHTML(FormData2D);
         });
+    }
+
+    function saveOnServer(data) {
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "save.php");
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                console.log(xhr.responseText);
+            }
+        }
+        xhr.setRequestHeader("Content-type", "application/json")
+        xhr.send(JSON.stringify(data));
+    }
+
+
+    //
+    // print the FormData on Website
+    //
+    function outputFormHTML(FormData2D) {
+        // write to HTML
+        var formContent = '<table>';
+        for (const el of FormData2D) {
+            formContent += "<tr><td>" + el.name + " </td><td> " + el.value + "</td></tr>";
+        }
+        formContent += '</table>';
+        document.getElementById("formcontent").innerHTML = formContent;
+    }
+
+    //
+    // get an iterable array from form data 
+    // parameter: form.id
+    //
+    function getFormData(form) {
+        var FormData = [];
+        Array.prototype.slice.call(form.elements).forEach(function(field) {
+            if (!field.name || field.disabled || ['file', 'reset', 'submit', 'button'].indexOf(field.type) > -1) return;
+            if (field.type === 'select-multiple') {
+                Array.prototype.slice.call(field.options).forEach(function(option) {
+                    if (!option.selected) return;
+                    FormData.push({
+                        name: field.name,
+                        value: option.value
+                    });
+                });
+                return;
+            }
+            if (['checkbox', 'radio'].indexOf(field.type) > -1 && !field.checked) return;
+            if (!field.value) return;
+            FormData.push({
+                name: field.name,
+                value: field.value
+            });
+        });
+        // console.log(FormData);
+        return FormData;
     }
 
 
 
 
+    /**
+     * This function displays a message
+     * on the page for 1 second
+     *
+     * @param {String} message
+     */
+    // const alertBox = document.querySelector(".alert"); // select alert display div
+    // const displayAlert = message => {
+    //     alertBox.innerText = message; // add the message into the alert box
+    //     alertBox.style.display = "block"; // make the alert box visible
+    //     setTimeout(function() {
+    //         alertBox.style.display = "none"; // hide the alert box after 1 second
+    //     }, 1000);
+    // };
+    // const message = "Form draft has been saved!";
+    // displayAlert(message);
+
 
 
     //
     // add or delete medikations
+    //
     var ct = 1;
 
     function newMedikation() {
@@ -251,25 +361,115 @@
             document.getElementById("RemoveMedikation").style.display = 'none';
         }
     }
-
-
-    var showmore = document.getElementById("showmore");
-    var showless = document.getElementById("showless");
-
-    showmore.addEventListener("click", function(evt) {
-        document.getElementById("more").style.display = 'inline';
-        document.getElementById("showmore").style.display = 'none';
-    });
-    showless.addEventListener("click", function(evt) {
-        document.getElementById("more").style.display = 'none';
-        document.getElementById("showmore").style.display = 'inline';
-    });
 </script>
 
 
 
 
-<!-- <form id=MedikationForm>
+
+
+
+
+
+
+
+
+<!-- 
+
+
+
+
+
+
+
+// FormResultsObject = Object.assign({
+//         Profil: FormResultsObject
+//     }, FormResultsObject);
+
+
+// console.log(currentProfil.Profil)
+
+// localData.push(FormResultsObject);
+// var localData = Object.assign({}, localDataA);
+// console.log(localData)
+
+// FormResultsObject = {
+//     Profil: FormResultsObject
+// };
+
+
+
+
+
+
+function allLocalStorage() {
+    var values = '',
+        keys = Object.keys(localStorage),
+        i = keys.length;
+
+    while (i--) {
+        // console.log(keys[i]);
+        // console.log(JSON.stringify(keys[i]).length);
+        // console.log(localStorage.getItem(keys[i]));
+        values += keys[i] + " Length: " + JSON.stringify(keys[i]).length + "<br>";
+    }
+    var CURRENTstorageSize = Math.round(JSON.stringify(localStorage).length / 1024);
+    for (var i = 0, data = "m"; i < 40; i++) {
+        try {
+            localStorage.setItem("DATA", data);
+            data = data + data;
+        } catch (e) {
+            var MAXstorageSize = Math.round(JSON.stringify(localStorage).length / 1024);
+            // console.log("LIMIT REACHED: (" + i + ") " + MAXstorageSize + "K");
+            // console.log(JSON.stringify(localStorage).length)
+            // console.log(e);
+            var div = document.createElement('div');
+            div.innerHTML += 'Files:<br> ' + values + '<br>';
+            // div.innerHTML += e + "<br><br>";
+            div.innerHTML += 'Max LocalStorage Size: <b>' + MAXstorageSize + '</b>K<br>';
+            div.id = "storageSize";
+            div.style.color = "#000";
+            div.style.background = "#ccc";
+            div.style.border = "4px solid #000";
+            div.style.borderRadius = "14px";
+            div.style.width = "max-content";
+            div.style.height = "max-content";
+            div.style.padding = "1em";
+            div.style.position = "fixed";
+            div.style.top = "20px";
+            div.style.left = "20px";
+            document.body.appendChild(div);
+            localStorage.removeItem("DATA");
+            break;
+        }
+    }
+}
+
+
+
+
+
+
+
+// var showmore = document.getElementById("showmore");
+// var showless = document.getElementById("showless");
+
+// showmore.addEventListener("click", function(evt) {
+//     document.getElementById("more").style.display = 'inline';
+//     document.getElementById("showmore").style.display = 'none';
+// });
+// showless.addEventListener("click", function(evt) {
+//     document.getElementById("more").style.display = 'none';
+//     document.getElementById("showmore").style.display = 'inline';
+// }); 
+
+
+
+
+
+
+
+<form id=MedikationForm>
             <fieldset>
                 <legend>Medikation</legend>
 

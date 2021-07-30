@@ -364,19 +364,14 @@ button:hover {
     display: none;
 }
 
-#showmore,
-#showless {
+.SpoilerMedikation {
     color: var(--yellow);
     cursor: pointer;
 }
-#showmore:hover,
-#showless:hover {
+.SpoilerMedikation:hover{
     color: var(--red);
 }
-#more {
-    color: var(--yellow);
-    display: none;
-}
+ 
 
 
 /* 
@@ -468,6 +463,22 @@ label.motivation,
 #motivationSliderOutput {
     color: var(--blue);
     /* font-size: 1.3em */
+}
+
+
+.buttonlabel.wirkzeit {
+    width: max-content;
+    color: var(--yellow);
+    background-color: var(--dark);
+    border: 1px solid var(--yellow);
+    cursor: pointer;
+    transition: .5s;
+}
+
+.buttonlabel.wirkzeit:hover,
+.hidden:checked+label.buttonlabel.wirkzeit {
+    background-color: var(--yellow);
+    color: var(--dark)
 }
 
 .kommentar.mood textarea {
