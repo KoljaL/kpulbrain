@@ -35,7 +35,7 @@
                     </div>
                     <div class="freigeben">
                         <label>Daten</label>
-                        <input type=checkbox class=hidden id=P_Freigeben name=Freigeben checked>
+                        <input type=checkbox class=hidden id=P_Freigeben name=Freigeben checked=checked>
                         <label class="buttonlabel zyklus" for=P_Freigeben>freigeben</label>
                     </div>
                 </div>
@@ -82,17 +82,17 @@
                 </div>
                 <label class="" for=situation>Wirkungen abfragen: </label>
                 <div id=WirkungCheckboxes>
-                    <input type=checkbox class=hidden id=$value1 name=wirkung[0] value=Unruhe>
-                    <label class="buttonlabel wirkung" for=$value1>Unruhe</label>
-                    <input type=checkbox class=hidden id=$value2 name=wirkung[1] value=Konzentration>
-                    <label class="buttonlabel wirkung" for=$value2>Konzentration</label>
-                    <input type=checkbox class=hidden id=$value3 name=wirkung[2] value=Aufmerksamkeit>
-                    <label class="buttonlabel wirkung" for=$value3>Aufmerksamkeit</label>
-                    <input type=checkbox class=hidden id=$value4 name=wirkung[3] value=Motivation>
-                    <label class="buttonlabel wirkung" for=$value4>Motivation</label>
-                    <input type=checkbox class=hidden id=$value5 name=wirkung[4] value=Auslastung>
-                    <label class="buttonlabel wirkung" for=$value5>Auslastung</label>
-                    <input type=text class=newSituation name=wirkung[] placeholder='new situation'>
+                    <input type=checkbox class=hidden id=Unruhe name=wirkung[0] value=Unruhe>
+                    <label class="buttonlabel wirkung" for=Unruhe>Unruhe</label>
+                    <input type=checkbox class=hidden id=Konzentration name=wirkung[1] value=Konzentration>
+                    <label class="buttonlabel wirkung" for=Konzentration>Konzentration</label>
+                    <input type=checkbox class=hidden id=Aufmerksamkeit name=wirkung[2] value=Aufmerksamkeit>
+                    <label class="buttonlabel wirkung" for=Aufmerksamkeit>Aufmerksamkeit</label>
+                    <input type=checkbox class=hidden id=Motivation name=wirkung[3] value=Motivation>
+                    <label class="buttonlabel wirkung" for=Motivation>Motivation</label>
+                    <input type=checkbox class=hidden id=Auslastung name=wirkung[4] value=Auslastung>
+                    <label class="buttonlabel wirkung" for=Auslastung>Auslastung</label>
+                    <input type=text class=newSituation name=wirkung[99] placeholder='individuelle Wirkungen'>
                 </div>
                 <div class="kommentar profil">
                     <label class="itemLabel comment" for=P_Kommentar>Kommentar: </label>
@@ -222,24 +222,80 @@
     </div>
     <script></script>
 </body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <script>
     //
-    // user verification & data link
+    // user verification & data link 
     //
+    var DataFreigegeben = document.getElementById('P_Freigeben');
     var localDataNameField = document.getElementById('P_Name');
     var localDataName = md5(localDataNameField.value);
     var datalink = document.getElementById('datalink');
-    datalink.innerHTML = "<a href='save.php?n="+localDataName+"'>JSON<a/>";
+    datalink.innerHTML = "<a href='save.php?n=" + localDataName + "'>JSON<a/>";
 
     localDataNameField.addEventListener("input", event => {
         localDataName = md5(localDataNameField.value);
-        datalink.innerHTML = "<a href='save.php?n="+localDataName+"'>JSON<a/>";
+        datalink.innerHTML = "<a href='save.php?n=" + localDataName + "'>JSON<a/>";
         console.log(localDataName)
 
     });
 
 
+    /**
+     * This function populates the form
+     * with data from localStorage
+     *
+     */
+    let form = document.getElementById('ProfilForm'); // select form
+    let formElements = form.elements; // get the elements in the form
+    const populateForm = () => {
+        if (localStorage.key(localDataName)) {
+            const localData = JSON.parse(localStorage.getItem(localDataName));
+            // console.log(localData)
 
+            // find profil element
+            for (let i = 0; i < localData.length; i++) {
+                if (localData[i].hasOwnProperty('Profil')) {
+                    var profil = localData[i].Profil;
+                    // console.log(profil)
+                    console.log(formElements)
+
+                    for (const formE of formElements) {
+                        if (['input', 'checkbox', 'radio', 'textarea'].indexOf(formE.type)  && formE.name in profil) {
+                            // console.log(profil)
+                            // console.log(formE.type)
+                            // console.log(formE.name)
+                            formE.value = profil[formE.name];
+                            formE.checked = profil[formE.checked];
+                            // console.log(profil[formE.name])
+
+                        }
+                    }
+                    break;
+                }
+            }
+
+
+
+            // const message = "Form has been refilled with saved data!";
+            // displayAlert(message);
+        }
+    };
+    document.onload = populateForm();
 
     //
     // get POST from forms
@@ -249,47 +305,53 @@
     for (const form of forms) {
         form.addEventListener("submit", function(evt) {
             evt.preventDefault();
-
+            // get local and form data
+            var localData = JSON.parse(localStorage.getItem(localDataName)) || [];
             var FormResultsObject = formToObject(document.getElementById(form.id));
             if (FormResultsObject) {
+                // add date to formdata
                 // FormResultsObject = Object.assign({Timestamp: Date.now()}, FormResultsObject);
                 // FormResultsObject = Object.assign({DateISO: new Date()}, FormResultsObject);
                 FormResultsObject = Object.assign({
                     Date: new Date().toLocaleDateString()
                 }, FormResultsObject);
-                // console.log(FormResultsObject)
 
-                //
-                // Put the object into storage
-                //
+
                 // PROFIL
                 if ('ProfilForm' == form.id) {
-                    // console.log(FormResultsObject)
-                    var localData = JSON.parse(localStorage.getItem(localDataName)) || [];
-                    // console.log(localData[0])
-                    if (((localData[0]) && localData[0].hasOwnProperty('Profil'))) {
-                        localData[0].Profil = FormResultsObject;
-                    } else {
+                    // delete username and password
+                    delete FormResultsObject.Name;
+                    delete FormResultsObject.Passwort;
+                    // console.log(localData)
+                    // find the Profil entry
+                    for (let i = 0; i < localData.length; i++) {
+                        if (localData[i].hasOwnProperty('Profil')) {
+                            // console.log(localData[i])
+                            localData[i].Profil = FormResultsObject;
+                            var addedProfile = 1;
+                            break;
+                        }
+                    }
+                    // create the Profil entry
+                    if (!addedProfile) {
                         localData.push({
                             Profil: FormResultsObject
                         });
                     }
-                    localStorage.setItem(localDataName, JSON.stringify(localData));
                 }
                 // MOOD
                 if ('MoodForm' == form.id) {
-                    // FormResultsObject = {
-                    //     Mood: FormResultsObject
-                    // };
-                    // console.log(FormResultsObject)
-                    var localData = JSON.parse(localStorage.getItem(localDataName)) || [];
                     // console.log(localData)
                     localData.push({
                         Mood: FormResultsObject
                     });
-                    localStorage.setItem(localDataName, JSON.stringify(localData));
                 }
-                saveOnServer(localData, localDataName);
+                // save data local
+                localStorage.setItem(localDataName, JSON.stringify(localData));
+                // send data to server if allowed by user
+                if (DataFreigegeben.checked) {
+                    saveOnServer(localData, localDataName);
+                }
             }
 
             //
@@ -300,12 +362,18 @@
         });
     }
 
+
+    //
+    // send the local file to server
+    //
     function saveOnServer(data, localDataName) {
         var xhr = new XMLHttpRequest();
         xhr.open("POST", "save.php?n=" + localDataName);
         xhr.onreadystatechange = function() {
             if (xhr.readyState === 4 && xhr.status === 200) {
-                console.log(xhr.responseText);
+                // console.log(xhr.responseText);
+                displayAlert("Form data has been sended to server!");
+
             }
         }
         xhr.setRequestHeader("Content-type", "application/json")
@@ -364,16 +432,14 @@
      *
      * @param {String} message
      */
-    // const alertBox = document.querySelector(".alert"); // select alert display div
-    // const displayAlert = message => {
-    //     alertBox.innerText = message; // add the message into the alert box
-    //     alertBox.style.display = "block"; // make the alert box visible
-    //     setTimeout(function() {
-    //         alertBox.style.display = "none"; // hide the alert box after 1 second
-    //     }, 1000);
-    // };
-    // const message = "Form draft has been saved!";
-    // displayAlert(message);
+    const alertBox = document.querySelector(".alert"); // select alert display div
+    const displayAlert = message => {
+        alertBox.innerText = message; // add the message into the alert box
+        alertBox.style.display = "block"; // make the alert box visible
+        setTimeout(function() {
+            alertBox.style.display = "none"; // hide the alert box after 1 second
+        }, 1000);
+    };
 
 
 
