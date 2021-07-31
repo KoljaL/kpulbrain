@@ -20,6 +20,34 @@
     --yellow: #e6c07b
 }
 
+
+/* .bluegreenFont{color:#56b6c2!important}
+.blueFont{color:#61aeee!important}
+.pinkFont{color:#c678dd!important}
+.salomonFont{color:#e06c75!important}
+.greenFont{color:#98c379!important}
+.redFont{color:#be5046!important}
+.orangeFont{color:#d19a66!important}
+.yellowFont{color:#e6c07b!important}
+
+.bluegreenBorder{border-color:#56b6c2!important}
+.blueBorder{border-color:#61aeee!important}
+.pinkBorder{border-color:#c678dd!important}
+.salomonBorder{border-color:#e06c75!important}
+.greenBorder{border-color:#98c379!important}
+.redBorder{border-color:#be5046!important}
+.orangeBorder{border-color:#d19a66!important}
+.yellowBorder{border-color:#e6c07b!important}
+
+.bluegreen:hover{background:#56b6c2!important}
+.blue:hover{background:#61aeee!important}
+.pink:hover{background:#c678dd!important}
+.salomon:hover{background:#e06c75!important}
+.green:hover{background:#98c379!important}
+.red:hover{background:#be5046!important}
+.orange:hover{background:#d19a66!important}
+.yellow:hover{background:#e6c07b!important} */
+
 *,
 :after,
 :before {
@@ -39,7 +67,7 @@ body {
 }
 
 .hidden {
-    /* display: none */
+    display: none
 }
 
 
@@ -185,6 +213,45 @@ button:hover {
 
 /* 
 ==========================================================================
+                        OVERLAY
+========================================================================== 
+*/
+
+#overlay {
+    position: fixed;
+    display: none;
+    width: 100%;
+    height: max-content;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    /* background-color: rgba(0, 0, 0, 0.8); */
+    z-index: 2;
+    cursor: pointer;
+    opacity:0;
+    transition: all 1s;
+
+}
+#overlay.transition {
+    opacity: 1;
+    transition: all 1s;
+}
+#overlay div {
+    position: relative;
+    border: 2px solid var(--red);
+    border-radius: 5px;
+    top: 20px;
+    padding: 1em;
+    margin: auto;
+    width: max-content;
+    color:var(--blue);
+    background:var(--dark);
+}
+
+
+/* 
+==========================================================================
                         PLUS MINUS LABLE
 ========================================================================== 
 */
@@ -290,6 +357,12 @@ button:hover {
     max-width: 100%
 }
 
+#WirkungCheckboxes {
+    display: inline-flex;
+    flex-wrap: wrap;
+    gap: 20px
+}
+
 .buttonlabel.wirkung {
     width: max-content;
     color: var(--blue);
@@ -370,10 +443,10 @@ button:hover {
     color: var(--yellow);
     cursor: pointer;
 }
-.SpoilerMedikation:hover{
+
+.SpoilerMedikation:hover {
     color: var(--red);
 }
- 
 
 
 /* 
@@ -466,7 +539,6 @@ label.motivation,
     color: var(--blue);
     /* font-size: 1.3em */
 }
-
 
 .buttonlabel.wirkzeit {
     width: max-content;

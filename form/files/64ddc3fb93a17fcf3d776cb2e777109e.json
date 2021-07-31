@@ -1,16 +1,24 @@
 [
     {
         "Profil": {
-            "Date": "30.7.2021",
+            "Date": "31.7.2021",
             "Alter": "1111",
             "Geschlecht": "m\u00e4nnlich",
             "Zyklus": "on",
             "Subtyp": "keine Angabe",
             "Diagnosen": "wqswq,wqwqwe,qweqwe",
-            "wirkung": {
-                "2": "Aufmerksamkeit"
-            },
+            "wirkung": [
+                "dfgdg"
+            ],
             "P_Kommentar": "das ist toll"
+        }
+    },
+    {
+        "Mood": {
+            "Date": "31.7.2021",
+            "brainload": "0",
+            "mood": "0",
+            "motivation": "0"
         }
     }
 ]

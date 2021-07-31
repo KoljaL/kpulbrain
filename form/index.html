@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Brainload Form</title>
+    <meta http-equiv="Cache-control" content="No-Cache">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/svg+xml" href="https://dev.rasal.de/brainload/templates/images/brain.png">
     <!-- <link rel="stylesheet" href="pure.css"> -->
@@ -15,10 +16,10 @@
 
 <body>
     <div id=formcontent></div>
-    <div class=alert></div>
+    <div id=overlay></div>
     <div id=datalink></div>
     <div id=content>
-        <form id=ProfilForm>
+        <form id=ProfilForm autocomplete="off">
             <fieldset>
                 <legend>Profil</legend>
 
@@ -82,17 +83,8 @@
                 </div>
                 <label class="" for=situation>Wirkungen abfragen: </label>
                 <div id=WirkungCheckboxes>
-                    <input type=checkbox class=hidden id=Unruhe name=wirkung[0] value=Unruhe>
-                    <label class="buttonlabel wirkung" for=Unruhe>Unruhe</label>
-                    <input type=checkbox class=hidden id=Konzentration name=wirkung[1] value=Konzentration>
-                    <label class="buttonlabel wirkung" for=Konzentration>Konzentration</label>
-                    <input type=checkbox class=hidden id=Aufmerksamkeit name=wirkung[2] value=Aufmerksamkeit>
-                    <label class="buttonlabel wirkung" for=Aufmerksamkeit>Aufmerksamkeit</label>
-                    <input type=checkbox class=hidden id=Motivation name=wirkung[3] value=Motivation>
-                    <label class="buttonlabel wirkung" for=Motivation>Motivation</label>
-                    <input type=checkbox class=hidden id=Auslastung name=wirkung[4] value=Auslastung>
-                    <label class="buttonlabel wirkung" for=Auslastung>Auslastung</label>
-                    <input type=text class=newSituation name=wirkung[99] placeholder='individuelle Wirkungen'>
+
+
                 </div>
                 <div class="kommentar profil">
                     <label class="itemLabel comment" for=P_Kommentar>Kommentar: </label>
@@ -275,7 +267,7 @@
                             ProfilFormElement.value = localDataProfil[ProfilFormElement.name];
                         }
                         if (('checkbox' == ProfilFormElement.type) &&
-                            // (ProfilFormElement.name in localDataProfil) &&
+                            (ProfilFormElement.name in localDataProfil) &&
                             ('on' == localDataProfil[ProfilFormElement.name])) {
                             ProfilFormElement.checked = 'checked';
                         }
@@ -283,15 +275,76 @@
                     break;
                 }
             }
+            var wirkungenStd = {
+                'Unruhe': {
+                    'active': false,
+                    'color': 'red'
+                },
 
-            // console.log(ProfilFormElements)
+                'Konzentration': {
+                    'active': false,
+                    'color': 'blue'
+                },
+
+                'Aufmerksamkeit': {
+                    'active': false,
+                    'color': 'green'
+                },
+                'Motivation': {
+                    'active': false,
+                    'color': 'salomon'
+                },
+                'Auslastung': {
+                    'active': false,
+                    'color': 'orange'
+                },
+            }
+            console.log('wirkungenStd')
+            console.log(wirkungenStd)
+                // console.log(wirkungenStd.Unruhe.color)
+
+            // 
+            // create label & checkboxes for "Wirkungen"
+            var wirkungenLoc = localDataProfil.wirkung;
+            console.log('wirkungenLoc')
+            console.log(wirkungenLoc);
+
+            // 
+            // get wirkungen from local and set active state to wirkungenStd 
+            //
+            for (var wirkung in wirkungenLoc) {
+                if (wirkungenStd.hasOwnProperty(wirkungenLoc[wirkung])) {
+                    wirkungenStd[wirkungenLoc[wirkung]].active = true;
+                } else {
+                    let wirkungCust = wirkungenLoc[wirkung];
+                    console.log(wirkungCust)
+
+                    wirkungenStd = Object.assign({
+                        [wirkungCust]: {
+                            'active': true,
+                            'color': 'orange'
+                        }
+                    }, wirkungenStd);
+
+                }
+            }
 
 
-
+            var WirkungCheckboxes = '';
+            for (var wirkung in wirkungenStd) {
+                let checked = (wirkungenStd[wirkung].active ? 'checked' : '');
+                let color = wirkungenStd[wirkung].color;
+                WirkungCheckboxes += `<input type=checkbox class=hidden id=${wirkung} name=wirkung[] value=${wirkung} ${checked}>`;
+                WirkungCheckboxes += `<label class="buttonlabel wirkung" for=${wirkung}>${wirkung}</label>`;
+            }
+            WirkungCheckboxes += '<input type=text class=newSituation name=wirkung[] placeholder="individuelle Wirkungen">';
+            document.getElementById('WirkungCheckboxes').innerHTML = WirkungCheckboxes;
 
         }
     };
     document.onload = populateForm();
+
+
 
     //
     // get POST from forms
@@ -355,6 +408,8 @@
             //
             let FormData2D = getFormData(form);
             outputFormHTML(FormData2D);
+            // update forms
+            populateForm();
         });
     }
 
@@ -369,7 +424,6 @@
             if (xhr.readyState === 4 && xhr.status === 200) {
                 // console.log(xhr.responseText);
                 displayAlert("Form data has been sended to server!");
-
             }
         }
         xhr.setRequestHeader("Content-type", "application/json")
@@ -422,18 +476,16 @@
 
 
 
-    /**
-     * This function displays a message
-     * on the page for 1 second
-     *
-     * @param {String} message
-     */
-    const alertBox = document.querySelector(".alert"); // select alert display div
+    //
+    // This function displays a message on the page for 1 second
+    //
+    const overlay = document.getElementById("overlay");
     const displayAlert = message => {
-        alertBox.innerText = message; // add the message into the alert box
-        alertBox.style.display = "block"; // make the alert box visible
+        overlay.innerHTML = "<div>"+message+"</div>";
+        overlay.classList.add("transition");
+        overlay.style.display = "block";
         setTimeout(function() {
-            alertBox.style.display = "none"; // hide the alert box after 1 second
+            overlay.style.display = "none";
         }, 1000);
     };
 
@@ -475,9 +527,47 @@
 
 
 
-
 <!-- 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+        // var div = document.createElement("DIV");
+        // div.innerHTML = message;
+        // overlay.appendChild(div);
+
+
+
+    
+    <input type=checkbox class=hidden id=Unruhe name=wirkung[] value=Unruhe>
+    <label class="buttonlabel wirkung" for=Unruhe>Unruhe</label>
+    <input type=checkbox class=hidden id=Konzentration name=wirkung[] value=Konzentration>
+    <label class="buttonlabel wirkung" for=Konzentration>Konzentration</label>
+    <input type=checkbox class=hidden id=Aufmerksamkeit name=wirkung[] value=Aufmerksamkeit>
+    <label class="buttonlabel wirkung" for=Aufmerksamkeit>Aufmerksamkeit</label>
+    <input type=checkbox class=hidden id=Motivation name=wirkung[] value=Motivation>
+    <label class="buttonlabel wirkung" for=Motivation>Motivation</label>
+    <input type=checkbox class=hidden id=Auslastung name=wirkung[] value=Auslastung>
+    <label class="buttonlabel wirkung" for=Auslastung>Auslastung</label>
+    <input type=text class=newSituation name=wirkung[] placeholder='individuelle Wirkungen'>
+
+
+
+    // var my_col = document.querySelectorAll("[color]");
+    //   my_col.forEach(element => {
+    //     element.classList.add(element.getAttribute("color")+"Font");
+    //     element.classList.add(element.getAttribute("color")+"Border");
+    // })
 
 
 
