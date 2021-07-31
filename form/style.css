@@ -21,15 +21,7 @@
 }
 
 
-/* .bluegreenFont{color:#56b6c2!important}
-.blueFont{color:#61aeee!important}
-.pinkFont{color:#c678dd!important}
-.salomonFont{color:#e06c75!important}
-.greenFont{color:#98c379!important}
-.redFont{color:#be5046!important}
-.orangeFont{color:#d19a66!important}
-.yellowFont{color:#e6c07b!important}
-
+/* 
 .bluegreenBorder{border-color:#56b6c2!important}
 .blueBorder{border-color:#61aeee!important}
 .pinkBorder{border-color:#c678dd!important}
@@ -48,6 +40,38 @@
 .orange:hover{background:#d19a66!important}
 .yellow:hover{background:#e6c07b!important} */
 
+.bluegreenFont {
+    color: #56b6c2!important
+}
+
+.blueFont {
+    color: #61aeee!important
+}
+
+.pinkFont {
+    color: #c678dd!important
+}
+
+.salomonFont {
+    color: #e06c75!important
+}
+
+.greenFont {
+    color: #98c379!important
+}
+
+.redFont {
+    color: #be5046!important
+}
+
+.orangeFont {
+    color: #d19a66!important
+}
+
+.yellowFont {
+    color: #e6c07b!important
+}
+
 *,
 :after,
 :before {
@@ -57,6 +81,14 @@
     border: none;
     text-decoration: none;
     outline: 0
+}
+
+*::-webkit-scrollbar {
+    display: none
+}
+
+* {
+    scrollbar-width: none;
 }
 
 body {
@@ -100,7 +132,8 @@ label {
     font-size: 18px;
     display: block;
     margin: .25em 0;
-    width: 100%
+    width: 100%;
+    white-space: nowrap;
 }
 
 
@@ -199,15 +232,36 @@ button:hover {
 */
 
 #content {
-    max-width: 500px;
+    width: 432px;
     margin: auto;
-    padding: 1em
+    padding: .5em;
+    padding-top: 0;
 }
 
 #formcontent {
     position: absolute;
     top: 20px;
     left: 20px
+}
+
+#header {
+    display: flex;
+    justify-content: space-around;
+    font-size: 1.3em;
+}
+
+#header div {
+    padding-top: .5em;
+}
+
+#chart {
+    text-decoration: line-through
+}
+
+@media (max-width:40em) {
+    #formcontent {
+        display: none;
+    }
 }
 
 
@@ -229,14 +283,16 @@ button:hover {
     /* background-color: rgba(0, 0, 0, 0.8); */
     z-index: 2;
     cursor: pointer;
-    opacity:0;
-    transition: all 1s;
-
+    opacity: 0;
+    transition: opacity .5s;
+    z-index: 2;
 }
+
 #overlay.transition {
     opacity: 1;
-    transition: all 1s;
+    transition: opacity .5s;
 }
+
 #overlay div {
     position: relative;
     border: 2px solid var(--red);
@@ -245,8 +301,8 @@ button:hover {
     padding: 1em;
     margin: auto;
     width: max-content;
-    color:var(--blue);
-    background:var(--dark);
+    color: var(--blue);
+    background: var(--dark);
 }
 
 
@@ -314,6 +370,11 @@ button:hover {
 ========================================================================== 
 */
 
+#ProfilForm,
+#MoodForm {
+    display: none
+}
+
 #ProfilForm input,
 #ProfilForm select {
     color: var(--blue);
@@ -322,7 +383,8 @@ button:hover {
 
 .profil_1 {
     display: flex;
-    justify-content: space-between
+    gap: 10px;
+    justify-content: space-between;
 }
 
 .profil_1 .alter {
@@ -332,7 +394,7 @@ button:hover {
 .profil_1 .geschlecht,
 .profil_1 .name,
 .profil_1 .password {
-    width: 150px
+    max-width: 150px
 }
 
 .profil_1 .buttonlabel.zyklus {
@@ -360,7 +422,7 @@ button:hover {
 #WirkungCheckboxes {
     display: inline-flex;
     flex-wrap: wrap;
-    gap: 20px
+    gap: 5px 10px;
 }
 
 .buttonlabel.wirkung {
@@ -370,7 +432,8 @@ button:hover {
     border: 1px solid var(--blue);
     cursor: pointer;
     transition: .5s;
-    display: inline-block
+    display: inline-block;
+    /* margin: 0; */
 }
 
 .buttonlabel.wirkung:hover,
