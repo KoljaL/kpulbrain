@@ -45,7 +45,7 @@
                         <input type="password" id="P_Password" name=Passwort value=ADXS>
                     </div>
                     <div class="freigeben">
-                        <label>Daten</label>
+                        <label id="Daten freigeben">Daten</label>
                         <input type=checkbox class=hidden id=P_Freigeben name=Freigeben>
                         <label class="buttonlabel zyklus" for=P_Freigeben>freigeben</label>
                     </div>
@@ -68,7 +68,7 @@
                         </select>
                     </div>
                     <div class="zyklus">
-                        <label>Zyklus</label>
+                        <label id=Zyklus>Zyklus</label>
                         <input type=checkbox class=hidden id=P_Zyklus name=Zyklus>
                         <label class="buttonlabel zyklus" for=P_Zyklus>abfragen</label>
                     </div>
@@ -189,16 +189,17 @@
                 <!-- SITUATIONS -->
                 <div id=SituationCheckboxes>
                     <label class="itemLabel situation" for=situation>Situation: </label>
-                    <input type=checkbox class=hidden id=$value11 name=[situations][0] value=Zuhause>
-                    <label class="buttonlabel situation" for=$value11>Zuhause</label>
-                    <input type=checkbox class=hidden id=$value21 name=situations[1] value=Arbeit>
-                    <label class="buttonlabel situation" for=$value21>Arbeit</label>
-                    <input type=checkbox class=hidden id=$value31 name=situations[2] value=Park>
-                    <label class="buttonlabel situation" for=$value31>Park</label>
-                    <input type=checkbox class=hidden id=$value41 name=situations[3] value=Klo>
-                    <label class="buttonlabel situation" for=$value41>Klo</label>
-                    <input type=checkbox class=hidden id=$value51 name=situations[4] value=Bett>
-                    <label class="buttonlabel situation" for=$value51>Bett</label>
+
+                    <input type=checkbox class=hidden id=value11 name=[situations][0] value=Zuhause>
+                    <label class="buttonlabel situation" for=value11>Zuhause</label>
+                    <input type=checkbox class=hidden id=value21 name=situations[1] value=Arbeit>
+                    <label class="buttonlabel situation" for=value21>Arbeit</label>
+                    <input type=checkbox class=hidden id=value31 name=situations[2] value=Park>
+                    <label class="buttonlabel situation" for=value31>Park</label>
+                    <input type=checkbox class=hidden id=value41 name=situations[3] value=Klo>
+                    <label class="buttonlabel situation" for=value41>Klo</label>
+                    <input type=checkbox class=hidden id=value51 name=situations[4] value=Bett>
+                    <label class="buttonlabel situation" for=value51>Bett</label>
                     <input type=text class=newSituation name=situations[] placeholder='new situation'>
                 </div>
                 <div class="MoodSlider">
@@ -253,7 +254,8 @@
     var DelLocalLink = document.getElementById('dellocal');
     var ProfilForm = document.getElementById('ProfilForm');
     var MoodForm = document.getElementById('MoodForm');
-
+    // all labels
+    var labels = document.getElementsByTagName('label')
 
     // all form elements for populating
     let ProfilFormElements = document.getElementById('ProfilForm').elements;

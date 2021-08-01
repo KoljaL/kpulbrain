@@ -1,29 +1,21 @@
 [
     {
-        "Profil": {
-            "Date": "31.7.2021",
-            "Freigeben": "on",
-            "wirkung": [
-                "qwsws",
-                "Unruhe"
-            ]
+        "Mood": {
+            "Date": "2.8.2021",
+            "situations": {
+                "1": "Arbeit",
+                "2": "Park",
+                "4": "Bett"
+            },
+            "brainload": "20",
+            "mood": "0",
+            "motivation": "0"
         }
     },
     {
-        "Mood": {
-            "Date": "31.7.2021",
-            "Medikation": [
-                {
-                    "Medikament": "Elvanse",
-                    "Dosierung": "5 mg"
-                }
-            ],
-            "situations": [
-                "Zuhause"
-            ],
-            "brainload": "0",
-            "mood": "0",
-            "motivation": "0"
+        "Profil": {
+            "Date": "2.8.2021",
+            "Freigeben": "on"
         }
     }
 ]

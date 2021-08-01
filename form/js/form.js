@@ -11,7 +11,7 @@ const populateForm = () => {
         if (localData[i].hasOwnProperty('Profil')) {
             var localDataProfil = localData[i].Profil;
             // console.log(localDataProfil)
-                // console.log(ProfilFormElements)
+            // console.log(ProfilFormElements)
             for (const ProfilFormElement of ProfilFormElements) {
                 if (['input', 'textarea'].indexOf(ProfilFormElement.type) && ProfilFormElement.name in localDataProfil) {
                     ProfilFormElement.value = localDataProfil[ProfilFormElement.name];
@@ -54,7 +54,7 @@ const populateForm = () => {
             },
         }
         // console.log('wirkungenStd')
-    // console.log(wirkungenStd)
+        // console.log(wirkungenStd)
         // console.log(wirkungenStd.Unruhe.color)
 
     // 
@@ -238,31 +238,54 @@ function getFormData(form) {
 //
 // This function displays a message on the page for 1 second
 //
-const showMessage = message => {
+function showMessage(messageText = "Message", messageTitle = 'Info',  duration = '2', speed = '1') {
+    //
+    // create new DIV and add styles
     var overlay = document.createElement("div");
-    overlay.id = "overlay";
+    duration = duration * 1000;
+    overlay.id = "MessageOverlay";
     overlay.style.display = "block";
-    overlay.innerHTML = "<div>" + message + "</div>";
+    overlay.style.position = "fixed";
+    overlay.style.width = "100%";
+    overlay.style.height = "max-content";
+    overlay.style.left = "0";
+    overlay.style.zIndex = "99";
+    overlay.style.cursor = "pointer";
+    // add message
+    overlay.innerHTML = "<fieldset><legend>" + messageTitle + "</legend>" + messageText + "</fieldset>";
+    // add new DIV to BODY
     document.getElementsByTagName('BODY')[0].appendChild(overlay);
-    // add class with some short timeout to let the transition work
-    setTimeout(function() {
-        overlay.classList.add("transition");
-    }, 5);
+    // get real height of the new DIV
+    var OverlayHeight = overlay.clientHeight;
+    // calculate transform time
+    var time = OverlayHeight / (speed * 150);
+    // add position, translateWay & time
+    overlay.style.top = "-" + OverlayHeight + "px";
+    overlay.style.transform = "translateY(" + OverlayHeight + "px)";
+    overlay.style.transition = "transform " + time + "s linear";
+    // the DIV moves in
+    //
+
+    //
     // close message after timeout
+    time = time * 1000;
     setTimeout(function() {
-        overlay.classList.remove("transition");
+        overlay.style.transform = "translateY(-" + OverlayHeight + "px)";
+    }, duration + time);
+
+    setTimeout(function() {
+        overlay.remove();
+    }, duration + time + time);
+    //
+    // close message after click at message
+    overlay.onmousedown = function(event) {
+        overlay.style.transform = "translateY(-" + OverlayHeight + "px)";
+
         setTimeout(function() {
-            overlay.style.display = "none";
-        }, 500);
-    }, 2000);
-    // close message after click at anywhere
-    window.onclick = function(event) {
-        overlay.classList.remove("transition");
-        setTimeout(function() {
-            overlay.style.display = "none";
-        }, 500);
+            overlay.remove();
+        }, time);
     }
-};
+}
 
 
 
@@ -359,3 +382,105 @@ function showContent() {
     if ('mood' == anchor) showMood();
 }
 showContent()
+
+
+//
+// Hoover Helper
+//
+
+var hooverHelper = {
+    'Test': "Deine Daten werden zur Auswertung an den Bereitsteller dieser Software gesendet. Es werden keine Daten erhoben, die direkte Rückschlüsse auf DiDeine Daten werden zur Auswertung an den Bereitsteller dieser Software gesendet. Es werden keine Daten erhoben, die direkte Rückschlüsse auf DiDeine Daten werden zur Auswertung an den Bereitsteller dieser Software gesendet. Es werden keine Daten erhoben, die direkte Rückschlüsse auf Dich als Person zulassen.",
+    'Daten freigeben': "Deine Daten werden zur Auswertung an den Bereitsteller dieser Software gesendet. Es werden keine Daten erhoben, die direkte Rückschlüsse auf Dich als Person zulassen.",
+    Zyklus: "Hiermit aktivierst du die Möglichkeit, deine Zyklusphase in den Daten mit anzugeben."
+}
+
+for (const label of labels) {
+    if (hooverHelper.hasOwnProperty(label.id)) {
+
+        // label.addEventListener("touchstart", function() {
+        //     showMessage(hooverHelper[label.id], label.id, 50000)
+        // }, { passive: true });
+
+        label.addEventListener("click", function() {
+            showMessage(hooverHelper[label.id], label.id, 50000)
+        }, { passive: true });
+    }
+}
+showMessage(hooverHelper['Test'], 'Datenfreigeben',200,5)
+
+
+//
+// checkboxhack via JA https://css-tricks.com/forums/topic/checkbox-hack-on-mobile-webkit/
+//
+// function avtivateButtonLabel() {
+//     for (const label of labels) {
+//         label.addEventListener("click", function() {
+
+//             setTimeout(function() {
+//                 if (label.control.checked){
+//                     label.style.color = "red";
+//                 }
+//                 deb(label.control.checked)
+//             }, 5);
+
+
+//         }, { passive: true });
+//     }
+// }
+// avtivateButtonLabel()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// function showMessage(message, title = 'Info', duration = 2000) {
+//     var overlay = document.createElement("div");
+//     overlay.id = "overlay";
+//     overlay.style.display = "block";
+//     overlay.innerHTML = "<fieldset><legend>" + title + "</legend>" + message + "</fieldset>";
+//     document.getElementsByTagName('BODY')[0].appendChild(overlay);
+//     // add class with some short timeout to let the transition work
+//     setTimeout(function() {
+//         overlay.classList.add("transition");
+//     }, 5);
+//     // close message after timeout
+//     // setTimeout(function() {
+//     //     overlay.classList.remove("transition");
+//     //     setTimeout(function() {
+//     //         overlay.remove();
+//     //     }, 500);
+//     // }, duration);
+//     // close message after click at anywhere
+//     window.onmousedown = function(event) {
+//         // deb(event)
+//         overlay.classList.remove("transition");
+//         setTimeout(function() {
+//             overlay.remove();
+//         }, 800);
+//     }
+// };

@@ -20,6 +20,26 @@
     --yellow: #e6c07b
 }
 
+:crayolaMetallic {
+    --white:#FEFEFE;
+    --AlloyOrange: #C46210;
+    --BdazzledBlue: #2E5894;
+    --BigDipORuby: #9C2542;
+    --BittersweetShimmer: #BF4F51;
+    --BlastOffBronze: #A57164;
+    --CyberGrape: #58427C;
+    --DeepSpaceSparkle: #4A646C;
+    --GoldFusion: #85754E;
+    --IlluminatingEmerald: #319177;
+    --MetallicSeaweed: #0A7E8C;
+    --MetallicSunburst: #9C7C38;
+    --RazzmicBerry: #8D4E85;
+    --SheenGreen: #8FD400;
+    --ShimmeringBlush: #D98695;
+    --SonicSilver: #757575;
+    --SteelBlue: #0081AB;
+}
+
 
 /* 
 .bluegreenBorder{border-color:#56b6c2!important}
@@ -270,39 +290,22 @@ button:hover {
                         OVERLAY
 ========================================================================== 
 */
+ 
 
-#overlay {
-    position: fixed;
-    display: none;
-    width: 100%;
-    height: max-content;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    /* background-color: rgba(0, 0, 0, 0.8); */
-    z-index: 2;
-    cursor: pointer;
-    opacity: 0;
-    transition: opacity .5s;
-    z-index: 2;
-}
-
-#overlay.transition {
-    opacity: 1;
-    transition: opacity .5s;
-}
-
-#overlay div {
+#MessageOverlay fieldset {
     position: relative;
     border: 2px solid var(--red);
     border-radius: 5px;
-    top: 20px;
+    box-shadow: 0px -20px var(--dark);
+    top: 0px;
     padding: 1em;
     margin: auto;
     width: max-content;
     color: var(--blue);
     background: var(--dark);
+    width: 400px;
+    word-break: break-word;
+    text-align: justify;
 }
 
 
@@ -436,9 +439,9 @@ button:hover {
     /* margin: 0; */
 }
 
-.buttonlabel.wirkung:hover,
+/* .buttonlabel.wirkung:hover, */
 .hidden:checked+label.buttonlabel.wirkung,
-.buttonlabel.zyklus:hover,
+/* .buttonlabel.zyklus:hover, */
 .hidden:checked+label.buttonlabel.zyklus {
     background-color: var(--blue);
     color: var(--dark)
@@ -538,7 +541,7 @@ label.itemLabel.situation {
     display: inline-block
 }
 
-.buttonlabel.situation:hover,
+/* .buttonlabel.situation:hover, */
 .hidden:checked+label.buttonlabel.situation {
     background-color: var(--orange);
     color: var(--dark);
@@ -612,7 +615,7 @@ label.motivation,
     transition: .5s;
 }
 
-.buttonlabel.wirkzeit:hover,
+/* .buttonlabel.wirkzeit:hover, */
 .hidden:checked+label.buttonlabel.wirkzeit {
     background-color: var(--yellow);
     color: var(--dark)
