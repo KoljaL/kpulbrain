@@ -1,143 +1,23 @@
 {
     "Profil": {
         "Situations": [
-            "sxa",
-            "svdfv",
-            "egge",
-            "rf",
-            "t5e",
-            "3e",
-            "wed",
-            "dew",
-            null
+            "bei der Arbeit",
+            "kann nicht schlafen",
+            "aaa",
+            "sss",
+            "ddd",
+            "gerade aufgewacht",
+            "zuhause"
         ]
     },
     "Mood": {
-        "1627908020515": {
-            "Timestamp": 1627908020515,
-            "Datetime": "02.08.2021 14:40:20",
+        "1627920641465": {
+            "Timestamp": 1627920641465,
+            "Datetime": "02.08.2021 18:10:41",
             "situations": [
-                "sxa"
-            ],
-            "mood": {
-                "brainload": "0",
-                "mood": "0",
-                "motivation": "0"
-            }
-        },
-        "1627908016732": {
-            "Timestamp": 1627908016732,
-            "Datetime": "02.08.2021 14:40:16",
-            "mood": {
-                "brainload": "0",
-                "mood": "0",
-                "motivation": "0"
-            }
-        },
-        "1627907868177": {
-            "Timestamp": 1627907868177,
-            "Datetime": "02.08.2021 14:37:48",
-            "situations": [
-                "svdfv"
-            ],
-            "mood": {
-                "brainload": "0",
-                "mood": "0",
-                "motivation": "0"
-            }
-        },
-        "1627907852842": {
-            "Timestamp": 1627907852842,
-            "Datetime": "02.08.2021 14:37:32",
-            "situations": [
-                "egge"
-            ],
-            "mood": {
-                "brainload": "0",
-                "mood": "0",
-                "motivation": "0"
-            }
-        },
-        "1627907730324": {
-            "Timestamp": 1627907730324,
-            "Datetime": "02.08.2021 14:35:30",
-            "mood": {
-                "brainload": "0",
-                "mood": "0",
-                "motivation": "0"
-            }
-        },
-        "1627907674582": {
-            "Timestamp": 1627907674582,
-            "Datetime": "02.08.2021 14:34:34",
-            "situations": [
-                "rf"
-            ],
-            "mood": {
-                "brainload": "0",
-                "mood": "0",
-                "motivation": "0"
-            }
-        },
-        "1627907668224": {
-            "Timestamp": 1627907668224,
-            "Datetime": "02.08.2021 14:34:28",
-            "mood": {
-                "brainload": "0",
-                "mood": "0",
-                "motivation": "0"
-            }
-        },
-        "1627907525360": {
-            "Timestamp": 1627907525360,
-            "Datetime": "02.08.2021 14:32:05",
-            "situations": [
-                "t5e"
-            ],
-            "mood": {
-                "brainload": "0",
-                "mood": "0",
-                "motivation": "0"
-            }
-        },
-        "1627907501732": {
-            "Timestamp": 1627907501732,
-            "Datetime": "02.08.2021 14:31:41",
-            "situations": [
-                "3e"
-            ],
-            "mood": {
-                "brainload": "0",
-                "mood": "0",
-                "motivation": "0"
-            }
-        },
-        "1627907488758": {
-            "Timestamp": 1627907488758,
-            "Datetime": "02.08.2021 14:31:28",
-            "mood": {
-                "brainload": "0",
-                "mood": "0",
-                "motivation": "0"
-            }
-        },
-        "1627907339446": {
-            "Timestamp": 1627907339446,
-            "Datetime": "02.08.2021 14:28:59",
-            "situations": [
-                "wed"
-            ],
-            "mood": {
-                "brainload": "0",
-                "mood": "0",
-                "motivation": "0"
-            }
-        },
-        "1627907337507": {
-            "Timestamp": 1627907337507,
-            "Datetime": "02.08.2021 14:28:57",
-            "situations": [
-                "dew"
+                "bei der Arbeit",
+                "kann nicht schlafen",
+                "aaa,sss,ddd"
             ],
             "mood": {
                 "brainload": "0",

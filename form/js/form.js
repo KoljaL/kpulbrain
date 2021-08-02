@@ -82,15 +82,13 @@ const populateProfilForm = () => {
     for (var wirkung in wirkungenStd) {
         let checked = (wirkungenStd[wirkung].active ? 'checked' : '');
         let color = wirkungenStd[wirkung].color;
-        WirkungCheckboxes += `<input type=checkbox class=hidden id=${wirkung} name=wirkung[] value=${wirkung} ${checked}>`;
+        WirkungCheckboxes += `<input type=checkbox class=hidden id=${wirkung} name=wirkung[] value="${wirkung}" ${checked}>`;
         WirkungCheckboxes += `<label class="buttonlabel wirkung" for=${wirkung}>${wirkung}</label>`;
     }
     WirkungCheckboxes += '<input type=text class=newSituation name=wirkung[] placeholder="individuelle Wirkungen">';
     document.getElementById('WirkungCheckboxes').innerHTML = WirkungCheckboxes;
 
-    // }
-};
-// document.onload = populateProfilForm();
+}
 
 
 
@@ -99,20 +97,18 @@ const populateProfilForm = () => {
 //
 const populateMoodForm = () => {
 
-    // find profil element in localData
-    for (let i = 0; i < localData.length; i++) {
-        if (localData[i].hasOwnProperty('Profil')) {
-            var localDataProfil = localData[i].Profil;
-            // deb(localDataProfil, 'localDataProfil')
-        }
-    }
+    var localDataProfil = localData.Profil;
+
+    // if (!localDataProfil.Situations) {
+    //     localDataProfil.Situations = { 0: "test", 1: "noch einer" }
+    // }
 
     var SituationCheckboxes = '';
     if (localDataProfil && localDataProfil.Situations) {
         let ProfilSituations = localDataProfil.Situations;
         // deb(ProfilSituations, 'ProfilSituations')
         for (var i in ProfilSituations) {
-            SituationCheckboxes += `<input type=checkbox class=hidden id=${ProfilSituations[i]} name=situations[] value=${ProfilSituations[i]} >`;
+            SituationCheckboxes += `<input type=checkbox class=hidden id=${ProfilSituations[i]} name=situations[] value="${ProfilSituations[i]}">`;
             SituationCheckboxes += `<label class="buttonlabel situation" for=${ProfilSituations[i]}>${ProfilSituations[i]}</label>`;
         }
     }
@@ -122,6 +118,7 @@ const populateMoodForm = () => {
 };
 
 
+// deb(localData, 'localData xxx');
 
 //
 // get POST from forms
@@ -147,14 +144,13 @@ for (const form of forms) {
                 // delete username and password
                 delete FormResultsObject.Name;
                 delete FormResultsObject.Passwort;
-                deb(localData, 'localDataProfil');
-                deb(FormResultsObject, 'FormResultsObject');
+                // deb(localData, 'localData vorher');
+                // deb(FormResultsObject, 'FormResultsObject');
 
-                localData = Object.assign({
-                   Profil: 'FormResultsObject'
-                }, localData);
+                localData.Profil = Object.assign(
+                    FormResultsObject, localData.Profil);
 
-                deb(localData, 'localDataProfil');
+                // deb(localData, 'localData nachher');
 
             }
 
@@ -183,17 +179,29 @@ for (const form of forms) {
                 // merge Situations from Form with Situations from localProfil
                 // get arrays from their values, concat them and filter out the duplicates
                 // 
+                // deb(FormResultsObject.situations, 'FormResultsObject.situations')
+
                 let FormSituations = Object.values(FormResultsObject.situations);
                 // FormSituations = FormSituations.split(",");
-                // let ProfilSituations = Object.values(localData.Profil.Situations);
-                let ProfilSituations = localData.Profil.Situations;
-                // let allSituation = [{}];
-                let allSituation = FormSituations.concat(ProfilSituations);
+                deb(FormSituations, 'FormSituations');
+
+                let newSituations = FormSituations[FormSituations.length - 1].split(",")
+                FormSituations.pop();
+                deb(newSituations)
+                FormSituations = FormSituations.concat(newSituations);
+                // deb(newSituations)
+
+                deb(FormSituations, 'FormSituations');
+
+                let ProfilSituations = Object.values(localData.Profil.Situations);
+                let allSituation = [{}];
+                allSituation = FormSituations.concat(ProfilSituations);
                 allSituation = allSituation.filter((item, index) => { return (allSituation.indexOf(item) == index) })
-                // save all situations to the localData.Profil
-                deb(localData.Profil)
-                localData.Profil.Situations = allSituation;
-                deb(localData.Profil)
+                    // save all situations to the localData.Profil
+                    // deb(allSituation, 'allSituation')
+                    // deb(localData.Profil, 'localData.Profil')
+                localData.Profil = { Situations: allSituation };
+                // deb(localData.Profil, 'localData.Profil')
 
                 // deb(FormSituations, 'FormSituations');
                 // deb(ProfilSituations, 'ProfilSituations');
@@ -238,7 +246,7 @@ for (const form of forms) {
         DataFreigeben();
     });
 }
- 
+
 
 //
 // send the local file to server

@@ -2,7 +2,7 @@
 // debug console output with color
 //
 // deb(document, 'ProfilLink:', 'red');
-function deb(value, text = " ", c = '#0081AB') {
+function deb(value, text = " ", c = '#e6c07b') {
     console.log("%c " + text + " ᐁᐁᐁ", "color:" + c)
     console.log(value)
 }
