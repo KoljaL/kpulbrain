@@ -106,7 +106,7 @@
         </form>
 
 
-        <form id=MoodForm>
+        <form id=MoodForm autocomplete="off">
             <fieldset>
                 <legend>How do you feel?</legend>
 
@@ -120,7 +120,7 @@
                                 <option>Elvanse</option>
                                 <option>Elvanse Adult</option>
                                 <option>Ritalin (unretardiert)</option>
-                                <option>  Medikinet (unretardiert)</option>
+                                <option>Medikinet (unretardiert)</option>
                                 <option>Ritalin Retard</option>
                                 <option>Medikinet Retard</option>
                                 <option>Equasym</option>
@@ -187,8 +187,8 @@
                 </div>
 
                 <!-- SITUATIONS -->
+                <label class="itemLabel situation" for=situation>Situation: </label>
                 <div id=SituationCheckboxes>
-                    <label class="itemLabel situation" for=situation>Situation: </label>
 
                     <input type=checkbox class=hidden id=value11 name=[situations][0] value=Zuhause>
                     <label class="buttonlabel situation" for=value11>Zuhause</label>
@@ -202,6 +202,8 @@
                     <label class="buttonlabel situation" for=value51>Bett</label>
                     <input type=text class=newSituation name=situations[] placeholder='new situation'>
                 </div>
+
+
                 <div class="MoodSlider">
                     <label class="itemLabel brainload" for=brainloadSlider>Brainload: </label>
                     <div class=sliderValue id=brainloadSliderOutput></div>
@@ -265,7 +267,8 @@
 </script>
 <script src="js/form.js"></script>
 <script>
-    populateForm();
+    populateProfilForm();
+    populateMoodForm();
 
     // showMessage(showSize());
 </script>

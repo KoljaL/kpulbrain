@@ -1,7 +1,7 @@
 //
 // populate the ProfilForm
 //
-const populateForm = () => {
+const populateProfilForm = () => {
     // if (localStorage.key(localDataName)) {
     // const localData = JSON.parse(localStorage.getItem(localDataName));
     // console.log(localData)
@@ -98,7 +98,36 @@ const populateForm = () => {
 
     // }
 };
-// document.onload = populateForm();
+// document.onload = populateProfilForm();
+
+
+
+//
+// populate the MoodForm
+//
+const populateMoodForm = () => {
+
+    // find profil element in localData
+    for (let i = 0; i < localData.length; i++) {
+        if (localData[i].hasOwnProperty('Profil')) {
+            var localDataProfil = localData[i].Profil;
+            deb(localDataProfil, 'localDataProfil')
+        }
+    }
+
+    var SituationCheckboxes = '';
+    if (localDataProfil.Situations) {
+        let ProfilSituations = localDataProfil.Situations;
+        deb(ProfilSituations, 'ProfilSituations')
+        for (var i in ProfilSituations) {
+            SituationCheckboxes += `<input type=checkbox class=hidden id=${ProfilSituations[i]} name=situations[] value=${ProfilSituations[i]} >`;
+            SituationCheckboxes += `<label class="buttonlabel situation" for=${ProfilSituations[i]}>${ProfilSituations[i]}</label>`;
+        }
+    }
+    SituationCheckboxes += '<input type=text class=newSituation name=situations[] placeholder="neue Situation">';
+    document.getElementById('SituationCheckboxes').innerHTML = SituationCheckboxes;
+
+};
 
 
 
@@ -113,6 +142,7 @@ for (const form of forms) {
         // get local and form data
         // var localData = JSON.parse(localStorage.getItem(localDataName)) || [];
         var FormResultsObject = formToObject(document.getElementById(form.id));
+        deb(FormResultsObject, 'FormResultsObject')
         if (FormResultsObject) {
             // add date to formdata
             // FormResultsObject = Object.assign({Timestamp: Date.now()}, FormResultsObject);
@@ -120,9 +150,11 @@ for (const form of forms) {
             FormResultsObject = Object.assign({
                 Date: new Date().toLocaleDateString()
             }, FormResultsObject);
+            // deb(FormResultsObject)
 
-
+            //
             // PROFIL
+            //
             if ('ProfilForm' == form.id) {
                 // delete username and password
                 delete FormResultsObject.Name;
@@ -144,16 +176,67 @@ for (const form of forms) {
                     });
                 }
             }
+
+            //
             // MOOD
+            //
             if ('MoodForm' == form.id) {
+                deb(FormResultsObject, 'Form Situations')
+
                 // console.log(localData)
+                //
+                // save Mood data to Mood
                 localData.push({
                     Mood: FormResultsObject
                 });
+                //
+                // save situations to Profil
+                //
+                // find the Profil entry
+                for (let i = 0; i < localData.length; i++) {
+                    if (localData[i].hasOwnProperty('Profil')) {
+                        // deb(localData[i], 'Profil')
+                        // are there already situations?
+                        if (localData[i].Profil.Situations) {
+                            // deb(localData[i].Profil.Situations, 'Profil Situations')
+                            // deb(FormResultsObject.situations, 'Form Situations')
+                            //
+                            // merge Situations from Form with Situations from localProfil
+                            // get arrays from their values, concat them and filter out the duplicates
+                            // 
+                            let FormSituations = Object.values(FormResultsObject.situations);
+                            let ProfilSituations = Object.values(localData[i].Profil.Situations);
+                            let allSituation = [{}];
+                            allSituation = FormSituations.concat(ProfilSituations);
+                            allSituation = allSituation.filter((item, index) => { return (allSituation.indexOf(item) == index) })
+                                // save all situations to the localData.Profil
+                            localData[i].Profil.Situations = allSituation;
+
+                            // deb(FormSituations);
+                            // deb(ProfilSituations);
+                            // deb(allSituation);
+                            //
+                            // if not make a new property
+                        } else {
+                            localData[i].Profil.Situations = FormResultsObject.situations;
+                        }
+                        break;
+                    }
+                }
             }
+
+
+            //
             // save data local
+            //
             localStorage.setItem(localDataName, JSON.stringify(localData));
+            //
+            //
             // send data to server if allowed by user
+            //
+
+
+
             if (document.getElementById('P_Freigeben').checked) {
                 saveOnServer(localData, localDataName);
             } else {
@@ -167,10 +250,12 @@ for (const form of forms) {
         let FormData2D = getFormData(form);
         outputFormHTML(FormData2D);
         // update forms
-        populateForm();
+        populateProfilForm();
+        populateMoodForm();
         DataFreigeben();
     });
 }
+
 
 
 //
@@ -238,7 +323,7 @@ function getFormData(form) {
 //
 // This function displays a message on the page for 1 second
 //
-function showMessage(messageText = "Message", messageTitle = 'Info',  duration = '2', speed = '1') {
+function showMessage(messageText = "Message", messageTitle = 'Info', duration = '2', speed = '1') {
     //
     // create new DIV and add styles
     var overlay = document.createElement("div");
@@ -355,7 +440,15 @@ DelLocalLink.addEventListener("click", event => {
 // show JSON on server
 //
 function DataFreigeben() {
-    var DataFreigegeben = document.getElementById('P_Freigeben').checked;
+    // var DataFreigegeben = document.getElementById('P_Freigeben').checked;
+    for (let i = 0; i < localData.length; i++) {
+        if (localData[i].hasOwnProperty('Profil')) {
+            var DataFreigegeben = localData[i].Profil.Freigeben
+            break;
+        }
+    }
+
+
     // deb(DataFreigegeben, 'DataFreigegeben')
     if (DataFreigegeben) {
         datalink.innerHTML = "<a class=pinkFont target='_blank' href='save.php?n=" + localDataName + "'>JSON<a/>";
@@ -402,58 +495,53 @@ for (const label of labels) {
         // }, { passive: true });
 
         label.addEventListener("click", function() {
-            showMessage(hooverHelper[label.id], label.id, 50000)
+            showMessage(hooverHelper[label.id], label.id, 50000, 1)
         }, { passive: true });
     }
 }
-showMessage(hooverHelper['Test'], 'Datenfreigeben',200,5)
+// showMessage(hooverHelper['Test'], 'Datenfreigeben',200,5)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 //
-// checkboxhack via JA https://css-tricks.com/forums/topic/checkbox-hack-on-mobile-webkit/
+// checkboxhack via JA  
 //
 // function avtivateButtonLabel() {
 //     for (const label of labels) {
 //         label.addEventListener("click", function() {
-
 //             setTimeout(function() {
 //                 if (label.control.checked){
 //                     label.style.color = "red";
 //                 }
 //                 deb(label.control.checked)
 //             }, 5);
-
-
 //         }, { passive: true });
 //     }
 // }
 // avtivateButtonLabel()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
