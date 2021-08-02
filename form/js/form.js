@@ -2,27 +2,19 @@
 // populate the ProfilForm
 //
 const populateProfilForm = () => {
-    // if (localStorage.key(localDataName)) {
-    // const localData = JSON.parse(localStorage.getItem(localDataName));
-    // console.log(localData)
 
-    // find profil element in localData
-    for (let i = 0; i < localData.length; i++) {
-        if (localData[i].hasOwnProperty('Profil')) {
-            var localDataProfil = localData[i].Profil;
-            // console.log(localDataProfil)
-            // console.log(ProfilFormElements)
-            for (const ProfilFormElement of ProfilFormElements) {
-                if (['input', 'textarea'].indexOf(ProfilFormElement.type) && ProfilFormElement.name in localDataProfil) {
-                    ProfilFormElement.value = localDataProfil[ProfilFormElement.name];
-                }
-                if (('checkbox' == ProfilFormElement.type) &&
-                    (ProfilFormElement.name in localDataProfil) &&
-                    ('on' == localDataProfil[ProfilFormElement.name])) {
-                    ProfilFormElement.checked = 'checked';
-                }
-            }
-            break;
+
+    var localDataProfil = localData.Profil;
+    // deb(localDataProfil, 'localDataProfil')
+    // console.log(ProfilFormElements)
+    for (const ProfilFormElement of ProfilFormElements) {
+        if (['input', 'textarea'].indexOf(ProfilFormElement.type) && ProfilFormElement.name in localDataProfil) {
+            ProfilFormElement.value = localDataProfil[ProfilFormElement.name];
+        }
+        if (('checkbox' == ProfilFormElement.type) &&
+            (ProfilFormElement.name in localDataProfil) &&
+            ('on' == localDataProfil[ProfilFormElement.name])) {
+            ProfilFormElement.checked = 'checked';
         }
     }
 
@@ -111,14 +103,14 @@ const populateMoodForm = () => {
     for (let i = 0; i < localData.length; i++) {
         if (localData[i].hasOwnProperty('Profil')) {
             var localDataProfil = localData[i].Profil;
-            deb(localDataProfil, 'localDataProfil')
+            // deb(localDataProfil, 'localDataProfil')
         }
     }
 
     var SituationCheckboxes = '';
-    if (localDataProfil.Situations) {
+    if (localDataProfil && localDataProfil.Situations) {
         let ProfilSituations = localDataProfil.Situations;
-        deb(ProfilSituations, 'ProfilSituations')
+        // deb(ProfilSituations, 'ProfilSituations')
         for (var i in ProfilSituations) {
             SituationCheckboxes += `<input type=checkbox class=hidden id=${ProfilSituations[i]} name=situations[] value=${ProfilSituations[i]} >`;
             SituationCheckboxes += `<label class="buttonlabel situation" for=${ProfilSituations[i]}>${ProfilSituations[i]}</label>`;
@@ -135,22 +127,18 @@ const populateMoodForm = () => {
 // get POST from forms
 //
 var forms = document.getElementsByTagName("FORM");
-// console.log(forms)
 for (const form of forms) {
     form.addEventListener("submit", function(evt) {
         evt.preventDefault();
         // get local and form data
-        // var localData = JSON.parse(localStorage.getItem(localDataName)) || [];
         var FormResultsObject = formToObject(document.getElementById(form.id));
-        deb(FormResultsObject, 'FormResultsObject')
         if (FormResultsObject) {
             // add date to formdata
-            // FormResultsObject = Object.assign({Timestamp: Date.now()}, FormResultsObject);
-            // FormResultsObject = Object.assign({DateISO: new Date()}, FormResultsObject);
-            FormResultsObject = Object.assign({
-                Date: new Date().toLocaleDateString()
-            }, FormResultsObject);
-            // deb(FormResultsObject)
+            var Timestamp = Date.now();
+            Datetime = formatdate(Timestamp, "d.m.Y H:i:s")
+            FormResultsObject = Object.assign({ Timestamp: Timestamp, Datetime: Datetime }, FormResultsObject);
+            // deb(FormResultsObject, 'FormResultsObject')
+
 
             //
             // PROFIL
@@ -159,76 +147,71 @@ for (const form of forms) {
                 // delete username and password
                 delete FormResultsObject.Name;
                 delete FormResultsObject.Passwort;
-                // console.log(localData)
-                // find the Profil entry
-                for (let i = 0; i < localData.length; i++) {
-                    if (localData[i].hasOwnProperty('Profil')) {
-                        // console.log(localData[i])
-                        localData[i].Profil = FormResultsObject;
-                        var addedProfile = 1;
-                        break;
-                    }
-                }
-                // create the Profil entry
-                if (!addedProfile) {
-                    localData.push({
-                        Profil: FormResultsObject
-                    });
-                }
+                deb(localData, 'localDataProfil');
+                deb(FormResultsObject, 'FormResultsObject');
+
+                localData = Object.assign({
+                   Profil: 'FormResultsObject'
+                }, localData);
+
+                deb(localData, 'localDataProfil');
+
             }
 
             //
             // MOOD
             //
             if ('MoodForm' == form.id) {
-                deb(FormResultsObject, 'Form Situations')
+                // deb(FormResultsObject, 'FormResultsObject')
 
-                // console.log(localData)
                 //
                 // save Mood data to Mood
-                localData.push({
-                    Mood: FormResultsObject
-                });
+                //
+                localData.Mood = Object.assign({
+                    [Timestamp]: FormResultsObject
+                }, localData.Mood);
+
+
                 //
                 // save situations to Profil
-                //
-                // find the Profil entry
-                for (let i = 0; i < localData.length; i++) {
-                    if (localData[i].hasOwnProperty('Profil')) {
-                        // deb(localData[i], 'Profil')
-                        // are there already situations?
-                        if (localData[i].Profil.Situations) {
-                            // deb(localData[i].Profil.Situations, 'Profil Situations')
-                            // deb(FormResultsObject.situations, 'Form Situations')
-                            //
-                            // merge Situations from Form with Situations from localProfil
-                            // get arrays from their values, concat them and filter out the duplicates
-                            // 
-                            let FormSituations = Object.values(FormResultsObject.situations);
-                            let ProfilSituations = Object.values(localData[i].Profil.Situations);
-                            let allSituation = [{}];
-                            allSituation = FormSituations.concat(ProfilSituations);
-                            allSituation = allSituation.filter((item, index) => { return (allSituation.indexOf(item) == index) })
-                                // save all situations to the localData.Profil
-                            localData[i].Profil.Situations = allSituation;
+                // 
+                // if (localData.Profil.Situations) {
+                // deb(localData.Profil.Situations, 'Profil Situations')
+                // deb(FormResultsObject.situations, 'Form Situations')
 
-                            // deb(FormSituations);
-                            // deb(ProfilSituations);
-                            // deb(allSituation);
-                            //
-                            // if not make a new property
-                        } else {
-                            localData[i].Profil.Situations = FormResultsObject.situations;
-                        }
-                        break;
-                    }
-                }
+                //
+                // merge Situations from Form with Situations from localProfil
+                // get arrays from their values, concat them and filter out the duplicates
+                // 
+                let FormSituations = Object.values(FormResultsObject.situations);
+                // FormSituations = FormSituations.split(",");
+                // let ProfilSituations = Object.values(localData.Profil.Situations);
+                let ProfilSituations = localData.Profil.Situations;
+                // let allSituation = [{}];
+                let allSituation = FormSituations.concat(ProfilSituations);
+                allSituation = allSituation.filter((item, index) => { return (allSituation.indexOf(item) == index) })
+                // save all situations to the localData.Profil
+                deb(localData.Profil)
+                localData.Profil.Situations = allSituation;
+                deb(localData.Profil)
+
+                // deb(FormSituations, 'FormSituations');
+                // deb(ProfilSituations, 'ProfilSituations');
+                // deb(allSituation, 'allSituation');
+
+                //
+                // if not make a new property
+                // } else {
+                //     localData.Profil.Situations = FormResultsObject.situations;
+                // }
             }
 
 
             //
             // save data local
             //
+            // deb(localData)
+            // deb(JSON.stringify(localData))
             localStorage.setItem(localDataName, JSON.stringify(localData));
             //
             //
@@ -255,8 +238,7 @@ for (const form of forms) {
         DataFreigeben();
     });
 }
-
-
+ 
 
 //
 // send the local file to server
@@ -450,7 +432,7 @@ function DataFreigeben() {
 
 
     // deb(DataFreigegeben, 'DataFreigegeben')
-    if (DataFreigegeben) {
+    if (!DataFreigegeben) {
         datalink.innerHTML = "<a class=pinkFont target='_blank' href='save.php?n=" + localDataName + "'>JSON<a/>";
         localDataNameField.addEventListener("input", event => {
             localDataName = md5(localDataNameField.value);
