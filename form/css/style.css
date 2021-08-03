@@ -439,13 +439,103 @@ button:hover {
     /* margin: 0; */
 }
 
-/* .buttonlabel.wirkung:hover, */
-.hidden:checked+label.buttonlabel.wirkung,
-/* .buttonlabel.zyklus:hover, */
+#WirkungIndividuell{
+    display: flex;
+    gap: 20px   
+}
+#WirkungIndividuell select{
+    max-width:100px;
+    
+}
+/* .hidden:checked+label.buttonlabel.wirkung, */
 .hidden:checked+label.buttonlabel.zyklus {
     background-color: var(--blue);
     color: var(--dark)
 }
+
+
+.buttonlabel.wirkung.bluegreen {
+    color: var(--bluegreen)!important;
+    border-color: var(--bluegreen)!important;
+}
+.hidden:checked+label.buttonlabel.wirkung.bluegreen {
+    background-color: var(--bluegreen);
+    color: var(--dark)!important
+}
+
+
+.buttonlabel.wirkung.blue {
+    color: var(--blue)!important;
+    border-color: var(--blue)!important;
+}
+.hidden:checked+label.buttonlabel.wirkung.blue {
+    background-color: var(--blue);
+    color: var(--dark)!important
+}
+
+
+.buttonlabel.wirkung.pink {
+    color: var(--pink)!important;
+    border-color: var(--pink)!important;
+}
+.hidden:checked+label.buttonlabel.wirkung.pink {
+    background-color: var(--pink);
+    color: var(--dark)!important
+}
+
+
+.buttonlabel.wirkung.salomon {
+    color: var(--salomon)!important;
+    border-color: var(--salomon)!important;
+}
+.hidden:checked+label.buttonlabel.wirkung.salomon {
+    background-color: var(--salomon);
+    color: var(--dark)!important
+}
+
+
+.buttonlabel.wirkung.green {
+    color: var(--green)!important;
+    border-color: var(--green)!important;
+}
+.hidden:checked+label.buttonlabel.wirkung.green {
+    background-color: var(--green);
+    color: var(--dark)!important
+}
+
+
+.buttonlabel.wirkung.orange {
+    color: var(--orange)!important;
+    border-color: var(--orange)!important;
+}
+.hidden:checked+label.buttonlabel.wirkung.orange {
+    background-color: var(--orange);
+    color: var(--dark)!important
+}
+.buttonlabel.wirkung.red {
+    color: var(--red)!important;
+    border-color: var(--red)!important;
+}
+.hidden:checked+label.buttonlabel.wirkung.red {
+    background-color: var(--red);
+    color: var(--dark)!important
+}
+
+
+.buttonlabel.wirkung.yellow {
+    color: var(--yellow)!important;
+    border-color: var(--yellow)!important;
+}
+.hidden:checked+label.buttonlabel.wirkung.yellow {
+    background-color: var(--yellow);
+    color: var(--dark)!important
+}
+
+
+
+ 
+
+
 
 .kommentar.profil textarea {
     color: var(--blue);

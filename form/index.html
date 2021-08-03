@@ -8,7 +8,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/svg+xml" href="https://dev.rasal.de/brainload/templates/images/brain.png">
     <!-- <link rel="stylesheet" href="pure.css"> -->
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/reseter.css" />
+    <link rel="stylesheet" href="css/style.css">
     <!-- <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.6/build/grids-responsive-min.css" /> -->
     <script src="js/formtoobj.js"></script>
     <script src="js/md5.js"></script>
@@ -91,6 +92,7 @@
                         <input type="text" id="P_Diagnosen" name=Diagnosen>
                     </div>
                 </div>
+
                 <label class="" for=situation>Wirkungen abfragen: </label>
                 <div id=WirkungCheckboxes>
 
@@ -253,7 +255,7 @@
     // get localData
     var initObj = new Object({
         Profil: {
-            Situations:{
+            Situations: {
                 0: 'gerade aufgewacht',
                 1: 'bei der Arbeit',
                 2: 'zuhause',
@@ -262,7 +264,7 @@
         },
         Mood: {}
     });
-    var localData = JSON.parse(localStorage.getItem(localDataName)) || initObj;
+    // var localData = JSON.parse(localStorage.getItem(localDataName)) || initObj;
     // deb(localData)
     // deb(Object.values(localData.Mood), 'Mood values');
     // deb(Object.entries(localData.Mood), 'Mood entries');
