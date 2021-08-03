@@ -611,6 +611,34 @@ button:hover {
 ========================================================================== 
 */
 
+.SectionHeading{
+    font-size: 1.2em;
+}
+
+#MedikationHeading{
+    color: var(--yellow);
+}
+
+.buttonlabel.wirkzeit {
+    width: max-content;
+    color: var(--yellow);
+    background-color: var(--dark);
+    border: 1px solid var(--yellow);
+    cursor: pointer;
+    transition: .5s;
+}
+
+/* .buttonlabel.wirkzeit:hover, */
+.hidden:checked+label.buttonlabel.wirkzeit {
+    background-color: var(--yellow);
+    color: var(--dark)
+}
+
+#SituationHeading{
+    color: var(--orange);
+}
+
+
 #SituationCheckboxes {
     display: block;
     padding: 5px 0
@@ -643,88 +671,74 @@ input.newSituation {
     border-color: var(--orange)
 }
 
+ 
+
+#WirkungHeading{
+    color: var(--pink)
+}
 .sliderValue {
     display: inline
 }
 
-#MoodSlider label {
-    padding-top: 10px;
-    padding-bottom: 10px
+/* SLIDER COLOR */
+.sliderdiv.red{color: var(--red);}
+input[type=range].red::-moz-range-thumb {background: var(--red)}
+input[type=range].red::-webkit-slider-thumb {background: var(--red);}
+label.brainload,#brainloadSliderOutput {color: var(--red);}
+
+.sliderdiv.green{color: var(--green);}
+input[type=range].green::-moz-range-thumb {background: var(--green)}
+input[type=range].green::-webkit-slider-thumb {background: var(--green);}
+label.green,#moodSliderOutput {color: var(--green);}
+
+.sliderdiv.blue{color: var(--blue);}
+input[type=range].blue::-moz-range-thumb {background: var(--blue)}
+input[type=range].blue::-webkit-slider-thumb {background: var(--blue);}
+label.blue,#motivationSliderOutput {color: var(--blue);}
+
+
+
+.sliderdiv.orange{color: var(--orange);}
+input[type=range].orange::-moz-range-thumb {background: var(--orange)}
+input[type=range].orange::-webkit-slider-thumb {background: var(--orange);}
+label.orange,#motivationSliderOutput {color: var(--orange);}
+
+
+
+.sliderdiv.yellow{color: var(--yellow);}
+input[type=range].yellow::-moz-range-thumb {background: var(--yellow)}
+input[type=range].yellow::-webkit-slider-thumb {background: var(--yellow);}
+label.yellow,#motivationSliderOutput {color: var(--yellow);}
+
+
+.sliderdiv.bluegreen{color: var(--bluegreen);}
+input[type=range].bluegreen::-moz-range-thumb {background: var(--bluegreen)}
+input[type=range].bluegreen::-webkit-slider-thumb {background: var(--bluegreen);}
+label.bluegreen,#motivationSliderOutput {color: var(--bluegreen);}
+
+
+.sliderdiv.pink{color: var(--pink);}
+input[type=range].pink::-moz-range-thumb {background: var(--pink)}
+input[type=range].pink::-webkit-slider-thumb {background: var(--pink);}
+label.pink,#motivationSliderOutput {color: var(--pink);}
+
+
+
+.sliderdiv.salomon{color: var(--salomon);}
+input[type=range].salomon::-moz-range-thumb {background: var(--salomon)}
+input[type=range].salomon::-webkit-slider-thumb {background: var(--salomon);}
+label.salomon,#motivationSliderOutput {color: var(--salomon);}
+/* SLIDER COLOR */
+
+
+
+
+
+#KommentarHeading{
+    color: var(--bluegreen);
+
 }
 
-.sliderdiv.red{
-    color: var(--red);
-}
- 
-
-.sliderdiv.green{
-    color: var(--green);
-}
- 
-.sliderdiv.blue{
-    color: var(--blue);
-}
- 
-
-input[type=range].red::-moz-range-thumb {
-    background: var(--red)
-}
-
-input[type=range].red::-webkit-slider-thumb {
-    background: var(--red);
-    border-radius: 5px
-}
-
-label.brainload,
-#brainloadSliderOutput {
-    color: var(--red);
-}
-
-input[type=range].green::-moz-range-thumb {
-    background: var(--green)
-}
-
-input[type=range].green::-webkit-slider-thumb {
-    background: var(--green);
-    border-radius: 5px
-}
-
-label.green,
-#moodSliderOutput {
-    color: var(--green);
-}
-
-input[type=range].blue::-moz-range-thumb {
-    background: var(--blue)
-}
-
-input[type=range].blue::-webkit-slider-thumb {
-    background: var(--blue);
-    border-radius: 5px
-}
-
-label.blue,
-#motivationSliderOutput {
-    color: var(--blue);
-}
-
-
-
-
-.buttonlabel.wirkzeit {
-    width: max-content;
-    color: var(--yellow);
-    background-color: var(--dark);
-    border: 1px solid var(--yellow);
-    cursor: pointer;
-    transition: .5s;
-}
-
-/* .buttonlabel.wirkzeit:hover, */
-.hidden:checked+label.buttonlabel.wirkzeit {
-    background-color: var(--yellow);
-    color: var(--dark)
-}
 
 .kommentar.mood textarea {
     color: var(--bluegreen);
