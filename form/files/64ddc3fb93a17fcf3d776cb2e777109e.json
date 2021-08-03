@@ -1,30 +1,21 @@
 {
     "Profil": {
-        "Freigeben": "on",
         "Situations": [
             "gerade aufgewacht",
             "bei der Arbeit",
             "zuhause",
-            "kann nicht schlafen",
-            "NummerEins",
-            "NummerZwei"
+            "kann nicht schlafen"
+        ],
+        "Freigeben": "on",
+        "Timestamp": 1627990621363,
+        "Datetime": "03.08.2021 13:37:01",
+        "Wirkung": [
+            "edwed___red",
+            "Unruhe___red",
+            "Konzentration___blue",
+            "Aufmerksamkeit___green",
+            "Motivation___salomon"
         ]
     },
-    "Mood": {
-        "1627988636632": {
-            "Timestamp": 1627988636632,
-            "Datetime": "03.08.2021 13:03:56",
-            "situations": {
-                "newSituations": [
-                    "NummerEins",
-                    " NummerZwei"
-                ]
-            },
-            "mood": {
-                "brainload": "0",
-                "mood": "0",
-                "motivation": "0"
-            }
-        }
-    }
+    "Mood": []
 }

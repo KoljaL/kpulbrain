@@ -92,9 +92,11 @@ const populateProfilForm = () => {
 // populate the MoodForm
 //
 function populateMoodForm() {
-    let localData = JSON.parse(localStorage.getItem(localDataName)) || initObj;
 
+
+    let localData = JSON.parse(localStorage.getItem(localDataName)) || initObj;
     let localDataProfil = localData.Profil;
+
     let SituationCheckboxes = '';
     if (localDataProfil && localDataProfil.Situations) {
         let ProfilSituations = localDataProfil.Situations;
@@ -104,8 +106,37 @@ function populateMoodForm() {
             SituationCheckboxes += `<label class="buttonlabel situation" for=${ProfilSituations[i]}>${ProfilSituations[i]}</label>`;
         }
     }
-    SituationCheckboxes += '<input type=text class=newSituation name=situations[] value="NummerEins, NummerZwei" placeholder="neue Situation">';
+    SituationCheckboxes += '<input type=text class=newSituation name=situations[]  placeholder="neue Situation">';
     document.getElementById('SituationCheckboxes').innerHTML = SituationCheckboxes;
+
+
+
+    deb(localDataProfil.Wirkung)
+    let WirkungSlider = '';
+
+    for (const key in localDataProfil.Wirkung) {
+        let value = localDataProfil.Wirkung[key].split("___")
+        let name = value[0];
+        let color = value[1];
+        WirkungSlider += `<div class="sliderdiv ${color}">`;
+        WirkungSlider += `<label class="itemLabel ${name}" for=${name}Slider>${name}: 0</label>`;
+        WirkungSlider += `<div class=sliderValue id=${name}SliderOutput></div>`;
+        WirkungSlider += `<input type="range" min="0" max="100" value="0" step="10" class="slider ${color}" id=${name}loadSlider name=mood[${name}]>`;
+        WirkungSlider += `</div>`;
+
+
+    }
+    document.getElementById('MoodSlider').innerHTML = WirkungSlider;
+
+
+
+
+
+
+
+    // <label class="itemLabel brainload" for=brainloadSlider>Brainload: </label>
+    // <div class=sliderValue id=brainloadSliderOutput></div>
+    // <input type="range" min="0" max="100" value="0" step="10" class="slider brainload" id=brainloadSlider name=mood[brainload]>
 
 };
 
@@ -128,20 +159,9 @@ for (const form of forms) {
             FormResultsObject = Object.assign({ Timestamp: Timestamp, Datetime: Datetime }, FormResultsObject);
 
             // split string with new Situations (last item of array) from input field
-            // let newSituations = FormResultsObject.situations[FormResultsObject.situations.length - 1].split(",");
             if (FormResultsObject.situations) {
                 let newSituations = FormResultsObject.situations[Object.keys(FormResultsObject.situations)[Object.keys(FormResultsObject.situations).length - 1]].split(",");
-                // deb(newSituations, 'newSituations     after split');
-
-
-                // remove last item of array
                 FormResultsObject.situations = { newSituations };
-                // deb(newSituations);
-                // concat new with existing 
-                // FormSituations = FormSituations.concat(newSituations);
-
-
-                // deb(FormResultsObject.situations, 'FormResultsObject.situations');
             }
 
 
@@ -156,6 +176,8 @@ for (const form of forms) {
                 // deb(FormResultsObject.Wirkung, 'FormResultsObject');
                 // combine the name of "individuelle Wirkunng" with the color 
                 let WirkungColor = (FormResultsObject.WirkungColor == 'Farbe') ? 'blue' : FormResultsObject.WirkungColor;
+                // delete FormResultsObject.WirkungColor;
+                ({ WirkungColor, ...FormResultsObject } = FormResultsObject);
                 for (let key in FormResultsObject.Wirkung) {
                     if (0 >= FormResultsObject.Wirkung[key].search("___")) {
                         // deb(FormResultsObject.Wirkung[key], "no___")
@@ -176,55 +198,21 @@ for (const form of forms) {
                 //
                 // add Timestamp arround  Mood FormResults & save to localData.Mood
                 //
-
-
-                // // merge Situations from Form with Situations from localProfil
-                // let FormSituations = Object.values(FormResultsObject.situations);
-                // deb(FormSituations, 'FormSituations');
-                // // split string with new Situations (last item of array) from input field
-                // let newSituations = FormSituations[FormSituations.length - 1].split(",");
-                // deb(newSituations, 'newSituations after split');
-                // // remove last item of array
-                // FormSituations.pop();
-                // // deb(newSituations);
-                // // concat new with existing 
-                // FormSituations = FormSituations.concat(newSituations);
-                // deb(FormSituations, 'FormSituations after concat');
-                // // trim all values
-                // FormSituations = FormSituations.map(string => string.trim());
-                // // deb(newSituations)
-                // // deb(FormSituations, 'FormSituations');
-
-
                 localData.Mood = Object.assign({
                     [Timestamp]: FormResultsObject
                 }, localData.Mood);
 
-                // deb(localData.Profil, 'localData.Profil')
 
                 //
-                // save SITUATION to Profil
+                // save SITUATION to Profil try mergeObj()
                 //  
                 if (FormResultsObject.situations) {
-
-
-                    // get all Situations from localdata
-                    // let ProfilSituations = Object.values(localData.Profil.Situations);
-                    // let FormSituations = Object.values(FormResultsObject.situations);
-                    deb(localData.Profil.Situations,'localData.Profil.Situations')
-                    deb(FormResultsObject.situations,'FormResultsObject.situations')
-                    // let allSituation = new Object();
-                    // concat with situationns from form
-                    // allSituation = FormSituations.concat(ProfilSituations);
-                    let allSituation = mergeObj(localData.Profil.Situations,FormResultsObject.situations.newSituations );
-
-                    // remove duplicates
-                    // allSituation = allSituation.filter((item, index) => { return (allSituation.indexOf(item) == index) });
-                    // save all situations to the localData.Profil
-                    deb(localData.Profil.Situations, 'localData.Profil.Situations before assign')
+                    // deb(localData.Profil.Situations,'localData.Profil.Situations')
+                    // deb(FormResultsObject.situations,'FormResultsObject.situations')
+                    let allSituation = mergeObj(localData.Profil.Situations, FormResultsObject.situations.newSituations);
                     delete localData.Profil.Situations;
                     localData.Profil.Situations = Object.assign({}, allSituation);
-                    deb(localData.Profil.Situations, 'localData.Profil.Situations afetr assign')
+                    // deb(localData.Profil.Situations, 'localData.Profil.Situations afetr assign')
                 }
             }
 
@@ -258,13 +246,10 @@ for (const form of forms) {
     });
 }
 
-
-
-// FormSituations = FormSituations.map(string => string.trim());
-
-// allSituation = allSituation.filter((item, index) => { return (allSituation.indexOf(item) == index) });
-
-
+//
+// merge two objects and return an object with unique values
+// DELETE ALL KEYS
+//
 function mergeObj(...objs) {
     let array = [];
     objs.forEach(obj => {
@@ -277,36 +262,11 @@ function mergeObj(...objs) {
             array.push(value)
         }
     });
+    // remove duplicates
     array = array.filter((item, index) => { return (array.indexOf(item) == index) });
 
     return Object.assign({}, array);
 }
-
-var historyExisting = {
-    '1': '11',
-    '2': '22 ',
-    '3': 33,
-    '4': '44',
-    '5': '55'
-}
-
-var historyNew = {
-    '1': '4033384',
-    '2': '11',
-    '3': '3848963',
-    '4': '3848963',
-    '5': '3848963'
-}
-var historyNew1 = {
-    '1': '4033384',
-    '2': '11',
-    '3': '3848963',
-    '4': '44',
-    '5': 'hzt'
-}
-
-// deb(mergeObj(historyExisting, historyNew, historyNew1), 'mergeObj example');
-
 
 
 //

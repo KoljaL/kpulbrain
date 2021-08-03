@@ -628,7 +628,8 @@ label.itemLabel.situation {
     border: 1px solid var(--orange);
     cursor: pointer;
     transition: .5s;
-    display: inline-block
+    display: inline-block;
+    margin-right:.5em;
 }
 
 /* .buttonlabel.situation:hover, */
@@ -646,16 +647,30 @@ input.newSituation {
     display: inline
 }
 
-.MoodSlider label {
+#MoodSlider label {
     padding-top: 10px;
     padding-bottom: 10px
 }
 
-input[type=range].brainload::-moz-range-thumb {
+.sliderdiv.red{
+    color: var(--red);
+}
+ 
+
+.sliderdiv.green{
+    color: var(--green);
+}
+ 
+.sliderdiv.blue{
+    color: var(--blue);
+}
+ 
+
+input[type=range].red::-moz-range-thumb {
     background: var(--red)
 }
 
-input[type=range].brainload::-webkit-slider-thumb {
+input[type=range].red::-webkit-slider-thumb {
     background: var(--red);
     border-radius: 5px
 }
@@ -663,38 +678,38 @@ input[type=range].brainload::-webkit-slider-thumb {
 label.brainload,
 #brainloadSliderOutput {
     color: var(--red);
-    /* font-size: 1.3em */
 }
 
-input[type=range].mood::-moz-range-thumb {
+input[type=range].green::-moz-range-thumb {
     background: var(--green)
 }
 
-input[type=range].mood::-webkit-slider-thumb {
+input[type=range].green::-webkit-slider-thumb {
     background: var(--green);
     border-radius: 5px
 }
 
-label.mood,
+label.green,
 #moodSliderOutput {
     color: var(--green);
-    /* font-size: 1.3em */
 }
 
-input[type=range].motivation::-moz-range-thumb {
+input[type=range].blue::-moz-range-thumb {
     background: var(--blue)
 }
 
-input[type=range].motivation::-webkit-slider-thumb {
+input[type=range].blue::-webkit-slider-thumb {
     background: var(--blue);
     border-radius: 5px
 }
 
-label.motivation,
+label.blue,
 #motivationSliderOutput {
     color: var(--blue);
-    /* font-size: 1.3em */
 }
+
+
+
 
 .buttonlabel.wirkzeit {
     width: max-content;

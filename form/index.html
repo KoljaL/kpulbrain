@@ -194,17 +194,20 @@
                 </div>
 
 
-                <div class="MoodSlider">
+                <div id=MoodSlider>
                     <label class="itemLabel brainload" for=brainloadSlider>Brainload: </label>
                     <div class=sliderValue id=brainloadSliderOutput></div>
                     <input type="range" min="0" max="100" value="0" step="10" class="slider brainload" id=brainloadSlider name=mood[brainload]>
+
                     <label class="itemLabel mood" for=moodSlider>Mood: </label>
                     <div class=sliderValue id=moodSliderOutput></div>
                     <input type="range" min="0" max="100" value="0" step="10" class="slider mood" id=moodSlider name=mood[mood]>
+                    
                     <label class="itemLabel motivation" for=motivationSlider>Motivation: </label>
                     <div class=sliderValue id=motivationSliderOutput></div>
                     <input type="range" min="0" max="100" value="0" step="10" class="slider motivation" id=motivationSlider name=mood[motivation]>
                 </div>
+
                 <div class="kommentar mood">
                     <label class="itemLabel comment" for=comment>Comment: </label>
                     <textarea name="comment" id="comment"></textarea>
