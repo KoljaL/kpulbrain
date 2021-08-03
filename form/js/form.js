@@ -160,8 +160,13 @@ for (const form of forms) {
 
             // split string with new Situations (last item of array) from input field
             if (FormResultsObject.situations) {
-                let newSituations = FormResultsObject.situations[Object.keys(FormResultsObject.situations)[Object.keys(FormResultsObject.situations).length - 1]].split(",");
-                FormResultsObject.situations = { newSituations };
+                let lastkey = Object.keys(FormResultsObject.situations).length - 1;
+                // deb(lastkey)
+                let newSituations = Object.assign({}, FormResultsObject.situations[lastkey].split(","));
+                delete FormResultsObject.situations[lastkey];
+                // deb(newSituations, 'newSituations')
+                FormResultsObject.situations= mergeObj(FormResultsObject.situations, newSituations);
+                // deb(FormResultsObject.situations, 'FormResultsObject.situations')
             }
 
 
@@ -193,7 +198,7 @@ for (const form of forms) {
             // MOOD
             //
             if ('MoodForm' == form.id) {
-                // deb(FormResultsObject, 'FormResultsObject')
+                deb(FormResultsObject, 'FormResultsObject')
 
                 //
                 // add Timestamp arround  Mood FormResults & save to localData.Mood
@@ -208,11 +213,11 @@ for (const form of forms) {
                 //  
                 if (FormResultsObject.situations) {
                     // deb(localData.Profil.Situations,'localData.Profil.Situations')
-                    // deb(FormResultsObject.situations,'FormResultsObject.situations')
-                    let allSituation = mergeObj(localData.Profil.Situations, FormResultsObject.situations.newSituations);
+                    deb(FormResultsObject.situations,'FormResultsObject.situations')
+                    let allSituation = mergeObj(localData.Profil.Situations, FormResultsObject.situations);
                     delete localData.Profil.Situations;
                     localData.Profil.Situations = Object.assign({}, allSituation);
-                    // deb(localData.Profil.Situations, 'localData.Profil.Situations afetr assign')
+                    deb(localData.Profil.Situations, 'localData.Profil.Situations afetr assign')
                 }
             }
 
@@ -587,11 +592,11 @@ function removeByLongpress(query) {
         // add eventlistener to every item
         listItems[i].addEventListener('long-press', function(e) {
             e.preventDefault()
-            // works in FF not in chrome
-            // deb(e.originalTarget.innerHTML, 'e.originalTarget.innerHTML');
-            // FF & chrome
-            // deb(e.target.attributes.for.value, 'e.target.attributes.for.value');
-            // deb(e.target.textContent, 'e.textContent');
+                // works in FF not in chrome
+                // deb(e.originalTarget.innerHTML, 'e.originalTarget.innerHTML');
+                // FF & chrome
+                // deb(e.target.attributes.for.value, 'e.target.attributes.for.value');
+                // deb(e.target.textContent, 'e.textContent');
 
             // 
             // get localstorage, find & remove current item, save localstorage & reload form
@@ -609,7 +614,7 @@ function removeByLongpress(query) {
                     // deb(key)
                     delete localData.Profil.Situations[key]
                     localStorage.setItem(localDataName, JSON.stringify(localData));
-                    showMessage('Situation "' + item + '" entfernt', 'Info', 1, 1)
+                    showMessage('Situation "' + item + '" entfernt', 'Info', 2, 2)
                     populateMoodForm();
                 }
             }
