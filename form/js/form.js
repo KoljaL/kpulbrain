@@ -45,11 +45,11 @@ const populateProfilForm = () => {
     // 
     // create label & checkboxes for "Wirkungen"
     if (localDataProfil) {
+        // 
+        // get wirkungen from localData and set active state to wirkungenStd 
+        //
         var wirkungenLoc = localDataProfil.Wirkung;
         // deb(wirkungenLoc, 'wirkungenLoc')
-        // 
-        // get wirkungen from local and set active state to wirkungenStd 
-        //
         for (var wirkung in wirkungenLoc) {
             if (wirkungenStd.hasOwnProperty(wirkungenLoc[wirkung])) {
                 wirkungenStd[wirkungenLoc[wirkung]].active = true;
@@ -85,13 +85,13 @@ const populateProfilForm = () => {
     WirkungCheckboxes += '</select>';
     WirkungCheckboxes += '</div>';
     document.getElementById('WirkungCheckboxes').innerHTML = WirkungCheckboxes;
-
 }
+
 
 //
 // populate the MoodForm
 //
-const populateMoodForm = () => {
+function populateMoodForm() {
     let localData = JSON.parse(localStorage.getItem(localDataName)) || initObj;
 
     let localDataProfil = localData.Profil;
@@ -104,13 +104,12 @@ const populateMoodForm = () => {
             SituationCheckboxes += `<label class="buttonlabel situation" for=${ProfilSituations[i]}>${ProfilSituations[i]}</label>`;
         }
     }
-    SituationCheckboxes += '<input type=text class=newSituation name=situations[] placeholder="neue Situation">';
+    SituationCheckboxes += '<input type=text class=newSituation name=situations[] value="NummerEins, NummerZwei" placeholder="neue Situation">';
     document.getElementById('SituationCheckboxes').innerHTML = SituationCheckboxes;
 
 };
 
 
-// deb(localData, 'localData xxx');
 
 //
 // get POST from forms
@@ -119,7 +118,6 @@ var forms = document.getElementsByTagName("FORM");
 for (const form of forms) {
     form.addEventListener("submit", function(evt) {
         let localData = JSON.parse(localStorage.getItem(localDataName)) || initObj;
-
         evt.preventDefault();
         // get local and form data
         let FormResultsObject = formToObject(document.getElementById(form.id));
@@ -128,7 +126,23 @@ for (const form of forms) {
             var Timestamp = Date.now();
             Datetime = formatdate(Timestamp, "d.m.Y H:i:s")
             FormResultsObject = Object.assign({ Timestamp: Timestamp, Datetime: Datetime }, FormResultsObject);
-            // deb(FormResultsObject, 'FormResultsObject')
+
+            // split string with new Situations (last item of array) from input field
+            // let newSituations = FormResultsObject.situations[FormResultsObject.situations.length - 1].split(",");
+            if (FormResultsObject.situations) {
+                let newSituations = FormResultsObject.situations[Object.keys(FormResultsObject.situations)[Object.keys(FormResultsObject.situations).length - 1]].split(",");
+                // deb(newSituations, 'newSituations     after split');
+
+
+                // remove last item of array
+                FormResultsObject.situations = { newSituations };
+                // deb(newSituations);
+                // concat new with existing 
+                // FormSituations = FormSituations.concat(newSituations);
+
+
+                // deb(FormResultsObject.situations, 'FormResultsObject.situations');
+            }
 
 
             //
@@ -140,54 +154,17 @@ for (const form of forms) {
                 delete FormResultsObject.Passwort;
                 // deb(localData, 'localData vorher');
                 // deb(FormResultsObject.Wirkung, 'FormResultsObject');
-
                 // combine the name of "individuelle Wirkunng" with the color 
                 let WirkungColor = (FormResultsObject.WirkungColor == 'Farbe') ? 'blue' : FormResultsObject.WirkungColor;
                 for (let key in FormResultsObject.Wirkung) {
                     if (0 >= FormResultsObject.Wirkung[key].search("___")) {
-                        deb(FormResultsObject.Wirkung[key], "no___")
+                        // deb(FormResultsObject.Wirkung[key], "no___")
                         FormResultsObject.Wirkung[key] = FormResultsObject.Wirkung[key] + "___" + WirkungColor;
                     }
-
-                    // let split = AllWirkung[key].split("___");
-                    // AllWirkungNew[key] = split[0];
                 }
-
-
-
-                // let AllWirkung = FormResultsObject.Wirkung;
-                // deb(AllWirkung, 'AllWirkung');
-
-                // ({ Wirkung, ...FormResultsObject } = FormResultsObject);
-
-                // delete FormResultsObject.Wirkung;
-                // let AllWirkungNew = [];
-
-                // for (let key in AllWirkung) {
-                //     let split = AllWirkung[key].split("___");
-                //     AllWirkungNew[key] = split[0];
-                //     // if (split[1]) {
-                //     //     AllWirkungNew[split[0]] = split[1];
-                //     //     // deb(split[0], 'split');
-                //     //     // deb(split[1], 'split');
-                //     // } else {
-                //     //     AllWirkungNew[AllWirkung[key]] = FormResultsObject.WirkungColor;
-                //     // }
-
-
-                // }
-                // // delete FormResultsObject.WirkungColor;
-                // ({ WirkungColor, ...FormResultsObject } = FormResultsObject);
-
-                // AllWirkungNew = Object.assign({}, AllWirkungNew);
-                // deb(AllWirkungNew, 'AllWirkungNew');
-
-                // FormResultsObject = Object.assign(FormResultsObject, { Wirkung: AllWirkungNew });
-                // deb(FormResultsObject.Wirkung, 'FormResultsObject.Wirkung');
-
-
+                // save Profil to localData Object
                 localData.Profil = Object.assign(localData.Profil, FormResultsObject);
-                deb(localData, 'localData nachher');
+                // deb(localData, 'localData nachher');
             }
 
             //
@@ -197,43 +174,57 @@ for (const form of forms) {
                 // deb(FormResultsObject, 'FormResultsObject')
 
                 //
-                // save Mood data to Mood
+                // add Timestamp arround  Mood FormResults & save to localData.Mood
                 //
+
+
+                // // merge Situations from Form with Situations from localProfil
+                // let FormSituations = Object.values(FormResultsObject.situations);
+                // deb(FormSituations, 'FormSituations');
+                // // split string with new Situations (last item of array) from input field
+                // let newSituations = FormSituations[FormSituations.length - 1].split(",");
+                // deb(newSituations, 'newSituations after split');
+                // // remove last item of array
+                // FormSituations.pop();
+                // // deb(newSituations);
+                // // concat new with existing 
+                // FormSituations = FormSituations.concat(newSituations);
+                // deb(FormSituations, 'FormSituations after concat');
+                // // trim all values
+                // FormSituations = FormSituations.map(string => string.trim());
+                // // deb(newSituations)
+                // // deb(FormSituations, 'FormSituations');
+
+
                 localData.Mood = Object.assign({
                     [Timestamp]: FormResultsObject
                 }, localData.Mood);
 
-                deb(localData.Profil)
+                // deb(localData.Profil, 'localData.Profil')
 
                 //
                 // save SITUATION to Profil
                 //  
                 if (FormResultsObject.situations) {
-                    // merge Situations from Form with Situations from localProfil
-                    let FormSituations = Object.values(FormResultsObject.situations);
-                    // deb(FormSituations, 'FormSituations');
-                    // split string with new Situations (last item of array) from input field
-                    let newSituations = FormSituations[FormSituations.length - 1].split(",");
-                    // remove last item of array
-                    FormSituations.pop();
-                    // deb(newSituations);
-                    // concat new with existing 
-                    FormSituations = FormSituations.concat(newSituations);
-                    // trim all values
-                    FormSituations = FormSituations.map(string => string.trim());
-                    // deb(newSituations)
-                    // deb(FormSituations, 'FormSituations');
+
+
                     // get all Situations from localdata
-                    let ProfilSituations = Object.values(localData.Profil.Situations);
-                    let allSituation = new Object();
+                    // let ProfilSituations = Object.values(localData.Profil.Situations);
+                    // let FormSituations = Object.values(FormResultsObject.situations);
+                    deb(localData.Profil.Situations,'localData.Profil.Situations')
+                    deb(FormResultsObject.situations,'FormResultsObject.situations')
+                    // let allSituation = new Object();
                     // concat with situationns from form
-                    allSituation = FormSituations.concat(ProfilSituations);
+                    // allSituation = FormSituations.concat(ProfilSituations);
+                    let allSituation = mergeObj(localData.Profil.Situations,FormResultsObject.situations.newSituations );
+
                     // remove duplicates
-                    allSituation = allSituation.filter((item, index) => { return (allSituation.indexOf(item) == index) });
+                    // allSituation = allSituation.filter((item, index) => { return (allSituation.indexOf(item) == index) });
                     // save all situations to the localData.Profil
-                    // deb(localData.Profil)
+                    deb(localData.Profil.Situations, 'localData.Profil.Situations before assign')
+                    delete localData.Profil.Situations;
                     localData.Profil.Situations = Object.assign({}, allSituation);
-                    // deb(localData.Profil)
+                    deb(localData.Profil.Situations, 'localData.Profil.Situations afetr assign')
                 }
             }
 
@@ -266,6 +257,56 @@ for (const form of forms) {
         DataFreigeben();
     });
 }
+
+
+
+// FormSituations = FormSituations.map(string => string.trim());
+
+// allSituation = allSituation.filter((item, index) => { return (allSituation.indexOf(item) == index) });
+
+
+function mergeObj(...objs) {
+    let array = [];
+    objs.forEach(obj => {
+        for (const key in obj) {
+            let value = obj[key];
+            if (typeof value === 'string' || value instanceof String) {
+                value = value.trim();
+            }
+            console.log(value)
+            array.push(value)
+        }
+    });
+    array = array.filter((item, index) => { return (array.indexOf(item) == index) });
+
+    return Object.assign({}, array);
+}
+
+var historyExisting = {
+    '1': '11',
+    '2': '22 ',
+    '3': 33,
+    '4': '44',
+    '5': '55'
+}
+
+var historyNew = {
+    '1': '4033384',
+    '2': '11',
+    '3': '3848963',
+    '4': '3848963',
+    '5': '3848963'
+}
+var historyNew1 = {
+    '1': '4033384',
+    '2': '11',
+    '3': '3848963',
+    '4': '44',
+    '5': 'hzt'
+}
+
+// deb(mergeObj(historyExisting, historyNew, historyNew1), 'mergeObj example');
+
 
 
 //
