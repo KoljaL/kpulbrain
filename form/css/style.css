@@ -305,7 +305,7 @@ button:hover {
     background: var(--dark);
     width: 400px;
     word-break: break-word;
-    text-align: justify;
+    /* text-align: justify; */
 }
 
 

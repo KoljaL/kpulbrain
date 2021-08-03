@@ -516,154 +516,106 @@ for (const label of labels) {
 
 // longPress("label.buttonlabel.situation");
 
-function removeByLongpress(listItems) {
-    var listItems = document.querySelectorAll(listItems);
-    var longpress = 500;
-    var delay;
-    var listItem;
-
-    for (var i = 0, j = listItems.length; i < j; i++) {
-        listItem = listItems[i];
-
-        listItem.addEventListener('mousedown', function(e) {
-            var _this = this;
-
-            delay = setTimeout(function() {
-
-                    let localData = JSON.parse(localStorage.getItem(localDataName));
-                    let situations = localData.Profil.Situations;
-                    let item = e.originalTarget.innerHTML;
-
-                    // deb(item);
-                    // deb(situations);
-
-                    // for (const key in localDataProfil.Wirkung) {
-
-                    for (const key in situations) {
-                        // deb(item)
-                        // deb(situations[key])
-
-                        if (situations[key] == item) {
-                            deb(item)
-                            deb(key)
-                            delete localData.Profil.Situations[key]
-                                // (key, ...localData.Profil.Situations } = localData.Profil.Situations);
-                            localStorage.setItem(localDataName, JSON.stringify(localData));
-                            populateMoodForm();
-
-                        }
-
-                    }
-
-                    deb(localData.Profil.Situations);
-
-
-                    showMessage('e.target', 'Longpress', 200, 5)
-                }
-
-                , longpress);
-
-            function check() {
-
-            }
-
-        }, true);
-
-        listItem.addEventListener('mouseup', function(e) {
-            // On mouse up, we know it is no longer a longpress
-            clearTimeout(delay);
-        });
-
-        listItem.addEventListener('mouseout', function(e) {
-            clearTimeout(delay);
-        });
-
-    }
-
-};
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// var el = document.getElementById('MedikationHeading');
-// el.addEventListener('long-press', function(e) {
-//     e.preventDefault()
-//     showMessage(e.target, 'Longpress', 200, 5)
-//     console.log(e.target);
-// });
-
-// ! function(e, t) {
-//     "use strict";
-//     var n = null,
-//         a = "PointerEvent" in e || e.navigator && "msPointerEnabled" in e.navigator,
-//         i = "ontouchstart" in e || navigator.MaxTouchPoints > 0 || navigator.msMaxTouchPoints > 0,
-//         o = a ? "pointerdown" : i ? "touchstart" : "mousedown",
-//         r = a ? "pointerup" : i ? "touchend" : "mouseup",
-//         m = a ? "pointermove" : i ? "touchmove" : "mousemove",
-//         u = 0,
-//         s = 0,
-//         c = 10,
-//         l = 10;
-
-//     function v(e) {
-//         f(), e = function(e) { if (void 0 !== e.changedTouches) return e.changedTouches[0]; return e }(e), this.dispatchEvent(new CustomEvent("long-press", { bubbles: !0, cancelable: !0, detail: { clientX: e.clientX, clientY: e.clientY }, clientX: e.clientX, clientY: e.clientY, offsetX: e.offsetX, offsetY: e.offsetY, pageX: e.pageX, pageY: e.pageY, screenX: e.screenX, screenY: e.screenY })) || t.addEventListener("click", function e(n) {
-//             t.removeEventListener("click", e, !0),
-//                 function(e) { e.stopImmediatePropagation(), e.preventDefault(), e.stopPropagation() }(n)
-//         }, !0)
-//     }
-
-//     function d(a) {
-//         f(a);
-//         var i = a.target,
-//             o = parseInt(function(e, n, a) {
-//                 for (; e && e !== t.documentElement;) {
-//                     var i = e.getAttribute(n);
-//                     if (i) return i;
-//                     e = e.parentNode
+// function removeByLongpress(listItems) {
+//     var listItems = document.querySelectorAll(listItems);
+//     var longpress = 500;
+//     var delay;
+//     var listItem;
+//     for (var i = 0, j = listItems.length; i < j; i++) {
+//         listItem = listItems[i];
+//         listItem.addEventListener('mousedown', function(e) {
+//             var _this = this;
+//             // showMessage('Situation entfernt', 'Info', 1, 1)
+//             delay = setTimeout(function() {
+//                     let localData = JSON.parse(localStorage.getItem(localDataName));
+//                     let situations = localData.Profil.Situations;
+//                     let item = e.originalTarget.innerHTML;
+//                     // deb(item);
+//                     // deb(situations);
+//                     for (const key in situations) {
+//                         // deb(item)
+//                         // deb(situations[key])
+//                         if (situations[key] == item) {
+//                             deb(item)
+//                             deb(key)
+//                                 // delete localData.Profil.Situations[key]
+//                                 // localStorage.setItem(localDataName, JSON.stringify(localData));
+//                             showMessage('Situation "' + item + '" entfernt', 'Info', 1, 1)
+//                             populateMoodForm();
+//                         }
+//                     }
+//                     deb(localData.Profil.Situations);
 //                 }
-//                 return a
-//             }(i, "data-long-press-delay", "1500"), 10);
-//         n = function(t, n) {
-//             if (!(e.requestAnimationFrame || e.webkitRequestAnimationFrame || e.mozRequestAnimationFrame && e.mozCancelRequestAnimationFrame || e.oRequestAnimationFrame || e.msRequestAnimationFrame)) return e.setTimeout(t, n);
-//             var a = (new Date).getTime(),
-//                 i = {},
-//                 o = function() {
-//                     (new Date).getTime() - a >= n ? t.call() : i.value = requestAnimFrame(o)
-//                 };
-//             return i.value = requestAnimFrame(o), i
-//         }(v.bind(i, a), o)
+//                 , longpress);
+//         }, true);
+//         listItem.addEventListener('mouseup', function(e) {
+//             // On mouse up, we know it is no longer a longpress
+//             clearTimeout(delay);
+//         });
+//         listItem.addEventListener('mouseout', function(e) {
+//             clearTimeout(delay);
+//         });
 //     }
+// };
 
-//     function f(t) {
-//         var a;
-//         (a = n) && (e.cancelAnimationFrame ? e.cancelAnimationFrame(a.value) : e.webkitCancelAnimationFrame ? e.webkitCancelAnimationFrame(a.value) : e.webkitCancelRequestAnimationFrame ? e.webkitCancelRequestAnimationFrame(a.value) : e.mozCancelRequestAnimationFrame ? e.mozCancelRequestAnimationFrame(a.value) : e.oCancelRequestAnimationFrame ? e.oCancelRequestAnimationFrame(a.value) : e.msCancelRequestAnimationFrame ? e.msCancelRequestAnimationFrame(a.value) : clearTimeout(a)), n = null
-//     }
-//     "function" != typeof e.CustomEvent && (e.CustomEvent = function(e, n) { n = n || { bubbles: !1, cancelable: !1, detail: void 0 }; var a = t.createEvent("CustomEvent"); return a.initCustomEvent(e, n.bubbles, n.cancelable, n.detail), a }, e.CustomEvent.prototype = e.Event.prototype), e.requestAnimFrame = e.requestAnimationFrame || e.webkitRequestAnimationFrame || e.mozRequestAnimationFrame || e.oRequestAnimationFrame || e.msRequestAnimationFrame || function(t) { e.setTimeout(t, 1e3 / 60) }, t.addEventListener(r, f, !0), t.addEventListener(m, function(e) {
-//         var t = Math.abs(u - e.clientX),
-//             n = Math.abs(s - e.clientY);
-//         (t >= c || n >= l) && f()
-//     }, !0), t.addEventListener("wheel", f, !0), t.addEventListener("scroll", f, !0), t.addEventListener(o, function(e) { u = e.clientX, s = e.clientY, d(e) }, !0)
-// }(window, document);
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function removeByLongpress(query) {
+    let listItems = document.querySelectorAll(query);
+    for (var i = 0, j = listItems.length; i < j; i++) {
+        // add attribute with delay time to every item
+        let att = document.createAttribute("data-long-press-delay");
+        att.value = "1000";
+        listItems[i].setAttributeNode(att);
+        // add eventlistener to every item
+        listItems[i].addEventListener('long-press', function(e) {
+            e.preventDefault()
+            // works in FF not in chrome
+            // deb(e.originalTarget.innerHTML, 'e.originalTarget.innerHTML');
+            // FF & chrome
+            // deb(e.target.attributes.for.value, 'e.target.attributes.for.value');
+            // deb(e.target.textContent, 'e.textContent');
+
+            // 
+            // get localstorage, find & remove current item, save localstorage & reload form
+            //
+            let localData = JSON.parse(localStorage.getItem(localDataName));
+            let situations = localData.Profil.Situations;
+            let item = e.target.textContent;
+            // deb(item);
+            // deb(situations);
+            for (const key in situations) {
+                // deb(item)
+                // deb(situations[key])
+                if (situations[key] == item) {
+                    // deb(item)
+                    // deb(key)
+                    delete localData.Profil.Situations[key]
+                    localStorage.setItem(localDataName, JSON.stringify(localData));
+                    showMessage('Situation "' + item + '" entfernt', 'Info', 1, 1)
+                    populateMoodForm();
+                }
+            }
+        });
+    }
+}
 
 
 
