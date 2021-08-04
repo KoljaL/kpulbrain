@@ -96,7 +96,72 @@ function populateMoodForm() {
 
     let localData = JSON.parse(localStorage.getItem(localDataName)) || initObj;
     let localDataProfil = localData.Profil;
+    let localDataMood = localData.Mood;
 
+
+
+
+
+
+    //
+    // POPULATE MEDICATION FORM
+    //
+
+    // let MedikationItems = document.getElementById('Medikation_0').elements;
+
+    // deb(localDataMood, 'localDataMood')
+
+    let localDataMoodLastEntry = localDataMood[Object.keys(localDataMood).reduce((a, b) => localDataMood[a] > localDataMood[b] ? b : a)].Medikation;
+    deb(localDataMoodLastEntry, 'localDataMoodLastEntry')
+
+
+    // 
+    // create new medikation items for every medikation in localDataMoodLastEntry
+    var ct = 1;
+    let new_medikationID ="";
+    for (const key in localDataMoodLastEntry) {
+        let new_medikation = document.createElement("div");
+        new_medikationID = "Medikation_" + ct;
+        new_medikation.className = 'pure-g';
+        new_medikation.id = new_medikationID;
+        new_medikation.innerHTML = document.getElementById("Medikation_0").innerHTML.replaceAll('[0]', '[' + ct + ']');
+        document.getElementById("AddRemoveMedikation").before(new_medikation);
+        document.getElementById("RemoveMedikation").style.display = 'inline';
+        ct++;
+
+    }
+    // remove one element
+    document.getElementById(new_medikationID).remove()
+
+
+    let MedikationItems = document.getElementById('MoodForm').elements;
+    deb(MedikationItems,'MedikationItems')
+
+    for (const key in localDataMoodLastEntry) {
+        deb(localDataMoodLastEntry[key], 'localDataMoodLastEntry[key]')
+        for (const MedikationItem of MedikationItems) {
+            if (MedikationItem.name.slice(0, 10) === "Medikation") {
+                // deb(MedikationItem.name, 'MedikationItem.name');
+                // get the fieldname out of Medikation[0][fieldname]
+                var FormItemName = MedikationItem.name.match(/(?<=\[)[^\][]*(?=])/g)[1];
+                // deb(FormItemName)
+                if (['input', 'textarea'].indexOf(MedikationItem.type) && FormItemName in localDataMoodLastEntry[key]) {
+                    // deb(localDataMoodLastEntry[key][FormItemName])
+                    MedikationItem.value = localDataMoodLastEntry[key][FormItemName];
+                }
+                if (('checkbox' == MedikationItem.type) && (FormItemName in localDataMoodLastEntry[key]) && ('on' == localDataMoodLastEntry[key][FormItemName])) {
+                    MedikationItem.checked = 'checked';
+                }
+            }
+        }
+    }
+
+
+
+
+    //
+    // CREATE SITUATION CHECKBOXES
+    //
     let SituationCheckboxes = '';
     if (localDataProfil && localDataProfil.Situations) {
         let ProfilSituations = localDataProfil.Situations;
@@ -108,12 +173,14 @@ function populateMoodForm() {
     }
     SituationCheckboxes += '<input type=text class=newSituation name=situations[]  placeholder="neue Situation">';
     document.getElementById('SituationCheckboxes').innerHTML = SituationCheckboxes;
-
+    // call remove function to add eventlistener
     removeByLongpress("label.buttonlabel.situation");
 
+    //
+    // CREATE WIRKUNG SLIDER
+    //
     // deb(localDataProfil.Wirkung)
     let WirkungSlider = '';
-
     for (const key in localDataProfil.Wirkung) {
         let value = localDataProfil.Wirkung[key].split("___")
         let name = value[0];
@@ -123,8 +190,6 @@ function populateMoodForm() {
         WirkungSlider += `<div class=sliderValue id="${name}SliderOutput"></div>`;
         WirkungSlider += `<input type="range" min="0" max="100" value="0" step="10" class="slider ${color}" id="${name}loadSlider" name="mood[${name}]">`;
         WirkungSlider += `</div>`;
-
-
     }
     document.getElementById('MoodSlider').innerHTML = WirkungSlider;
 
@@ -134,9 +199,6 @@ function populateMoodForm() {
 
 
 
-    // <label class="itemLabel brainload" for=brainloadSlider>Brainload: </label>
-    // <div class=sliderValue id=brainloadSliderOutput></div>
-    // <input type="range" min="0" max="100" value="0" step="10" class="slider brainload" id=brainloadSlider name=mood[brainload]>
 
 };
 
@@ -165,7 +227,7 @@ for (const form of forms) {
                 let newSituations = Object.assign({}, FormResultsObject.situations[lastkey].split(","));
                 delete FormResultsObject.situations[lastkey];
                 // deb(newSituations, 'newSituations')
-                FormResultsObject.situations= mergeObj(FormResultsObject.situations, newSituations);
+                FormResultsObject.situations = mergeObj(FormResultsObject.situations, newSituations);
                 // deb(FormResultsObject.situations, 'FormResultsObject.situations')
             }
 
@@ -213,7 +275,7 @@ for (const form of forms) {
                 //  
                 if (FormResultsObject.situations) {
                     // deb(localData.Profil.Situations,'localData.Profil.Situations')
-                    deb(FormResultsObject.situations,'FormResultsObject.situations')
+                    deb(FormResultsObject.situations, 'FormResultsObject.situations')
                     let allSituation = mergeObj(localData.Profil.Situations, FormResultsObject.situations);
                     delete localData.Profil.Situations;
                     localData.Profil.Situations = Object.assign({}, allSituation);

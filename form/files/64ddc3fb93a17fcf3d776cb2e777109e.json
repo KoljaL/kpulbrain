@@ -1,45 +1,186 @@
 {
     "Profil": {
         "Freigeben": "on",
+        "Timestamp": 1628072384451,
+        "Datetime": "04.08.2021 12:19:44",
+        "Wirkung": [
+            "Unruhe___red",
+            "Aufmerksamkeit___green"
+        ],
         "Situations": [
             "gerade aufgewacht",
             "bei der Arbeit",
             "zuhause",
-            "kann nicht schlafen",
-            "sss",
-            "aaa",
-            "qqqq"
+            "kann nicht schlafen"
         ]
     },
     "Mood": {
-        "1628030631050": {
-            "Timestamp": 1628030631050,
-            "Datetime": "04.08.2021 00:43:51",
-            "situations": [
-                "qqqq"
-            ]
+        "1628078810157": {
+            "Timestamp": 1628078810157,
+            "Datetime": "04.08.2021 14:06:50",
+            "Medikation": {
+                "1": {
+                    "Medikament": "Elvanse",
+                    "Dosierung": "5 mg",
+                    "Zeitpunkt": "21:22",
+                    "SeitWann": "2021-07-28",
+                    "Wirkzeit": "on",
+                    "Kommentar": "NR1"
+                },
+                "2": {
+                    "Medikament": "Elvanse",
+                    "Dosierung": "5 mg",
+                    "Zeitpunkt": "21:22",
+                    "SeitWann": "2021-07-28",
+                    "Wirkzeit": "on",
+                    "Kommentar": "NR2"
+                }
+            },
+            "mood": {
+                "Unruhe": "0",
+                "Aufmerksamkeit": "0"
+            }
         },
-        "1628030620156": {
-            "Timestamp": 1628030620156,
-            "Datetime": "04.08.2021 00:43:40",
-            "situations": [
-                "aaa"
-            ]
+        "1628075714708": {
+            "Timestamp": 1628075714708,
+            "Datetime": "04.08.2021 13:15:14",
+            "Medikation": [
+                {
+                    "Medikament": "Elvanse Adult",
+                    "Dosierung": "5 mg",
+                    "Zeitpunkt": "11:01",
+                    "SeitWann": "2021-08-23",
+                    "Wirkzeit": "on",
+                    "Kommentar": "NR1"
+                },
+                {
+                    "Medikament": "Elvanse",
+                    "Dosierung": "5 mg",
+                    "Zeitpunkt": "21:22",
+                    "SeitWann": "2021-07-28",
+                    "Kommentar": "NR2"
+                }
+            ],
+            "mood": {
+                "Unruhe": "0",
+                "Aufmerksamkeit": "0"
+            }
         },
-        "1628030617394": {
-            "Timestamp": 1628030617394,
-            "Datetime": "04.08.2021 00:43:37",
-            "situations": [
-                "zuhause"
-            ]
+        "1628075327388": {
+            "Timestamp": 1628075327388,
+            "Datetime": "04.08.2021 13:08:47",
+            "Medikation": [
+                {
+                    "Medikament": "Elvanse Adult",
+                    "Dosierung": "5 mg",
+                    "Zeitpunkt": "11:01",
+                    "SeitWann": "2021-08-23",
+                    "Wirkzeit": "on"
+                }
+            ],
+            "mood": {
+                "Unruhe": "0",
+                "Aufmerksamkeit": "0"
+            }
         },
-        "1628030608144": {
-            "Timestamp": 1628030608144,
-            "Datetime": "04.08.2021 00:43:28",
+        "1628075319373": {
+            "Timestamp": 1628075319373,
+            "Datetime": "04.08.2021 13:08:39",
+            "Medikation": [
+                {
+                    "Medikament": "Elvanse Adult",
+                    "Dosierung": "5 mg",
+                    "Zeitpunkt": "11:01",
+                    "SeitWann": "2021-08-23"
+                }
+            ],
+            "mood": {
+                "Unruhe": "0",
+                "Aufmerksamkeit": "0"
+            }
+        },
+        "1628074302450": {
+            "Timestamp": 1628074302450,
+            "Datetime": "04.08.2021 12:51:42",
+            "Medikation": [
+                {
+                    "Medikament": "Attentin",
+                    "Dosierung": "5 mg",
+                    "Zeitpunkt": "11:01",
+                    "SeitWann": "2021-08-23",
+                    "Wirkzeit": "on"
+                }
+            ],
+            "mood": {
+                "Unruhe": "0",
+                "Aufmerksamkeit": "0"
+            }
+        },
+        "1628073944814": {
+            "Timestamp": 1628073944814,
+            "Datetime": "04.08.2021 12:45:44",
+            "Medikation": [
+                {
+                    "Medikament": "Medikinet Retard",
+                    "Dosierung": "20 mg",
+                    "Zeitpunkt": "12:12",
+                    "SeitWann": "2021-08-03"
+                },
+                {
+                    "Medikament": "Ritalin Retard",
+                    "Dosierung": "10 mg",
+                    "Zeitpunkt": "11:11",
+                    "SeitWann": "2021-08-06"
+                }
+            ],
+            "mood": {
+                "Unruhe": "0",
+                "Aufmerksamkeit": "0"
+            }
+        },
+        "1628072509526": {
+            "Timestamp": 1628072509526,
+            "Datetime": "04.08.2021 12:21:49",
+            "Medikation": [
+                {
+                    "Medikament": "Attentin",
+                    "Dosierung": "2.5 mg",
+                    "Zeitpunkt": "12:33",
+                    "SeitWann": "2021-07-27",
+                    "Wirkzeit": "on"
+                },
+                {
+                    "Medikament": "Elvanse",
+                    "Dosierung": "5 mg",
+                    "Zeitpunkt": "14:06",
+                    "SeitWann": "2021-07-29"
+                }
+            ],
+            "mood": {
+                "Unruhe": "0",
+                "Aufmerksamkeit": "0"
+            }
+        },
+        "1628072434248": {
+            "Timestamp": 1628072434248,
+            "Datetime": "04.08.2021 12:20:34",
+            "Medikation": [
+                {
+                    "Medikament": "Attentin",
+                    "Dosierung": "2.5 mg",
+                    "Zeitpunkt": "12:00",
+                    "SeitWann": "2021-07-28",
+                    "Wirkzeit": "on",
+                    "Kommentar": "Kommentar Med1"
+                }
+            ],
             "situations": [
-                "sss",
-                "aaa"
-            ]
+                "gerade aufgewacht"
+            ],
+            "mood": {
+                "Unruhe": "30",
+                "Aufmerksamkeit": "30"
+            }
         }
     }
 }

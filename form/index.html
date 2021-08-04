@@ -21,16 +21,18 @@
     <div id=formcontent></div>
     <div id=overlay></div>
     <div id=content>
-        <div id="header">
 
+        <div id="header">
             <div id=profil><a href="#profil" class=blueFont>Profil</a></div>
             <div id=mood><a href="#mood" class=orangeFont>Mood</a></div>
             <div id=chart><span href="#chart" class=greenFont>Chart</span></div>
             <div id=datalink></div>
             <div id=dellocal><a href="#dellocal" class=redFont>X</a></div>
-
-
         </div>
+
+        <!-- 
+                        PROFIL FORM 
+        -->
         <form id=ProfilForm autocomplete="off">
             <fieldset>
                 <legend>Profil</legend>
@@ -109,11 +111,17 @@
         </form>
 
 
+
+        <!-- 
+                        MOOD FORM 
+        -->
         <form id=MoodForm autocomplete="off">
             <fieldset>
                 <legend>How do you feel?</legend>
                 <label id="MedikationHeading" class=SectionHeading>Medikation</label>
+
                 <div id=Medikation_0>
+
                     <div class="medikation">
                         <div class="medikament">
                             <label for="M_Medikament[0]">Medikament</label>
@@ -155,35 +163,29 @@
                             <label for="M_Zeitpunkt[0]">Zeit</label>
                             <input type="time" id="M_Zeitpunkt[0]" name=Medikation[0][Zeitpunkt]>
                         </div>
-
                     </div>
 
-
-                    <!-- <details>
-                        <summary class=SpoilerMedikation>weitere Angaben</summary> -->
                     <div class=medikation>
                         <div class="seitwann">
                             <label for="M_SeitWann[0]">seit wann</label>
                             <input type="date" id="M_SeitWann[0]" name=Medikation[0][SeitWann]>
                         </div>
-
                         <div class="wirkzeit">
                             <label>&nbsp;</label>
                             <input type=checkbox class=hidden id=P_Wirkzeit[0] name=Medikation[0][Wirkzeit]>
                             <label class="buttonlabel wirkzeit" for=P_Wirkzeit[0]>innerhalb der Wirkzeit</label>
                         </div>
-
-
                     </div>
+
                     <div class="kommentar medikament">
                         <label class="itemLabel comment" for=M_Kommentar[0]>Anmerkungen zur Medikation</label>
                         <textarea id="M_Kommentar[0]" name=Medikation[0][Kommentar]></textarea>
                     </div>
-                    <!-- </details> -->
+
+                </div> <!-- id=Medikation_0 -->
+               
 
 
-
-                </div>
                 <div id=AddRemoveMedikation class="">
                     <label id=AddMedikation class='plusminus plus' onclick=newMedikation()></label>
                     <label id=RemoveMedikation class='plusminus minus' onclick=delMedikation()></label>
@@ -290,6 +292,11 @@
 
 
 <!-- 
+
+
+                    <details>
+                        <summary class=SpoilerMedikation>weitere Angaben</summary>
+                    </details>
 
 
                    <label class="itemLabel brainload" for=brainloadSlider>Brainload: </label>
