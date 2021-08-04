@@ -148,7 +148,7 @@ legend {
 label {
     font-family: LibreBaskerville_Regular, Garamond, serif;
     padding-left: .2em;
-    padding-top: 1em;
+    /* padding-top: 1em; */
     font-size: 18px;
     display: block;
     margin: .25em 0;
@@ -552,7 +552,12 @@ button:hover {
                         MEDIKATION
 ========================================================================== 
 */
-
+.medikationSet{
+    padding-bottom: 1em;
+}
+.medikationSet:not(:first-of-type) {
+    border-top: 1px solid var(--yellow);
+}
 .medikation input,
 .medikation select {
     color: var(--yellow);
@@ -561,7 +566,8 @@ button:hover {
 
 .medikation {
     display: flex;
-    justify-content: space-between
+    justify-content: space-between;
+    padding-top:.5em;
 }
 
 .medikation label {
@@ -611,8 +617,9 @@ button:hover {
 ========================================================================== 
 */
 
-.SectionHeading{
+label.SectionHeading{
     font-size: 1.2em;
+    padding-top: 1em;
 }
 
 #MedikationHeading{

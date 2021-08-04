@@ -106,7 +106,7 @@
                     <textarea name="P_Kommentar" id="P_Kommentar"></textarea>
                 </div>
                 <br>
-                <button type="submit" id=validate>Absenden</button>
+                <button type="submit" id=submitProfil>Absenden</button>
             </fieldset>
         </form>
 
@@ -120,11 +120,11 @@
                 <legend>How do you feel?</legend>
                 <label id="MedikationHeading" class=SectionHeading>Medikation</label>
 
-                <div id=Medikation_0>
+                <div id=Medikation_0 class=medikationSet>
 
                     <div class="medikation">
                         <div class="medikament">
-                            <label for="M_Medikament[0]">Medikament</label>
+                            <label for="M_Medikament[0]">Medikament <!---placeholder--></label>
                             <select id="M_Medikament[0]" name=Medikation[0][Medikament]>
                                 <option disabled selected hidden></option>
                                 <option>Attentin</option>
@@ -177,14 +177,15 @@
                         </div>
                     </div>
 
-                    <div class="kommentar medikament">
-                        <label class="itemLabel comment" for=M_Kommentar[0]>Anmerkungen zur Medikation</label>
-                        <textarea id="M_Kommentar[0]" name=Medikation[0][Kommentar]></textarea>
-                    </div>
 
-                </div> <!-- id=Medikation_0 -->
-               
+                </div>
+                <!-- id=Medikation_0 -->
 
+
+                <div id=AnmerkungMedikation class="kommentar medikament">
+                    <label class="itemLabel comment" for=M_Kommentar[0]>Anmerkungen zur Medikation</label>
+                    <textarea id="M_Kommentar[0]" name=Medikation[0][Kommentar]></textarea>
+                </div>
 
                 <div id=AddRemoveMedikation class="">
                     <label id=AddMedikation class='plusminus plus' onclick=newMedikation()></label>
@@ -212,7 +213,7 @@
                 </div>
                 <br>
                 <br>
-                <button type="submit" id=validate class="pure-button pure-button-primary">absenden</button>
+                <button type="submit" id=submitMood class="pure-button pure-button-primary">absenden</button>
             </fieldset>
         </form>
     </div>

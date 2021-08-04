@@ -109,53 +109,65 @@ function populateMoodForm() {
 
     // let MedikationItems = document.getElementById('Medikation_0').elements;
 
-    // deb(localDataMood, 'localDataMood')
+    deb(localDataMood, 'localDataMood')
+    if (localDataMood && Object.keys(localDataMood).length !== 0 && localDataMood.constructor === Object) {
 
-    let localDataMoodLastEntry = localDataMood[Object.keys(localDataMood).reduce((a, b) => localDataMood[a] > localDataMood[b] ? b : a)].Medikation;
-    deb(localDataMoodLastEntry, 'localDataMoodLastEntry')
+        //
+        // get the medikation of last entry 
+        //
+        let localDataMoodLastEntry = localDataMood[Object.keys(localDataMood).reduce((a, b) => localDataMood[a] > localDataMood[b] ? b : a)].Medikation;
+        deb(localDataMoodLastEntry, 'localDataMoodLastEntry')
+        let FormMedikationCount = document.querySelectorAll('[id^=Medikation_]').length;
+        let LocalMedikationCount = Object.keys(localDataMoodLastEntry).length;
+        deb(LocalMedikationCount, 'LocalMedikationCount')
+        deb(FormMedikationCount, 'FormMedikationCount')
+        let buildMedikations = LocalMedikationCount - FormMedikationCount -1;
+        deb(buildMedikations, 'buildMedikations')
 
-
-    // 
-    // create new medikation items for every medikation in localDataMoodLastEntry
-    var ct = 1;
-    let new_medikationID ="";
-    for (const key in localDataMoodLastEntry) {
-        let new_medikation = document.createElement("div");
-        new_medikationID = "Medikation_" + ct;
-        new_medikation.className = 'pure-g';
-        new_medikation.id = new_medikationID;
-        new_medikation.innerHTML = document.getElementById("Medikation_0").innerHTML.replaceAll('[0]', '[' + ct + ']');
-        document.getElementById("AddRemoveMedikation").before(new_medikation);
-        document.getElementById("RemoveMedikation").style.display = 'inline';
-        ct++;
-
-    }
-    // remove one element
-    document.getElementById(new_medikationID).remove()
-
-
-    let MedikationItems = document.getElementById('MoodForm').elements;
-    deb(MedikationItems,'MedikationItems')
-
-    for (const key in localDataMoodLastEntry) {
-        deb(localDataMoodLastEntry[key], 'localDataMoodLastEntry[key]')
-        for (const MedikationItem of MedikationItems) {
-            if (MedikationItem.name.slice(0, 10) === "Medikation") {
-                // deb(MedikationItem.name, 'MedikationItem.name');
-                // get the fieldname out of Medikation[0][fieldname]
-                var FormItemName = MedikationItem.name.match(/(?<=\[)[^\][]*(?=])/g)[1];
-                // deb(FormItemName)
-                if (['input', 'textarea'].indexOf(MedikationItem.type) && FormItemName in localDataMoodLastEntry[key]) {
-                    // deb(localDataMoodLastEntry[key][FormItemName])
-                    MedikationItem.value = localDataMoodLastEntry[key][FormItemName];
-                }
-                if (('checkbox' == MedikationItem.type) && (FormItemName in localDataMoodLastEntry[key]) && ('on' == localDataMoodLastEntry[key][FormItemName])) {
-                    MedikationItem.checked = 'checked';
-                }
+        // 
+        // make a copy from "Medikation_0" for every medikation in localDataMoodLastEntry
+        //
+        var ct = 1;
+        let new_medikationID = "";
+        // for (const useless in localDataMoodLastEntry) {
+        let n = 0;
+        while (n <= buildMedikations) {
+            new_medikationID = "Medikation_" + ct;
+            newMedikation();
+            deb(new_medikationID)
+            n++;
+            if (n == 10) {
+                break;
             }
         }
-    }
+        // remove one element
+        // document.getElementById(new_medikationID).remove()
 
+
+        let MedikationItems = document.getElementById('MoodForm').elements;
+        // deb(MedikationItems,'MedikationItems')
+        let count = 0;
+        for (const key in localDataMoodLastEntry) {
+            deb(localDataMoodLastEntry[key], 'localDataMoodLastEntry[key]')
+            for (const MedikationItem of MedikationItems) {
+                if (MedikationItem.name.slice(0, 12) === "Medikation[" + count) {
+                    // deb(MedikationItem.name, 'MedikationItem.name');
+                    // get the fieldname out of Medikation[0][fieldname]
+                    var FormItemName = MedikationItem.name.match(/(?<=\[)[^\][]*(?=])/g)[1];
+                    // deb(FormItemName)
+                    if (['input', 'textarea'].indexOf(MedikationItem.type) && FormItemName in localDataMoodLastEntry[key]) {
+                        // deb(localDataMoodLastEntry[key][FormItemName])
+                        MedikationItem.value = localDataMoodLastEntry[key][FormItemName];
+                    }
+                    if (('checkbox' == MedikationItem.type) && (FormItemName in localDataMoodLastEntry[key]) && ('on' == localDataMoodLastEntry[key][FormItemName])) {
+                        MedikationItem.checked = 'checked';
+                    }
+                }
+            }
+            count++;
+        }
+
+    }
 
 
 
@@ -455,16 +467,20 @@ function showMessage(messageText = "Message", messageTitle = 'Info', duration = 
 //
 // add or delete medikations
 //
-var ct = 1;
+// var ct = 10;
 
 function newMedikation() {
+    var MedikationCount = document.querySelectorAll('[id^=Medikation_]').length;
+
     var new_medikation = document.createElement("div");
-    new_medikation.className = 'pure-g';
-    new_medikation.id = "Medikation_" + ct;
-    new_medikation.innerHTML = document.getElementById("Medikation_0").innerHTML.replaceAll('[0]', '[' + ct + ']');
-    document.getElementById("AddRemoveMedikation").before(new_medikation);
+    new_medikation.className = 'medikationSet';
+    new_medikation.id = "Medikation_" + MedikationCount;
+    new_medikation.innerHTML = document.getElementById("Medikation_0").innerHTML.replaceAll('[0]', '[' + MedikationCount + ']');
+    new_medikation.innerHTML = new_medikation.innerHTML.replaceAll('<!---placeholder-->', MedikationCount + 1);
+
+    document.getElementById("AnmerkungMedikation").before(new_medikation);
     document.getElementById("RemoveMedikation").style.display = 'inline';
-    ct++;
+    // ct++;
 }
 
 function delMedikation() {
