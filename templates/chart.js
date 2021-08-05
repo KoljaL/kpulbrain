@@ -1,16 +1,25 @@
    // GLOBAL settings in graph.js
    // http://microbuilder.io/blog/2016/01/10/plotting-json-data-with-chart-js.html
 
+   //
+   // debug console output with color
+   //
+   // deb(document, 'ProfilLink:', 'red');
+   function deb(value, text = " ", c = '#e6c07b') {
+       console.log("%c " + text + " ", `color:${c}; font-weight: normal; font-size:1.1em;`) //ᐁᐁᐁ
+       console.log(value)
+   }
+
 
    //
    // get and sort JSON data from PHP
    //  
    DataArray = JSON.parse(DataArray);
-   //   console.log(DataArray)
+   //  console.log(DataArray)
    DataArray.shift();
    //   console.log(DataArray)
    DataArray.filter(val => val)
-       //   console.log(DataArray)
+   deb(DataArray,'DataArray')
 
    var time = DataArray.map(function(e) {
        return e.date;
@@ -21,27 +30,8 @@
        return e.situations;
    });
    var medikation = DataArray.map(function(e) {
-
        return e.Medikation;
    });
-
-
-   //    console.log(medikation)
-   //    var medikationArray = [];
-   //    for (const med of medikation) {
-   //        var array = [];
-   //        //    if (med) {
-   //        //    console.log(med)
-   //        for (let i = 0; i < med.length; i++) {
-   //            var Dosierung = (med[i].Dosierung) ? med[i].Dosierung : '';
-   //            var Medikament = (med[i].Medikament) ? med[i].Medikament : '';
-   //            var Uhrzeit = (med[i].Uhrzeit) ? med[i].Uhrzeit : '';
-   //            array.push(Dosierung + ' ' + Medikament + ' ' + Uhrzeit);
-   //        }
-   //        medikationArray.push(array);
-   //        //    }
-   //    }
-   //    console.log(medikationArray)
 
    var comment = DataArray.map(function(e) {
        return e.comment;
@@ -73,7 +63,7 @@
    // console.log(time);
    // console.log(situation);
    // console.log(comment);
-   // console.log(brainload);
+   //    console.log(brainload);
    // console.log(mood);
    // console.log(motivation);
 
@@ -93,7 +83,7 @@
            var nextTick = ticks[index + 1];
            if (nextTick) {
                nextPx = this.getPixelForOffset(nextTick.value);
-           } 
+           }
            return px + (nextPx - px) / 2;
        },
    });
@@ -398,3 +388,23 @@
            ]
        }
    });
+
+
+
+
+   //    console.log(medikation)
+   //    var medikationArray = [];
+   //    for (const med of medikation) {
+   //        var array = [];
+   //        //    if (med) {
+   //        //    console.log(med)
+   //        for (let i = 0; i < med.length; i++) {
+   //            var Dosierung = (med[i].Dosierung) ? med[i].Dosierung : '';
+   //            var Medikament = (med[i].Medikament) ? med[i].Medikament : '';
+   //            var Uhrzeit = (med[i].Uhrzeit) ? med[i].Uhrzeit : '';
+   //            array.push(Dosierung + ' ' + Medikament + ' ' + Uhrzeit);
+   //        }
+   //        medikationArray.push(array);
+   //        //    }
+   //    }
+   //    console.log(medikationArray)

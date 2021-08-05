@@ -8,6 +8,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/svg+xml" href="https://dev.rasal.de/brainload/templates/images/brain.png">
     <!-- <link rel="stylesheet" href="pure.css"> -->
+
+
+    <!-- <script src=" "></script> -->
+    <!-- <link rel="stylesheet" href=" "> -->
+
+
     <link rel="stylesheet" href="css/reseter.css" />
     <link rel="stylesheet" href="css/style.css">
     <!-- <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.6/build/grids-responsive-min.css" /> -->
@@ -15,6 +21,11 @@
     <script src="js/md5.js"></script>
     <script src="js/debugHelper.js"></script>
     <script src="js/longpress.js"></script>
+
+
+
+
+
 </head>
 
 <body>
@@ -25,7 +36,7 @@
         <div id="header">
             <div id=profil><a href="#profil" class=blueFont>Profil</a></div>
             <div id=mood><a href="#mood" class=orangeFont>Mood</a></div>
-            <div id=chart><span href="#chart" class=greenFont>Chart</span></div>
+            <div id=chart><a href="#chart" class=greenFont>Chart</a></div>
             <div id=datalink></div>
             <div id=dellocal><a href="#dellocal" class=redFont>X</a></div>
         </div>
@@ -145,7 +156,8 @@
                         </div>
                         <div class="dosierung">
                             <label for="M_Dosierung[0]">Dosierung</label>
-                            <select id="M_Dosierung[0]" name=Medikation[0][Dosierung]>
+                            <input type="number" id="M_Dosierung[0]" name=Medikation[0][Dosierung]>
+                            <!-- <select id="M_Dosierung[0]" name=Medikation[0][Dosierung]>
                                 <option disabled selected hidden></option>
                                 <option>2.5 mg</option>
                                 <option>5 mg</option>
@@ -157,7 +169,7 @@
                                 <option>60 mg</option>
                                 <option>70 mg</option>
                                 <option>80 mg</option>
-                            </select>
+                            </select> -->
                         </div>
                         <div class="zeitpunkt">
                             <label for="M_Zeitpunkt[0]">Zeit</label>
@@ -216,21 +228,18 @@
                 <button type="submit" id=submitMood class="pure-button pure-button-primary">absenden</button>
             </fieldset>
         </form>
+
+        <div id="AuswertungsChart">
+
+            <fieldset>
+                <legend>Auswertung</legend>
+
+                <canvas id="myChart" width="400" height="400"></canvas>
+            </fieldset>
+
+        </div>
     </div>
 </body>
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 <script>
@@ -242,18 +251,21 @@
     var localDataName = md5(localDataNameField.value);
     var datalink = document.getElementById('datalink');
 
+    // for navigation menu
     var ProfilLink = document.getElementById('profil');
-    var MoodLink = document.getElementById('mood');
-    var DelLocalLink = document.getElementById('dellocal');
     var ProfilForm = document.getElementById('ProfilForm');
+    var MoodLink = document.getElementById('mood');
     var MoodForm = document.getElementById('MoodForm');
+    var ChartLink = document.getElementById('chart');
+    var AuswertungsChart = document.getElementById('AuswertungsChart');
+    // link to delete localData
+    var DelLocalLink = document.getElementById('dellocal');
     // all labels
     var labels = document.getElementsByTagName('label')
-
-    // all form elements for populating
+        // all form elements for populating
     let ProfilFormElements = document.getElementById('ProfilForm').elements;
 
-    // get localData
+    // initial localData
     var initObj = new Object({
         Profil: {
             Situations: {
@@ -266,6 +278,166 @@
         },
         Mood: {}
     });
+
+
+    var initObj = new Object({
+        "Profil": {
+            "Freigeben": "on",
+            "Timestamp": 1628116393212,
+            "Datetime": "05.08.2021 00:33:13",
+            "Alter": "1722",
+            "Geschlecht": "divers",
+            "Subtyp": "ADS",
+            "Wirkung": [
+                "Unruhe___red",
+                "Konzentration___blue",
+                "Aufmerksamkeit___green",
+                "Motivation___salomon",
+                "Brainload___orange"
+            ],
+            "P_Kommentar": "bin mal gespannt",
+            "Situations": [
+                "gerade aufgewacht",
+                "bei der Arbeit",
+                "zuhause",
+                "kann nicht schlafen"
+            ]
+        },
+        "Mood": {
+            "1628116529787": {
+                "Timestamp": 1628116529787,
+                "Datetime": "05.08.2021 00:35:29",
+                "Medikation": [{
+                    "Medikament": "Elvanse Adult",
+                    "Dosierung": "30",
+                    "Zeitpunkt": "07:00",
+                    "SeitWann": "2021-06-01",
+                    "Kommentar": "und noch was"
+                }, {
+                    "Medikament": "Attentin",
+                    "Dosierung": "5",
+                    "Zeitpunkt": "07:00",
+                    "SeitWann": "2021-07-01"
+                }],
+                "situations": [
+                    "gerade aufgewacht",
+                    "bei der Arbeit"
+                ],
+                "mood": {
+                    "Unruhe": "70",
+                    "Konzentration": "40",
+                    "Aufmerksamkeit": "60",
+                    "Brainload": "60"
+                },
+                "comment": "Was soll hier blo\u00df rein"
+            },
+            "1628116523416": {
+                "Timestamp": 1628116523416,
+                "Datetime": "05.08.2021 00:35:23",
+                "Medikation": [{
+                    "Medikament": "Elvanse Adult",
+                    "Dosierung": "30",
+                    "Zeitpunkt": "07:00",
+                    "SeitWann": "2021-06-01",
+                    "Kommentar": "und noch was"
+                }, {
+                    "Medikament": "Attentin",
+                    "Dosierung": "5",
+                    "Zeitpunkt": "07:00",
+                    "SeitWann": "2021-07-01"
+                }],
+                "situations": [
+                    "zuhause",
+                    "kann nicht schlafen"
+                ],
+                "mood": {
+                    "Unruhe": "70",
+                    "Konzentration": "50",
+                    "Aufmerksamkeit": "60",
+                    "Brainload": "30"
+                },
+                "comment": "Was soll hier blo\u00df rein"
+            },
+            "1628116515022": {
+                "Timestamp": 1628116515022,
+                "Datetime": "05.08.2021 00:35:15",
+                "Medikation": [{
+                    "Medikament": "Elvanse Adult",
+                    "Dosierung": "30",
+                    "Zeitpunkt": "07:00",
+                    "SeitWann": "2021-06-01",
+                    "Kommentar": "und noch was"
+                }, {
+                    "Medikament": "Attentin",
+                    "Dosierung": "5",
+                    "Zeitpunkt": "07:00",
+                    "SeitWann": "2021-07-01"
+                }],
+                "mood": {
+                    "Unruhe": "50",
+                    "Konzentration": "20",
+                    "Aufmerksamkeit": "80",
+                    "Brainload": "60"
+                },
+                "comment": "Was soll hier blo\u00df rein"
+            },
+            "1628116510285": {
+                "Timestamp": 1628116510285,
+                "Datetime": "05.08.2021 00:35:10",
+                "Medikation": [{
+                    "Medikament": "Elvanse Adult",
+                    "Dosierung": "30",
+                    "Zeitpunkt": "07:00",
+                    "SeitWann": "2021-06-01",
+                    "Kommentar": "und noch was"
+                }, {
+                    "Medikament": "Attentin",
+                    "Dosierung": "5",
+                    "Zeitpunkt": "07:00",
+                    "SeitWann": "2021-07-01"
+                }],
+                "situations": [
+                    "bei der Arbeit",
+                    "kann nicht schlafen"
+                ],
+                "mood": {
+                    "Unruhe": "30",
+                    "Konzentration": "60",
+                    "Aufmerksamkeit": "40",
+                    "Brainload": "40"
+                },
+                "comment": "Was soll hier blo\u00df rein"
+            },
+            "1628116499195": {
+                "Timestamp": 1628116499195,
+                "Datetime": "05.08.2021 00:34:59",
+                "Medikation": [{
+                    "Medikament": "Elvanse Adult",
+                    "Dosierung": "30",
+                    "Zeitpunkt": "07:00",
+                    "SeitWann": "2021-06-01",
+                    "Kommentar": "und noch was"
+                }, {
+                    "Medikament": "Attentin",
+                    "Dosierung": "5",
+                    "Zeitpunkt": "07:00",
+                    "SeitWann": "2021-07-01"
+                }],
+                "situations": [
+                    "gerade aufgewacht",
+                    "zuhause"
+                ],
+                "mood": {
+                    "Unruhe": "20",
+                    "Motivation": "50",
+                    "Aufmerksamkeit": "30",
+                    "Brainload": "60"
+                },
+                "comment": "Was soll hier blo\u00df rein"
+            }
+        }
+    });
+
     // var localData = JSON.parse(localStorage.getItem(localDataName)) || initObj;
     // deb(localData)
     // deb(Object.values(localData.Mood), 'Mood values');
@@ -284,7 +456,9 @@
 
 
 
-
+<script src="js/chartJS.js"></script>
+<script src="js/date-fns.bundle.js"></script>
+<script src="js/chart.js"></script>
 
 
 

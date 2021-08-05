@@ -109,20 +109,20 @@ function populateMoodForm() {
 
     // let MedikationItems = document.getElementById('Medikation_0').elements;
 
-    deb(localDataMood, 'localDataMood')
+    // deb(localDataMood, 'localDataMood')
     if (localDataMood && Object.keys(localDataMood).length !== 0 && localDataMood.constructor === Object) {
 
         //
         // get the medikation of last entry 
         //
         let localDataMoodLastEntry = localDataMood[Object.keys(localDataMood).reduce((a, b) => localDataMood[a] > localDataMood[b] ? b : a)].Medikation;
-        deb(localDataMoodLastEntry, 'localDataMoodLastEntry')
+        // deb(localDataMoodLastEntry, 'localDataMoodLastEntry')
         let FormMedikationCount = document.querySelectorAll('[id^=Medikation_]').length;
         let LocalMedikationCount = Object.keys(localDataMoodLastEntry).length;
-        deb(LocalMedikationCount, 'LocalMedikationCount')
-        deb(FormMedikationCount, 'FormMedikationCount')
+        // deb(LocalMedikationCount, 'LocalMedikationCount')
+        // deb(FormMedikationCount, 'FormMedikationCount')
         let buildMedikations = LocalMedikationCount - FormMedikationCount -1;
-        deb(buildMedikations, 'buildMedikations')
+        // deb(buildMedikations, 'buildMedikations')
 
         // 
         // make a copy from "Medikation_0" for every medikation in localDataMoodLastEntry
@@ -134,7 +134,7 @@ function populateMoodForm() {
         while (n <= buildMedikations) {
             new_medikationID = "Medikation_" + ct;
             newMedikation();
-            deb(new_medikationID)
+            // deb(new_medikationID)
             n++;
             if (n == 10) {
                 break;
@@ -148,7 +148,7 @@ function populateMoodForm() {
         // deb(MedikationItems,'MedikationItems')
         let count = 0;
         for (const key in localDataMoodLastEntry) {
-            deb(localDataMoodLastEntry[key], 'localDataMoodLastEntry[key]')
+            // deb(localDataMoodLastEntry[key], 'localDataMoodLastEntry[key]')
             for (const MedikationItem of MedikationItems) {
                 if (MedikationItem.name.slice(0, 12) === "Medikation[" + count) {
                     // deb(MedikationItem.name, 'MedikationItem.name');
@@ -505,6 +505,24 @@ ProfilLink.addEventListener("click", event => {
 function showProfil() {
     ProfilForm.style.display = 'block';
     MoodForm.style.display = 'none';
+    AuswertungsChart.style.display = 'none';
+
+}
+
+
+
+
+//
+// show profil form
+//
+ChartLink.addEventListener("click", event => {
+    showChart();
+});
+
+function showChart() {
+    AuswertungsChart.style.display = 'block';
+    ProfilForm.style.display = 'none';
+    MoodForm.style.display = 'none';
 }
 
 //
@@ -517,6 +535,8 @@ MoodLink.addEventListener("click", event => {
 function showMood() {
     MoodForm.style.display = 'block';
     ProfilForm.style.display = 'none';
+    AuswertungsChart.style.display = 'none';
+
 }
 
 //
@@ -554,6 +574,7 @@ function DataFreigeben() {
 function showContent() {
     urlParts = document.URL.split('#');
     let anchor = (urlParts.length > 1) ? urlParts[1] : null;
+    if (!anchor || 'chart' == anchor) showChart();
     if (!anchor || 'profil' == anchor) showProfil();
     if ('mood' == anchor) showMood();
 }
@@ -583,6 +604,45 @@ for (const label of labels) {
     }
 }
 // showMessage(hooverHelper['Test'], 'Datenfreigeben',200,5)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

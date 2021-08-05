@@ -148,7 +148,7 @@ legend {
 label {
     font-family: LibreBaskerville_Regular, Garamond, serif;
     padding-left: .2em;
-    /* padding-top: 1em; */
+    padding-top: .25em;
     font-size: 18px;
     display: block;
     margin: .25em 0;
@@ -158,7 +158,6 @@ label {
 
 
 /* ALL INPUTS */
-
 input,
 select,
 textarea,
@@ -221,11 +220,12 @@ input[type=range]::-moz-range-thumb {
     cursor: pointer;
     border: 1px solid var(--black)
 }
-
+[type="submit"],
 button {
     background-color: var(--blue);
     color: var(--dark);
     border: 1px solid var(--black);
+    padding: .5em .6em;
     cursor: pointer;
     transition: .5s;
     display: inline-block;
@@ -274,9 +274,15 @@ button:hover {
     padding-top: .5em;
 }
 
-#chart {
+/* #chart {
     text-decoration: line-through
+} */
+#AuswertungsChart,
+#ProfilForm,
+#MoodForm {
+    display: none
 }
+
 
 @media (max-width:40em) {
     #formcontent {
@@ -373,10 +379,6 @@ button:hover {
 ========================================================================== 
 */
 
-#ProfilForm,
-#MoodForm {
-    display: none
-}
 
 #ProfilForm input,
 #ProfilForm select {
