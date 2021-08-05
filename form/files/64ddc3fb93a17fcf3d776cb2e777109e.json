@@ -10,6 +10,7 @@
             "Unruhe___red",
             "Konzentration___blue",
             "Aufmerksamkeit___green",
+            "Motivation___salomon",
             "Brainload___orange"
         ],
         "P_Kommentar": "bin mal gespannt",
@@ -21,6 +22,32 @@
         ]
     },
     "Mood": {
+        "1628168974836": {
+            "Timestamp": 1628168974836,
+            "Datetime": "05.08.2021 15:09:34",
+            "Medikation": [
+                {
+                    "Medikament": "Elvanse Adult",
+                    "Dosierung": "30",
+                    "Zeitpunkt": "07:00",
+                    "SeitWann": "2021-06-01",
+                    "Kommentar": "und noch was"
+                },
+                {
+                    "Medikament": "Attentin",
+                    "Dosierung": "5",
+                    "Zeitpunkt": "07:00",
+                    "SeitWann": "2021-07-01"
+                }
+            ],
+            "mood": {
+                "Unruhe": "80",
+                "Konzentration": "50",
+                "Aufmerksamkeit": "50",
+                "Motivation": "80",
+                "Brainload": "60"
+            }
+        },
         "1628116529787": {
             "Timestamp": 1628116529787,
             "Datetime": "05.08.2021 00:35:29",
@@ -161,7 +188,7 @@
             ],
             "mood": {
                 "Unruhe": "20",
-                "Konzentration": "50",
+                "Motivation": "50",
                 "Aufmerksamkeit": "30",
                 "Brainload": "60"
             },

@@ -73,10 +73,11 @@ for (let i = 0; i < Object.keys(localDataProfil.Wirkung).length; i++) {
 
 
 //
-// fill ChartData Object with Timestamp
+// fill ChartData Object with Timestamp         // den timestamp doppelt zu speichern ist doch überflüssig--> kann raus
 //
 ChartData.Timestamp = Object.assign({}, Object.keys(localDataMood).map(function(key, index) {
-    return key; // den timestamp doppelt zu speichern ist doch überflüssig--> kann raus
+    // return key*= 1000; 
+    return key; 
 }));
 
 
@@ -162,7 +163,7 @@ ChartData.Situationen = Object.assign({}, Object.keys(localDataMood).map(functio
     }
 }));
 deb(ChartData, 'ChartData')
-
+ 
 
 //
 // create datasets
@@ -229,18 +230,111 @@ var myChart = new Chart(document.getElementById("myChart").getContext("2d"), {
             },
 
         },
+        scales: {
+            // x: {
+            //     type: 'time',    
+            //     display: true,
+            //     distribution: 'linear',
+            //     time: {
+            //         unit: 'hour',
+            //         stepSize: 6,
+            //         // parser: 'dd.MM.yyyy HH:mm',
+            //         displayFormats: {
+            //             // 'hour': 'dd.MM.yyyy',
+            //             'hour': 'HH:mm',
+            //         },
+            //         min: '04.08.2021',
+            //         max: '05.08.2021',
+            //     }
+            // }
+
+            x: 
+            // [
+                {
+                    // id: 'hours',
+                    type: 'time',
+                    display: true,
+                    distribution: 'linear',
+                    time: {
+                        // parser: 'DD.MM.YYYY HH:mm',
+                        // tooltipFormat: 'DD.MM.YYYY HH:mm',
+                        displayFormats: {
+                            //    'hour': 'DD.MM.YYYY',
+                            'hour': 'HH:mm',
+                        },
+                    min: 1628076511,
+                    max: 1628162911,
+                        unit: 'hour',
+                        stepSize: 6,
+                    },
+                    ticks: {
+                        fontColor: '#abb2bf',
+                        fontSize: 16,
+                        fontFamily: "'LibreBaskerville_Regular', 'Arial', sans-serif",
+                        padding: 10,
+                    },
+                    gridLines: {
+                        drawBorder: false,
+                        offsetGridLines: false,
+                        lineWidth: 2,
+                        drawOnChartArea: true,
+
+                    },
+                },
+            // {
+            //     id: 'days',
+            //     type: 'time',
+            //     display: true,
+            //     distribution: 'linear',
+            //     time: {
+            //         // parser: 'DD.MM.YYYY HH:mm',
+            //         // tooltipFormat: 'DD.MM.YYYY HH:mm',
+            //         displayFormats: {
+            //             'day': 'DD.MM.YYYY',
+            //         },
+            //         // min: firstDay,
+            //         // max: lastDay,
+            //         unit: 'day',
+            //         stepSize: 1,
+            //     },
+            //     ticks: {
+            //         fontColor: '#abb2bf',
+            //         fontSize: 16,
+            //         fontFamily: "'LibreBaskerville_Regular', 'Arial', sans-serif",
+            //         padding: -10,
+            //         callback: (value, index, values) => (index == (values.length - 1)) ? undefined : value,
+            //     },
+            //     gridLines: {
+            //         offsetGridLines: false,
+            //         drawBorder: false,
+            //         drawOnChartArea: true,
+            //         lineWidth: 0,
+            //     },
+            // }
+            // ],
+            y: [{
+                gridLines: {
+                    drawBorder: true,
+                    lineWidth: 2,
+
+                },
+                ticks: {
+                    fontColor: '#abb2bf',
+                    fontSize: 16,
+                    fontFamily: "'LibreBaskerville_Regular', 'Arial', sans-serif",
+                    max: 100,
+                    min: 0,
+                    stepSize: 20,
+                },
+            }],
+
+        }
     },
 
     data: {
-        labels: Object.values(ChartData.Timestamp),
+        // labels: Object.values(ChartData.Datetime),
+        labels: Object.values(ChartData.Timestamp).map(e => e * 1),
         radius: 5,
         datasets: datasets,
     }
 });
-
-
-
-
-
-
- 
