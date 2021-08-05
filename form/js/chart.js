@@ -31,59 +31,69 @@ allWirkungen = allWirkungen.filter((item, index) => { return (allWirkungen.index
 deb(allWirkungen, 'allWirkungen')
 
 
-//
-// match colors to wirkungen
-//
-var wirkungColor =[];
-for (let i = 0; i < localDataProfil.Wirkung.length; i++) {
-    let localWirkung = localDataProfil.Wirkung[i];
-    localWirkung = localWirkung.split("___");
-    // deb(localWirkung)
-    if (allWirkungen.includes(localWirkung[0])){
-        wirkungColor[localWirkung[0]] = localWirkung[1];
-    }
-}
-deb(wirkungColor,'wirkungColor')
+
 
 
 //
 // CREATE ChartData
 //
-let ChartData = [];
+let ChartData = new Object;
 ChartData['Wirkung'] = [];
 ChartData['Datetime'] = [];
-ChartData['Timestamp'] = [];
-ChartData['Color'] = wirkungColor;
+ChartData['Medikation'] = [];
+ChartData['Kommentar'] = [];
+ChartData.Situationen = new Object;
+ChartData['Timestamp'] = new Object;
 
 
 //
-// fill ChartData Array with Timestamp
+// fill ChartData Object with Color
+// 
+ChartData.Color = new Object;
+for (let i = 0; i < Object.keys(localDataProfil.Wirkung).length; i++) {
+    let localWirkung = localDataProfil.Wirkung[i];
+    localWirkung = localWirkung.split("___");
+    // deb(localWirkung,'localWirkung')
+    if (allWirkungen.includes(localWirkung[0])) {
+        ChartData.Color[localWirkung[0]] = localWirkung[1];
+    }
+}
+// deb(ChartData['Color'],'ChartData[Color]')
+
+
+
+
 //
-ChartData['Timestamp'] = Object.keys(localDataMood).map(function(key, index) {
+// fill ChartData Object with Timestamp
+//
+ChartData.Timestamp = Object.assign({}, Object.keys(localDataMood).map(function(key, index) {
     return key; // den timestamp doppelt zu speichern ist doch überflüssig--> kann raus
-});
+}));
 
 
 //
-// fill ChartData Array with datetime
+// fill ChartData Object with datetime
 //
-ChartData['Datetime'] = Object.keys(localDataMood).map(function(key, index) {
+ChartData.Datetime = Object.assign({}, Object.keys(localDataMood).map(function(key, index) {
+    // ChartData['Datetime'] = Object.keys(localDataMood).map(function(key, index) {
     let value = localDataMood[key].Datetime;
     if (value) {
         return value;
     } else {
         return null;
     }
-});
+}));
 
 
 //
-// fill ChartData Array with Wirkung
+// fill ChartData Object with Wirkung       WIRKUNG IS ARRAY !!!
 // loop through allWirkungen
 //
 for (let i = 0; i < allWirkungen.length; i++) {
-    // fill ChartData Array with mood values
-    ChartData['Wirkung'][allWirkungen[i]] = Object.keys(localDataMood).map(function(key, index) {
+    // fill ChartData Object with mood values
+    ChartData.Wirkung[allWirkungen[i]] = Object.assign({}, Object.keys(localDataMood).map(function(key, index) {
+
+        // ChartData['Wirkung'][allWirkungen[i]] = Object.keys(localDataMood).map(function(key, index) {
         let value = localDataMood[key].mood[allWirkungen[i]];
         if (value) {
             // deb(allWirkungen[i], 'allWirkungen[i]')
@@ -92,9 +102,62 @@ for (let i = 0; i < allWirkungen.length; i++) {
         } else {
             return null;
         }
-    });
+    }));
 }
 
+//
+// fill ChartData Object with Medikation  MEDIKATION IS ARRAY !!!
+//
+ChartData.Medikation = Object.assign({}, Object.keys(localDataMood).map(function(key, index) {
+
+// ChartData['Medikation'] = Object.keys(localDataMood).map(function(key, index) {
+    let value = localDataMood[key].Medikation;
+    // // flatten array?
+    // deb(value)
+    // value.forEach(element => {
+    //     deb(element)
+    // });
+    if (value) {
+        return value;
+    } else {
+        return null;
+    }
+}));
+
+
+//
+// fill ChartData Object with Kommentar
+//
+ChartData.Kommentar = Object.assign({}, Object.keys(localDataMood).map(function(key, index) {
+
+// ChartData['Kommentar'] = Object.keys(localDataMood).map(function(key, index) {
+    let value = localDataMood[key].comment;
+    if (value) {
+        return value;
+    } else {
+        return null;
+    }
+}));
+
+deb(ChartData, 'ChartData')
+
+//
+// fill ChartData Object with Kommentar
+//
+ChartData.Situationen = Object.assign({}, Object.keys(localDataMood).map(function(key, index) {
+
+// ChartData.Situationen = Object.keys(localDataMood).map(function(key, index) {
+    let value = localDataMood[key].situations;
+    if (value) {
+        value = value.toString();
+        value = value.replace(',', ', ');
+        // deb(value,'Situationen')
+        //  return Object.assign({}, value);
+        return value;
+    } else {
+        return null;
+    }
+}));
 
 deb(ChartData, 'ChartData')
 
@@ -103,11 +166,15 @@ deb(ChartData, 'ChartData')
 
 
 
-var Datetime = Object.keys(localDataMood).map(function(key, index) {
-    // deb(localDataMood[key].Datetime);
-    return localDataMood[key].Datetime;
-});
-// deb(Datetime, 'Datetime')
+
+
+
+
+
+
+
+
+
 
 
 
