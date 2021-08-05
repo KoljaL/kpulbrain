@@ -48,16 +48,28 @@ let ChartData = new Object;
 //
 // fill ChartData Object with Color
 // 
+var colorArray = {
+        bluegreen: "#56b6c2",
+        blue: "#61aeee",
+        pink: "#c678dd",
+        salomon: "#e06c75",
+        green: "#98c379",
+        red: "#be5046",
+        orange: "#d19a66",
+        yellow: "#e6c07b"
+    }
+    // deb(colorArray,'colorArray')
 ChartData.Color = new Object;
 for (let i = 0; i < Object.keys(localDataProfil.Wirkung).length; i++) {
     let localWirkung = localDataProfil.Wirkung[i];
     localWirkung = localWirkung.split("___");
     // deb(localWirkung,'localWirkung')
     if (allWirkungen.includes(localWirkung[0])) {
-        ChartData.Color[localWirkung[0]] = localWirkung[1];
+        ChartData.Color[localWirkung[0]] = colorArray[localWirkung[1]];
+        // ChartData.Color[localWirkung[0]] = localWirkung[1];
     }
 }
-// deb(ChartData['Color'],'ChartData[Color]')
+// deb(ChartData.Color,'ChartData.Color')
 
 
 //
@@ -149,13 +161,33 @@ ChartData.Situationen = Object.assign({}, Object.keys(localDataMood).map(functio
         return null;
     }
 }));
-
 deb(ChartData, 'ChartData')
-// deb(ChartData.Wirkungen[Unruhe], 'ChartData.Wirkungen.Unruhe')
 
 
-deb(Object.values(ChartData.Timestamp))
-
+//
+// create datasets
+//
+let datasets = [];
+for (i = 0; i < allWirkungen.length; i++) {
+    // deb(allWirkungen[i])
+    datasets[i] = {
+        label: allWirkungen[i],
+        data: Object.values(ChartData.Wirkung[allWirkungen[i]]),
+        backgroundColor: ChartData.Color[allWirkungen[i]],
+        borderColor: ChartData.Color[allWirkungen[i]],
+        pointStyle: 'circle',
+        radius: 10,
+        borderWidth: 1,
+        pointBorderColor: '#1b1e23',
+        pointHoverBorderColor: '#1b1e23',
+        pointHoverBackgroundColor: ChartData.Color[allWirkungen[i]],
+        pointHoverBorderWidth: 0,
+        pointHoverRadius: 10,
+        lineTension: 0,
+        fill: false,
+    }
+}
+// deb(datasets, 'datasets')
 
 
 //
@@ -202,29 +234,7 @@ var myChart = new Chart(document.getElementById("myChart").getContext("2d"), {
     data: {
         labels: Object.values(ChartData.Timestamp),
         radius: 5,
-
-
-
-        datasets: [{
-                label: 'Brainload',
-                data: Object.values(ChartData.Wirkung.Unruhe),
-                backgroundColor: 'rgb(190, 80, 70)',
-                borderColor: 'rgb(190, 80, 70)',
-                pointStyle: 'circle',
-                radius: 10,
-                borderWidth: 1,
-                pointBorderColor: '#1b1e23',
-                pointHoverBorderColor: '#1b1e23',
-                pointHoverBackgroundColor: 'rgb(190, 80, 70)',
-                pointHoverBorderWidth: 0,
-                pointHoverRadius: 10,
-                lineTension: 0,
-                fill: false,
-            },
-
-
-
-        ]
+        datasets: datasets,
     }
 });
 
@@ -233,43 +243,4 @@ var myChart = new Chart(document.getElementById("myChart").getContext("2d"), {
 
 
 
-
-
-
-
-
-// var ctx = document.getElementById('myChart');
-// var myChart = new Chart(ctx, {
-//     type: 'bar',
-//     data: {
-//         labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-//         datasets: [{
-//             label: '# of Votes',
-//             data: [12, 19, 3, 5, 2, 3],
-//             backgroundColor: [
-//                 'rgba(255, 99, 132, 0.2)',
-//                 'rgba(54, 162, 235, 0.2)',
-//                 'rgba(255, 206, 86, 0.2)',
-//                 'rgba(75, 192, 192, 0.2)',
-//                 'rgba(153, 102, 255, 0.2)',
-//                 'rgba(255, 159, 64, 0.2)'
-//             ],
-//             borderColor: [
-//                 'rgba(255, 99, 132, 1)',
-//                 'rgba(54, 162, 235, 1)',
-//                 'rgba(255, 206, 86, 1)',
-//                 'rgba(75, 192, 192, 1)',
-//                 'rgba(153, 102, 255, 1)',
-//                 'rgba(255, 159, 64, 1)'
-//             ],
-//             borderWidth: 1
-//         }]
-//     },
-//     options: {
-//         scales: {
-//             y: {
-//                 beginAtZero: true
-//             }
-//         }
-//     }
-// });
+ 
