@@ -60,7 +60,7 @@
 
 
    // console.log(firstDay);
-   // console.log(time);
+   console.log(time);
    // console.log(situation);
    // console.log(comment);
    //    console.log(brainload);

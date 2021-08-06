@@ -21,10 +21,10 @@ function getAnchor() {
 //
 // delete element on doubleClick
 //
-window.ondblclick = function(event) {
-    event.preventDefault
-    event.target.remove()
-}
+// window.ondblclick = function(event) {
+//     event.preventDefault
+//     event.target.remove()
+// }
 
 //
 // show element size
@@ -52,7 +52,7 @@ function showSize(el = 'x') {
  * @param {string} format
  * @returns
  */
-function formatdate(date, format = "Y-m-d", locale = "DE") {
+function formatdate(date, format = "d.m.Y H:i", locale = "DE") {
     const groupFormats = {
             minute: "Y-m-d H:s",
             hour: "Y-m-d H:00",

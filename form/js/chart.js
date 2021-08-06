@@ -1,8 +1,9 @@
 let localData = JSON.parse(localStorage.getItem(localDataName)) || initObj;
 let localDataProfil = localData.Profil;
 let localDataMood = localData.Mood;
-deb(localDataProfil, 'localDataProfil')
-deb(localDataMood, 'localDataMood')
+deb(localData, 'localData')
+// deb(localDataProfil, 'localDataProfil')
+// deb(localDataMood, 'localDataMood')
 
 
 
@@ -28,7 +29,7 @@ for (const key in localDataMood) {
 }
 allWirkungen = allWirkungen.flat();
 allWirkungen = allWirkungen.filter((item, index) => { return (allWirkungen.indexOf(item) == index) });
-deb(allWirkungen, 'allWirkungen')
+// deb(allWirkungen, 'allWirkungen')
 
 
 
@@ -37,7 +38,7 @@ deb(allWirkungen, 'allWirkungen')
 //
 // CREATE ChartData
 //
-let ChartData = new Object;
+let ChartData = [];
 // ChartData['Datetime'] = new Object;
 // ChartData['Medikation'] = new Object;
 // ChartData['Kommentar'] = new Object;
@@ -59,39 +60,42 @@ var colorArray = {
         yellow: "#e6c07b"
     }
     // deb(colorArray,'colorArray')
-ChartData.Color = new Object;
+    // ChartData.Color = new Object;
+ChartData['Color'] = [];
 for (let i = 0; i < Object.keys(localDataProfil.Wirkung).length; i++) {
     let localWirkung = localDataProfil.Wirkung[i];
     localWirkung = localWirkung.split("___");
     // deb(localWirkung,'localWirkung')
     if (allWirkungen.includes(localWirkung[0])) {
-        ChartData.Color[localWirkung[0]] = colorArray[localWirkung[1]];
+        ChartData['Color'][localWirkung[0]] = colorArray[localWirkung[1]];
         // ChartData.Color[localWirkung[0]] = localWirkung[1];
     }
 }
-// deb(ChartData.Color,'ChartData.Color')
+// deb(ChartData['Color'],'ChartData['Color']')
 
 
 //
 // fill ChartData Object with Timestamp         // den timestamp doppelt zu speichern ist doch überflüssig--> kann raus
 //
-ChartData.Timestamp = Object.assign({}, Object.keys(localDataMood).map(function(key, index) {
-    // return key*= 1000; 
-    return key; 
-}));
+// ChartData.Timestamp = Object.assign({}, Object.keys(localDataMood).map(function(key, index) {
+ChartData['Timestamp'] = Object.keys(localDataMood).map(function(key, index) {
+    // return key *= 1000;
+    return key*=1;//.toString();
+});
 
-
+deb(ChartData['Timestamp'] )
 //
 // fill ChartData Object with datetime
 //
-ChartData.Datetime = Object.assign({}, Object.keys(localDataMood).map(function(key, index) {
+// ChartData.Datetime = Object.assign({}, Object.keys(localDataMood).map(function(key, index) {
+ChartData['Datetime'] = Object.keys(localDataMood).map(function(key, index) {
     let value = localDataMood[key].Datetime;
     if (value) {
         return value;
     } else {
         return null;
     }
-}));
+});
 
 
 //
@@ -162,8 +166,8 @@ ChartData.Situationen = Object.assign({}, Object.keys(localDataMood).map(functio
         return null;
     }
 }));
-deb(ChartData, 'ChartData')
- 
+// deb(ChartData, 'ChartData')
+
 
 //
 // create datasets
@@ -189,6 +193,7 @@ for (i = 0; i < allWirkungen.length; i++) {
     }
 }
 // deb(datasets, 'datasets')
+
 
 
 //
@@ -230,111 +235,235 @@ var myChart = new Chart(document.getElementById("myChart").getContext("2d"), {
             },
 
         },
+
+
+
+
+
+
+
+
+
         scales: {
-            // x: {
-            //     type: 'time',    
-            //     display: true,
-            //     distribution: 'linear',
-            //     time: {
-            //         unit: 'hour',
-            //         stepSize: 6,
-            //         // parser: 'dd.MM.yyyy HH:mm',
-            //         displayFormats: {
-            //             // 'hour': 'dd.MM.yyyy',
-            //             'hour': 'HH:mm',
-            //         },
-            //         min: '04.08.2021',
-            //         max: '05.08.2021',
-            //     }
-            // }
+            x: {
 
-            x: 
-            // [
-                {
-                    // id: 'hours',
-                    type: 'time',
-                    display: true,
-                    distribution: 'linear',
-                    time: {
-                        // parser: 'DD.MM.YYYY HH:mm',
-                        // tooltipFormat: 'DD.MM.YYYY HH:mm',
-                        displayFormats: {
-                            //    'hour': 'DD.MM.YYYY',
-                            'hour': 'HH:mm',
-                        },
-                    min: 1628076511,
-                    max: 1628162911,
-                        unit: 'hour',
-                        stepSize: 6,
-                    },
-                    ticks: {
-                        fontColor: '#abb2bf',
-                        fontSize: 16,
-                        fontFamily: "'LibreBaskerville_Regular', 'Arial', sans-serif",
-                        padding: 10,
-                    },
-                    gridLines: {
-                        drawBorder: false,
-                        offsetGridLines: false,
-                        lineWidth: 2,
-                        drawOnChartArea: true,
+                type: 'time',
+                display: true,
+                fontColor: '#abb2bf',
+                fontSize: 16,
+                fontFamily: "serif",
+                distribution: 'linear',
+                // min: '03.08.2021',
+                // max: '06.08.2021',
+                time: {
+                    // parser: 'dd.MM.yyyy HH:mm',
+                    tooltipFormat: 'dd.LLL.y HH:mm',
 
-                    },
+                    unit: "day",
+                    displayFormats: {
+                        hour: "HH:mm"
+                    }
                 },
-            // {
-            //     id: 'days',
-            //     type: 'time',
-            //     display: true,
-            //     distribution: 'linear',
-            //     time: {
-            //         // parser: 'DD.MM.YYYY HH:mm',
-            //         // tooltipFormat: 'DD.MM.YYYY HH:mm',
-            //         displayFormats: {
-            //             'day': 'DD.MM.YYYY',
-            //         },
-            //         // min: firstDay,
-            //         // max: lastDay,
-            //         unit: 'day',
-            //         stepSize: 1,
-            //     },
-            //     ticks: {
-            //         fontColor: '#abb2bf',
-            //         fontSize: 16,
-            //         fontFamily: "'LibreBaskerville_Regular', 'Arial', sans-serif",
-            //         padding: -10,
-            //         callback: (value, index, values) => (index == (values.length - 1)) ? undefined : value,
-            //     },
-            //     gridLines: {
-            //         offsetGridLines: false,
-            //         drawBorder: false,
-            //         drawOnChartArea: true,
-            //         lineWidth: 0,
-            //     },
-            // }
-            // ],
-            y: [{
-                gridLines: {
-                    drawBorder: true,
-                    lineWidth: 2,
 
-                },
                 ticks: {
+                    source: 'labels',
                     fontColor: '#abb2bf',
                     fontSize: 16,
                     fontFamily: "'LibreBaskerville_Regular', 'Arial', sans-serif",
-                    max: 100,
-                    min: 0,
-                    stepSize: 20,
+                    padding: 10,
                 },
-            }],
+                gridLines: {
+                    drawBorder: false,
+                    offsetGridLines: false,
+                    lineWidth: 2,
+                    drawOnChartArea: true,
 
-        }
+                },
+
+                // ticks: {
+                //     autoSkip: false,
+                //     maxRotation: 0,
+                //     major: {
+                //         enabled: true
+                //     },
+                // color: function(context) {
+                //   return context.tick && context.tick.major ? '#FF0000' : 'rgba(0,0,0,0.1)';
+                // },
+                //     font: function(context) {
+                //         if (context.tick && context.tick.major) {
+                //             return {
+                //                 style: 'bold',
+                //             };
+                //         }
+                //     }
+                // }
+            },
+            y: {
+                display: true,
+                fontColor: '#abb2bf',
+                fontSize: 16,
+                fontFamily: "serif",
+                max: 100,
+                min: 0,
+                ticks: {
+                    stepSize: 20,
+                }
+            }
+
+        },
+
+
+
+
+
+
+
+
+
+
+
+        // scales: {
+        //     x: {
+        //         type: 'time',
+        //         time: {
+        //             // Luxon format string
+        //             tooltipFormat: 'dd T'
+        //         },
+        //         title: {
+        //             display: true,
+        //             text: 'Date'
+        //         }
+        //     },
+        //     y: {
+        //         title: {
+        //             display: true,
+        //             text: 'value'
+        //         }
+        //     }
+        // },
+
+
+
+
+
+
+        // scales: {
+        //     x: {
+        //         type: 'time',    
+        //         display: true,
+        //         distribution: 'linear',
+        //         time: {
+        //             unit: 'hour',
+        //             stepSize: 6,
+        //             // parser: 'dd.MM.yyyy HH:mm',
+        //             displayFormats: {
+        //                 // 'hour': 'dd.MM.yyyy',
+        //                 'hour': 'HH:mm',
+        //             },
+        //             min: '04.08.2021',
+        //             max: '05.08.2021',
+        //         }
+        //     },
+
+        // x: 
+        // [
+        // {
+        //     // id: 'hours',
+        //     type: 'time',
+        //     display: true,
+        //     distribution: 'linear',
+        //     time: {
+        //         // parser: 'DD.MM.YYYY HH:mm',
+        //         // tooltipFormat: 'DD.MM.YYYY HH:mm',
+        //         displayFormats: {
+        //             //    'hour': 'DD.MM.YYYY',
+        //             'hour': 'HH:mm',
+        //         },
+        //     min: 1628076511,
+        //     max: 1628162911,
+        //         unit: 'hour',
+        //         stepSize: 6,
+        //     },
+        //     ticks: {
+        //         fontColor: '#abb2bf',
+        //         fontSize: 16,
+        //         fontFamily: "'LibreBaskerville_Regular', 'Arial', sans-serif",
+        //         padding: 10,
+        //     },
+        //     gridLines: {
+        //         drawBorder: false,
+        //         offsetGridLines: false,
+        //         lineWidth: 2,
+        //         drawOnChartArea: true,
+
+        //     },
+        // },
+        // {
+        //     id: 'days',
+        //     type: 'time',
+        //     display: true,
+        //     distribution: 'linear',
+        //     time: {
+        //         // parser: 'DD.MM.YYYY HH:mm',
+        //         // tooltipFormat: 'DD.MM.YYYY HH:mm',
+        //         displayFormats: {
+        //             'day': 'DD.MM.YYYY',
+        //         },
+        //         // min: firstDay,
+        //         // max: lastDay,
+        //         unit: 'day',
+        //         stepSize: 1,
+        //     },
+        //     ticks: {
+        //         fontColor: '#abb2bf',
+        //         fontSize: 16,
+        //         fontFamily: "'LibreBaskerville_Regular', 'Arial', sans-serif",
+        //         padding: -10,
+        //         callback: (value, index, values) => (index == (values.length - 1)) ? undefined : value,
+        //     },
+        //     gridLines: {
+        //         offsetGridLines: false,
+        //         drawBorder: false,
+        //         drawOnChartArea: true,
+        //         lineWidth: 0,
+        //     },
+        // }
+        // ],
+        // y: [{
+        //     gridLines: {
+        //         drawBorder: true,
+        //         lineWidth: 2,
+
+        //     },
+        //     ticks: {
+        //         fontColor: '#abb2bf',
+        //         fontSize: 16,
+        //         fontFamily: "'LibreBaskerville_Regular', 'Arial', sans-serif",
+        //         max: 100,
+        //         min: 0,
+        //         stepSize: 20,
+        //     },
+        // }],
+
+        // } //scales
     },
 
     data: {
+        // labels: ChartData.Datetime,
         // labels: Object.values(ChartData.Datetime),
-        labels: Object.values(ChartData.Timestamp).map(e => e * 1),
+        // labels: ChartData.Timestamp,
+        labels: ChartData.Timestamp, //.map(e => e * 1000) 
         radius: 5,
         datasets: datasets,
     }
 });
+
+// deb(ChartData.Datetime)
+
+
+
+// deb(luxon.DateTime.utc(1628159311))              1628141311
+// console.log(luxon.DateTime.fromMillis(Math.trunc(1628190881126)).toISO())
+// console.log(luxon.DateTime.fromMillis(1628159311).toISO())
+
+// return moment(e.time, "DD.MM.YYYY hh:mm:ss", true);
