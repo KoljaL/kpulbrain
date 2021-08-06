@@ -2,8 +2,8 @@ let localData = JSON.parse(localStorage.getItem(localDataName)) || initObj;
 let localDataProfil = localData.Profil;
 let localDataMood = localData.Mood;
 deb(localData, 'localData')
-// deb(localDataProfil, 'localDataProfil')
-// deb(localDataMood, 'localDataMood')
+    // deb(localDataProfil, 'localDataProfil')
+    // deb(localDataMood, 'localDataMood')
 
 
 
@@ -80,14 +80,14 @@ for (let i = 0; i < Object.keys(localDataProfil.Wirkung).length; i++) {
 // ChartData.Timestamp = Object.assign({}, Object.keys(localDataMood).map(function(key, index) {
 ChartData['Timestamp'] = Object.keys(localDataMood).map(function(key, index) {
     // return key *= 1000;
-    return key*=1;//.toString();
+    return key *= 1; //.toString();
 });
 
-deb(ChartData['Timestamp'] )
-//
-// fill ChartData Object with datetime
-//
-// ChartData.Datetime = Object.assign({}, Object.keys(localDataMood).map(function(key, index) {
+deb(ChartData['Timestamp'])
+    //
+    // fill ChartData Object with datetime
+    //
+    // ChartData.Datetime = Object.assign({}, Object.keys(localDataMood).map(function(key, index) {
 ChartData['Datetime'] = Object.keys(localDataMood).map(function(key, index) {
     let value = localDataMood[key].Datetime;
     if (value) {
@@ -245,7 +245,7 @@ var myChart = new Chart(document.getElementById("myChart").getContext("2d"), {
 
 
         scales: {
-            x: {
+            x1: {
 
                 type: 'time',
                 display: true,
@@ -259,19 +259,15 @@ var myChart = new Chart(document.getElementById("myChart").getContext("2d"), {
                     // parser: 'dd.MM.yyyy HH:mm',
                     tooltipFormat: 'dd.LLL.y HH:mm',
 
-                    unit: "day",
+                    unit: "hour",
+                    stepSize: 6,
+
                     displayFormats: {
                         hour: "HH:mm"
                     }
                 },
 
-                ticks: {
-                    source: 'labels',
-                    fontColor: '#abb2bf',
-                    fontSize: 16,
-                    fontFamily: "'LibreBaskerville_Regular', 'Arial', sans-serif",
-                    padding: 10,
-                },
+
                 gridLines: {
                     drawBorder: false,
                     offsetGridLines: false,
@@ -280,24 +276,65 @@ var myChart = new Chart(document.getElementById("myChart").getContext("2d"), {
 
                 },
 
-                // ticks: {
-                //     autoSkip: false,
-                //     maxRotation: 0,
-                //     major: {
-                //         enabled: true
-                //     },
-                // color: function(context) {
-                //   return context.tick && context.tick.major ? '#FF0000' : 'rgba(0,0,0,0.1)';
-                // },
-                //     font: function(context) {
-                //         if (context.tick && context.tick.major) {
-                //             return {
-                //                 style: 'bold',
-                //             };
-                //         }
-                //     }
-                // }
+                ticks: {
+                    autoSkip: false,
+                    maxRotation: 0,
+                    // source: 'labels',
+                    fontColor: '#abb2bf',
+                    fontSize: 16,
+                    fontFamily: "'LibreBaskerville_Regular', 'Arial', sans-serif",
+                    padding: 10,
+
+                    major: {
+                        enabled: true
+                    },
+                    // color: function(context) {
+                    //     return context.tick && context.tick.major ? '#FF0000' : 'rgba(0,0,0,0.1)';
+                    // },
+                    font: function(context) {
+                        // deb(context.tick)
+                        if (context.tick && context.tick.major) {
+                            return {
+                                style: 'bold',
+                            };
+                        }
+                    }
+
+                }
             },
+            x2: {
+                id: 'days',
+                type: 'time',
+                display: true,
+                distribution: 'linear',
+                time: {
+                    // parser: 'DD.MM.YYYY HH:mm',
+                    // tooltipFormat: 'DD.MM.YYYY HH:mm',
+                    displayFormats: {
+                        'day': 'd.LLL.y',
+                    },
+                    // min: firstDay,
+                    // max: lastDay,
+                    unit: 'day',
+                    stepSize: 1,
+                },
+                ticks: {
+                    fontColor: '#abb2bf',
+                    fontSize: 16,
+                    fontFamily: "'LibreBaskerville_Regular', 'Arial', sans-serif",
+                    padding: 10,
+                    // callback: (value, index, values) => (index == (values.length - 1)) ? undefined : value,
+                },
+                gridLines: {
+                    offsetGridLines: false,
+                    drawBorder: false,
+                    drawOnChartArea: true,
+                    lineWidth: 0,
+                },
+            },
+
+
+
             y: {
                 display: true,
                 fontColor: '#abb2bf',

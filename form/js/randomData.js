@@ -13,7 +13,7 @@ function getRandomInt(max) {
 // deb(getRandomInt(5),'getRandomInt'); 
 
 
-let MoodItems = 50;
+let MoodItems = 100;
 
 
 
