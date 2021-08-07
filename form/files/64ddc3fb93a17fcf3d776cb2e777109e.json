@@ -1,17 +1,17 @@
 {
     "Profil": {
         "Freigeben": "on",
-        "Timestamp": 1628241395487,
-        "Datetime": "06.08.2021 11:16:35",
+        "Timestamp": 1628116393212,
+        "Datetime": "05.08.2021 00:33:13",
         "Alter": "1722",
         "Geschlecht": "divers",
         "Subtyp": "ADS",
         "Wirkung": [
-            "Brainload___orange",
             "Unruhe___red",
             "Konzentration___blue",
             "Aufmerksamkeit___green",
-            "Motivation___salomon"
+            "Motivation___salomon",
+            "Brainload___orange"
         ],
         "P_Kommentar": "bin mal gespannt",
         "Situations": [
@@ -19,15 +19,12 @@
             "bei der Arbeit",
             "zuhause",
             "kann nicht schlafen"
-        ],
-        "Browser": "Firefox 90",
-        "OS": "Linux",
-        "Viewport": "619 x 1082"
+        ]
     },
     "Mood": {
-        "1628143200000": {
-            "Timestamp": 1628143200000,
-            "Datetime": "05.08.2021 08:00",
+        "1628355040468": {
+            "Timestamp": 1628355040468,
+            "Datetime": "07.08.2021 18:50:40",
             "Medikation": [
                 {
                     "Medikament": "Elvanse Adult",
@@ -43,410 +40,346 @@
                     "SeitWann": "2021-07-01"
                 }
             ],
-            "situations": [
-                "zuhause",
-                "kann nicht schlafen"
-            ],
             "mood": {
-                "Unruhe": "50",
-                "Konzentration": "20",
-                "Aufmerksamkeit": "70",
-                "Brainload": "0"
-            },
-            "comment": "Was soll hier blo\u00df rein"
-        },
-        "1628146800000": {
-            "Timestamp": 1628146800000,
-            "Datetime": "05.08.2021 09:00",
-            "Medikation": [
-                {
-                    "Medikament": "Elvanse Adult",
-                    "Dosierung": "30",
-                    "Zeitpunkt": "07:00",
-                    "SeitWann": "2021-06-01",
-                    "Kommentar": "und noch was"
-                },
-                {
-                    "Medikament": "Attentin",
-                    "Dosierung": "5",
-                    "Zeitpunkt": "07:00",
-                    "SeitWann": "2021-07-01"
-                }
-            ],
-            "situations": [
-                "zuhause",
-                "kann nicht schlafen"
-            ],
-            "mood": {
-                "Unruhe": "30",
-                "Konzentration": "0",
-                "Aufmerksamkeit": "50",
-                "Brainload": "70"
-            },
-            "comment": "Was soll hier blo\u00df rein"
-        },
-        "1628150400000": {
-            "Timestamp": 1628150400000,
-            "Datetime": "05.08.2021 10:00",
-            "Medikation": [
-                {
-                    "Medikament": "Elvanse Adult",
-                    "Dosierung": "30",
-                    "Zeitpunkt": "07:00",
-                    "SeitWann": "2021-06-01",
-                    "Kommentar": "und noch was"
-                },
-                {
-                    "Medikament": "Attentin",
-                    "Dosierung": "5",
-                    "Zeitpunkt": "07:00",
-                    "SeitWann": "2021-07-01"
-                }
-            ],
-            "situations": [
-                "zuhause",
-                "kann nicht schlafen"
-            ],
-            "mood": {
-                "Unruhe": "60",
-                "Konzentration": "80",
-                "Aufmerksamkeit": "70",
-                "Brainload": "80"
-            },
-            "comment": "Was soll hier blo\u00df rein"
-        },
-        "1628154000000": {
-            "Timestamp": 1628154000000,
-            "Datetime": "05.08.2021 11:00",
-            "Medikation": [
-                {
-                    "Medikament": "Elvanse Adult",
-                    "Dosierung": "30",
-                    "Zeitpunkt": "07:00",
-                    "SeitWann": "2021-06-01",
-                    "Kommentar": "und noch was"
-                },
-                {
-                    "Medikament": "Attentin",
-                    "Dosierung": "5",
-                    "Zeitpunkt": "07:00",
-                    "SeitWann": "2021-07-01"
-                }
-            ],
-            "situations": [
-                "zuhause",
-                "kann nicht schlafen"
-            ],
-            "mood": {
-                "Unruhe": "70",
-                "Konzentration": "60",
-                "Aufmerksamkeit": "90",
-                "Brainload": "10"
-            },
-            "comment": "Was soll hier blo\u00df rein"
-        },
-        "1628157600000": {
-            "Timestamp": 1628157600000,
-            "Datetime": "05.08.2021 12:00",
-            "Medikation": [
-                {
-                    "Medikament": "Elvanse Adult",
-                    "Dosierung": "30",
-                    "Zeitpunkt": "07:00",
-                    "SeitWann": "2021-06-01",
-                    "Kommentar": "und noch was"
-                },
-                {
-                    "Medikament": "Attentin",
-                    "Dosierung": "5",
-                    "Zeitpunkt": "07:00",
-                    "SeitWann": "2021-07-01"
-                }
-            ],
-            "situations": [
-                "zuhause",
-                "kann nicht schlafen"
-            ],
-            "mood": {
-                "Unruhe": "50",
-                "Konzentration": "90",
-                "Aufmerksamkeit": "30",
-                "Brainload": "0"
-            },
-            "comment": "Was soll hier blo\u00df rein"
-        },
-        "1628161200000": {
-            "Timestamp": 1628161200000,
-            "Datetime": "05.08.2021 13:00",
-            "Medikation": [
-                {
-                    "Medikament": "Elvanse Adult",
-                    "Dosierung": "30",
-                    "Zeitpunkt": "07:00",
-                    "SeitWann": "2021-06-01",
-                    "Kommentar": "und noch was"
-                },
-                {
-                    "Medikament": "Attentin",
-                    "Dosierung": "5",
-                    "Zeitpunkt": "07:00",
-                    "SeitWann": "2021-07-01"
-                }
-            ],
-            "situations": [
-                "zuhause",
-                "kann nicht schlafen"
-            ],
-            "mood": {
-                "Unruhe": "60",
-                "Konzentration": "60",
-                "Aufmerksamkeit": "80",
-                "Brainload": "30"
-            },
-            "comment": "Was soll hier blo\u00df rein"
-        },
-        "1628164800000": {
-            "Timestamp": 1628164800000,
-            "Datetime": "05.08.2021 14:00",
-            "Medikation": [
-                {
-                    "Medikament": "Elvanse Adult",
-                    "Dosierung": "30",
-                    "Zeitpunkt": "07:00",
-                    "SeitWann": "2021-06-01",
-                    "Kommentar": "und noch was"
-                },
-                {
-                    "Medikament": "Attentin",
-                    "Dosierung": "5",
-                    "Zeitpunkt": "07:00",
-                    "SeitWann": "2021-07-01"
-                }
-            ],
-            "situations": [
-                "zuhause",
-                "kann nicht schlafen"
-            ],
-            "mood": {
-                "Unruhe": "90",
-                "Konzentration": "60",
-                "Aufmerksamkeit": "0",
-                "Brainload": "90"
-            },
-            "comment": "Was soll hier blo\u00df rein"
-        },
-        "1628168400000": {
-            "Timestamp": 1628168400000,
-            "Datetime": "05.08.2021 15:00",
-            "Medikation": [
-                {
-                    "Medikament": "Elvanse Adult",
-                    "Dosierung": "30",
-                    "Zeitpunkt": "07:00",
-                    "SeitWann": "2021-06-01",
-                    "Kommentar": "und noch was"
-                },
-                {
-                    "Medikament": "Attentin",
-                    "Dosierung": "5",
-                    "Zeitpunkt": "07:00",
-                    "SeitWann": "2021-07-01"
-                }
-            ],
-            "situations": [
-                "zuhause",
-                "kann nicht schlafen"
-            ],
-            "mood": {
-                "Unruhe": "60",
-                "Konzentration": "40",
-                "Aufmerksamkeit": "10",
-                "Brainload": "50"
-            },
-            "comment": "Was soll hier blo\u00df rein"
-        },
-        "1628172000000": {
-            "Timestamp": 1628172000000,
-            "Datetime": "05.08.2021 16:00",
-            "Medikation": [
-                {
-                    "Medikament": "Elvanse Adult",
-                    "Dosierung": "30",
-                    "Zeitpunkt": "07:00",
-                    "SeitWann": "2021-06-01",
-                    "Kommentar": "und noch was"
-                },
-                {
-                    "Medikament": "Attentin",
-                    "Dosierung": "5",
-                    "Zeitpunkt": "07:00",
-                    "SeitWann": "2021-07-01"
-                }
-            ],
-            "situations": [
-                "zuhause",
-                "kann nicht schlafen"
-            ],
-            "mood": {
-                "Unruhe": "90",
-                "Konzentration": "20",
-                "Aufmerksamkeit": "20",
-                "Brainload": "60"
-            },
-            "comment": "Was soll hier blo\u00df rein"
-        },
-        "1628175600000": {
-            "Timestamp": 1628175600000,
-            "Datetime": "05.08.2021 17:00",
-            "Medikation": [
-                {
-                    "Medikament": "Elvanse Adult",
-                    "Dosierung": "30",
-                    "Zeitpunkt": "07:00",
-                    "SeitWann": "2021-06-01",
-                    "Kommentar": "und noch was"
-                },
-                {
-                    "Medikament": "Attentin",
-                    "Dosierung": "5",
-                    "Zeitpunkt": "07:00",
-                    "SeitWann": "2021-07-01"
-                }
-            ],
-            "situations": [
-                "zuhause",
-                "kann nicht schlafen"
-            ],
-            "mood": {
-                "Unruhe": "40",
+                "Unruhe": "80",
                 "Konzentration": "70",
-                "Aufmerksamkeit": "40",
-                "Brainload": "60"
-            },
-            "comment": "Was soll hier blo\u00df rein"
-        },
-        "1628179200000": {
-            "Timestamp": 1628179200000,
-            "Datetime": "05.08.2021 18:00",
-            "Medikation": [
-                {
-                    "Medikament": "Elvanse Adult",
-                    "Dosierung": "30",
-                    "Zeitpunkt": "07:00",
-                    "SeitWann": "2021-06-01",
-                    "Kommentar": "und noch was"
-                },
-                {
-                    "Medikament": "Attentin",
-                    "Dosierung": "5",
-                    "Zeitpunkt": "07:00",
-                    "SeitWann": "2021-07-01"
-                }
-            ],
-            "situations": [
-                "zuhause",
-                "kann nicht schlafen"
-            ],
-            "mood": {
-                "Unruhe": "10",
-                "Konzentration": "10",
-                "Aufmerksamkeit": "70",
-                "Brainload": "10"
-            },
-            "comment": "Was soll hier blo\u00df rein"
-        },
-        "1628182800000": {
-            "Timestamp": 1628182800000,
-            "Datetime": "05.08.2021 19:00",
-            "Medikation": [
-                {
-                    "Medikament": "Elvanse Adult",
-                    "Dosierung": "30",
-                    "Zeitpunkt": "07:00",
-                    "SeitWann": "2021-06-01",
-                    "Kommentar": "und noch was"
-                },
-                {
-                    "Medikament": "Attentin",
-                    "Dosierung": "5",
-                    "Zeitpunkt": "07:00",
-                    "SeitWann": "2021-07-01"
-                }
-            ],
-            "situations": [
-                "zuhause",
-                "kann nicht schlafen"
-            ],
-            "mood": {
-                "Unruhe": "50",
-                "Konzentration": "50",
-                "Aufmerksamkeit": "10",
-                "Brainload": "80"
-            },
-            "comment": "Was soll hier blo\u00df rein"
-        },
-        "1628186400000": {
-            "Timestamp": 1628186400000,
-            "Datetime": "05.08.2021 20:00",
-            "Medikation": [
-                {
-                    "Medikament": "Elvanse Adult",
-                    "Dosierung": "30",
-                    "Zeitpunkt": "07:00",
-                    "SeitWann": "2021-06-01",
-                    "Kommentar": "und noch was"
-                },
-                {
-                    "Medikament": "Attentin",
-                    "Dosierung": "5",
-                    "Zeitpunkt": "07:00",
-                    "SeitWann": "2021-07-01"
-                }
-            ],
-            "situations": [
-                "zuhause",
-                "kann nicht schlafen"
-            ],
-            "mood": {
-                "Unruhe": "70",
-                "Konzentration": "50",
-                "Aufmerksamkeit": "10",
-                "Brainload": "30"
-            },
-            "comment": "Was soll hier blo\u00df rein"
-        },
-        "1628229600000": {
-            "Timestamp": 1628229600000,
-            "Datetime": "06.08.2021 08:00",
-            "Medikation": [
-                {
-                    "Medikament": "Elvanse Adult",
-                    "Dosierung": "30",
-                    "Zeitpunkt": "07:00",
-                    "SeitWann": "2021-06-01",
-                    "Kommentar": "und noch was"
-                },
-                {
-                    "Medikament": "Attentin",
-                    "Dosierung": "5",
-                    "Zeitpunkt": "07:00",
-                    "SeitWann": "2021-07-01"
-                }
-            ],
-            "situations": [
-                "zuhause",
-                "kann nicht schlafen"
-            ],
-            "mood": {
-                "Unruhe": "0",
-                "Konzentration": "30",
-                "Aufmerksamkeit": "80",
+                "Aufmerksamkeit": "50",
+                "Motivation": "50",
                 "Brainload": "70"
+            }
+        },
+        "1628358506272": {
+            "Timestamp": 1628358506272,
+            "Datetime": "07.08.2021 19:48",
+            "Medikation": [
+                {
+                    "Medikament": "Elvanse Adult",
+                    "Dosierung": "30",
+                    "Zeitpunkt": "07:00",
+                    "SeitWann": "2021-06-01",
+                    "Kommentar": "und noch was"
+                },
+                {
+                    "Medikament": "Attentin",
+                    "Dosierung": "5",
+                    "Zeitpunkt": "07:00",
+                    "SeitWann": "2021-07-01"
+                }
+            ],
+            "situations": [
+                "zuhause",
+                "kann nicht schlafen"
+            ],
+            "mood": {
+                "Unruhe": 70,
+                "Konzentration": 20,
+                "Aufmerksamkeit": 30,
+                "Brainload": 50
             },
             "comment": "Was soll hier blo\u00df rein"
         },
-        "1628233200000": {
-            "Timestamp": 1628233200000,
+        "1628349986272": {
+            "Timestamp": 1628349986272,
+            "Datetime": "07.08.2021 17:26",
+            "Medikation": [
+                {
+                    "Medikament": "Elvanse Adult",
+                    "Dosierung": "30",
+                    "Zeitpunkt": "07:00",
+                    "SeitWann": "2021-06-01",
+                    "Kommentar": "und noch was"
+                },
+                {
+                    "Medikament": "Attentin",
+                    "Dosierung": "5",
+                    "Zeitpunkt": "07:00",
+                    "SeitWann": "2021-07-01"
+                }
+            ],
+            "situations": [
+                "zuhause",
+                "kann nicht schlafen"
+            ],
+            "mood": {
+                "Unruhe": 40,
+                "Konzentration": 0,
+                "Aufmerksamkeit": 30,
+                "Brainload": 10
+            },
+            "comment": "Was soll hier blo\u00df rein"
+        },
+        "1628342606272": {
+            "Timestamp": 1628342606272,
+            "Datetime": "07.08.2021 15:23",
+            "Medikation": [
+                {
+                    "Medikament": "Elvanse Adult",
+                    "Dosierung": "30",
+                    "Zeitpunkt": "07:00",
+                    "SeitWann": "2021-06-01",
+                    "Kommentar": "und noch was"
+                },
+                {
+                    "Medikament": "Attentin",
+                    "Dosierung": "5",
+                    "Zeitpunkt": "07:00",
+                    "SeitWann": "2021-07-01"
+                }
+            ],
+            "situations": [
+                "zuhause",
+                "kann nicht schlafen"
+            ],
+            "mood": {
+                "Unruhe": 70,
+                "Konzentration": 60,
+                "Aufmerksamkeit": 70,
+                "Brainload": 60
+            },
+            "comment": "Was soll hier blo\u00df rein"
+        },
+        "1628335166272": {
+            "Timestamp": 1628335166272,
+            "Datetime": "07.08.2021 13:19",
+            "Medikation": [
+                {
+                    "Medikament": "Elvanse Adult",
+                    "Dosierung": "30",
+                    "Zeitpunkt": "07:00",
+                    "SeitWann": "2021-06-01",
+                    "Kommentar": "und noch was"
+                },
+                {
+                    "Medikament": "Attentin",
+                    "Dosierung": "5",
+                    "Zeitpunkt": "07:00",
+                    "SeitWann": "2021-07-01"
+                }
+            ],
+            "situations": [
+                "zuhause",
+                "kann nicht schlafen"
+            ],
+            "mood": {
+                "Unruhe": 40,
+                "Konzentration": 60,
+                "Aufmerksamkeit": 0,
+                "Brainload": 60
+            },
+            "comment": "Was soll hier blo\u00df rein"
+        },
+        "1628328446272": {
+            "Timestamp": 1628328446272,
+            "Datetime": "07.08.2021 11:27",
+            "Medikation": [
+                {
+                    "Medikament": "Elvanse Adult",
+                    "Dosierung": "30",
+                    "Zeitpunkt": "07:00",
+                    "SeitWann": "2021-06-01",
+                    "Kommentar": "und noch was"
+                },
+                {
+                    "Medikament": "Attentin",
+                    "Dosierung": "5",
+                    "Zeitpunkt": "07:00",
+                    "SeitWann": "2021-07-01"
+                }
+            ],
+            "situations": [
+                "zuhause",
+                "kann nicht schlafen"
+            ],
+            "mood": {
+                "Unruhe": 40,
+                "Konzentration": 30,
+                "Aufmerksamkeit": 10,
+                "Brainload": 0
+            },
+            "comment": "Was soll hier blo\u00df rein"
+        },
+        "1628322026272": {
+            "Timestamp": 1628322026272,
+            "Datetime": "07.08.2021 09:40",
+            "Medikation": [
+                {
+                    "Medikament": "Elvanse Adult",
+                    "Dosierung": "30",
+                    "Zeitpunkt": "07:00",
+                    "SeitWann": "2021-06-01",
+                    "Kommentar": "und noch was"
+                },
+                {
+                    "Medikament": "Attentin",
+                    "Dosierung": "5",
+                    "Zeitpunkt": "07:00",
+                    "SeitWann": "2021-07-01"
+                }
+            ],
+            "situations": [
+                "zuhause",
+                "kann nicht schlafen"
+            ],
+            "mood": {
+                "Unruhe": 50,
+                "Konzentration": 0,
+                "Aufmerksamkeit": 50,
+                "Brainload": 90
+            },
+            "comment": "Was soll hier blo\u00df rein"
+        },
+        "1628268866272": {
+            "Timestamp": 1628268866272,
+            "Datetime": "06.08.2021 18:54",
+            "Medikation": [
+                {
+                    "Medikament": "Elvanse Adult",
+                    "Dosierung": "30",
+                    "Zeitpunkt": "07:00",
+                    "SeitWann": "2021-06-01",
+                    "Kommentar": "und noch was"
+                },
+                {
+                    "Medikament": "Attentin",
+                    "Dosierung": "5",
+                    "Zeitpunkt": "07:00",
+                    "SeitWann": "2021-07-01"
+                }
+            ],
+            "situations": [
+                "zuhause",
+                "kann nicht schlafen"
+            ],
+            "mood": {
+                "Unruhe": 70,
+                "Konzentration": 90,
+                "Aufmerksamkeit": 0,
+                "Brainload": 50
+            },
+            "comment": "Was soll hier blo\u00df rein"
+        },
+        "1628263286272": {
+            "Timestamp": 1628263286272,
+            "Datetime": "06.08.2021 17:21",
+            "Medikation": [
+                {
+                    "Medikament": "Elvanse Adult",
+                    "Dosierung": "30",
+                    "Zeitpunkt": "07:00",
+                    "SeitWann": "2021-06-01",
+                    "Kommentar": "und noch was"
+                },
+                {
+                    "Medikament": "Attentin",
+                    "Dosierung": "5",
+                    "Zeitpunkt": "07:00",
+                    "SeitWann": "2021-07-01"
+                }
+            ],
+            "situations": [
+                "zuhause",
+                "kann nicht schlafen"
+            ],
+            "mood": {
+                "Unruhe": 80,
+                "Konzentration": 60,
+                "Aufmerksamkeit": 0,
+                "Brainload": 50
+            },
+            "comment": "Was soll hier blo\u00df rein"
+        },
+        "1628257106272": {
+            "Timestamp": 1628257106272,
+            "Datetime": "06.08.2021 15:38",
+            "Medikation": [
+                {
+                    "Medikament": "Elvanse Adult",
+                    "Dosierung": "30",
+                    "Zeitpunkt": "07:00",
+                    "SeitWann": "2021-06-01",
+                    "Kommentar": "und noch was"
+                },
+                {
+                    "Medikament": "Attentin",
+                    "Dosierung": "5",
+                    "Zeitpunkt": "07:00",
+                    "SeitWann": "2021-07-01"
+                }
+            ],
+            "situations": [
+                "zuhause",
+                "kann nicht schlafen"
+            ],
+            "mood": {
+                "Unruhe": 0,
+                "Konzentration": 20,
+                "Aufmerksamkeit": 0,
+                "Brainload": 20
+            },
+            "comment": "Was soll hier blo\u00df rein"
+        },
+        "1628249486272": {
+            "Timestamp": 1628249486272,
+            "Datetime": "06.08.2021 13:31",
+            "Medikation": [
+                {
+                    "Medikament": "Elvanse Adult",
+                    "Dosierung": "30",
+                    "Zeitpunkt": "07:00",
+                    "SeitWann": "2021-06-01",
+                    "Kommentar": "und noch was"
+                },
+                {
+                    "Medikament": "Attentin",
+                    "Dosierung": "5",
+                    "Zeitpunkt": "07:00",
+                    "SeitWann": "2021-07-01"
+                }
+            ],
+            "situations": [
+                "zuhause",
+                "kann nicht schlafen"
+            ],
+            "mood": {
+                "Unruhe": 40,
+                "Konzentration": 80,
+                "Aufmerksamkeit": 90,
+                "Brainload": 40
+            },
+            "comment": "Was soll hier blo\u00df rein"
+        },
+        "1628242166272": {
+            "Timestamp": 1628242166272,
+            "Datetime": "06.08.2021 11:29",
+            "Medikation": [
+                {
+                    "Medikament": "Elvanse Adult",
+                    "Dosierung": "30",
+                    "Zeitpunkt": "07:00",
+                    "SeitWann": "2021-06-01",
+                    "Kommentar": "und noch was"
+                },
+                {
+                    "Medikament": "Attentin",
+                    "Dosierung": "5",
+                    "Zeitpunkt": "07:00",
+                    "SeitWann": "2021-07-01"
+                }
+            ],
+            "situations": [
+                "zuhause",
+                "kann nicht schlafen"
+            ],
+            "mood": {
+                "Unruhe": 80,
+                "Konzentration": 70,
+                "Aufmerksamkeit": 30,
+                "Brainload": 0
+            },
+            "comment": "Was soll hier blo\u00df rein"
+        },
+        "1628233226272": {
+            "Timestamp": 1628233226272,
             "Datetime": "06.08.2021 09:00",
             "Medikation": [
                 {
@@ -468,16 +401,16 @@
                 "kann nicht schlafen"
             ],
             "mood": {
-                "Unruhe": "30",
-                "Konzentration": "10",
-                "Aufmerksamkeit": "90",
-                "Brainload": "80"
+                "Unruhe": 70,
+                "Konzentration": 40,
+                "Aufmerksamkeit": 30,
+                "Brainload": 10
             },
             "comment": "Was soll hier blo\u00df rein"
         },
-        "1628236800000": {
-            "Timestamp": 1628236800000,
-            "Datetime": "06.08.2021 10:00",
+        "1628185406272": {
+            "Timestamp": 1628185406272,
+            "Datetime": "05.08.2021 19:43",
             "Medikation": [
                 {
                     "Medikament": "Elvanse Adult",
@@ -498,16 +431,16 @@
                 "kann nicht schlafen"
             ],
             "mood": {
-                "Unruhe": "20",
-                "Konzentration": "20",
-                "Aufmerksamkeit": "50",
-                "Brainload": "80"
+                "Unruhe": 20,
+                "Konzentration": 50,
+                "Aufmerksamkeit": 80,
+                "Brainload": 70
             },
             "comment": "Was soll hier blo\u00df rein"
         },
-        "1628240400000": {
-            "Timestamp": 1628240400000,
-            "Datetime": "06.08.2021 11:00",
+        "1628175086272": {
+            "Timestamp": 1628175086272,
+            "Datetime": "05.08.2021 16:51",
             "Medikation": [
                 {
                     "Medikament": "Elvanse Adult",
@@ -528,16 +461,16 @@
                 "kann nicht schlafen"
             ],
             "mood": {
-                "Unruhe": "20",
-                "Konzentration": "10",
-                "Aufmerksamkeit": "80",
-                "Brainload": "10"
+                "Unruhe": 80,
+                "Konzentration": 0,
+                "Aufmerksamkeit": 0,
+                "Brainload": 40
             },
             "comment": "Was soll hier blo\u00df rein"
         },
-        "1628244000000": {
-            "Timestamp": 1628244000000,
-            "Datetime": "06.08.2021 12:00",
+        "1628171186272": {
+            "Timestamp": 1628171186272,
+            "Datetime": "05.08.2021 15:46",
             "Medikation": [
                 {
                     "Medikament": "Elvanse Adult",
@@ -558,16 +491,16 @@
                 "kann nicht schlafen"
             ],
             "mood": {
-                "Unruhe": "0",
-                "Konzentration": "60",
-                "Aufmerksamkeit": "20",
-                "Brainload": "70"
+                "Unruhe": 60,
+                "Konzentration": 10,
+                "Aufmerksamkeit": 10,
+                "Brainload": 0
             },
             "comment": "Was soll hier blo\u00df rein"
         },
-        "1628247600000": {
-            "Timestamp": 1628247600000,
-            "Datetime": "06.08.2021 13:00",
+        "1628161946272": {
+            "Timestamp": 1628161946272,
+            "Datetime": "05.08.2021 13:12",
             "Medikation": [
                 {
                     "Medikament": "Elvanse Adult",
@@ -588,16 +521,16 @@
                 "kann nicht schlafen"
             ],
             "mood": {
-                "Unruhe": "0",
-                "Konzentration": "0",
-                "Aufmerksamkeit": "90",
-                "Brainload": "0"
+                "Unruhe": 30,
+                "Konzentration": 0,
+                "Aufmerksamkeit": 50,
+                "Brainload": 60
             },
             "comment": "Was soll hier blo\u00df rein"
         },
-        "1628251200000": {
-            "Timestamp": 1628251200000,
-            "Datetime": "06.08.2021 14:00",
+        "1628156486272": {
+            "Timestamp": 1628156486272,
+            "Datetime": "05.08.2021 11:41",
             "Medikation": [
                 {
                     "Medikament": "Elvanse Adult",
@@ -618,16 +551,16 @@
                 "kann nicht schlafen"
             ],
             "mood": {
-                "Unruhe": "80",
-                "Konzentration": "10",
-                "Aufmerksamkeit": "60",
-                "Brainload": "70"
+                "Unruhe": 30,
+                "Konzentration": 40,
+                "Aufmerksamkeit": 20,
+                "Brainload": 80
             },
             "comment": "Was soll hier blo\u00df rein"
         },
-        "1628254800000": {
-            "Timestamp": 1628254800000,
-            "Datetime": "06.08.2021 15:00",
+        "1628148326272": {
+            "Timestamp": 1628148326272,
+            "Datetime": "05.08.2021 09:25",
             "Medikation": [
                 {
                     "Medikament": "Elvanse Adult",
@@ -648,160 +581,10 @@
                 "kann nicht schlafen"
             ],
             "mood": {
-                "Unruhe": "30",
-                "Konzentration": "90",
-                "Aufmerksamkeit": "20",
-                "Brainload": "0"
-            },
-            "comment": "Was soll hier blo\u00df rein"
-        },
-        "1628258400000": {
-            "Timestamp": 1628258400000,
-            "Datetime": "06.08.2021 16:00",
-            "Medikation": [
-                {
-                    "Medikament": "Elvanse Adult",
-                    "Dosierung": "30",
-                    "Zeitpunkt": "07:00",
-                    "SeitWann": "2021-06-01",
-                    "Kommentar": "und noch was"
-                },
-                {
-                    "Medikament": "Attentin",
-                    "Dosierung": "5",
-                    "Zeitpunkt": "07:00",
-                    "SeitWann": "2021-07-01"
-                }
-            ],
-            "situations": [
-                "zuhause",
-                "kann nicht schlafen"
-            ],
-            "mood": {
-                "Unruhe": "10",
-                "Konzentration": "50",
-                "Aufmerksamkeit": "20",
-                "Brainload": "0"
-            },
-            "comment": "Was soll hier blo\u00df rein"
-        },
-        "1628262000000": {
-            "Timestamp": 1628262000000,
-            "Datetime": "06.08.2021 17:00",
-            "Medikation": [
-                {
-                    "Medikament": "Elvanse Adult",
-                    "Dosierung": "30",
-                    "Zeitpunkt": "07:00",
-                    "SeitWann": "2021-06-01",
-                    "Kommentar": "und noch was"
-                },
-                {
-                    "Medikament": "Attentin",
-                    "Dosierung": "5",
-                    "Zeitpunkt": "07:00",
-                    "SeitWann": "2021-07-01"
-                }
-            ],
-            "situations": [
-                "zuhause",
-                "kann nicht schlafen"
-            ],
-            "mood": {
-                "Unruhe": "50",
-                "Konzentration": "70",
-                "Aufmerksamkeit": "50",
-                "Brainload": "0"
-            },
-            "comment": "Was soll hier blo\u00df rein"
-        },
-        "1628265600000": {
-            "Timestamp": 1628265600000,
-            "Datetime": "06.08.2021 18:00",
-            "Medikation": [
-                {
-                    "Medikament": "Elvanse Adult",
-                    "Dosierung": "30",
-                    "Zeitpunkt": "07:00",
-                    "SeitWann": "2021-06-01",
-                    "Kommentar": "und noch was"
-                },
-                {
-                    "Medikament": "Attentin",
-                    "Dosierung": "5",
-                    "Zeitpunkt": "07:00",
-                    "SeitWann": "2021-07-01"
-                }
-            ],
-            "situations": [
-                "zuhause",
-                "kann nicht schlafen"
-            ],
-            "mood": {
-                "Unruhe": "40",
-                "Konzentration": "20",
-                "Aufmerksamkeit": "90",
-                "Brainload": "0"
-            },
-            "comment": "Was soll hier blo\u00df rein"
-        },
-        "1628269200000": {
-            "Timestamp": 1628269200000,
-            "Datetime": "06.08.2021 19:00",
-            "Medikation": [
-                {
-                    "Medikament": "Elvanse Adult",
-                    "Dosierung": "30",
-                    "Zeitpunkt": "07:00",
-                    "SeitWann": "2021-06-01",
-                    "Kommentar": "und noch was"
-                },
-                {
-                    "Medikament": "Attentin",
-                    "Dosierung": "5",
-                    "Zeitpunkt": "07:00",
-                    "SeitWann": "2021-07-01"
-                }
-            ],
-            "situations": [
-                "zuhause",
-                "kann nicht schlafen"
-            ],
-            "mood": {
-                "Unruhe": "20",
-                "Konzentration": "50",
-                "Aufmerksamkeit": "50",
-                "Brainload": "50"
-            },
-            "comment": "Was soll hier blo\u00df rein"
-        },
-        "1628272800000": {
-            "Timestamp": 1628272800000,
-            "Datetime": "06.08.2021 20:00",
-            "Medikation": [
-                {
-                    "Medikament": "Elvanse Adult",
-                    "Dosierung": "30",
-                    "Zeitpunkt": "07:00",
-                    "SeitWann": "2021-06-01",
-                    "Kommentar": "und noch was"
-                },
-                {
-                    "Medikament": "Attentin",
-                    "Dosierung": "5",
-                    "Zeitpunkt": "07:00",
-                    "SeitWann": "2021-07-01"
-                }
-            ],
-            "situations": [
-                "zuhause",
-                "kann nicht schlafen"
-            ],
-            "mood": {
-                "Unruhe": "90",
-                "Konzentration": "10",
-                "Aufmerksamkeit": "50",
-                "Brainload": "80"
+                "Unruhe": 90,
+                "Konzentration": 10,
+                "Aufmerksamkeit": 10,
+                "Brainload": 70
             },
             "comment": "Was soll hier blo\u00df rein"
         }

@@ -230,7 +230,7 @@ for (const form of forms) {
         if (FormResultsObject) {
             // add date to formdata
             var Timestamp = Date.now();
-            deb(Timestamp, 'Timestamp');
+            // deb(Timestamp, 'Timestamp');
             Datetime = formatdate(Timestamp, "d.m.Y H:i:s")
             FormResultsObject = Object.assign({ Timestamp: Timestamp, Datetime: Datetime }, FormResultsObject);
 

@@ -1,9 +1,9 @@
 let localData = JSON.parse(localStorage.getItem(localDataName)) || initObj;
 let localDataProfil = localData.Profil;
 let localDataMood = localData.Mood;
-deb(localData, 'localData')
-    // deb(localDataProfil, 'localDataProfil')
-    // deb(localDataMood, 'localDataMood')
+// deb(localData, 'localData')
+// deb(localDataProfil, 'localDataProfil')
+// deb(localDataMood, 'localDataMood')
 
 
 
@@ -83,11 +83,11 @@ ChartData['Timestamp'] = Object.keys(localDataMood).map(function(key, index) {
     return key *= 1; //.toString();
 });
 
-deb(ChartData['Timestamp'])
-    //
-    // fill ChartData Object with datetime
-    //
-    // ChartData.Datetime = Object.assign({}, Object.keys(localDataMood).map(function(key, index) {
+// deb(ChartData['Timestamp'])
+//
+// fill ChartData Object with datetime
+//
+// ChartData.Datetime = Object.assign({}, Object.keys(localDataMood).map(function(key, index) {
 ChartData['Datetime'] = Object.keys(localDataMood).map(function(key, index) {
     let value = localDataMood[key].Datetime;
     if (value) {
@@ -196,15 +196,133 @@ for (i = 0; i < allWirkungen.length; i++) {
 
 
 
+
+
+
+
+const zoomOptions = {
+    limits: {
+        x: { min: 'original', max: 'original', minRange: 50 },
+        y: { min: 'original', max: 'original', minRange: 50 }
+    },
+    pan: {
+        enabled: true,
+        mode: 'x',
+    },
+    zoom: {
+        wheel: {
+            enabled: true,
+        },
+        pinch: {
+            enabled: true
+        },
+        mode: 'x',
+        onZoomComplete({ chart }) {
+            chart.update('none');
+        }
+    }
+};
+
+
+const scaleOpts = {
+    reverse: true,
+    ticks: {
+        callback: (val, index, ticks) => index === 0 || index === ticks.length - 1 ? null : val,
+    },
+    grid: {
+        borderColor: 'blue',
+        color: 'rgba( 0, 0, 0, 0.1)',
+    },
+    title: {
+        display: true,
+        text: (ctx) => ctx.scale.axis + ' axis',
+    }
+};
+const scales = {
+    x: {
+        position: 'top',
+    },
+    y: {
+        position: 'right',
+    },
+};
+Object.keys(scales).forEach(scale => Object.assign(scales[scale], scaleOpts));
+
+
+//
+// CHART LEGEND
+//
+const getOrCreateLegendList = (chart, id) => {
+    const legendContainer = document.getElementById(id);
+    let listContainer = legendContainer.querySelector('ul');
+    if (!listContainer) {
+        listContainer = document.createElement('ul');
+        // listContainer.style.display = 'flex';
+        // listContainer.style.flexDirection = 'row';
+        listContainer.style.margin = 0;
+        listContainer.style.padding = 0;
+        legendContainer.appendChild(listContainer);
+    }
+    return listContainer;
+};
+
+const htmlLegendPlugin = {
+    id: 'htmlLegend',
+    afterUpdate(chart, args, options) {
+        const ul = getOrCreateLegendList(chart, options.containerID);
+        while (ul.firstChild) {
+            ul.firstChild.remove();
+        }
+        const items = chart.options.plugins.legend.labels.generateLabels(chart);
+        items.forEach(item => {
+            const li = document.createElement('li');
+            li.style.alignItems = 'center';
+            li.style.cursor = 'pointer';
+            li.style.display = 'flex';
+            li.style.flexDirection = 'row';
+            li.style.marginLeft = '10px';
+            li.onclick = () => {
+                chart.setDatasetVisibility(item.datasetIndex, !chart.isDatasetVisible(item.datasetIndex));
+                chart.update();
+            };
+            // Text
+            const textContainer = document.createElement('p');
+            textContainer.style.color = item.fillStyle;
+            textContainer.style.margin = 0;
+            textContainer.style.padding = 0;
+            textContainer.style.textDecoration = item.hidden ? 'line-through' : '';
+            const text = document.createTextNode(item.text);
+            textContainer.appendChild(text);
+            li.appendChild(textContainer);
+            ul.appendChild(li);
+        });
+    }
+};
+
+
+
 //
 // CHART
 //
-var myChart = new Chart(document.getElementById("myChart").getContext("2d"), {
+Chart.defaults.font.family = "'Baskerville', 'Arial', sans-serif";
+Chart.defaults.font.size = 16;
+
+var myChart = new Chart(document.getElementById("ChartCanvas").getContext("2d"), {
     type: 'line',
+    data: {
+        // labels: ChartData.Datetime,
+        // labels: Object.values(ChartData.Datetime),
+        // labels: ChartData.Timestamp,
+        labels: ChartData.Timestamp, //must be an array of integers with index 0: 1628362016454
+        radius: 5,
+        datasets: datasets,
+    },
     options: {
         showLines: false,
         // events: ['click'],
-
+        // responsive: true,
+        // maintainAspectRatio: false,
+        aspectRatio: 2.25,
         // for better performance
         animation: {
             duration: 0,
@@ -216,102 +334,193 @@ var myChart = new Chart(document.getElementById("myChart").getContext("2d"), {
 
         layout: {
             padding: {
-                left: 10,
-                right: 10,
-                top: 10,
-                bottom: 10
+                // left: 10,
+                // right: 10,
+                top: -20,
+                bottom: 20
             },
         },
-        legend: {
-            display: true,
-            position: 'top',
-            align: 'start',
-            fullWidth: false,
-            labels: {
-                fontColor: '#abb2bf',
-                fontSize: 14,
-                fontFamily: "'LibreBaskerville_Regular', 'Arial', sans-serif",
-                usePointStyle: true,
+        plugins: {
+            htmlLegend: {
+                containerID: 'ChartLegend',
+            },
+            legend: {
+                display: false,
             },
 
+            zoom: zoomOptions,
+            title: {
+                display: true,
+                position: 'top',
+            },
+            tooltip: {
+                enabled: false,
+                intersect: false,
+                mode: 'index',
+                bodyFontSize: 14,
+                bodyFontFamily: "'LibreBaskerville_Regular', 'Arial', sans-serif",
+                bodySpacing: 5,
+
+                external: function(tooltipModel) {
+                    // Tooltip Element
+                    var tooltipEl = document.getElementById('ChartTooltip');
+
+                    // Create element on first render
+                    // if (!tooltipEl) {
+                    //     tooltipEl = document.createElement('div');
+                    //     tooltipEl.id = 'ChartTooltip';
+                    //     // tooltipEl.innerHTML = '<div id="CustomTooltip"></div>';
+                    //     document.body.appendChild(tooltipEl);
+                    // }
+
+                    // Hide if no tooltip
+                    if (tooltipModel.opacity === 0) {
+                        tooltipEl.style.opacity = 0;
+                        return;
+                    }
+
+                    // Set caret Position
+                    tooltipEl.classList.remove('above', 'below', 'no-transform');
+                    if (tooltipModel.yAlign) {
+                        tooltipEl.classList.add(tooltipModel.yAlign);
+                    } else {
+                        tooltipEl.classList.add('no-transform');
+                    }
+
+                    function getBody(bodyItem) {
+                        return bodyItem.lines;
+                    }
+
+                    //
+                    // Set Text
+                    //
+                    deb(tooltipModel.tooltip)
+
+                    if (tooltipModel.tooltip.body) {
+                        deb(tooltipModel)
+                        var titleLines = tooltipModel.title || [];
+                        var bodyLines = tooltipModel.tooltip.body.map(getBody);
+                        var innerHtml = '';
+
+                        //
+                        // DATE
+                        //
+                        titleLines.forEach(function(title) {
+                            innerHtml += '<div id=CTT_Date>' + title + '</div>';
+                        });
+
+
+                        //
+                        // MEDIKATION
+                        //
+                        // var TT_index = tooltipModel.dataPoints[0].index;
+                        // innerHtml += '<div id=CTT_MEDIKATION>';
+
+                        // for (const med of medikation[TT_index]) {
+                        //     var Dosierung = (med.Dosierung) ? med.Dosierung : '';
+                        //     var Medikament = (med.Medikament) ? med.Medikament : '';
+                        //     var Uhrzeit = (med.Uhrzeit) ? med.Uhrzeit : '';
+                        //     innerHtml += '<div>' + Dosierung + 'mg ' + Medikament + ' ' + Uhrzeit + '</div>';
+
+                        // }
+                        //    console.log(Dosierung)
+                        //    console.log(medikation[TT_index])
+                        innerHtml += '</div>';
+
+
+                        //
+                        // SITUATIONS
+                        //
+                        var TT_index = tooltipModel.tooltip.dataPoints[0].index;
+                        //    console.log(situation[TT_index])
+                        // innerHtml += '<div id=CTT_Situations>' + situation[TT_index] + '</div>';
+
+                        //
+                        // VALUES
+                        //
+                        innerHtml += '<table>';
+
+                        bodyLines.forEach(function(body, i) {
+                            var b_label = body[0].split(' ')[0];
+                            var b_value = body[0].split(' ')[1];
+                            var colors = tooltipModel.tooltip.labelColors[i].backgroundColor;
+                            var style = 'color:' + colors;
+                            innerHtml += '<tr id=CTT_Values style="' + style + '"><td class=b_label>' + b_label + '</td><td class=b_value>' + b_value + '</td></tr>';
+                        });
+                        innerHtml += '</table>';
+
+
+                        //
+                        // COMMENT
+                        //
+                        innerHtml += '<div id=CTT_Comments>' + comment[TT_index] + '</div>';
+
+                        //
+                        // add tooltip to HTML
+                        //
+                        document.getElementById('ChartTooltip').innerHTML = innerHtml;
+                    }
+
+                    // `this` will be the overall tooltip
+                    var position = this._chart.canvas.getBoundingClientRect();
+                    // Display, position, and set styles for font
+                    tooltipEl.style.opacity = 1;
+                    tooltipEl.style.position = 'absolute';
+                    // tooltipEl.style.left = position.left + window.pageXOffset + tooltipModel.caretX - tooltipModel.width + 'px';
+                    // tooltipEl.style.top = '100px';
+                    tooltipModel.xAlign = "center";
+                    //    console.log(tooltipModel)
+                    //    tooltipEl.style.left = position.left + window.pageXOffset + tooltipModel.caretX + 'px';
+                    //    tooltipEl.style.top = position.top + window.pageYOffset + tooltipModel.caretY + 'px';
+                    tooltipEl.style.pointerEvents = 'none';
+                }
+            },
         },
-
-
-
-
-
-
-
-
 
         scales: {
             x1: {
-
                 type: 'time',
                 display: true,
-                fontColor: '#abb2bf',
+                color: '#abb2bf',
                 fontSize: 16,
                 fontFamily: "serif",
                 distribution: 'linear',
                 // min: '03.08.2021',
                 // max: '06.08.2021',
                 time: {
-                    // parser: 'dd.MM.yyyy HH:mm',
                     tooltipFormat: 'dd.LLL.y HH:mm',
-
                     unit: "hour",
-                    stepSize: 6,
-
+                    stepSize: 12,
                     displayFormats: {
                         hour: "HH:mm"
                     }
                 },
-
-
-                gridLines: {
-                    drawBorder: false,
-                    offsetGridLines: false,
-                    lineWidth: 2,
-                    drawOnChartArea: true,
-
-                },
-
                 ticks: {
-                    autoSkip: false,
+                    // autoSkip: false,
                     maxRotation: 0,
-                    // source: 'labels',
-                    fontColor: '#abb2bf',
+                    source: 'auto',
+                    color: '#abb2bf',
                     fontSize: 16,
                     fontFamily: "'LibreBaskerville_Regular', 'Arial', sans-serif",
-                    padding: 10,
-
-                    major: {
-                        enabled: true
-                    },
-                    // color: function(context) {
-                    //     return context.tick && context.tick.major ? '#FF0000' : 'rgba(0,0,0,0.1)';
-                    // },
-                    font: function(context) {
-                        // deb(context.tick)
-                        if (context.tick && context.tick.major) {
-                            return {
-                                style: 'bold',
-                            };
-                        }
-                    }
-
-                }
+                    // padding: 10,
+                },
+                grid: {
+                    drawBorder: false,
+                    offsetGridLines: false,
+                    lineWidth: 0,
+                    drawOnChartArea: true,
+                },
             },
             x2: {
                 id: 'days',
                 type: 'time',
+                position: 'top',
+                // type: 'timecenter',
                 display: true,
                 distribution: 'linear',
                 time: {
-                    // parser: 'DD.MM.YYYY HH:mm',
-                    // tooltipFormat: 'DD.MM.YYYY HH:mm',
                     displayFormats: {
-                        'day': 'd.LLL.y',
+                        day: 'd LLL',
                     },
                     // min: firstDay,
                     // max: lastDay,
@@ -319,31 +528,35 @@ var myChart = new Chart(document.getElementById("myChart").getContext("2d"), {
                     stepSize: 1,
                 },
                 ticks: {
-                    fontColor: '#abb2bf',
-                    fontSize: 16,
+                    color: '#abb2bf',
+                    Size: 18,
                     fontFamily: "'LibreBaskerville_Regular', 'Arial', sans-serif",
-                    padding: 10,
+                    padding: 5,
+                    align: 'start',
+
                     // callback: (value, index, values) => (index == (values.length - 1)) ? undefined : value,
                 },
-                gridLines: {
-                    offsetGridLines: false,
+                grid: {
+                    // color: '',
+                    // tickColor: 'red',
+                    // offsetGridLines: true,
                     drawBorder: false,
-                    drawOnChartArea: true,
-                    lineWidth: 0,
+                    // borderColor: 'white',
+                    // drawOnChartArea: false,
+                    lineWidth: 3,
                 },
             },
-
-
-
             y: {
                 display: true,
-                fontColor: '#abb2bf',
+                color: '#abb2bf',
                 fontSize: 16,
                 fontFamily: "serif",
                 max: 100,
                 min: 0,
+                alignToPixels: true,
                 ticks: {
-                    stepSize: 20,
+                    color: '#abb2bf',
+                    stepSize: 50,
                 }
             }
 
@@ -352,155 +565,37 @@ var myChart = new Chart(document.getElementById("myChart").getContext("2d"), {
 
 
 
-
-
-
-
-
-
-
-        // scales: {
-        //     x: {
-        //         type: 'time',
-        //         time: {
-        //             // Luxon format string
-        //             tooltipFormat: 'dd T'
-        //         },
-        //         title: {
-        //             display: true,
-        //             text: 'Date'
-        //         }
-        //     },
-        //     y: {
-        //         title: {
-        //             display: true,
-        //             text: 'value'
-        //         }
-        //     }
-        // },
-
-
-
-
-
-
-        // scales: {
-        //     x: {
-        //         type: 'time',    
-        //         display: true,
-        //         distribution: 'linear',
-        //         time: {
-        //             unit: 'hour',
-        //             stepSize: 6,
-        //             // parser: 'dd.MM.yyyy HH:mm',
-        //             displayFormats: {
-        //                 // 'hour': 'dd.MM.yyyy',
-        //                 'hour': 'HH:mm',
-        //             },
-        //             min: '04.08.2021',
-        //             max: '05.08.2021',
-        //         }
-        //     },
-
-        // x: 
-        // [
-        // {
-        //     // id: 'hours',
-        //     type: 'time',
-        //     display: true,
-        //     distribution: 'linear',
-        //     time: {
-        //         // parser: 'DD.MM.YYYY HH:mm',
-        //         // tooltipFormat: 'DD.MM.YYYY HH:mm',
-        //         displayFormats: {
-        //             //    'hour': 'DD.MM.YYYY',
-        //             'hour': 'HH:mm',
-        //         },
-        //     min: 1628076511,
-        //     max: 1628162911,
-        //         unit: 'hour',
-        //         stepSize: 6,
-        //     },
-        //     ticks: {
-        //         fontColor: '#abb2bf',
-        //         fontSize: 16,
-        //         fontFamily: "'LibreBaskerville_Regular', 'Arial', sans-serif",
-        //         padding: 10,
-        //     },
-        //     gridLines: {
-        //         drawBorder: false,
-        //         offsetGridLines: false,
-        //         lineWidth: 2,
-        //         drawOnChartArea: true,
-
-        //     },
-        // },
-        // {
-        //     id: 'days',
-        //     type: 'time',
-        //     display: true,
-        //     distribution: 'linear',
-        //     time: {
-        //         // parser: 'DD.MM.YYYY HH:mm',
-        //         // tooltipFormat: 'DD.MM.YYYY HH:mm',
-        //         displayFormats: {
-        //             'day': 'DD.MM.YYYY',
-        //         },
-        //         // min: firstDay,
-        //         // max: lastDay,
-        //         unit: 'day',
-        //         stepSize: 1,
-        //     },
-        //     ticks: {
-        //         fontColor: '#abb2bf',
-        //         fontSize: 16,
-        //         fontFamily: "'LibreBaskerville_Regular', 'Arial', sans-serif",
-        //         padding: -10,
-        //         callback: (value, index, values) => (index == (values.length - 1)) ? undefined : value,
-        //     },
-        //     gridLines: {
-        //         offsetGridLines: false,
-        //         drawBorder: false,
-        //         drawOnChartArea: true,
-        //         lineWidth: 0,
-        //     },
-        // }
-        // ],
-        // y: [{
-        //     gridLines: {
-        //         drawBorder: true,
-        //         lineWidth: 2,
-
-        //     },
-        //     ticks: {
-        //         fontColor: '#abb2bf',
-        //         fontSize: 16,
-        //         fontFamily: "'LibreBaskerville_Regular', 'Arial', sans-serif",
-        //         max: 100,
-        //         min: 0,
-        //         stepSize: 20,
-        //     },
-        // }],
-
-        // } //scales
     },
-
-    data: {
-        // labels: ChartData.Datetime,
-        // labels: Object.values(ChartData.Datetime),
-        // labels: ChartData.Timestamp,
-        labels: ChartData.Timestamp, //.map(e => e * 1000) 
-        radius: 5,
-        datasets: datasets,
-    }
+    plugins: [htmlLegendPlugin],
 });
 
 // deb(ChartData.Datetime)
-
-
-
 // deb(luxon.DateTime.utc(1628159311))              1628141311
 // console.log(luxon.DateTime.fromMillis(Math.trunc(1628190881126)).toISO())
 // console.log(luxon.DateTime.fromMillis(1628159311).toISO())
-
 // return moment(e.time, "DD.MM.YYYY hh:mm:ss", true);
+
+
+
+
+//
+// DAY IN THE MIDDLE
+//
+// 
+// var TimeCenterScale = Chart.scaleService.getScaleConstructor('time').extend({
+//     getPixelForTick: function(index) {
+//         var ticks = this.getTicks();
+//         if (index < 0 || index >= ticks.length) {
+//             return null;
+//         }
+//         var px = this.getPixelForOffset(ticks[index].value);
+//         var nextPx = this.right;
+//         var nextTick = ticks[index + 1];
+//         if (nextTick) {
+//             nextPx = this.getPixelForOffset(nextTick.value);
+//         }
+//         return px + (nextPx - px) / 2;
+//     },
+// });
+// var defaults = Chart.scaleService.getScaleDefaults('time');
+// Chart.scaleService.registerScaleType('timecenter', TimeCenterScale, defaults);

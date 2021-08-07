@@ -6,6 +6,7 @@
     <title>Brainload Form</title>
     <meta http-equiv="Cache-control" content="No-Cache">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- , maximum-scale=1.0, user-scalable=no -->
     <link rel="icon" type="image/svg+xml" href="https://dev.rasal.de/brainload/templates/images/brain.png">
     <!-- <link rel="stylesheet" href="pure.css"> -->
 
@@ -16,7 +17,6 @@
 
     <link rel="stylesheet" href="css/reseter.css" />
     <link rel="stylesheet" href="css/style.css">
-    <!-- <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.6/build/grids-responsive-min.css" /> -->
     <script src="js/formtoobj.js"></script>
     <script src="js/md5.js"></script>
     <script src="js/debugHelper.js"></script>
@@ -24,7 +24,11 @@
 
 
 
+    <script src="js/chartJS.js"></script>
+    <script src="js/luxon.js"></script>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-zoom/1.1.1/chartjs-plugin-zoom.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js"></script>
 
 </head>
 
@@ -233,442 +237,70 @@
 
             <fieldset>
                 <legend>Auswertung</legend>
-
-                <canvas id="myChart" width="400" height="400"></canvas>
+                <div id="ChartTooltip"></div>
+                <div id="ChartLegend"></div>
+                <!-- width="500" height="400" -->
+                <canvas id="ChartCanvas"></canvas>
             </fieldset>
 
         </div>
     </div>
+
+    <script src="js/randomData.js"></script>
+
+    <script>
+        //
+        // user verification & data link 
+        //
+        var DataFreigegeben = document.getElementById('P_Freigeben').checked;
+        var localDataNameField = document.getElementById('P_Name');
+        var localDataName = md5(localDataNameField.value);
+        var datalink = document.getElementById('datalink');
+
+        // for navigation menu
+        var ProfilLink = document.getElementById('profil');
+        var ProfilForm = document.getElementById('ProfilForm');
+        var MoodLink = document.getElementById('mood');
+        var MoodForm = document.getElementById('MoodForm');
+        var ChartLink = document.getElementById('chart');
+        var AuswertungsChart = document.getElementById('AuswertungsChart');
+        // link to delete localData
+        var DelLocalLink = document.getElementById('dellocal');
+        // all labels
+        var labels = document.getElementsByTagName('label')
+            // all form elements for populating
+        let ProfilFormElements = document.getElementById('ProfilForm').elements;
+
+        // // initial localData
+        // var initObj = new Object({
+        //     Profil: {
+        //         Situations: {
+        //             0: 'gerade aufgewacht',
+        //             1: 'bei der Arbeit',
+        //             2: 'zuhause',
+        //             3: 'kann nicht schlafen',
+        //         },
+        //         Freigeben: "on",
+        //     },
+        //     Mood: {}
+        // });
+
+
+        // var localData = JSON.parse(localStorage.getItem(localDataName)) || initObj;
+        // deb(localData)
+        // deb(Object.values(localData.Mood), 'Mood values');
+        // deb(Object.entries(localData.Mood), 'Mood entries');
+        // var allMoods = Object.values(localData.Mood);
+        // for (const mood of allMoods) deb(mood,'allMoods')
+    </script>
+    <script src="js/form.js"></script>
+    <script>
+        populateProfilForm();
+        populateMoodForm();
+        DataFreigeben();
+        // showMessage(showSize());
+    </script>
+    <script src="js/chart.js"></script>
 </body>
-
-<script src="js/randomData.js"></script>
-
-<script>
-    //
-    // user verification & data link 
-    //
-    var DataFreigegeben = document.getElementById('P_Freigeben').checked;
-    var localDataNameField = document.getElementById('P_Name');
-    var localDataName = md5(localDataNameField.value);
-    var datalink = document.getElementById('datalink');
-
-    // for navigation menu
-    var ProfilLink = document.getElementById('profil');
-    var ProfilForm = document.getElementById('ProfilForm');
-    var MoodLink = document.getElementById('mood');
-    var MoodForm = document.getElementById('MoodForm');
-    var ChartLink = document.getElementById('chart');
-    var AuswertungsChart = document.getElementById('AuswertungsChart');
-    // link to delete localData
-    var DelLocalLink = document.getElementById('dellocal');
-    // all labels
-    var labels = document.getElementsByTagName('label')
-        // all form elements for populating
-    let ProfilFormElements = document.getElementById('ProfilForm').elements;
-
-    // // initial localData
-    // var initObj = new Object({
-    //     Profil: {
-    //         Situations: {
-    //             0: 'gerade aufgewacht',
-    //             1: 'bei der Arbeit',
-    //             2: 'zuhause',
-    //             3: 'kann nicht schlafen',
-    //         },
-    //         Freigeben: "on",
-    //     },
-    //     Mood: {}
-    // });
-
-
-    // var initObj = new Object({
-    //     "Profil": {
-    //         "Freigeben": "on",
-    //         "Timestamp": 1628116393212,
-    //         "Datetime": "05.08.2021 00:33:13",
-    //         "Alter": "1722",
-    //         "Geschlecht": "divers",
-    //         "Subtyp": "ADS",
-    //         "Wirkung": [
-    //             "Unruhe___red",
-    //             "Konzentration___blue",
-    //             "Aufmerksamkeit___green",
-    //             "Motivation___salomon",
-    //             "Brainload___orange"
-    //         ],
-    //         "P_Kommentar": "bin mal gespannt",
-    //         "Situations": [
-    //             "gerade aufgewacht",
-    //             "bei der Arbeit",
-    //             "zuhause",
-    //             "kann nicht schlafen"
-    //         ]
-    //     },
-    //     "Mood": {
-    //         "1628195311": {
-    //             "Timestamp": 1628195311,
-    //             "Datetime": "05.08.2021 22:35:29",
-    //             "Medikation": [{
-    //                 "Medikament": "Elvanse Adult",
-    //                 "Dosierung": "30",
-    //                 "Zeitpunkt": "07:00",
-    //                 "SeitWann": "2021-06-01",
-    //                 "Kommentar": "und noch was"
-    //             }, {
-    //                 "Medikament": "Attentin",
-    //                 "Dosierung": "5",
-    //                 "Zeitpunkt": "07:00",
-    //                 "SeitWann": "2021-07-01"
-    //             }],
-    //             "situations": [
-    //                 "gerade aufgewacht",
-    //                 "bei der Arbeit"
-    //             ],
-    //             "mood": {
-    //                 "Unruhe": "70",
-    //                 "Konzentration": "40",
-    //                 "Aufmerksamkeit": "60",
-    //                 "Brainload": "60"
-    //             },
-    //             "comment": "Was soll hier blo\u00df rein"
-    //         },
-    //         "1628141311": {
-    //             "Timestamp": 1628141311,
-    //             "Datetime": "05.08.2021 07:35:23",
-    //             "Medikation": [{
-    //                 "Medikament": "Elvanse Adult",
-    //                 "Dosierung": "30",
-    //                 "Zeitpunkt": "07:00",
-    //                 "SeitWann": "2021-06-01",
-    //                 "Kommentar": "und noch was"
-    //             }, {
-    //                 "Medikament": "Attentin",
-    //                 "Dosierung": "5",
-    //                 "Zeitpunkt": "07:00",
-    //                 "SeitWann": "2021-07-01"
-    //             }],
-    //             "situations": [
-    //                 "zuhause",
-    //                 "kann nicht schlafen"
-    //             ],
-    //             "mood": {
-    //                 "Unruhe": "70",
-    //                 "Konzentration": "50",
-    //                 "Aufmerksamkeit": "60",
-    //                 "Brainload": "30"
-    //             },
-    //             "comment": "Was soll hier blo\u00df rein"
-    //         },
-    //         "1628159311": {
-    //             "Timestamp": 1628159311,
-    //             "Datetime": "05.08.2021 10:35:15",
-    //             "Medikation": [{
-    //                 "Medikament": "Elvanse Adult",
-    //                 "Dosierung": "30",
-    //                 "Zeitpunkt": "07:00",
-    //                 "SeitWann": "2021-06-01",
-    //                 "Kommentar": "und noch was"
-    //             }, {
-    //                 "Medikament": "Attentin",
-    //                 "Dosierung": "5",
-    //                 "Zeitpunkt": "07:00",
-    //                 "SeitWann": "2021-07-01"
-    //             }],
-    //             "mood": {
-    //                 "Unruhe": "50",
-    //                 "Konzentration": "20",
-    //                 "Aufmerksamkeit": "80",
-    //                 "Brainload": "60"
-    //             },
-    //             "comment": "Was soll hier blo\u00df rein"
-    //         },
-    //         "1628173711": {
-    //             "Timestamp": 1628173711,
-    //             "Datetime": "05.08.2021 14:35:10",
-    //             "Medikation": [{
-    //                 "Medikament": "Elvanse Adult",
-    //                 "Dosierung": "30",
-    //                 "Zeitpunkt": "07:00",
-    //                 "SeitWann": "2021-06-01",
-    //                 "Kommentar": "und noch was"
-    //             }, {
-    //                 "Medikament": "Attentin",
-    //                 "Dosierung": "5",
-    //                 "Zeitpunkt": "07:00",
-    //                 "SeitWann": "2021-07-01"
-    //             }],
-    //             "situations": [
-    //                 "bei der Arbeit",
-    //                 "kann nicht schlafen"
-    //             ],
-    //             "mood": {
-    //                 "Unruhe": "30",
-    //                 "Konzentration": "60",
-    //                 "Aufmerksamkeit": "40",
-    //                 "Brainload": "40"
-    //             },
-    //             "comment": "Was soll hier blo\u00df rein"
-    //         },
-    //         "1628188111": {
-    //             "Timestamp": 1628188111,
-    //             "Datetime": "05.08.2021 20:34:59",
-    //             "Medikation": [{
-    //                 "Medikament": "Elvanse Adult",
-    //                 "Dosierung": "30",
-    //                 "Zeitpunkt": "07:00",
-    //                 "SeitWann": "2021-06-01",
-    //                 "Kommentar": "und noch was"
-    //             }, {
-    //                 "Medikament": "Attentin",
-    //                 "Dosierung": "5",
-    //                 "Zeitpunkt": "07:00",
-    //                 "SeitWann": "2021-07-01"
-    //             }],
-    //             "situations": [
-    //                 "gerade aufgewacht",
-    //                 "zuhause"
-    //             ],
-    //             "mood": {
-    //                 "Unruhe": "20",
-    //                 "Motivation": "50",
-    //                 "Aufmerksamkeit": "30",
-    //                 "Brainload": "60"
-    //             },
-    //             "comment": "Was soll hier blo\u00df rein"
-    //         }
-    //     }
-    // });
-
-    // var localData = JSON.parse(localStorage.getItem(localDataName)) || initObj;
-    // deb(localData)
-    // deb(Object.values(localData.Mood), 'Mood values');
-    // deb(Object.entries(localData.Mood), 'Mood entries');
-    // var allMoods = Object.values(localData.Mood);
-    // for (const mood of allMoods) deb(mood,'allMoods')
-</script>
-<script src="js/form.js"></script>
-<script>
-    populateProfilForm();
-    populateMoodForm();
-    DataFreigeben();
-
-    // showMessage(showSize());
-</script>
-<!-- <script src="https://dev.rasal.de/brainload/templates/lib/Moment.js"></script> -->
-<script src="js/chartJS.js"></script>
-
-<script src="https://cdn.jsdelivr.net/npm/luxon"></script>
-<script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-luxon"></script>
-
-
-<!-- <script src="js/chartJS.js"></script> -->
-<!-- <script src="js/date-fns.bundle.js"></script> -->
-<script src="js/chart.js"></script>
-
-
-
-
-
-
-
-<!-- 
-
-
-                    <details>
-                        <summary class=SpoilerMedikation>weitere Angaben</summary>
-                    </details>
-
-
-                   <label class="itemLabel brainload" for=brainloadSlider>Brainload: </label>
-                    <div class=sliderValue id=brainloadSliderOutput></div>
-                    <input type="range" min="0" max="100" value="0" step="10" class="slider brainload" id=brainloadSlider name=mood[brainload]>
-                    <label class="itemLabel mood" for=moodSlider>Mood: </label>
-                    <div class=sliderValue id=moodSliderOutput></div>
-                    <input type="range" min="0" max="100" value="0" step="10" class="slider mood" id=moodSlider name=mood[mood]>
-                    <label class="itemLabel motivation" for=motivationSlider>Motivation: </label>
-                    <div class=sliderValue id=motivationSliderOutput></div>
-                    <input type="range" min="0" max="100" value="0" step="10" class="slider motivation" id=motivationSlider name=mood[motivation]>
-
-
-
-
-
-                    <input type=checkbox class=hidden id=value11 name=[situations][0] value=Zuhause>
-                    <label class="buttonlabel situation" for=value11>Zuhause</label>
-                    <input type=checkbox class=hidden id=value21 name=situations[1] value=Arbeit>
-                    <label class="buttonlabel situation" for=value21>Arbeit</label>
-                    <input type=checkbox class=hidden id=value31 name=situations[2] value=Park>
-                    <label class="buttonlabel situation" for=value31>Park</label>
-                    <input type=checkbox class=hidden id=value41 name=situations[3] value=Klo>
-                    <label class="buttonlabel situation" for=value41>Klo</label>
-                    <input type=checkbox class=hidden id=value51 name=situations[4] value=Bett>
-                    <label class="buttonlabel situation" for=value51>Bett</label>
-                    <input type=text class=newSituation name=situations[] placeholder='new situation'>
-
-
-
-
-
-        // var div = document.createElement("DIV");
-        // div.innerHTML = message;
-        // overlay.appendChild(div);
-
-
-
-    
-    <input type=checkbox class=hidden id=Unruhe name=wirkung[] value=Unruhe>
-    <label class="buttonlabel wirkung" for=Unruhe>Unruhe</label>
-    <input type=checkbox class=hidden id=Konzentration name=wirkung[] value=Konzentration>
-    <label class="buttonlabel wirkung" for=Konzentration>Konzentration</label>
-    <input type=checkbox class=hidden id=Aufmerksamkeit name=wirkung[] value=Aufmerksamkeit>
-    <label class="buttonlabel wirkung" for=Aufmerksamkeit>Aufmerksamkeit</label>
-    <input type=checkbox class=hidden id=Motivation name=wirkung[] value=Motivation>
-    <label class="buttonlabel wirkung" for=Motivation>Motivation</label>
-    <input type=checkbox class=hidden id=Auslastung name=wirkung[] value=Auslastung>
-    <label class="buttonlabel wirkung" for=Auslastung>Auslastung</label>
-    <input type=text class=newSituation name=wirkung[] placeholder='individuelle Wirkungen'>
-
-
-
-    // var my_col = document.querySelectorAll("[color]");
-    //   my_col.forEach(element => {
-    //     element.classList.add(element.getAttribute("color")+"Font");
-    //     element.classList.add(element.getAttribute("color")+"Border");
-    // })
-
-
-
-
-
-
-// FormResultsObject = Object.assign({
-//         Profil: FormResultsObject
-//     }, FormResultsObject);
-
-
-// console.log(currentProfil.Profil)
-
-// localData.push(FormResultsObject);
-// var localData = Object.assign({}, localDataA);
-// console.log(localData)
-
-// FormResultsObject = {
-//     Profil: FormResultsObject
-// };
-
-
-
-
-
-
-function allLocalStorage() {
-    var values = '',
-        keys = Object.keys(localStorage),
-        i = keys.length;
-
-    while (i--) {
-        // console.log(keys[i]);
-        // console.log(JSON.stringify(keys[i]).length);
-        // console.log(localStorage.getItem(keys[i]));
-        values += keys[i] + " Length: " + JSON.stringify(keys[i]).length + "<br>";
-    }
-    var CURRENTstorageSize = Math.round(JSON.stringify(localStorage).length / 1024);
-    for (var i = 0, data = "m"; i < 40; i++) {
-        try {
-            localStorage.setItem("DATA", data);
-            data = data + data;
-        } catch (e) {
-            var MAXstorageSize = Math.round(JSON.stringify(localStorage).length / 1024);
-            // console.log("LIMIT REACHED: (" + i + ") " + MAXstorageSize + "K");
-            // console.log(JSON.stringify(localStorage).length)
-            // console.log(e);
-            var div = document.createElement('div');
-            div.innerHTML += 'Files:<br> ' + values + '<br>';
-            // div.innerHTML += e + "<br><br>";
-            div.innerHTML += 'Max LocalStorage Size: <b>' + MAXstorageSize + '</b>K<br>';
-            div.id = "storageSize";
-            div.style.color = "#000";
-            div.style.background = "#ccc";
-            div.style.border = "4px solid #000";
-            div.style.borderRadius = "14px";
-            div.style.width = "max-content";
-            div.style.height = "max-content";
-            div.style.padding = "1em";
-            div.style.position = "fixed";
-            div.style.top = "20px";
-            div.style.left = "20px";
-            document.body.appendChild(div);
-            localStorage.removeItem("DATA");
-            break;
-        }
-    }
-}
-
-
-
-
-
-
-
-// var showmore = document.getElementById("showmore");
-// var showless = document.getElementById("showless");
-
-// showmore.addEventListener("click", function(evt) {
-//     document.getElementById("more").style.display = 'inline';
-//     document.getElementById("showmore").style.display = 'none';
-// });
-// showless.addEventListener("click", function(evt) {
-//     document.getElementById("more").style.display = 'none';
-//     document.getElementById("showmore").style.display = 'inline';
-// }); 
-
-
-
-
-
-
-
-<form id=MedikationForm>
-            <fieldset>
-                <legend>Medikation</legend>
-
-                <div id=Medikation_0>
-                    <div class="medikation">
-                        <div class="medikament">
-                            <label for="M_Medikament">Medikament</label>
-                            <select id="M_Medikament" name=Medikation[0][Medikament]>
-                                <option disabled selected hidden></option>
-                                <option>Elvanse</option>
-                                <option>Ritalin </option>
-                                <option>Strattera</option>
-                            </select>
-                        </div>
-                        <div class="dosierung">
-                            <label for="M_Dosierung">Dosierung</label>
-                            <select id="M_Dosierung" name=Medikation[0][Dosierung]>
-                                <option disabled selected hidden></option>
-                                <option>2.5 mg</option>
-                                <option>5 mg</option>
-                                <option>10 mg</option>
-                                <option>20 mg</option>
-                                <option>30 mg</option>
-                                <option>40 mg</option>
-                            </select>
-                        </div>
-                        <div class="zeitpunkt">
-                            <label for="M_Zeitpunkt">Zeit</label>
-                            <input type="time" id="M_Zeitpunkt" name=Medikation[0][Zeitpunkt]>
-                        </div>
-
-                    </div>
-                </div>
-                <div id=addMedikation class="">
-                    <label class='plusminus plus' onclick=newMedikation()></label>
-                    <label class='plusminus minus' onclick=delMedikation()></label>
-                </div>
-                <br>
-                <button type="submit" id=validate class="pure-button pure-button-primary">Absenden</button>
-            </fieldset>
-        </form> -->
 
 </html>

@@ -7,31 +7,37 @@ function deb(value, text = " ", c = '#e6c07b') {
     console.log(value)
 }
 
-function getRandomInt(max) {
-    return (Math.floor(Math.random() * max) * 10).toString(10);
+function getRandomInt(max, string = false) {
+    if (string) {
+        return (Math.floor(Math.random() * max)).toString(10);
+    } else {
+        return (Math.floor(Math.random() * max))
+    }
 }
-// deb(getRandomInt(5),'getRandomInt'); 
+// deb(getRandomInt(5), 'getRandomInt');
 
 
-let MoodItems = 100;
+let MoodItems = 30;
+let everyXhours = 2;
 
 
-
+var TimestampNow = Date.now();
 let Timestamp = []
 for (let i = 0; i < MoodItems; i++) {
-    // Timestamp[i] = i % 24;
-    let mod = i % 24;
-
-    if (mod >= 8 && mod <= 20) { // 9 23
-        Timestamp[i] = 1628114400000 + i * 3600000;
+    let temTimestamp = TimestampNow - (i * 3600000 * everyXhours) + getRandomInt(60) * 60000;
+    let hour = formatdate(temTimestamp, "G")
+    if (hour >= 8 && hour <= 20) {
+        Timestamp[i] = temTimestamp;
     } else {
         // Timestamp[i] = null;
     }
 
 }
+// deb(Timestamp,'Timestamp')
+
 Timestamp = Timestamp.filter((item, index) => { return (Timestamp.indexOf(item) == index) });
 
-deb(Timestamp)
+// deb(Timestamp)
 
 Mood = new Object;
 for (let i = 0; i < Timestamp.length; i++) {
@@ -58,10 +64,10 @@ for (let i = 0; i < Timestamp.length; i++) {
             "kann nicht schlafen"
         ],
         "mood": {
-            "Unruhe": getRandomInt(10),
-            "Konzentration": getRandomInt(10),
-            "Aufmerksamkeit": getRandomInt(10),
-            "Brainload": getRandomInt(10),
+            "Unruhe": getRandomInt(10, true) * 10,
+            "Konzentration": getRandomInt(10, true) * 10,
+            "Aufmerksamkeit": getRandomInt(10, true) * 10,
+            "Brainload": getRandomInt(10, true) * 10,
         },
         "comment": "Was soll hier blo\u00df rein"
 

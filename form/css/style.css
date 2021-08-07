@@ -21,7 +21,7 @@
 }
 
 :crayolaMetallic {
-    --white:#FEFEFE;
+    --white: #FEFEFE;
     --AlloyOrange: #C46210;
     --BdazzledBlue: #2E5894;
     --BigDipORuby: #9C2542;
@@ -134,7 +134,8 @@ fieldset {
     border-radius: 5px;
     margin-top: 20px;
     padding: .75em;
-    padding-top: 0px
+    padding-top: 0px;
+    position: relative;
 }
 
 legend {
@@ -158,6 +159,7 @@ label {
 
 
 /* ALL INPUTS */
+
 input,
 select,
 textarea,
@@ -220,6 +222,7 @@ input[type=range]::-moz-range-thumb {
     cursor: pointer;
     border: 1px solid var(--black)
 }
+
 [type="submit"],
 button {
     background-color: var(--blue);
@@ -252,10 +255,19 @@ button:hover {
 */
 
 #content {
-    width: 432px;
+    width: 832px;
     margin: auto;
     padding: .5em;
     padding-top: 0;
+}
+
+@media (max-width:40em) {
+    #content {
+        width: 432px;
+        margin: auto;
+        padding: .5em;
+        padding-top: 0;
+    }
 }
 
 #formcontent {
@@ -274,15 +286,16 @@ button:hover {
     padding-top: .5em;
 }
 
+
 /* #chart {
     text-decoration: line-through
 } */
+
 #AuswertungsChart,
 #ProfilForm,
 #MoodForm {
     display: none
 }
-
 
 @media (max-width:40em) {
     #formcontent {
@@ -296,7 +309,6 @@ button:hover {
                         OVERLAY
 ========================================================================== 
 */
- 
 
 #MessageOverlay fieldset {
     position: relative;
@@ -379,7 +391,6 @@ button:hover {
 ========================================================================== 
 */
 
-
 #ProfilForm input,
 #ProfilForm select {
     color: var(--blue);
@@ -441,103 +452,102 @@ button:hover {
     /* margin: 0; */
 }
 
-#WirkungIndividuell{
+#WirkungIndividuell {
     display: flex;
-    gap: 20px   
+    gap: 20px
 }
-#WirkungIndividuell select{
-    max-width:100px;
-    
+
+#WirkungIndividuell select {
+    max-width: 100px;
 }
+
+
 /* .hidden:checked+label.buttonlabel.wirkung, */
+
 .hidden:checked+label.buttonlabel.zyklus {
     background-color: var(--blue);
     color: var(--dark)
 }
 
-
 .buttonlabel.wirkung.bluegreen {
     color: var(--bluegreen)!important;
     border-color: var(--bluegreen)!important;
 }
+
 .hidden:checked+label.buttonlabel.wirkung.bluegreen {
     background-color: var(--bluegreen);
     color: var(--dark)!important
 }
 
-
 .buttonlabel.wirkung.blue {
     color: var(--blue)!important;
     border-color: var(--blue)!important;
 }
+
 .hidden:checked+label.buttonlabel.wirkung.blue {
     background-color: var(--blue);
     color: var(--dark)!important
 }
 
-
 .buttonlabel.wirkung.pink {
     color: var(--pink)!important;
     border-color: var(--pink)!important;
 }
+
 .hidden:checked+label.buttonlabel.wirkung.pink {
     background-color: var(--pink);
     color: var(--dark)!important
 }
 
-
 .buttonlabel.wirkung.salomon {
     color: var(--salomon)!important;
     border-color: var(--salomon)!important;
 }
+
 .hidden:checked+label.buttonlabel.wirkung.salomon {
     background-color: var(--salomon);
     color: var(--dark)!important
 }
 
-
 .buttonlabel.wirkung.green {
     color: var(--green)!important;
     border-color: var(--green)!important;
 }
+
 .hidden:checked+label.buttonlabel.wirkung.green {
     background-color: var(--green);
     color: var(--dark)!important
 }
 
-
 .buttonlabel.wirkung.orange {
     color: var(--orange)!important;
     border-color: var(--orange)!important;
 }
+
 .hidden:checked+label.buttonlabel.wirkung.orange {
     background-color: var(--orange);
     color: var(--dark)!important
 }
+
 .buttonlabel.wirkung.red {
     color: var(--red)!important;
     border-color: var(--red)!important;
 }
+
 .hidden:checked+label.buttonlabel.wirkung.red {
     background-color: var(--red);
     color: var(--dark)!important
 }
 
-
 .buttonlabel.wirkung.yellow {
     color: var(--yellow)!important;
     border-color: var(--yellow)!important;
 }
+
 .hidden:checked+label.buttonlabel.wirkung.yellow {
     background-color: var(--yellow);
     color: var(--dark)!important
 }
-
-
-
- 
-
-
 
 .kommentar.profil textarea {
     color: var(--blue);
@@ -554,12 +564,15 @@ button:hover {
                         MEDIKATION
 ========================================================================== 
 */
-.medikationSet{
+
+.medikationSet {
     padding-bottom: 1em;
 }
+
 .medikationSet:not(:first-of-type) {
     border-top: 1px solid var(--yellow);
 }
+
 .medikation input,
 .medikation select {
     color: var(--yellow);
@@ -569,7 +582,7 @@ button:hover {
 .medikation {
     display: flex;
     justify-content: space-between;
-    padding-top:.5em;
+    padding-top: .5em;
 }
 
 .medikation label {
@@ -619,12 +632,12 @@ button:hover {
 ========================================================================== 
 */
 
-label.SectionHeading{
+label.SectionHeading {
     font-size: 1.2em;
     padding-top: 1em;
 }
 
-#MedikationHeading{
+#MedikationHeading {
     color: var(--yellow);
 }
 
@@ -637,16 +650,17 @@ label.SectionHeading{
     transition: .5s;
 }
 
+
 /* .buttonlabel.wirkzeit:hover, */
+
 .hidden:checked+label.buttonlabel.wirkzeit {
     background-color: var(--yellow);
     color: var(--dark)
 }
 
-#SituationHeading{
+#SituationHeading {
     color: var(--orange);
 }
-
 
 #SituationCheckboxes {
     display: block;
@@ -666,10 +680,12 @@ label.itemLabel.situation {
     cursor: pointer;
     transition: .5s;
     display: inline-block;
-    margin-right:.5em;
+    margin-right: .5em;
 }
 
+
 /* .buttonlabel.situation:hover, */
+
 .hidden:checked+label.buttonlabel.situation {
     background-color: var(--orange);
     color: var(--dark);
@@ -680,74 +696,159 @@ input.newSituation {
     border-color: var(--orange)
 }
 
- 
-
-#WirkungHeading{
+#WirkungHeading {
     color: var(--pink)
 }
+
 .sliderValue {
     display: inline
 }
 
-/* SLIDER COLOR */
-.sliderdiv.red{color: var(--red);}
-input[type=range].red::-moz-range-thumb {background: var(--red)}
-input[type=range].red::-webkit-slider-thumb {background: var(--red);}
-label.brainload,#brainloadSliderOutput {color: var(--red);}
 
-.sliderdiv.green{color: var(--green);}
-input[type=range].green::-moz-range-thumb {background: var(--green)}
-input[type=range].green::-webkit-slider-thumb {background: var(--green);}
-label.green,#moodSliderOutput {color: var(--green);}
-
-.sliderdiv.blue{color: var(--blue);}
-input[type=range].blue::-moz-range-thumb {background: var(--blue)}
-input[type=range].blue::-webkit-slider-thumb {background: var(--blue);}
-label.blue,#motivationSliderOutput {color: var(--blue);}
-
-
-
-.sliderdiv.orange{color: var(--orange);}
-input[type=range].orange::-moz-range-thumb {background: var(--orange)}
-input[type=range].orange::-webkit-slider-thumb {background: var(--orange);}
-label.orange,#motivationSliderOutput {color: var(--orange);}
-
-
-
-.sliderdiv.yellow{color: var(--yellow);}
-input[type=range].yellow::-moz-range-thumb {background: var(--yellow)}
-input[type=range].yellow::-webkit-slider-thumb {background: var(--yellow);}
-label.yellow,#motivationSliderOutput {color: var(--yellow);}
-
-
-.sliderdiv.bluegreen{color: var(--bluegreen);}
-input[type=range].bluegreen::-moz-range-thumb {background: var(--bluegreen)}
-input[type=range].bluegreen::-webkit-slider-thumb {background: var(--bluegreen);}
-label.bluegreen,#motivationSliderOutput {color: var(--bluegreen);}
-
-
-.sliderdiv.pink{color: var(--pink);}
-input[type=range].pink::-moz-range-thumb {background: var(--pink)}
-input[type=range].pink::-webkit-slider-thumb {background: var(--pink);}
-label.pink,#motivationSliderOutput {color: var(--pink);}
-
-
-
-.sliderdiv.salomon{color: var(--salomon);}
-input[type=range].salomon::-moz-range-thumb {background: var(--salomon)}
-input[type=range].salomon::-webkit-slider-thumb {background: var(--salomon);}
-label.salomon,#motivationSliderOutput {color: var(--salomon);}
 /* SLIDER COLOR */
 
-
-
-
-
-#KommentarHeading{
-    color: var(--bluegreen);
-
+.sliderdiv.red {
+    color: var(--red);
 }
 
+input[type=range].red::-moz-range-thumb {
+    background: var(--red)
+}
+
+input[type=range].red::-webkit-slider-thumb {
+    background: var(--red);
+}
+
+label.brainload,
+#brainloadSliderOutput {
+    color: var(--red);
+}
+
+.sliderdiv.green {
+    color: var(--green);
+}
+
+input[type=range].green::-moz-range-thumb {
+    background: var(--green)
+}
+
+input[type=range].green::-webkit-slider-thumb {
+    background: var(--green);
+}
+
+label.green,
+#moodSliderOutput {
+    color: var(--green);
+}
+
+.sliderdiv.blue {
+    color: var(--blue);
+}
+
+input[type=range].blue::-moz-range-thumb {
+    background: var(--blue)
+}
+
+input[type=range].blue::-webkit-slider-thumb {
+    background: var(--blue);
+}
+
+label.blue,
+#motivationSliderOutput {
+    color: var(--blue);
+}
+
+.sliderdiv.orange {
+    color: var(--orange);
+}
+
+input[type=range].orange::-moz-range-thumb {
+    background: var(--orange)
+}
+
+input[type=range].orange::-webkit-slider-thumb {
+    background: var(--orange);
+}
+
+label.orange,
+#motivationSliderOutput {
+    color: var(--orange);
+}
+
+.sliderdiv.yellow {
+    color: var(--yellow);
+}
+
+input[type=range].yellow::-moz-range-thumb {
+    background: var(--yellow)
+}
+
+input[type=range].yellow::-webkit-slider-thumb {
+    background: var(--yellow);
+}
+
+label.yellow,
+#motivationSliderOutput {
+    color: var(--yellow);
+}
+
+.sliderdiv.bluegreen {
+    color: var(--bluegreen);
+}
+
+input[type=range].bluegreen::-moz-range-thumb {
+    background: var(--bluegreen)
+}
+
+input[type=range].bluegreen::-webkit-slider-thumb {
+    background: var(--bluegreen);
+}
+
+label.bluegreen,
+#motivationSliderOutput {
+    color: var(--bluegreen);
+}
+
+.sliderdiv.pink {
+    color: var(--pink);
+}
+
+input[type=range].pink::-moz-range-thumb {
+    background: var(--pink)
+}
+
+input[type=range].pink::-webkit-slider-thumb {
+    background: var(--pink);
+}
+
+label.pink,
+#motivationSliderOutput {
+    color: var(--pink);
+}
+
+.sliderdiv.salomon {
+    color: var(--salomon);
+}
+
+input[type=range].salomon::-moz-range-thumb {
+    background: var(--salomon)
+}
+
+input[type=range].salomon::-webkit-slider-thumb {
+    background: var(--salomon);
+}
+
+label.salomon,
+#motivationSliderOutput {
+    color: var(--salomon);
+}
+
+
+/* SLIDER COLOR */
+
+#KommentarHeading {
+    color: var(--bluegreen);
+}
 
 .kommentar.mood textarea {
     color: var(--bluegreen);
@@ -758,6 +859,33 @@ label.salomon,#motivationSliderOutput {color: var(--salomon);}
     color: var(--bluegreen);
 }
 
+
+/* 
+==========================================================================
+                        CHART
+========================================================================== 
+*/
+
+
+#ChartCanvas {
+    width: 600px;
+    /* height: 400px; */
+}
+
+#ChartLegend {
+    padding: .5em 0;
+    float: left;
+}
+@media (max-width:40em) {
+    #ChartCanvas {
+        width: 400px;
+        height: 400px;
+    }
+}
+
+#ChartTooltip{
+    left: 200px;
+}
 
 /* 
 ==========================================================================
