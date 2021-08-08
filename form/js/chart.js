@@ -281,6 +281,8 @@ const htmlLegendPlugin = {
             li.style.display = 'flex';
             li.style.flexDirection = 'row';
             li.style.marginLeft = '10px';
+            // deb(item.datasetIndex, 'item.datasetIndex')
+
             li.onclick = () => {
                 chart.setDatasetVisibility(item.datasetIndex, !chart.isDatasetVisible(item.datasetIndex));
                 chart.update();
@@ -309,6 +311,8 @@ Chart.defaults.font.size = 16;
 
 var myChart = new Chart(document.getElementById("ChartCanvas").getContext("2d"), {
     type: 'line',
+    // events: ['click'],
+
     data: {
         // labels: ChartData.Datetime,
         // labels: Object.values(ChartData.Datetime),
@@ -363,7 +367,7 @@ var myChart = new Chart(document.getElementById("ChartCanvas").getContext("2d"),
 
                 external: function(tooltipModel) {
                     // Tooltip Element
-                    var tooltipEl = document.getElementById('ChartTooltip');
+                    var tooltipEl = document.getElementById('ValueLines');
 
                     // Create element on first render
                     // if (!tooltipEl) {
@@ -380,12 +384,12 @@ var myChart = new Chart(document.getElementById("ChartCanvas").getContext("2d"),
                     }
 
                     // Set caret Position
-                    tooltipEl.classList.remove('above', 'below', 'no-transform');
-                    if (tooltipModel.yAlign) {
-                        tooltipEl.classList.add(tooltipModel.yAlign);
-                    } else {
-                        tooltipEl.classList.add('no-transform');
-                    }
+                    // tooltipEl.classList.remove('above', 'below', 'no-transform');
+                    // if (tooltipModel.yAlign) {
+                    //     tooltipEl.classList.add(tooltipModel.yAlign);
+                    // } else {
+                    //     tooltipEl.classList.add('no-transform');
+                    // }
 
                     function getBody(bodyItem) {
                         return bodyItem.lines;
@@ -394,81 +398,123 @@ var myChart = new Chart(document.getElementById("ChartCanvas").getContext("2d"),
                     //
                     // Set Text
                     //
-                    deb(tooltipModel.tooltip)
-
+                    deb(tooltipModel.tooltip, 'tooltipModel.tooltip')
+                    function getBody(bodyItem) {
+                        return bodyItem.lines;
+                    }
                     if (tooltipModel.tooltip.body) {
-                        deb(tooltipModel)
-                        var titleLines = tooltipModel.title || [];
-                        var bodyLines = tooltipModel.tooltip.body.map(getBody);
-                        var innerHtml = '';
+                        // deb(tooltipModel, 'tooltipModel')
+                        let datasetIndex = tooltipModel.tooltip.dataPoints[0].datasetIndex;
+                        let toottipDataIndex = tooltipModel.tooltip.dataPoints[0].dataIndex;
+                        let toottipTimestamp = tooltipModel.tooltip.dataPoints[0].parsed.x;
+                        let titleLines = tooltipModel.tooltip.title || [];
+                        let bodyLines = tooltipModel.tooltip.body.map(getBody);
+                        let innerHtml = '';
 
+                        // innerHtml += '<div id=CTT_Date>' + toottipDataIndex  + '</div>';
+                        // innerHtml += '<div id=CTT_Date>' + toottipTimestamp + '</div>';
                         //
                         // DATE
                         //
-                        titleLines.forEach(function(title) {
-                            innerHtml += '<div id=CTT_Date>' + title + '</div>';
-                        });
+
+
+                        // titleLines.forEach(function(title) {
+                        //     innerHtml += '<div id=CTT_Date>' + title + '</div>';
+                        // });
+                        document.getElementById('ChartToolDate').innerHTML = formatdate(toottipTimestamp);
+
+
 
 
                         //
                         // MEDIKATION
                         //
                         // var TT_index = tooltipModel.dataPoints[0].index;
-                        // innerHtml += '<div id=CTT_MEDIKATION>';
-
-                        // for (const med of medikation[TT_index]) {
-                        //     var Dosierung = (med.Dosierung) ? med.Dosierung : '';
-                        //     var Medikament = (med.Medikament) ? med.Medikament : '';
-                        //     var Uhrzeit = (med.Uhrzeit) ? med.Uhrzeit : '';
-                        //     innerHtml += '<div>' + Dosierung + 'mg ' + Medikament + ' ' + Uhrzeit + '</div>';
-
-                        // }
+                        // let MedHTML = '<div id=CTT_MEDIKATION>';
+                        let MedHTML = '';
+                        for (const med of ChartData.Medikation[toottipDataIndex]) {
+                            var Dosierung = (med.Dosierung) ? med.Dosierung : '';
+                            var Medikament = (med.Medikament) ? med.Medikament : '';
+                            var Uhrzeit = (med.Uhrzeit) ? med.Uhrzeit : '';
+                            MedHTML += '<div>' + Dosierung + 'mg ' + Medikament + ' ' + Uhrzeit + '</div>';
+                        }
                         //    console.log(Dosierung)
-                        //    console.log(medikation[TT_index])
-                        innerHtml += '</div>';
+                        // deb(ChartData.Medikation[toottipDataIndex],'ChartData.Medikation[toottipDataIndex]')
+                        // MedHTML += '</div>';
+                        document.getElementById('ChartToolMedikation').innerHTML = MedHTML;
+
+
 
 
                         //
                         // SITUATIONS
                         //
-                        var TT_index = tooltipModel.tooltip.dataPoints[0].index;
+                        // var TT_index = tooltipModel.tooltip.dataPoints[0].index;
                         //    console.log(situation[TT_index])
-                        // innerHtml += '<div id=CTT_Situations>' + situation[TT_index] + '</div>';
+                        // SitHTML = '<div id=CTT_Situations>' + ChartData.Situationen[toottipDataIndex] + '</div>';
+                        document.getElementById('ChartToolSituation').innerHTML = ChartData.Situationen[toottipDataIndex];
+
 
                         //
                         // VALUES
                         //
-                        innerHtml += '<table>';
+                        // var ValueLines = document.getElementById('ValueLines');
+                        // deb(ValueLines, 'ValueLines')
 
+                        let WirkHTML = '<table>';
                         bodyLines.forEach(function(body, i) {
                             var b_label = body[0].split(' ')[0];
                             var b_value = body[0].split(' ')[1];
                             var colors = tooltipModel.tooltip.labelColors[i].backgroundColor;
                             var style = 'color:' + colors;
-                            innerHtml += '<tr id=CTT_Values style="' + style + '"><td class=b_label>' + b_label + '</td><td class=b_value>' + b_value + '</td></tr>';
+                            // deb(datasetIndex, 'datasetIndex')
+                            // deb(item.datasetIndex, 'item.datasetIndex')
+                            // deb(item.datasetIndex, 'item.datasetIndex')
+
+
+
+
+
+                            // ValueLine.onclick = () => {
+                            //     chart.setDatasetVisibility(datasetIndex, !chart.isDatasetVisible(datasetIndex));
+                            //     chart.update();
+                            // }; 
+
+
+
+
+
+                            WirkHTML += '<tr id=CTT_Values onclick="hideLines(' + datasetIndex + ')" style="' + style + '"><td class=b_label>' + b_label + '</td><td class=b_value>' + b_value + '</td></tr>';
                         });
-                        innerHtml += '</table>';
+                        WirkHTML += '</table>';
+
+
+                        document.getElementById('ChartToolWirkungen').innerHTML = WirkHTML;
+
+
+
 
 
                         //
                         // COMMENT
                         //
-                        innerHtml += '<div id=CTT_Comments>' + comment[TT_index] + '</div>';
+                        // innerHtml += '<div id=CTT_Comments>' + ChartData.Kommentar[toottipDataIndex] + '</div>';
+                        document.getElementById('ChartToolKommentar').innerHTML = ChartData.Kommentar[toottipDataIndex];
 
                         //
                         // add tooltip to HTML
                         //
-                        document.getElementById('ChartTooltip').innerHTML = innerHtml;
+                        // document.getElementById('ChartTooltip').innerHTML = innerHtml;
                     }
 
                     // `this` will be the overall tooltip
                     var position = this._chart.canvas.getBoundingClientRect();
                     // Display, position, and set styles for font
                     tooltipEl.style.opacity = 1;
-                    tooltipEl.style.position = 'absolute';
+                    // tooltipEl.style.position = 'absolute';
                     // tooltipEl.style.left = position.left + window.pageXOffset + tooltipModel.caretX - tooltipModel.width + 'px';
                     // tooltipEl.style.top = '100px';
-                    tooltipModel.xAlign = "center";
+                    // tooltipModel.xAlign = "center";
                     //    console.log(tooltipModel)
                     //    tooltipEl.style.left = position.left + window.pageXOffset + tooltipModel.caretX + 'px';
                     //    tooltipEl.style.top = position.top + window.pageYOffset + tooltipModel.caretY + 'px';
@@ -568,6 +614,10 @@ var myChart = new Chart(document.getElementById("ChartCanvas").getContext("2d"),
     },
     plugins: [htmlLegendPlugin],
 });
+
+
+
+
 
 // deb(ChartData.Datetime)
 // deb(luxon.DateTime.utc(1628159311))              1628141311
