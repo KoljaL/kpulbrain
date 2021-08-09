@@ -19,5 +19,5 @@ Alle Werte werden im Objekt "Mood" gespeichert. Änderungen sind nicht möglich.
 
 Alle Daten werden vom Browser im localstorage in einer Datei im JSON Format gespeichert.   
 Der Dateiname ist der md5-hash aus dem Namensfeld im Profil.
-Das JSON Objekt der Datei hat zwei Properties: **Profil** und **Mood**. Beide werden beim ersten Programmstart angelegt.  
+Das JSON Objekt der Datei hat zwei Properties: **Profil** und **Mood**. Beide werden beim ersten Programmstart angelegt.   
 
