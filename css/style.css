@@ -291,18 +291,28 @@ button:hover {
     text-decoration: line-through
 } */
 
-
-/* #AuswertungsChart, */
+#AuswertungsChart,
+#ProfilForm,
+#MoodForm {
+    display: none;
+}
 
 #ProfilForm,
 #MoodForm {
-    display: none
+    width: 430px;
 }
 
 @media (max-width:40em) {
     #formcontent {
         display: none;
     }
+}
+
+#footer{
+    padding: 1em 1em;
+}
+#footer img{
+    vertical-align: bottom;
 }
 
 

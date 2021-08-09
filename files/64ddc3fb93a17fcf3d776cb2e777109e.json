@@ -1,57 +1,569 @@
 {
     "Profil": {
         "Freigeben": "on",
-        "Timestamp": 1628503682490,
-        "Datetime": "09.08.2021 12:08:02",
+        "Timestamp": 1628546487590,
+        "Datetime": "10.08.2021 00:01:27",
+        "Alter": "1722",
+        "Geschlecht": "divers",
+        "Subtyp": "ADS",
         "Wirkung": [
+            "Brainload___orange",
             "Unruhe___red",
-            "Konzentration___blue"
+            "Konzentration___blue",
+            "Aufmerksamkeit___green",
+            "Motivation___salomon"
         ],
-        "Browser": "Chrome 92",
-        "OS": "Linux",
-        "Viewport": "1265 x 1128",
+        "P_Kommentar": "bin mal gespannt",
         "Situations": [
             "gerade aufgewacht",
             "bei der Arbeit",
             "zuhause",
             "kann nicht schlafen"
-        ]
+        ],
+        "Browser": "Chrome 92",
+        "OS": "Linux",
+        "Viewport": "966 x 1058"
     },
     "Mood": {
-        "1628503697019": {
-            "Timestamp": 1628503697019,
-            "Datetime": "09.08.2021 12:08:17",
+        "1628532420871": {
+            "Timestamp": 1628532420871,
+            "Datetime": "09.08.2021 20:07",
             "Medikation": [
                 {
-                    "Medikament": "Medikinet (unretardiert)",
-                    "Dosierung": "443"
+                    "Medikament": "Elvanse",
+                    "Dosierung": "75",
+                    "Zeitpunkt": "07:00",
+                    "SeitWann": "2021-06-01",
+                    "Kommentar": "und noch was"
+                },
+                {
+                    "Medikament": "Medikenet",
+                    "Dosierung": "50",
+                    "Zeitpunkt": "07:00",
+                    "SeitWann": "2021-07-01"
                 }
             ],
             "situations": [
-                "gerade aufgewacht",
-                "bei der Arbeit",
+                "Besuch im, Zoo",
+                "im Bett"
+            ],
+            "mood": {
+                "Unruhe": 40,
+                "Konzentration": 30,
+                "Aufmerksamkeit": 50,
+                "Brainload": 90
+            },
+            "comment": "Und noch ein Kommentar"
+        },
+        "1628527620871": {
+            "Timestamp": 1628527620871,
+            "Datetime": "09.08.2021 18:47",
+            "Medikation": [
+                {
+                    "Medikament": "Medikenet",
+                    "Dosierung": "30",
+                    "Zeitpunkt": "07:00",
+                    "SeitWann": "2021-06-01",
+                    "Kommentar": "und noch was"
+                },
+                {
+                    "Medikament": "Ritalin",
+                    "Dosierung": "10",
+                    "Zeitpunkt": "07:00",
+                    "SeitWann": "2021-07-01"
+                }
+            ],
+            "situations": [
+                "beide der Arbeit",
                 "zuhause"
             ],
             "mood": {
-                "Unruhe": "40",
-                "Konzentration": "40"
-            }
+                "Unruhe": 70,
+                "Konzentration": 10,
+                "Aufmerksamkeit": 0,
+                "Brainload": 0
+            },
+            "comment": "Das ist ein Kommentar, der sehr lang werden soll."
         },
-        "1628503661301": {
-            "Timestamp": 1628503661301,
-            "Datetime": "09.08.2021 12:07:41",
+        "1628517720871": {
+            "Timestamp": 1628517720871,
+            "Datetime": "09.08.2021 16:02",
             "Medikation": [
                 {
-                    "Medikament": "Medikinet (unretardiert)",
-                    "Dosierung": "443"
+                    "Medikament": "Attentin",
+                    "Dosierung": "75",
+                    "Zeitpunkt": "07:00",
+                    "SeitWann": "2021-06-01",
+                    "Kommentar": "und noch was"
+                },
+                {
+                    "Medikament": "Ritalin",
+                    "Dosierung": "5",
+                    "Zeitpunkt": "07:00",
+                    "SeitWann": "2021-07-01"
                 }
             ],
             "situations": [
-                "gerade aufgewacht"
+                "zuhause",
+                "im Bett"
             ],
             "mood": {
-                "Unruhe": "20"
-            }
+                "Unruhe": 30,
+                "Konzentration": 30,
+                "Aufmerksamkeit": 50,
+                "Brainload": 0
+            },
+            "comment": "Das ist ein kurzer."
+        },
+        "1628510580871": {
+            "Timestamp": 1628510580871,
+            "Datetime": "09.08.2021 14:03",
+            "Medikation": [
+                {
+                    "Medikament": "Attentin",
+                    "Dosierung": "30",
+                    "Zeitpunkt": "07:00",
+                    "SeitWann": "2021-06-01",
+                    "Kommentar": "und noch was"
+                },
+                {
+                    "Medikament": "Medikenet",
+                    "Dosierung": "50",
+                    "Zeitpunkt": "07:00",
+                    "SeitWann": "2021-07-01"
+                }
+            ],
+            "situations": [
+                "zuhause",
+                "zuhause"
+            ],
+            "mood": {
+                "Unruhe": 50,
+                "Konzentration": 80,
+                "Aufmerksamkeit": 70,
+                "Brainload": 50
+            },
+            "comment": "Das ist ein kurzer."
+        },
+        "1628504280871": {
+            "Timestamp": 1628504280871,
+            "Datetime": "09.08.2021 12:18",
+            "Medikation": [
+                {
+                    "Medikament": "Ritalin",
+                    "Dosierung": "5",
+                    "Zeitpunkt": "07:00",
+                    "SeitWann": "2021-06-01",
+                    "Kommentar": "und noch was"
+                },
+                {
+                    "Medikament": "Ritalin",
+                    "Dosierung": "10",
+                    "Zeitpunkt": "07:00",
+                    "SeitWann": "2021-07-01"
+                }
+            ],
+            "situations": [
+                "versuche mich zu konzentrieren",
+                "Besuch im, Zoo"
+            ],
+            "mood": {
+                "Unruhe": 30,
+                "Konzentration": 70,
+                "Aufmerksamkeit": 0,
+                "Brainload": 30
+            },
+            "comment": "Und noch ein Kommentar"
+        },
+        "1628498340871": {
+            "Timestamp": 1628498340871,
+            "Datetime": "09.08.2021 10:39",
+            "Medikation": [
+                {
+                    "Medikament": "Medikenet",
+                    "Dosierung": "5",
+                    "Zeitpunkt": "07:00",
+                    "SeitWann": "2021-06-01",
+                    "Kommentar": "und noch was"
+                },
+                {
+                    "Medikament": "Medikenet",
+                    "Dosierung": "10",
+                    "Zeitpunkt": "07:00",
+                    "SeitWann": "2021-07-01"
+                }
+            ],
+            "situations": [
+                "im Bett",
+                "im Bett"
+            ],
+            "mood": {
+                "Unruhe": 80,
+                "Konzentration": 40,
+                "Aufmerksamkeit": 0,
+                "Brainload": 70
+            },
+            "comment": "Und noch ein Kommentar"
+        },
+        "1628492280871": {
+            "Timestamp": 1628492280871,
+            "Datetime": "09.08.2021 08:58",
+            "Medikation": [
+                {
+                    "Medikament": "Elvanse",
+                    "Dosierung": "20",
+                    "Zeitpunkt": "07:00",
+                    "SeitWann": "2021-06-01",
+                    "Kommentar": "und noch was"
+                },
+                {
+                    "Medikament": "Elvanse",
+                    "Dosierung": "75",
+                    "Zeitpunkt": "07:00",
+                    "SeitWann": "2021-07-01"
+                }
+            ],
+            "situations": [
+                "im Bett",
+                "zuhause"
+            ],
+            "mood": {
+                "Unruhe": 30,
+                "Konzentration": 20,
+                "Aufmerksamkeit": 40,
+                "Brainload": 50
+            },
+            "comment": "Das ist ein kurzer."
+        },
+        "1628446500871": {
+            "Timestamp": 1628446500871,
+            "Datetime": "08.08.2021 20:15",
+            "Medikation": [
+                {
+                    "Medikament": "Attentin",
+                    "Dosierung": "15",
+                    "Zeitpunkt": "07:00",
+                    "SeitWann": "2021-06-01",
+                    "Kommentar": "und noch was"
+                },
+                {
+                    "Medikament": "Attentin",
+                    "Dosierung": "20",
+                    "Zeitpunkt": "07:00",
+                    "SeitWann": "2021-07-01"
+                }
+            ],
+            "situations": [
+                "zuhause",
+                "Besuch im, Zoo"
+            ],
+            "mood": {
+                "Unruhe": 10,
+                "Konzentration": 0,
+                "Aufmerksamkeit": 70,
+                "Brainload": 10
+            },
+            "comment": "Das ist ein kurzer."
+        },
+        "1628439120871": {
+            "Timestamp": 1628439120871,
+            "Datetime": "08.08.2021 18:12",
+            "Medikation": [
+                {
+                    "Medikament": "Attentin",
+                    "Dosierung": "20",
+                    "Zeitpunkt": "07:00",
+                    "SeitWann": "2021-06-01",
+                    "Kommentar": "und noch was"
+                },
+                {
+                    "Medikament": "Attentin",
+                    "Dosierung": "5",
+                    "Zeitpunkt": "07:00",
+                    "SeitWann": "2021-07-01"
+                }
+            ],
+            "situations": [
+                "zuhause",
+                "Besuch im, Zoo"
+            ],
+            "mood": {
+                "Unruhe": 0,
+                "Konzentration": 50,
+                "Aufmerksamkeit": 10,
+                "Brainload": 70
+            },
+            "comment": "Das ist ein kurzer."
+        },
+        "1628433240871": {
+            "Timestamp": 1628433240871,
+            "Datetime": "08.08.2021 16:34",
+            "Medikation": [
+                {
+                    "Medikament": "Ritalin",
+                    "Dosierung": "15",
+                    "Zeitpunkt": "07:00",
+                    "SeitWann": "2021-06-01",
+                    "Kommentar": "und noch was"
+                },
+                {
+                    "Medikament": "Elvanse",
+                    "Dosierung": "75",
+                    "Zeitpunkt": "07:00",
+                    "SeitWann": "2021-07-01"
+                }
+            ],
+            "situations": [
+                "im Bett",
+                "versuche mich zu konzentrieren"
+            ],
+            "mood": {
+                "Unruhe": 50,
+                "Konzentration": 60,
+                "Aufmerksamkeit": 70,
+                "Brainload": 60
+            },
+            "comment": "Und noch ein Kommentar"
+        },
+        "1628425920871": {
+            "Timestamp": 1628425920871,
+            "Datetime": "08.08.2021 14:32",
+            "Medikation": [
+                {
+                    "Medikament": "Medikenet",
+                    "Dosierung": "50",
+                    "Zeitpunkt": "07:00",
+                    "SeitWann": "2021-06-01",
+                    "Kommentar": "und noch was"
+                },
+                {
+                    "Medikament": "Medikenet",
+                    "Dosierung": "15",
+                    "Zeitpunkt": "07:00",
+                    "SeitWann": "2021-07-01"
+                }
+            ],
+            "situations": [
+                "im Bett",
+                "Besuch im, Zoo"
+            ],
+            "mood": {
+                "Unruhe": 60,
+                "Konzentration": 20,
+                "Aufmerksamkeit": 60,
+                "Brainload": 70
+            },
+            "comment": "Das ist ein Kommentar, der sehr lang werden soll."
+        },
+        "1628417400871": {
+            "Timestamp": 1628417400871,
+            "Datetime": "08.08.2021 12:10",
+            "Medikation": [
+                {
+                    "Medikament": "Ritalin",
+                    "Dosierung": "30",
+                    "Zeitpunkt": "07:00",
+                    "SeitWann": "2021-06-01",
+                    "Kommentar": "und noch was"
+                },
+                {
+                    "Medikament": "Medikenet",
+                    "Dosierung": "5",
+                    "Zeitpunkt": "07:00",
+                    "SeitWann": "2021-07-01"
+                }
+            ],
+            "situations": [
+                "im Bett",
+                "Besuch im, Zoo"
+            ],
+            "mood": {
+                "Unruhe": 50,
+                "Konzentration": 10,
+                "Aufmerksamkeit": 60,
+                "Brainload": 0
+            },
+            "comment": "Das ist ein Kommentar, der sehr lang werden soll."
+        },
+        "1628410380871": {
+            "Timestamp": 1628410380871,
+            "Datetime": "08.08.2021 10:13",
+            "Medikation": [
+                {
+                    "Medikament": "Elvanse",
+                    "Dosierung": "10",
+                    "Zeitpunkt": "07:00",
+                    "SeitWann": "2021-06-01",
+                    "Kommentar": "und noch was"
+                },
+                {
+                    "Medikament": "Elvanse",
+                    "Dosierung": "5",
+                    "Zeitpunkt": "07:00",
+                    "SeitWann": "2021-07-01"
+                }
+            ],
+            "situations": [
+                "versuche mich zu konzentrieren",
+                "Besuch im, Zoo"
+            ],
+            "mood": {
+                "Unruhe": 0,
+                "Konzentration": 30,
+                "Aufmerksamkeit": 10,
+                "Brainload": 80
+            },
+            "comment": "Das ist ein kurzer."
+        },
+        "1628404380871": {
+            "Timestamp": 1628404380871,
+            "Datetime": "08.08.2021 08:33",
+            "Medikation": [
+                {
+                    "Medikament": "Attentin",
+                    "Dosierung": "20",
+                    "Zeitpunkt": "07:00",
+                    "SeitWann": "2021-06-01",
+                    "Kommentar": "und noch was"
+                },
+                {
+                    "Medikament": "Ritalin",
+                    "Dosierung": "75",
+                    "Zeitpunkt": "07:00",
+                    "SeitWann": "2021-07-01"
+                }
+            ],
+            "situations": [
+                "beide der Arbeit",
+                "im Bett"
+            ],
+            "mood": {
+                "Unruhe": 70,
+                "Konzentration": 40,
+                "Aufmerksamkeit": 40,
+                "Brainload": 90
+            },
+            "comment": "Und noch ein Kommentar"
+        },
+        "1628361960871": {
+            "Timestamp": 1628361960871,
+            "Datetime": "07.08.2021 20:46",
+            "Medikation": [
+                {
+                    "Medikament": "Elvanse",
+                    "Dosierung": "15",
+                    "Zeitpunkt": "07:00",
+                    "SeitWann": "2021-06-01",
+                    "Kommentar": "und noch was"
+                },
+                {
+                    "Medikament": "Medikenet",
+                    "Dosierung": "20",
+                    "Zeitpunkt": "07:00",
+                    "SeitWann": "2021-07-01"
+                }
+            ],
+            "situations": [
+                "zuhause",
+                "beide der Arbeit"
+            ],
+            "mood": {
+                "Unruhe": 80,
+                "Konzentration": 30,
+                "Aufmerksamkeit": 70,
+                "Brainload": 80
+            },
+            "comment": "Das ist ein Kommentar, der sehr lang werden soll."
+        },
+        "1628352960871": {
+            "Timestamp": 1628352960871,
+            "Datetime": "07.08.2021 18:16",
+            "Medikation": [
+                {
+                    "Medikament": "Medikenet",
+                    "Dosierung": "30",
+                    "Zeitpunkt": "07:00",
+                    "SeitWann": "2021-06-01",
+                    "Kommentar": "und noch was"
+                },
+                {
+                    "Medikament": "Attentin",
+                    "Dosierung": "10",
+                    "Zeitpunkt": "07:00",
+                    "SeitWann": "2021-07-01"
+                }
+            ],
+            "situations": [
+                "beide der Arbeit",
+                "beide der Arbeit"
+            ],
+            "mood": {
+                "Unruhe": 70,
+                "Konzentration": 30,
+                "Aufmerksamkeit": 10,
+                "Brainload": 70
+            },
+            "comment": "Und noch ein Kommentar"
+        },
+        "1628345640871": {
+            "Timestamp": 1628345640871,
+            "Datetime": "07.08.2021 16:14",
+            "Medikation": [
+                {
+                    "Medikament": "Medikenet",
+                    "Dosierung": "30",
+                    "Zeitpunkt": "07:00",
+                    "SeitWann": "2021-06-01",
+                    "Kommentar": "und noch was"
+                },
+                {
+                    "Medikament": "Ritalin",
+                    "Dosierung": "20",
+                    "Zeitpunkt": "07:00",
+                    "SeitWann": "2021-07-01"
+                }
+            ],
+            "situations": [
+                "versuche mich zu konzentrieren",
+                "zuhause"
+            ],
+            "mood": {
+                "Unruhe": 90,
+                "Konzentration": 60,
+                "Aufmerksamkeit": 30,
+                "Brainload": 70
+            },
+            "comment": "Das ist ein Kommentar, der sehr lang werden soll."
+        },
+        "1628338080871": {
+            "Timestamp": 1628338080871,
+            "Datetime": "07.08.2021 14:08",
+            "Medikation": [
+                {
+                    "Medikament": "Medikenet",
+                    "Dosierung": "30",
+                    "Zeitpunkt": "07:00",
+                    "SeitWann": "2021-06-01",
+                    "Kommentar": "und noch was"
+                },
+                {
+                    "Medikament": "Medikenet",
+                    "Dosierung": "75",
+                    "Zeitpunkt": "07:00",
+                    "SeitWann": "2021-07-01"
+                }
+            ],
+            "situations": [
+                "beide der Arbeit",
+                "im Bett"
+            ],
+            "mood": {
+                "Unruhe": 60,
+                "Konzentration": 80,
+                "Aufmerksamkeit": 90,
+                "Brainload": 90
+            },
+            "comment": "Und noch ein Kommentar"
         }
     }
 }

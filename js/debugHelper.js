@@ -9,8 +9,8 @@ function deb(value, text = " ", c = '#e6c07b') {
 
 }
 
- 
- 
+
+
 //
 // reat url and return the anchor
 //
@@ -124,15 +124,44 @@ function formatdate(date, format = "d.m.Y H:i", locale = "DE") {
 
 
 
-function getStyleSheet(selectorText, i=1) {
+function getStyleSheet(selectorText, i = 1) {
     let rules = document.styleSheets[i].rules;
-  for (var i=0; i<rules.length; i++) {
-    // var sheet = document.styleSheets[i];
-    // deb(rules[i] )
-    if (rules[i].selectorText == selectorText) {
-      return rules[i].cssText;
+    for (var i = 0; i < rules.length; i++) {
+        // var sheet = document.styleSheets[i];
+        // deb(rules[i] )
+        if (rules[i].selectorText == selectorText) {
+            return rules[i].cssText;
+        }
     }
-  }
 }
 // deb(getStyleSheet(':root'),'getStyleSheet(:root)')
 // deb(document.styleSheets[1],'document.styleSheets[1].rules')
+
+
+
+
+function alertMsg(msg, status=1) {
+    const statusColor = status ? 'background:#17bc6d;' : 'background:#e94f75;';
+    const showStyle = 'transition:all ease 0.4s; padding:10px; border-radius:4px; position:fixed; bottom:10px; right:10px; z-index:999; box-shadow:0 1px 10px #ddd; color:#fff;' + statusColor;
+    const hideStyle = 'transition:all ease 0.4s; padding:10px; border-radius:4px; position:fixed; bottom:-200px; right:10px; z-index:999; box-shadow:0 1px 10px #ddd; color:#fff;' + statusColor;
+    const msgDiv = document.createElement('div');
+    msgDiv.id = 'msg-div';
+    msgDiv.setAttribute('style', hideStyle);
+    msgDiv.innerText = msg;
+    // document.body.append(msgDiv);
+    document.getElementsByTagName('BODY')[0].appendChild(msgDiv);
+
+
+    const Msg = document.querySelector("#msg-div");
+    setTimeout(() => {
+        Msg.setAttribute('style', showStyle);
+    }, 200)
+
+    setTimeout(() => {
+        Msg.setAttribute('style', hideStyle);
+    }, 2500)
+
+    setTimeout(() => {
+        Msg.outerHTML = '';
+    }, 3000)
+}

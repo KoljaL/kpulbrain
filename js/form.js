@@ -562,11 +562,12 @@ function DataFreigeben() {
 
     // deb(localData.Profil.Freigeben)
     if ('on' == localData.Profil.Freigeben) {
-        datalink.innerHTML = "<a class=pinkFont target='_blank' href='save.php?n=" + localDataName + "'>JSON<a/>";
-        // localDataNameField.addEventListener("input", event => {
-        //     localDataName = md5(localDataNameField.value);
-        //     datalink.innerHTML = "<a class=pinkFont target='_blank' href='save.php?n=" + localDataName + "'>JSONx<a/>";
-        // });
+        let html = "<a class=pinkFont target='_blank' href='save.php?n=" + localDataName + "'>";
+
+        html += '<svg id="svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="50px" height="50px" viewBox="0, 0, 350,350">';
+        html += '<g>                            <path  stroke="none" fill="#c678dd" fill-rule="evenodd" d="m 6.2 1.1 c -2.7 1.2 -5.5 4.6 -6 7.3 c -0.2 1.1 -0.3 52.9 -0.2 114.9 c 0.2 126.6 -0.3 114 4.8 117.8 l 1.8 1.4 l 112.6 0 l 112.6 0 l 1.8 -1.4 c 1 -0.7 2.5 -2.2 3.2 -3.2 l 1.4 -1.8 l 0 -114.6 l 0 -114.6 l -1.4 -1.8 c -3.8 -5.1 8.7 -4.6 -116.8 -4.7 c -91.9 -0.2 -112.2 0 -113.8 0.7 m 31 64.6 l 0 58.2 l 1.5 1.4 c 3.2 2.9 1.1 2.9 80.8 2.9 c 82.3 0 79.5 0.1 81.9 -3.4 c 1 -1.5 1.1 -7 1.1 -59.4 l 0 -57.9 l 14 0 c 13.1 0 14 0.1 14.7 1.3 c 0.9 1.8 0.9 223.6 0 225.4 c -0.7 1.3 -1.7 1.3 -29.7 1.3 l -29 0 l 0 -31.6 l 0 -31.6 l -1.9 -1.6 c -3.1 -2.6 -101.9 -3.9 -108.1 -1.5 c -4.7 2 -4.6 1.2 -4.6 35.6 l 0 30.7 l -25 0 c -24 0 -25 -0.1 -25.7 -1.3 c -0.9 -1.8 -0.9 -223.6 0 -225.4 c 0.7 -1.2 1.6 -1.3 15.4 -1.3 l 14.6 0 l 0 58.2 m 158.7 -0.9 l 0 56.7 l -76.4 0 l -76.3 0 l 0 -56.7 l 0 -56.6 l 76.3 0 l 76.4 0 l 0 56.6 m -56.7 140 l 0 30 l -37.3 0 l -37.4 0 l 0 -30 l 0 -30 l 37.4 0 l 37.3 0 l 0 30 m 27.2 0.2 l 0.1 29.8 l -10.3 0 l -10.3 0 l 0 -30 l 0 -30 l 10.1 0.2 l 10.2 0.2 l 0.2 29.8 m -93.9 -0.8 l 0 22 l 10.7 0 l 10.7 0 l 0 -22 l 0 -22 l -10.7 0 l -10.7 0 l 0 22"/></g></svg>';
+        html += '<a/>';
+        datalink.innerHTML = html;
     } else {
         datalink.innerHTML = " ";
     }
@@ -609,8 +610,6 @@ for (const label of labels) {
     }
 }
 // showMessage(hooverHelper['Test'], 'Datenfreigeben',200,5)
-
-
 
 
 
