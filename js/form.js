@@ -545,7 +545,7 @@ function showMood() {
 }
 
 //
-// remove current localstorage file
+// remove current localstorage file 
 //
 DelLocalLink.addEventListener("click", event => {
     localDataName = md5(localDataNameField.value);
