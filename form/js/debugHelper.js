@@ -119,3 +119,20 @@ function formatdate(date, format = "d.m.Y H:i", locale = "DE") {
     const dt = format.replace(reDate, ($0) => parts[$0])
     return dt
 }
+
+
+
+
+
+function getStyleSheet(selectorText, i=1) {
+    let rules = document.styleSheets[i].rules;
+  for (var i=0; i<rules.length; i++) {
+    // var sheet = document.styleSheets[i];
+    // deb(rules[i] )
+    if (rules[i].selectorText == selectorText) {
+      return rules[i].cssText;
+    }
+  }
+}
+// deb(getStyleSheet(':root'),'getStyleSheet(:root)')
+// deb(document.styleSheets[1],'document.styleSheets[1].rules')

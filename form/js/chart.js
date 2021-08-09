@@ -1,16 +1,11 @@
 let localData = JSON.parse(localStorage.getItem(localDataName)) || initObj;
 let localDataProfil = localData.Profil;
 let localDataMood = localData.Mood;
+
 // deb(localData, 'localData')
 // deb(localDataProfil, 'localDataProfil')
 // deb(localDataMood, 'localDataMood')
 
-
-
-
-// var Datetime = localDataMood.map(function(e) {
-//     return e.Datetime;
-// });
 
 
 
@@ -398,13 +393,25 @@ var myChart = new Chart(document.getElementById("ChartCanvas").getContext("2d"),
                         // MEDIKATION
                         //
                         let MedHTML = '';
-                        for (const med of ChartData.Medikation[toottipDataIndex]) {
-                            // deb(ChartData.Medikation[toottipDataIndex],'ChartData.Medikation[toottipDataIndex]')
-                            var Dosierung = (med.Dosierung) ? med.Dosierung : '';
-                            var Medikament = (med.Medikament) ? med.Medikament : '';
-                            var Zeitpunkt = (med.Zeitpunkt) ? med.Zeitpunkt : '';
-                            MedHTML += '<div>' + Dosierung + ' mg ' + Medikament + ' ' + Zeitpunkt + ' Uhr</div>';
+
+                        // Medikation is an Object
+                        let medObj = ChartData.Medikation[toottipDataIndex];
+                        for (let i = 0; i < Object.keys(medObj).length; i++) {
+                            var Dosierung = (medObj[i].Dosierung) ? medObj[i].Dosierung + ' mg ' : '';
+                            var Medikament = (medObj[i].Medikament) ? medObj[i].Medikament : '';
+                            var Zeitpunkt = (medObj[i].Zeitpunkt) ? medObj[i].Zeitpunkt + ' Uhr' : '';
+                            MedHTML += '<div>' + Dosierung + '  ' + Medikament + ' ' + Zeitpunkt + ' </div>';
                         }
+
+                        // Medikation is an Array
+                        // for (const med of Object.entries(ChartData.Medikation[toottipDataIndex])){
+                        //     deb(med,'med')
+                        //     // deb(ChartData.Medikation[toottipDataIndex],'ChartData.Medikation[toottipDataIndex]')
+                        //     var Dosierung = (med.Dosierung) ? med.Dosierung : '';
+                        //     var Medikament = (med.Medikament) ? med.Medikament : '';
+                        //     var Zeitpunkt = (med.Zeitpunkt) ? med.Zeitpunkt : '';
+                        //     MedHTML += '<div>' + Dosierung + ' mg ' + Medikament + ' ' + Zeitpunkt + ' Uhr</div>';
+                        // }
                         document.getElementById('ChartToolMedikation').innerHTML = MedHTML;
 
                         //
@@ -565,32 +572,6 @@ function hideLines(datasetIndex) {
     myChart.update();
 };
 
-
-
-function openTip(oChart, datasetIndex, pointIndex) {
-    if (oChart.tooltip._active == undefined)
-        oChart.tooltip._active = []
-    var activeElements = oChart.tooltip._active;
-    var requestedElem = oChart.getDatasetMeta(datasetIndex).data[pointIndex];
-    deb(oChart.getDatasetMeta(datasetIndex))
-    deb(activeElements,'activeElements')
-    for (var i = 0; i < activeElements.length; i++) {
-        if (requestedElem._index == activeElements[i]._index)
-            return;
-    }
-    activeElements.push(requestedElem);
-    deb(requestedElem,'requestedElem')
-
-    // oChart.tooltip._view.body = oChart.getDatasetMeta(datasetIndex).data;
-    oChart.tooltip._active = activeElements;
-    oChart.update();
-    // oChart.draw();
-}
- 
-
-
-// openTip(myChart, 0, 3);
-deb(myChart.config)
 
 // deb(ChartData.Datetime)
 // deb(luxon.DateTime.utc(1628159311))              1628141311

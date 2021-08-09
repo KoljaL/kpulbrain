@@ -48,7 +48,7 @@ function getRandomValue(array){
     // deb(index)
     return array[index];
 }
-deb(getRandomValue(situations))
+// deb(getRandomValue(situations))
 
 Mood = new Object;
 for (let i = 0; i < Timestamp.length; i++) {
