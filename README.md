@@ -1,5 +1,5 @@
 
-![gh-kpubrain.svg](https://rasal.de/img/gh-kpubrain.svg) 
+![gh-kpubrain.svg](https://rasal.de/img/gh-kpubrain70.svg) 
 
 # KpUlBrain
 
