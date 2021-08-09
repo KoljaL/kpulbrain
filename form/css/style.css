@@ -291,7 +291,9 @@ button:hover {
     text-decoration: line-through
 } */
 
+
 /* #AuswertungsChart, */
+
 #ProfilForm,
 #MoodForm {
     display: none
@@ -866,18 +868,11 @@ label.salomon,
 ========================================================================== 
 */
 
-
 #ChartCanvas {
     width: 600px;
     /* height: 400px; */
 }
 
-#ChartLegend {
-    padding: .5em 0;
-    float: left;
-    height:300px;
-
-}
 @media (max-width:40em) {
     #ChartCanvas {
         width: 400px;
@@ -885,27 +880,16 @@ label.salomon,
     }
 }
 
-#ChartTooltip{
-    position: absolute;
-    left: 200px;
+#ChartTooltip {
+    position: relative;
+    height: 150px;
+    /* left: 200px; */
 }
 
-#brainChart {
-    max-height: 95% !important;
-    max-width: 95% !important;
-    /* position: absolute;
-  top: 50%;
-  -ms-transform: translateY(+50%);
-  transform: translateY(+50%); */
-}
-
-#chartjs-tooltip {
-    max-width: 250px;
-    padding: 0em;
-    background: var(--dark);
-    border: 2px solid var(--salomon);
-    border-radius: 5px;
-    font-size: 1.2em;
+#ChartTooltip td {
+    /* border: 1px solid #58427C; */
+    vertical-align: text-top;
+    min-width: max-content;
 }
 
 #ChartToolSituation {
@@ -919,19 +903,18 @@ label.salomon,
 }
 
 #ChartToolWirkungen {
-    padding: 0 .5em 0 .5em;
+    padding: 0;
 }
 
-.b_value,
-.b_label {
+.b_value {
     padding-left: 0.5em;
 }
 
 #ChartToolDate {
-    background: var(--salomon);
+    /* background: var(--salomon);
     padding: .2em .5em .2em .5em;
-    text-align: center;
-    color: var(--dark);
+    text-align: center; */
+    color: var(--salomon);
     white-space: nowrap;
 }
 
@@ -939,6 +922,7 @@ label.salomon,
     padding: .5em;
     color: var(--bluegreen);
 }
+
 
 /* 
 ==========================================================================

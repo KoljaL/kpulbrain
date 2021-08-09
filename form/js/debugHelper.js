@@ -5,8 +5,11 @@
 function deb(value, text = " ", c = '#e6c07b') {
     console.log("%c " + text + " ", `color:${c}; font-weight: normal; font-size:1.1em;`) //ᐁᐁᐁ
     console.log(value)
+    console.log(" ")
+
 }
 
+ 
  
 //
 // reat url and return the anchor

@@ -199,7 +199,9 @@ for (i = 0; i < allWirkungen.length; i++) {
 
 
 
-
+//
+// ZOOM & PAN
+//
 const zoomOptions = {
     limits: {
         x: { min: 'original', max: 'original', minRange: 50 },
@@ -247,6 +249,9 @@ const scales = {
     },
 };
 Object.keys(scales).forEach(scale => Object.assign(scales[scale], scaleOpts));
+
+
+
 
 
 //
@@ -366,159 +371,92 @@ var myChart = new Chart(document.getElementById("ChartCanvas").getContext("2d"),
                 bodySpacing: 5,
 
                 external: function(tooltipModel) {
-                    // Tooltip Element
-                    var tooltipEl = document.getElementById('ValueLines');
-
-                    // Create element on first render
-                    // if (!tooltipEl) {
-                    //     tooltipEl = document.createElement('div');
-                    //     tooltipEl.id = 'ChartTooltip';
-                    //     // tooltipEl.innerHTML = '<div id="CustomTooltip"></div>';
-                    //     document.body.appendChild(tooltipEl);
-                    // }
-
-                    // Hide if no tooltip
-                    if (tooltipModel.opacity === 0) {
-                        tooltipEl.style.opacity = 0;
-                        return;
-                    }
-
-                    // Set caret Position
-                    // tooltipEl.classList.remove('above', 'below', 'no-transform');
-                    // if (tooltipModel.yAlign) {
-                    //     tooltipEl.classList.add(tooltipModel.yAlign);
-                    // } else {
-                    //     tooltipEl.classList.add('no-transform');
-                    // }
-
-                    function getBody(bodyItem) {
-                        return bodyItem.lines;
-                    }
-
-                    //
-                    // Set Text
-                    //
-                    deb(tooltipModel.tooltip, 'tooltipModel.tooltip')
+                    // deb(tooltipModel.tooltip, 'tooltipModel.tooltip')
+                    // deb(tooltipModel, 'tooltipModel')
                     function getBody(bodyItem) {
                         return bodyItem.lines;
                     }
                     if (tooltipModel.tooltip.body) {
-                        // deb(tooltipModel, 'tooltipModel')
+
+                        const legendItems = tooltipModel.chart.boxes[0].legendItems;
+                        // deb(legendItems,'legendItems')
+
                         let datasetIndex = tooltipModel.tooltip.dataPoints[0].datasetIndex;
                         let toottipDataIndex = tooltipModel.tooltip.dataPoints[0].dataIndex;
                         let toottipTimestamp = tooltipModel.tooltip.dataPoints[0].parsed.x;
-                        let titleLines = tooltipModel.tooltip.title || [];
                         let bodyLines = tooltipModel.tooltip.body.map(getBody);
-                        let innerHtml = '';
+                        // deb(bodyLines,'bodyLines')
 
-                        // innerHtml += '<div id=CTT_Date>' + toottipDataIndex  + '</div>';
-                        // innerHtml += '<div id=CTT_Date>' + toottipTimestamp + '</div>';
+
+
                         //
                         // DATE
                         //
-
-
-                        // titleLines.forEach(function(title) {
-                        //     innerHtml += '<div id=CTT_Date>' + title + '</div>';
-                        // });
                         document.getElementById('ChartToolDate').innerHTML = formatdate(toottipTimestamp);
-
-
-
 
                         //
                         // MEDIKATION
                         //
-                        // var TT_index = tooltipModel.dataPoints[0].index;
-                        // let MedHTML = '<div id=CTT_MEDIKATION>';
                         let MedHTML = '';
                         for (const med of ChartData.Medikation[toottipDataIndex]) {
+                            // deb(ChartData.Medikation[toottipDataIndex],'ChartData.Medikation[toottipDataIndex]')
                             var Dosierung = (med.Dosierung) ? med.Dosierung : '';
                             var Medikament = (med.Medikament) ? med.Medikament : '';
-                            var Uhrzeit = (med.Uhrzeit) ? med.Uhrzeit : '';
-                            MedHTML += '<div>' + Dosierung + 'mg ' + Medikament + ' ' + Uhrzeit + '</div>';
+                            var Zeitpunkt = (med.Zeitpunkt) ? med.Zeitpunkt : '';
+                            MedHTML += '<div>' + Dosierung + ' mg ' + Medikament + ' ' + Zeitpunkt + ' Uhr</div>';
                         }
-                        //    console.log(Dosierung)
-                        // deb(ChartData.Medikation[toottipDataIndex],'ChartData.Medikation[toottipDataIndex]')
-                        // MedHTML += '</div>';
                         document.getElementById('ChartToolMedikation').innerHTML = MedHTML;
-
-
-
 
                         //
                         // SITUATIONS
                         //
-                        // var TT_index = tooltipModel.tooltip.dataPoints[0].index;
-                        //    console.log(situation[TT_index])
-                        // SitHTML = '<div id=CTT_Situations>' + ChartData.Situationen[toottipDataIndex] + '</div>';
                         document.getElementById('ChartToolSituation').innerHTML = ChartData.Situationen[toottipDataIndex];
 
 
                         //
-                        // VALUES
+                        // WIRKUNGEN
                         //
-                        // var ValueLines = document.getElementById('ValueLines');
-                        // deb(ValueLines, 'ValueLines')
 
-                        let WirkHTML = '<table>';
-                        bodyLines.forEach(function(body, i) {
-                            var b_label = body[0].split(' ')[0];
-                            var b_value = body[0].split(' ')[1];
-                            var colors = tooltipModel.tooltip.labelColors[i].backgroundColor;
-                            var style = 'color:' + colors;
-                            // deb(datasetIndex, 'datasetIndex')
-                            // deb(item.datasetIndex, 'item.datasetIndex')
-                            // deb(item.datasetIndex, 'item.datasetIndex')
-
-
-
-
-
-                            // ValueLine.onclick = () => {
-                            //     chart.setDatasetVisibility(datasetIndex, !chart.isDatasetVisible(datasetIndex));
-                            //     chart.update();
-                            // }; 
-
-
-
-
-
-                            WirkHTML += '<tr id=CTT_Values onclick="hideLines(' + datasetIndex + ')" style="' + style + '"><td class=b_label>' + b_label + '</td><td class=b_value>' + b_value + '</td></tr>';
+                        // array of labels and values
+                        var LabelValue = [];
+                        bodyLines.forEach(bodyLine => {
+                            var LineLabel = bodyLine[0].split(' ')[0];
+                            var LineValue = bodyLine[0].split(' ')[1];
+                            LabelValue[LineLabel] = LineValue;
                         });
-                        WirkHTML += '</table>';
-
-
-                        document.getElementById('ChartToolWirkungen').innerHTML = WirkHTML;
 
 
 
+                        // deb(legendItems, 'legendItems')
+                        let WirkHTML2 = '<table>';
+                        legendItems.forEach(function(item, i) {
+                            // lable name 
+                            let lable = item.text;
+                            // ID of lable
+                            let datasetIndex = item.datasetIndex;
+                            // get value from lable
+                            let value = LabelValue[lable + ':'] || ' ';
+                            // get fontcolor from fillcolor
+                            let color = item.fillStyle || '';
+                            color = 'color:' + color + ';';
+                            // strike through if line is hidden 
+                            let textDecoration = item.hidden ? 'line-through;' : 'none;';
+                            textDecoration = 'text-decoration:' + textDecoration;
+                            // fill output
+                            WirkHTML2 += '<tr id=Wirkung_' + datasetIndex + ' onclick="hideLines(' + datasetIndex + ')" style="' + color + textDecoration + '">'
+                            WirkHTML2 += '<td class=b_label>' + lable + '</td>'
+                            WirkHTML2 += '<td class=b_value>' + value + '</td>'
+                            WirkHTML2 += '</tr>';
+                        });
+                        WirkHTML2 += '</table>';
+                        document.getElementById('ChartToolWirkungen').innerHTML = WirkHTML2;
 
 
                         //
                         // COMMENT
                         //
-                        // innerHtml += '<div id=CTT_Comments>' + ChartData.Kommentar[toottipDataIndex] + '</div>';
                         document.getElementById('ChartToolKommentar').innerHTML = ChartData.Kommentar[toottipDataIndex];
-
-                        //
-                        // add tooltip to HTML
-                        //
-                        // document.getElementById('ChartTooltip').innerHTML = innerHtml;
                     }
-
-                    // `this` will be the overall tooltip
-                    var position = this._chart.canvas.getBoundingClientRect();
-                    // Display, position, and set styles for font
-                    tooltipEl.style.opacity = 1;
-                    // tooltipEl.style.position = 'absolute';
-                    // tooltipEl.style.left = position.left + window.pageXOffset + tooltipModel.caretX - tooltipModel.width + 'px';
-                    // tooltipEl.style.top = '100px';
-                    // tooltipModel.xAlign = "center";
-                    //    console.log(tooltipModel)
-                    //    tooltipEl.style.left = position.left + window.pageXOffset + tooltipModel.caretX + 'px';
-                    //    tooltipEl.style.top = position.top + window.pageYOffset + tooltipModel.caretY + 'px';
-                    tooltipEl.style.pointerEvents = 'none';
                 }
             },
         },
@@ -612,12 +550,47 @@ var myChart = new Chart(document.getElementById("ChartCanvas").getContext("2d"),
 
 
     },
-    plugins: [htmlLegendPlugin],
+    // plugins: [htmlLegendPlugin],
 });
 
 
+function hideLines(datasetIndex) {
+    // deb(myChart)
+    if ('none' == document.getElementById('Wirkung_' + datasetIndex).style.textDecoration) {
+        document.getElementById('Wirkung_' + datasetIndex).style.textDecoration = 'line-through';
+    } else {
+        document.getElementById('Wirkung_' + datasetIndex).style.textDecoration = 'none';
+    }
+    myChart.setDatasetVisibility(datasetIndex, !myChart.isDatasetVisible(datasetIndex));
+    myChart.update();
+};
 
 
+
+function openTip(oChart, datasetIndex, pointIndex) {
+    if (oChart.tooltip._active == undefined)
+        oChart.tooltip._active = []
+    var activeElements = oChart.tooltip._active;
+    var requestedElem = oChart.getDatasetMeta(datasetIndex).data[pointIndex];
+    deb(oChart.getDatasetMeta(datasetIndex))
+    deb(activeElements,'activeElements')
+    for (var i = 0; i < activeElements.length; i++) {
+        if (requestedElem._index == activeElements[i]._index)
+            return;
+    }
+    activeElements.push(requestedElem);
+    deb(requestedElem,'requestedElem')
+
+    // oChart.tooltip._view.body = oChart.getDatasetMeta(datasetIndex).data;
+    oChart.tooltip._active = activeElements;
+    oChart.update();
+    // oChart.draw();
+}
+ 
+
+
+// openTip(myChart, 0, 3);
+deb(myChart.config)
 
 // deb(ChartData.Datetime)
 // deb(luxon.DateTime.utc(1628159311))              1628141311

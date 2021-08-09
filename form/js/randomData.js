@@ -34,10 +34,21 @@ for (let i = 0; i < MoodItems; i++) {
 
 }
 // deb(Timestamp,'Timestamp')
-
 Timestamp = Timestamp.filter((item, index) => { return (Timestamp.indexOf(item) == index) });
-
 // deb(Timestamp)
+
+let situations = ['zuhause', 'beide der Arbeit', 'im Bett','Besuch im, Zoo', 'versuche mich zu konzentrieren', ];
+let medikament =['Ritalin', 'Elvanse','Attentin', 'Medikenet'];
+let dosierung = ['5','10','15','20','30','50','75',]
+let kommentar = ['Das ist ein Kommentar, der sehr lang werden soll.','Das ist ein kurzer.', 'Und noch ein Kommentar']
+
+function getRandomValue(array){
+    let length = array.length;
+    let index = getRandomInt(length, true);
+    // deb(index)
+    return array[index];
+}
+deb(getRandomValue(situations))
 
 Mood = new Object;
 for (let i = 0; i < Timestamp.length; i++) {
@@ -46,22 +57,22 @@ for (let i = 0; i < Timestamp.length; i++) {
         "Timestamp": Timestamp[i],
         "Datetime": formatdate(Timestamp[i]),
         "Medikation": [{
-                "Medikament": "Elvanse Adult",
-                "Dosierung": "30",
+                "Medikament": getRandomValue(medikament),
+                "Dosierung": getRandomValue(dosierung),
                 "Zeitpunkt": "07:00",
                 "SeitWann": "2021-06-01",
                 "Kommentar": "und noch was"
             },
             {
-                "Medikament": "Attentin",
-                "Dosierung": "5",
+                "Medikament": getRandomValue(medikament),
+                "Dosierung": getRandomValue(dosierung),
                 "Zeitpunkt": "07:00",
                 "SeitWann": "2021-07-01"
             }
         ],
         "situations": [
-            "zuhause",
-            "kann nicht schlafen"
+            getRandomValue(situations),
+            getRandomValue(situations)
         ],
         "mood": {
             "Unruhe": getRandomInt(10, true) * 10,
@@ -69,8 +80,7 @@ for (let i = 0; i < Timestamp.length; i++) {
             "Aufmerksamkeit": getRandomInt(10, true) * 10,
             "Brainload": getRandomInt(10, true) * 10,
         },
-        "comment": "Was soll hier blo\u00df rein"
-
+        "comment": getRandomValue(kommentar),
     }
 }
 
