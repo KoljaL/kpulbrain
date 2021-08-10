@@ -255,20 +255,20 @@ button:hover {
 */
 
 #content {
-    width: 832px;
+    max-width: 832px;
     margin: auto;
     padding: .5em;
     padding-top: 0;
 }
 
-@media (max-width:40em) {
+/* @media (max-width:40em) {
     #content {
         width: 432px;
         margin: auto;
         padding: .5em;
         padding-top: 0;
     }
-}
+} */
 
 #formcontent {
     position: absolute;
@@ -280,6 +280,8 @@ button:hover {
     display: flex;
     justify-content: space-around;
     font-size: 1.3em;
+    width: 425px;
+
 }
 
 #header div {
@@ -299,7 +301,7 @@ button:hover {
 
 #ProfilForm,
 #MoodForm {
-    width: 430px;
+    width: 425px;
 }
 
 #ProfilForm fieldset{
