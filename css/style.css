@@ -130,7 +130,7 @@ body {
 */
 
 fieldset {
-    border: 2px solid var(--salomon);
+    border: 2px solid transparent;
     border-radius: 5px;
     margin-top: 20px;
     padding: .75em;
@@ -142,7 +142,7 @@ legend {
     font-size: 1.4em;
     display: block;
     width: max-content;
-    color: var(--salomon);
+    /* color: var(--salomon); */
     border: none
 }
 
@@ -301,6 +301,22 @@ button:hover {
 #MoodForm {
     width: 430px;
 }
+
+#ProfilForm fieldset{
+    color: var(--blue);
+    border: 2px solid var(--blue);
+}
+
+#AuswertungsChart fieldset{
+    color: var(--green);
+    border: 2px solid var(--green);
+}
+
+#MoodForm fieldset{
+    color: var(--orange);
+    border: 2px solid var(--orange);
+}
+
 
 @media (max-width:40em) {
     #formcontent {
@@ -950,6 +966,29 @@ label.salomon,
     border-radius: 5px
 } */
 
+
+/* 
+==========================================================================
+                        ICONO ICONS https://saeedalipoor.github.io/icono/
+========================================================================== 
+*/
+
+.icono-user:before {
+    width: 16px;
+    height: 16px;
+    top: -20px;
+    border-radius: 50%;
+}
+
+.icono-image::after {
+    position: absolute;
+    width:0;
+    height: 4px;
+    border-radius: 50%;
+    box-shadow: inset 0 0 0 32px;
+    top: 5px;
+    right: 5px;
+}
 
 /* 
 ==========================================================================
