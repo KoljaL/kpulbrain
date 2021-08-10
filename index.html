@@ -8,30 +8,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- , maximum-scale=1.0, user-scalable=no -->
     <link rel="icon" type="image/svg+xml" href="https://dev.rasal.de/brainload/templates/images/brain.png">
-    <!-- <link rel="stylesheet" href="pure.css"> -->
 
-
-    <!-- <script src=" "></script> -->
-    <!-- <link rel="stylesheet" href=" "> -->
-
-
-    <link rel="stylesheet" name="reseter" href="css/reseter.css" />
-    <link rel="stylesheet" name="style" href="css/icono.css">
+    <!-- <link rel="stylesheet" name="reseter" href="css/reseter.css" /> -->
+    <!-- <link rel="stylesheet" name="style" href="css/icono.css"> -->
     <link rel="stylesheet" name="style" href="css/style.css">
-    <script src="js/formtoobj.js"></script>
+
+
+    <!-- <script src="js/formtoobj.js"></script>
     <script src="js/md5.js"></script>
     <script src="js/debugHelper.js"></script>
     <script src="js/longpress.js"></script>
-
-
-
     <script src="js/chartJS.js"></script>
     <script src="js/luxon.js"></script>
+    <script src="js/chartjs-zoom.js"></script>
+    <script src="js/hammer.js"></script> -->
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-zoom/1.1.1/chartjs-plugin-zoom.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js"></script>
 
 </head>
+
+<!-- <script src="js/localCache.js"></script>
+<script>
+    requireScript('formtoobj', '1.11.2', 'https://dev.rasal.de/kpulbrain/js/formtoobj.js');
+    requireScript('md5', '1.11.2', 'https://dev.rasal.de/kpulbrain/js/md5.js');
+    requireScript('debugHelper', '1.11.2', 'https://dev.rasal.de/kpulbrain/js/debugHelper.js');
+    requireScript('longpress', '1.11.2', 'https://dev.rasal.de/kpulbrain/js/longpress.js');
+    requireScript('chartJS', '1.11.2', 'https://dev.rasal.de/kpulbrain/js/chartJS.js');
+    requireScript('luxon', '1.11.2', 'https://dev.rasal.de/kpulbrain/js/luxon.js');
+    requireScript('luxon', '1.11.2', 'https://dev.rasal.de/kpulbrain/js/chartjs-zoom.js');
+    requireScript('luxon', '1.11.2', 'https://dev.rasal.de/kpulbrain/js/hammer.js');
+</script> -->
+
+<script src="js/localCache2.js"></script>
+
 
 <body>
     <div id=formcontent></div>
@@ -40,46 +48,24 @@
 
         <div id="header">
             <div id=profil>
-                <a href="#profil" class=blueFont>
-                    <i class="icono-user"></i>
-
-                </a>
+                <a href="#profil" class=blueFont><i class="icono-user"></i></a>
             </div>
             <div id=mood>
-                <a href="#mood" class=orangeFont>
-                        <i class="icono-sliders"></i>
-
-                </a>
+                <a href="#mood" class=orangeFont><i class="icono-sliders"></i></a>
             </div>
             <div id=chart>
-                <a href="#chart" class=greenFont>
-                    <i class="icono-image"></i>
-
-                </a>
+                <a href="#chart" class=greenFont><i class="icono-image"></i></a>
             </div>
             <div id=datalink>
-                <a class=pinkFont target='_blank' href='save.php?n=" + localDataName + "'>
-                    <i class="icono-sitemap"></i>
-
-                </a>
             </div>
             <div id=dellocal>
-                <a href="#dellocal" class=redFont>
-                    <i class="icono-reset"></i>
-
-                </a>
+                <a href="#dellocal" class=redFont><i class="icono-reset"></i></a>
             </div>
         </div>
-
-        <!-- 
-                        PROFIL FORM 
-        -->
+        <!-- PROFIL FORM -->
         <form id=ProfilForm autocomplete="off">
             <fieldset>
                 <legend>Profil</legend>
-
-
-
                 <div class="profil_1">
                     <div class="name">
                         <label for="P_Name">Name</label>
@@ -95,8 +81,6 @@
                         <label class="buttonlabel zyklus" for=P_Freigeben>freigeben</label>
                     </div>
                 </div>
-
-
                 <div class="profil_1">
                     <div class="alter">
                         <label for="P_Alter">Geburtsjahr</label>
@@ -118,8 +102,6 @@
                         <label class="buttonlabel zyklus" for=P_Zyklus>abfragen</label>
                     </div>
                 </div>
-
-
                 <div class="profil_2">
                     <div class="subtyp">
                         <label for="P_Subtyp">ADHS-Subtyp</label>
@@ -139,8 +121,6 @@
 
                 <label class="" for=situation>Wirkungen abfragen: </label>
                 <div id=WirkungCheckboxes>
-
-
                 </div>
                 <div class="kommentar profil">
                     <label class="itemLabel comment" for=P_Kommentar>Kommentar: </label>
@@ -150,12 +130,7 @@
                 <button type="submit" id=submitProfil>Absenden</button>
             </fieldset>
         </form>
-
-
-
-        <!-- 
-                        MOOD FORM 
-        -->
+        <!-- MOOD FORM -->
         <form id=MoodForm autocomplete="off">
             <fieldset>
                 <legend>How do you feel?</legend>
@@ -222,8 +197,6 @@
 
                 </div>
                 <!-- id=Medikation_0 -->
-
-
                 <div id=AnmerkungMedikation class="kommentar medikament">
                     <label class="itemLabel comment" for=M_Kommentar[0]>Anmerkungen zur Medikation</label>
                     <textarea id="M_Kommentar[0]" name=Medikation[0][Kommentar]></textarea>
@@ -237,20 +210,15 @@
                 <!-- SITUATIONS -->
                 <label id="SituationHeading" class=SectionHeading>Situation</label>
 
-                <!-- <label class="itemLabel situation" for=situation>Situation: </label> -->
                 <div id=SituationCheckboxes>
                 </div>
 
                 <label id="WirkungHeading" class=SectionHeading>Wirkung</label>
-
                 <div id=MoodSlider>
-
                 </div>
 
                 <label id="KommentarHeading" class=SectionHeading>Kommentar</label>
-
                 <div class="kommentar mood">
-                    <!-- <label class="itemLabel comment" for=comment>Comment: </label> -->
                     <textarea name="comment" id="comment"></textarea>
                 </div>
                 <br>
