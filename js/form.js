@@ -198,9 +198,9 @@ function populateMoodForm() {
         let name = value[0];
         let color = value[1];
         WirkungSlider += `<div class="sliderdiv ${color}">`;
-        WirkungSlider += `<label class="itemLabel ${name}" for="${name}Slider">${name}: 0</label>`;
-        WirkungSlider += `<div class=sliderValue id="${name}SliderOutput"></div>`;
-        WirkungSlider += `<input type="range" min="0" max="100" value="0" step="10" class="slider ${color}" id="${name}loadSlider" name="mood[${name}]">`;
+        WirkungSlider += `<label class="itemLabel ${name} sliderLabel" for="${name}Slider">${name}: </label>`;
+        WirkungSlider += `<div class=sliderValue id="${name}SliderOutput">0</div>`;
+        WirkungSlider += `<input type="range" min="0" max="100" value="0" step="10" oninput="updateSlider(this)" class="slider ${color}" id="${name}Slider" name="mood[${name}]">`;
         WirkungSlider += `</div>`;
     }
     document.getElementById('MoodSlider').innerHTML = WirkungSlider;
@@ -213,6 +213,40 @@ function populateMoodForm() {
 
 
 };
+
+function updateSlider(slider){
+    let value = slider.value
+    let name = slider.id
+    document.getElementById(name+'Output').innerHTML = value;
+}
+
+
+
+// let MoodSlider = document.getElementById("MoodSlider").childNodes;
+// deb(MoodSlider)
+// const nodeArray = Array.from(MoodSlider)
+// deb(nodeArray)
+ 
+
+// for (let i = 0; i < nodeArray.length; i++) {
+//     deb(nodeArray[i]);
+    
+// }
+
+// // get slider values
+// document.getElementById("motivationSliderOutput").innerHTML = document.getElementById("motivationSlider").value;
+// document.getElementById("moodSliderOutput").innerHTML = document.getElementById("moodSlider").value;
+// document.getElementById("brainloadSliderOutput").innerHTML = document.getElementById("brainloadSlider").value;
+// // change on input
+// document.getElementById("motivationSlider").oninput = function() {
+//     document.getElementById("motivationSliderOutput").innerHTML = this.value;
+// }
+// document.getElementById("moodSlider").oninput = function() {
+//     document.getElementById("moodSliderOutput").innerHTML = this.value;
+// }
+// document.getElementById("brainloadSlider").oninput = function() {
+//     document.getElementById("brainloadSliderOutput").innerHTML = this.value;
+// }
 
 
 
@@ -329,6 +363,11 @@ for (const form of forms) {
         DataFreigeben();
     });
 }
+
+
+
+
+
 
 //
 // merge two objects and return an object with unique values

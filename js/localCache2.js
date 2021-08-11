@@ -7,18 +7,18 @@
 
 // var requireScript = new Array()
 var requireScript = new Array()
-    requireScript.push({
-        name: 'reseter',
-        version: 'reseter',
-        type: 'css',
-        url: 'https://dev.rasal.de/kpulbrain/css/reseter.css'
-    })
-    requireScript.push({
-        name: 'icono',
-        version: 'icono',
-        type: 'css',
-        url: 'https://dev.rasal.de/kpulbrain/css/icono.css'
-    })
+    // requireScript.push({
+    //     name: 'reseter',
+    //     version: 'reseter',
+    //     type: 'css',
+    //     url: 'https://dev.rasal.de/kpulbrain/css/reseter.css'
+    // })
+    // requireScript.push({
+    //     name: 'icono',
+    //     version: 'icono',
+    //     type: 'css',
+    //     url: 'https://dev.rasal.de/kpulbrain/css/icono.css'
+    // })
     // requireScript.push({
     //     name: 'style',
     //     version: 'style',

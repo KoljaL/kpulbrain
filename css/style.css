@@ -162,6 +162,12 @@ label {
 
 input,
 select,
+button {
+    height: 40px;
+}
+
+input,
+select,
 textarea,
 button,
 .buttonlabel {
@@ -203,7 +209,7 @@ input[type=range] {
     border-radius: 5px;
     -webkit-transition: .2s;
     transition: opacity .2s;
-    margin-top: 5px;
+    margin-top: .5em;
     border: none
 }
 
@@ -213,14 +219,17 @@ input[type=range]::-webkit-slider-thumb {
     width: 25px;
     height: 25px;
     background: var(--green);
-    cursor: pointer
+    cursor: pointer;
+    border: 1px solid var(--black);
+    border-radius: 4px;
 }
 
 input[type=range]::-moz-range-thumb {
     width: 25px;
     height: 25px;
     cursor: pointer;
-    border: 1px solid var(--black)
+    border: 1px solid var(--black);
+    border-radius: 4px;
 }
 
 [type="submit"],
@@ -261,6 +270,7 @@ button:hover {
     padding-top: 0;
 }
 
+
 /* @media (max-width:40em) {
     #content {
         width: 432px;
@@ -281,7 +291,6 @@ button:hover {
     justify-content: space-around;
     font-size: 1.3em;
     width: 425px;
-
 }
 
 #header div {
@@ -304,21 +313,20 @@ button:hover {
     width: 425px;
 }
 
-#ProfilForm fieldset{
+#ProfilForm fieldset {
     color: var(--blue);
     border: 2px solid var(--blue);
 }
 
-#AuswertungsChart fieldset{
+#AuswertungsChart fieldset {
     color: var(--green);
     border: 2px solid var(--green);
 }
 
-#MoodForm fieldset{
+#MoodForm fieldset {
     color: var(--orange);
     border: 2px solid var(--orange);
 }
-
 
 @media (max-width:40em) {
     #formcontent {
@@ -326,10 +334,11 @@ button:hover {
     }
 }
 
-#footer{
+#footer {
     padding: 1em 1em;
 }
-#footer img{
+
+#footer img {
     vertical-align: bottom;
 }
 
@@ -717,8 +726,18 @@ label.itemLabel.situation {
 /* .buttonlabel.situation:hover, */
 
 .hidden:checked+label.buttonlabel.situation {
-    background-color: var(--orange);
-    color: var(--dark);
+    position: relative;
+    /* background-color: var(--orange);
+    color: var(--dark); */
+}
+
+.hidden:checked+label.buttonlabel.situation::before {
+    content: '\2713';
+    position: absolute;
+    right: -10px;
+    bottom: 10px;
+    color: green;
+    font-size: 2em;
 }
 
 input.newSituation {
@@ -730,8 +749,14 @@ input.newSituation {
     color: var(--pink)
 }
 
-.sliderValue {
+.sliderValue,
+.sliderLabel {
     display: inline
+}
+
+.sliderdiv {
+    padding-top: 1em;
+    /* padding-bottom: .5em; */
 }
 
 
@@ -747,6 +772,7 @@ input[type=range].red::-moz-range-thumb {
 
 input[type=range].red::-webkit-slider-thumb {
     background: var(--red);
+    border-radius: 4px;
 }
 
 label.brainload,
@@ -984,13 +1010,14 @@ label.salomon,
 
 .icono-image::after {
     position: absolute;
-    width:0;
+    width: 0;
     height: 4px;
     border-radius: 50%;
     box-shadow: inset 0 0 0 32px;
     top: 5px;
     right: 5px;
 }
+
 
 /* 
 ==========================================================================
