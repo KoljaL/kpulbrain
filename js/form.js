@@ -2,9 +2,7 @@
 // populate the ProfilForm
 //
 const populateProfilForm = () => {
-
     let localData = JSON.parse(localStorage.getItem(localDataName)) || initObj;
-
     let localDataProfil = localData.Profil;
     // deb(localDataProfil, 'localDataProfil')
     // console.log(ProfilFormElements)
@@ -93,14 +91,9 @@ const populateProfilForm = () => {
 //
 function populateMoodForm() {
 
-
     let localData = JSON.parse(localStorage.getItem(localDataName)) || initObj;
     let localDataProfil = localData.Profil;
     let localDataMood = localData.Mood;
-
-
-
-
 
 
     //
@@ -170,7 +163,6 @@ function populateMoodForm() {
     }
 
 
-
     //
     // CREATE SITUATION CHECKBOXES
     //
@@ -204,50 +196,18 @@ function populateMoodForm() {
         WirkungSlider += `</div>`;
     }
     document.getElementById('MoodSlider').innerHTML = WirkungSlider;
-
-
-
-
-
-
-
-
 };
 
-function updateSlider(slider){
+
+
+//
+// get called by changing the slider and updates the value in the output div
+//
+function updateSlider(slider) {
     let value = slider.value
     let name = slider.id
-    document.getElementById(name+'Output').innerHTML = value;
+    document.getElementById(name + 'Output').innerHTML = value;
 }
-
-
-
-// let MoodSlider = document.getElementById("MoodSlider").childNodes;
-// deb(MoodSlider)
-// const nodeArray = Array.from(MoodSlider)
-// deb(nodeArray)
- 
-
-// for (let i = 0; i < nodeArray.length; i++) {
-//     deb(nodeArray[i]);
-    
-// }
-
-// // get slider values
-// document.getElementById("motivationSliderOutput").innerHTML = document.getElementById("motivationSlider").value;
-// document.getElementById("moodSliderOutput").innerHTML = document.getElementById("moodSlider").value;
-// document.getElementById("brainloadSliderOutput").innerHTML = document.getElementById("brainloadSlider").value;
-// // change on input
-// document.getElementById("motivationSlider").oninput = function() {
-//     document.getElementById("motivationSliderOutput").innerHTML = this.value;
-// }
-// document.getElementById("moodSlider").oninput = function() {
-//     document.getElementById("moodSliderOutput").innerHTML = this.value;
-// }
-// document.getElementById("brainloadSlider").oninput = function() {
-//     document.getElementById("brainloadSliderOutput").innerHTML = this.value;
-// }
-
 
 
 
@@ -341,10 +301,11 @@ for (const form of forms) {
             // deb(localData)
             // deb(JSON.stringify(localData))
             localStorage.setItem(localDataName, JSON.stringify(localData));
-            //
-            //
-            // send data to server if allowed by user
-            //
+            putData(JSON.stringify(localData))
+                //
+                //
+                // send data to server if allowed by user
+                //
             if (document.getElementById('P_Freigeben').checked) {
                 saveOnServer(localData, localDataName);
             } else {
@@ -365,9 +326,72 @@ for (const form of forms) {
 }
 
 
+//////////////////// PouchDB //////////////////// PouchDB //////////////////// PouchDB //////////////////// PouchDB //////////////////// PouchDB 
+//
+// PouchDB
+//
+let dbName = localDataName;
+var db = new PouchDB(dbName);
+var remoteCouch = 'http://root:root@127.0.0.1:5984/' + dbName;
 
 
 
+db.changes({
+    since: 'now',
+    live: true
+}).on('change', showData);
+
+
+
+
+// We have to create a new todo document and enter it in the database
+function putData(text) {
+    var todo = {
+        _id: new Date().toISOString(),
+        title: text,
+        completed: false
+    };
+    db.put(todo, function callback(err, result) {
+        if (!err) {
+            console.log('Successfully posted: ') // + text);
+            sync();
+
+        }
+    });
+}
+
+// Show the current list of todos by reading them from the database
+function showData() {
+    db.allDocs({ include_docs: true, descending: true }, function(err, doc) {
+        // redrawTodosUI(doc.rows);
+        deb(doc)
+    });
+}
+
+// There was some form or error syncing
+function syncError() {
+    syncDom.setAttribute('data-sync-state', 'error');
+}
+
+
+
+
+
+if (remoteCouch) {
+    // sync();
+}
+
+// Initialise a sync with the remote server
+function sync() {
+    var syncDom = document.getElementById('sync-wrapper');
+    syncDom.setAttribute('data-sync-state', 'syncing');
+    var opts = { live: true };
+    db.replicate.to(remoteCouch, opts, syncError);
+    db.replicate.from(remoteCouch, opts, syncError);
+}
+
+
+//////////////////// PouchDB //////////////////// PouchDB //////////////////// PouchDB //////////////////// PouchDB //////////////////// PouchDB 
 
 //
 // merge two objects and return an object with unique values
@@ -542,27 +566,16 @@ function delMedikation() {
 //
 // show profil form
 //
-ProfilLink.addEventListener("click", event => {
-    showProfil();
-});
-
 function showProfil() {
     ProfilForm.style.display = 'block';
     MoodForm.style.display = 'none';
     AuswertungsChart.style.display = 'none';
-
 }
-
-
 
 
 //
 // show profil form
 //
-ChartLink.addEventListener("click", event => {
-    showChart();
-});
-
 function showChart() {
     AuswertungsChart.style.display = 'block';
     ProfilForm.style.display = 'none';
@@ -572,10 +585,6 @@ function showChart() {
 //
 // show mood form
 //
-MoodLink.addEventListener("click", event => {
-    showMood()
-});
-
 function showMood() {
     MoodForm.style.display = 'block';
     ProfilForm.style.display = 'none';
@@ -601,12 +610,7 @@ function DataFreigeben() {
 
     // deb(localData.Profil.Freigeben)
     if ('on' == localData.Profil.Freigeben) {
-        let html = "<a class=pinkFont target='_blank' href='save.php?n=" + localDataName + "'>";
-
-        html += '<i class="icono-sitemap"></i>';
-        // html += '<svg id="svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="50px" height="50px" viewBox="0, 0, 350,350">';
-        // html += '<g>                            <path  stroke="none" fill="#c678dd" fill-rule="evenodd" d="m 6.2 1.1 c -2.7 1.2 -5.5 4.6 -6 7.3 c -0.2 1.1 -0.3 52.9 -0.2 114.9 c 0.2 126.6 -0.3 114 4.8 117.8 l 1.8 1.4 l 112.6 0 l 112.6 0 l 1.8 -1.4 c 1 -0.7 2.5 -2.2 3.2 -3.2 l 1.4 -1.8 l 0 -114.6 l 0 -114.6 l -1.4 -1.8 c -3.8 -5.1 8.7 -4.6 -116.8 -4.7 c -91.9 -0.2 -112.2 0 -113.8 0.7 m 31 64.6 l 0 58.2 l 1.5 1.4 c 3.2 2.9 1.1 2.9 80.8 2.9 c 82.3 0 79.5 0.1 81.9 -3.4 c 1 -1.5 1.1 -7 1.1 -59.4 l 0 -57.9 l 14 0 c 13.1 0 14 0.1 14.7 1.3 c 0.9 1.8 0.9 223.6 0 225.4 c -0.7 1.3 -1.7 1.3 -29.7 1.3 l -29 0 l 0 -31.6 l 0 -31.6 l -1.9 -1.6 c -3.1 -2.6 -101.9 -3.9 -108.1 -1.5 c -4.7 2 -4.6 1.2 -4.6 35.6 l 0 30.7 l -25 0 c -24 0 -25 -0.1 -25.7 -1.3 c -0.9 -1.8 -0.9 -223.6 0 -225.4 c 0.7 -1.2 1.6 -1.3 15.4 -1.3 l 14.6 0 l 0 58.2 m 158.7 -0.9 l 0 56.7 l -76.4 0 l -76.3 0 l 0 -56.7 l 0 -56.6 l 76.3 0 l 76.4 0 l 0 56.6 m -56.7 140 l 0 30 l -37.3 0 l -37.4 0 l 0 -30 l 0 -30 l 37.4 0 l 37.3 0 l 0 30 m 27.2 0.2 l 0.1 29.8 l -10.3 0 l -10.3 0 l 0 -30 l 0 -30 l 10.1 0.2 l 10.2 0.2 l 0.2 29.8 m -93.9 -0.8 l 0 22 l 10.7 0 l 10.7 0 l 0 -22 l 0 -22 l -10.7 0 l -10.7 0 l 0 22"/></g></svg>';
-        html += '<a/>';
+        let html = "<a class=pinkFont target='_blank' href='save.php?n=" + localDataName + "'><i class='icono-sitemap'></i><a/>";
         datalink.innerHTML = html;
     } else {
         datalink.innerHTML = " ";
@@ -630,11 +634,10 @@ showContent()
 //
 // Hoover Helper
 //
-
 var hooverHelper = {
     'Test': "Deine Daten werden zur Auswertung an den Bereitsteller dieser Software gesendet. Es werden keine Daten erhoben, die direkte Rückschlüsse auf DiDeine Daten werden zur Auswertung an den Bereitsteller dieser Software gesendet. Es werden keine Daten erhoben, die direkte Rückschlüsse auf DiDeine Daten werden zur Auswertung an den Bereitsteller dieser Software gesendet. Es werden keine Daten erhoben, die direkte Rückschlüsse auf Dich als Person zulassen.",
     'Daten freigeben': "Deine Daten werden zur Auswertung an den Bereitsteller dieser Software gesendet. Es werden keine Daten erhoben, die direkte Rückschlüsse auf Dich als Person zulassen.",
-    Zyklus: "Hiermit aktivierst du die Möglichkeit, deine Zyklusphase in den Daten mit anzugeben."
+    'Zyklus': "Hiermit aktivierst du die Möglichkeit, deine Zyklusphase in den Daten mit anzugeben."
 }
 
 for (const label of labels) {
@@ -653,117 +656,9 @@ for (const label of labels) {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// setTimeout(function() {
-//     overlay.style.transform = "translateY(-" + OverlayHeight + "px)";
-// }, duration + time);
-
-
-// longPress("label.buttonlabel.situation");
-
-// function removeByLongpress(listItems) {
-//     var listItems = document.querySelectorAll(listItems);
-//     var longpress = 500;
-//     var delay;
-//     var listItem;
-//     for (var i = 0, j = listItems.length; i < j; i++) {
-//         listItem = listItems[i];
-//         listItem.addEventListener('mousedown', function(e) {
-//             var _this = this;
-//             // showMessage('Situation entfernt', 'Info', 1, 1)
-//             delay = setTimeout(function() {
-//                     let localData = JSON.parse(localStorage.getItem(localDataName));
-//                     let situations = localData.Profil.Situations;
-//                     let item = e.originalTarget.innerHTML;
-//                     // deb(item);
-//                     // deb(situations);
-//                     for (const key in situations) {
-//                         // deb(item)
-//                         // deb(situations[key])
-//                         if (situations[key] == item) {
-//                             deb(item)
-//                             deb(key)
-//                                 // delete localData.Profil.Situations[key]
-//                                 // localStorage.setItem(localDataName, JSON.stringify(localData));
-//                             showMessage('Situation "' + item + '" entfernt', 'Info', 1, 1)
-//                             populateMoodForm();
-//                         }
-//                     }
-//                     deb(localData.Profil.Situations);
-//                 }
-//                 , longpress);
-//         }, true);
-//         listItem.addEventListener('mouseup', function(e) {
-//             // On mouse up, we know it is no longer a longpress
-//             clearTimeout(delay);
-//         });
-//         listItem.addEventListener('mouseout', function(e) {
-//             clearTimeout(delay);
-//         });
-//     }
-// };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+//
+// removes situation buttons by longpress on them
+//
 function removeByLongpress(query) {
     let listItems = document.querySelectorAll(query);
     for (var i = 0, j = listItems.length; i < j; i++) {
@@ -810,14 +705,19 @@ function removeByLongpress(query) {
 
 
 
-
-
+//
+// get the viewport of the current document, for stat. info
+//
 function getViewport() {
     const vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0)
     const vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0)
     return vw + " x " + vh;
 }
 
+
+// 
+// get the browsername
+//
 function getBrowser() {
     var ua = navigator.userAgent,
         tem, M = ua.match(/(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)/i) || [];
@@ -835,7 +735,9 @@ function getBrowser() {
 }
 // showMessage(getBrowser())
 
-
+//
+// get the OS
+//
 function getOS() {
     var userAgent = window.navigator.userAgent,
         platform = window.navigator.platform,

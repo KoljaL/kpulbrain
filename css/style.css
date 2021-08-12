@@ -92,7 +92,6 @@
     color: #e6c07b!important
 }
 
-*,
 :after,
 :before {
     box-sizing: border-box;
@@ -115,8 +114,12 @@ body {
     font-family: LibreBaskerville_Regular, Garamond, serif;
     color: var(--lightgrey);
     background: var(--dark);
-    font-size: 18px
+    font-size: 18px;
+    /* filter: invert(1); */
 }
+
+
+/* html { filter: invert(1) contrast(0.95) saturate(0.5) hue-rotate(180deg);} */
 
 .hidden {
     display: none
@@ -975,6 +978,25 @@ label.salomon,
 #ChartToolKommentar {
     padding: .5em;
     color: var(--bluegreen);
+}
+
+
+/* 
+==========================================================================
+                        POUCHDB SYNC
+========================================================================== 
+*/
+#sync-error,
+#sync-success {
+    display: none;
+}
+
+[data-sync-state=syncing] #sync-success {
+    display: block;
+}
+
+[data-sync-state=error] #sync-error {
+    display: block;
 }
 
 

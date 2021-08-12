@@ -26,6 +26,12 @@ var requireScript = new Array()
     //     url: 'https://dev.rasal.de/kpulbrain/css/style.css'
     // })
 requireScript.push({
+    name: 'pouchdb',
+    version: 'pouchdb',
+    type: 'js',
+    url: 'https://dev.rasal.de/kpulbrain/js/pouchdb.js'
+})
+requireScript.push({
     name: 'formtoobj',
     version: 'formtoobj',
     type: 'js',

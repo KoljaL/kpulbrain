@@ -7,7 +7,13 @@
     <meta http-equiv="Cache-control" content="No-Cache">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- , maximum-scale=1.0, user-scalable=no -->
-    <link rel="icon" type="image/svg+xml" href="https://dev.rasal.de/brainload/templates/images/brain.png">
+    <!-- <link rel="icon" type="image/svg+xml" href="https://dev.rasal.de/brainload/templates/images/brain.png"> -->
+    <link rel="icon" type="image/svg+xml"  sizes="16x16" href="https://rasal.de/img/kpulbrain_favicon_16.png">
+    <link rel="icon" type="image/svg+xml"  sizes="32x32" href="https://rasal.de/img/kpulbrain_favicon_32.png">
+    <link rel="icon" type="image/svg+xml"  sizes="48x48" href="https://rasal.de/img/kpulbrain_favicon_48.png">
+    <link rel="icon" type="image/svg+xml"  sizes="96x96" href="https://rasal.de/img/kpulbrain_favicon_48.png">
+    <link rel="manifest" href="/site.webmanifest">
+
 
     <link rel="stylesheet" name="reseter" href="css/reseter.css" />
     <link rel="stylesheet" name="style" href="css/icono.css">
@@ -46,15 +52,22 @@
     <div id=overlay></div>
     <div id=content>
 
+
+        <div id="sync-wrapper">
+            <div id="sync-success">Currently syncing</div>
+            <div id="sync-error">There was a problem syncing</div>
+        </div>
+
+
         <div id="header">
             <div id=profil>
-                <a href="#profil" class=blueFont><i class="icono-user"></i></a>
+                <a href="#profil" class=blueFont onclick="showProfil()"><i class="icono-user"></i></a>
             </div>
             <div id=mood>
-                <a href="#mood" class=orangeFont><i class="icono-sliders"></i></a>
+                <a href="#mood" class=orangeFont onclick="showMood()"><i class="icono-sliders"></i></a>
             </div>
             <div id=chart>
-                <a href="#chart" class=greenFont><i class="icono-image"></i></a>
+                <a href="#chart" class=greenFont onclick="showChart()"><i class="icono-image"></i></a>
             </div>
             <div id=datalink>
             </div>
