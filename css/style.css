@@ -986,6 +986,7 @@ label.salomon,
                         POUCHDB SYNC
 ========================================================================== 
 */
+
 #sync-error,
 #sync-success {
     display: none;
@@ -997,6 +998,22 @@ label.salomon,
 
 [data-sync-state=error] #sync-error {
     display: block;
+}
+
+#pouchData {
+    white-space: break-spaces;
+}
+
+#pouchData .key {
+    color: var(--red)
+}
+
+#pouchData .string {
+    color: var(--blue)
+}
+
+#pouchData .number {
+    color: var(--bluegreen)
 }
 
 

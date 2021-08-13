@@ -100,17 +100,28 @@ function populateMoodForm() {
     // POPULATE MEDICATION FORM
     //
 
+    // chech if the last entry has a medikation 
+    // deb(Object.keys(localDataMood).length, 'localDataMood')
+    if (Object.keys(localDataMood).length > 1) {
+        var localDataMoodLastEntry = localDataMood[Object.keys(localDataMood).reduce((a, b) => localDataMood[a] > localDataMood[b] ? b : a)].Medikation;
+    } else {
+        var localDataMoodLastEntry = '';
+    }
+    // deb(localDataMoodLastEntry, 'localDataMoodLastEntry')
     // let MedikationItems = document.getElementById('Medikation_0').elements;
-
     // deb(localDataMood, 'localDataMood')
-    if (localDataMood && Object.keys(localDataMood).length !== 0 && localDataMood.constructor === Object) {
+    if (localDataMoodLastEntry && localDataMood && Object.keys(localDataMood).length !== 0 && localDataMood.constructor === Object) {
 
         //
         // get the medikation of last entry 
         //
-        let localDataMoodLastEntry = localDataMood[Object.keys(localDataMood).reduce((a, b) => localDataMood[a] > localDataMood[b] ? b : a)].Medikation;
+        // let localDataMoodLastEntry = localDataMood[Object.keys(localDataMood).reduce((a, b) => localDataMood[a] > localDataMood[b] ? b : a)].Medikation;
         // deb(localDataMoodLastEntry, 'localDataMoodLastEntry')
         let FormMedikationCount = document.querySelectorAll('[id^=Medikation_]').length;
+        // deb(FormMedikationCount, 'FormMedikationCount')
+
+
+
         let LocalMedikationCount = Object.keys(localDataMoodLastEntry).length;
         // deb(LocalMedikationCount, 'LocalMedikationCount')
         // deb(FormMedikationCount, 'FormMedikationCount')
@@ -265,13 +276,17 @@ for (const form of forms) {
                 // save Profil to localData Object
                 localData.Profil = Object.assign(localData.Profil, FormResultsObject);
                 // deb(localData, 'localData nachher');
+
+                // putData(JSON.stringify(FormResultsObject),'Profil')
+                putData(FormResultsObject, 'Profil' + Timestamp)
+
             }
 
             //
             // MOOD
             //
             if ('MoodForm' == form.id) {
-                deb(FormResultsObject, 'FormResultsObject')
+                // deb(FormResultsObject, 'FormResultsObject')
 
                 //
                 // add Timestamp arround  Mood FormResults & save to localData.Mood
@@ -279,6 +294,8 @@ for (const form of forms) {
                 localData.Mood = Object.assign({
                     [Timestamp]: FormResultsObject
                 }, localData.Mood);
+                // putData(JSON.stringify(FormResultsObject),Timestamp)
+                putData(FormResultsObject, '"' + Timestamp + '"');
 
 
                 //
@@ -286,12 +303,13 @@ for (const form of forms) {
                 //  
                 if (FormResultsObject.situations) {
                     // deb(localData.Profil.Situations,'localData.Profil.Situations')
-                    deb(FormResultsObject.situations, 'FormResultsObject.situations')
+                    // deb(FormResultsObject.situations, 'FormResultsObject.situations')
                     let allSituation = mergeObj(localData.Profil.Situations, FormResultsObject.situations);
                     delete localData.Profil.Situations;
                     localData.Profil.Situations = Object.assign({}, allSituation);
-                    deb(localData.Profil.Situations, 'localData.Profil.Situations afetr assign')
+                    // deb(localData.Profil.Situations, 'localData.Profil.Situations afetr assign')
                 }
+
             }
 
 
@@ -301,11 +319,10 @@ for (const form of forms) {
             // deb(localData)
             // deb(JSON.stringify(localData))
             localStorage.setItem(localDataName, JSON.stringify(localData));
-            putData(JSON.stringify(localData))
-                //
-                //
-                // send data to server if allowed by user
-                //
+            //
+            //
+            // send data to server if allowed by user
+            //
             if (document.getElementById('P_Freigeben').checked) {
                 saveOnServer(localData, localDataName);
             } else {
@@ -333,7 +350,7 @@ for (const form of forms) {
 let dbName = localDataName;
 var db = new PouchDB(dbName);
 var remoteCouch = 'http://root:root@127.0.0.1:5984/' + dbName;
-
+showData()
 
 
 db.changes({
@@ -345,17 +362,19 @@ db.changes({
 
 
 // We have to create a new todo document and enter it in the database
-function putData(text) {
+function putData(text, timestamp) {
     var todo = {
-        _id: new Date().toISOString(),
-        title: text,
+        _id: timestamp, //new Date().toISOString(),
+        JSON: text,
         completed: false
     };
+    deb(todo, 'putData')
     db.put(todo, function callback(err, result) {
         if (!err) {
-            console.log('Successfully posted: ') // + text);
-            sync();
-
+            deb('Successfully posted: ') // + text);
+                // sync();
+        } else {
+            deb(err, 'NOT posted: ') // + text);
         }
     });
 }
@@ -363,13 +382,14 @@ function putData(text) {
 // Show the current list of todos by reading them from the database
 function showData() {
     db.allDocs({ include_docs: true, descending: true }, function(err, doc) {
-        // redrawTodosUI(doc.rows);
-        deb(doc)
+        redrawTodosUI(doc.rows);
+        deb(doc, 'showData')
     });
 }
 
 // There was some form or error syncing
 function syncError() {
+    deb('There was some form or error syncing')
     syncDom.setAttribute('data-sync-state', 'error');
 }
 
@@ -383,13 +403,77 @@ if (remoteCouch) {
 
 // Initialise a sync with the remote server
 function sync() {
-    var syncDom = document.getElementById('sync-wrapper');
     syncDom.setAttribute('data-sync-state', 'syncing');
     var opts = { live: true };
     db.replicate.to(remoteCouch, opts, syncError);
     db.replicate.from(remoteCouch, opts, syncError);
 }
 
+
+
+// User pressed the delete button for a todo, delete it
+function deleteButtonPressed(db) {
+    db.get(db, function(err, doc) {
+        deb(db, 'deleteButton')
+        if (err) { return console.log(err); }
+        db.remove(doc._id, doc._rev, function(err, response) {
+            if (err) { return console.log(err); }
+            // handle response
+        });
+    });
+}
+
+
+// deleteButtonPressed(db)
+
+
+
+db.info(function(err, info) {
+    if (err) { return console.log(err); }
+    deb(info, 'info') // handle result
+});
+
+
+
+
+function redrawTodosUI(todos) {
+    var pouchData = document.getElementById('pouchData');
+    let json = ''
+    todos.forEach(function(todo) {
+        // deb(todo.doc.JSON, 'todo.doc.JSON')
+        json += '<div style="border:1px solid green">' + syntaxHighlight(todo.doc.JSON).replace(/{/g, '').replace(/}/g, '').replace(/"/g, '').replace(/,/g, '').replace(/\n\n/g, '') + '</div>';
+        // deb(json, 'json')
+    });
+    json = json.split('\n').filter(function(v) { return (/\S/.test(v)) }).join('\n');
+    // deb(json.split('\n'), 'json.split(n)')
+    pouchData.innerHTML = json;
+}
+
+
+
+
+
+function syntaxHighlight(json) {
+    if (typeof json != 'string') {
+        json = JSON.stringify(json, undefined, 2);
+    }
+    json = json.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function(match) {
+        var cls = 'number';
+        if (/^"/.test(match)) {
+            if (/:$/.test(match)) {
+                cls = 'key';
+            } else {
+                cls = 'string';
+            }
+        } else if (/true|false/.test(match)) {
+            cls = 'boolean';
+        } else if (/null/.test(match)) {
+            cls = 'null';
+        }
+        return '<span class="' + cls + '">' + match + '</span>';
+    });
+}
 
 //////////////////// PouchDB //////////////////// PouchDB //////////////////// PouchDB //////////////////// PouchDB //////////////////// PouchDB 
 
@@ -405,7 +489,7 @@ function mergeObj(...objs) {
             if (typeof value === 'string' || value instanceof String) {
                 value = value.trim();
             }
-            console.log(value)
+            // console.log(value)
             array.push(value)
         }
     });
@@ -596,7 +680,7 @@ function showMood() {
 // remove current localstorage file 
 //
 DelLocalLink.addEventListener("click", event => {
-    localDataName = md5(localDataNameField.value);
+    // localDataName = md5(localDataNameField.value); // wurde umbenannt
     localStorage.removeItem(localDataName);
     location.reload();
 });

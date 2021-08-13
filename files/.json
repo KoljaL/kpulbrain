@@ -1,0 +1,28 @@
+{
+    "Profil": {
+        "Situations": [
+            "gerade aufgewacht",
+            "bei der Arbeit",
+            "zuhause",
+            "kann nicht schlafen"
+        ],
+        "Wirkung": [
+            "Unruhe___red"
+        ],
+        "Freigeben": "on",
+        "Timestamp": 1628845822273,
+        "Datetime": "13.08.2021 11:10:22",
+        "Browser": "Chrome 92",
+        "OS": "Linux",
+        "Viewport": "591 x 1096"
+    },
+    "Mood": {
+        "1628845829620": {
+            "Timestamp": 1628845829620,
+            "Datetime": "13.08.2021 11:10:29",
+            "mood": {
+                "Unruhe": "0"
+            }
+        }
+    }
+}
