@@ -31,6 +31,7 @@
     <script src="js/chartjs-zoom.js"></script>
     <script src="js/hammer.js"></script> -->
 
+    <script src="js/awesomplete.js"></script>
 
 </head>
 
@@ -132,7 +133,7 @@
                 </div>
 
                 <div class="profil_1 checkbox">
-                    <div class="zyklus"> 
+                    <div class="zyklus">
                         <input type=checkbox class="" id=P_Zyklus name=Zyklus>
                         <label class="blue" for=P_Zyklus>
                             <span></span> 
@@ -148,7 +149,7 @@
                     </div>
                 </div>
 
-                <label id="WirkungenLabel" class= for=situation>    Wirkungen</label>
+                <label id="WirkungenLabel" class=f or=situation>    Wirkungen</label>
                 <div id=WirkungCheckboxes>
                 </div>
                 <div class="kommentar profil">
@@ -174,32 +175,16 @@
                     <div class="medikation">
                         <div class="medikament">
                             <label for="M_Medikament[0]">Medikament <!---placeholder--></label>
-                            <select id="M_Medikament[0]" name=Medikation[0][Medikament]>
-                                <option disabled selected hidden></option>
-                                <option>Attentin</option>
-                                <option>Elvanse</option>
-                                <option>Elvanse Adult</option>
-                                <option>Ritalin (unretardiert)</option>
-                                <option>Medikinet (unretardiert)</option>
-                                <option>Ritalin Retard</option>
-                                <option>Medikinet Retard</option>
-                                <option>Equasym</option>
-                                <option>Ritalin Adult</option>
-                                <option>Medikinet Adult</option>
-                                <option>Kinecteen</option>
-                                <option>Concerta</option>
-                                <option>Strattera</option>
-                                <option>Intuniv </option> 
-                            </select>
+                           <input  id="M_Medikament[0]" name=Medikation[0][Medikament] />
                         </div>
                         <div class="dosierung">
                             <label for="M_Dosierung[0]">Dosierung</label>
-                            <input type="number" id="M_Dosierung[0]" name=Medikation[0][Dosierung]> 
-                        </div> 
+                            <input type="number" id="M_Dosierung[0]" name=Medikation[0][Dosierung]>
+                        </div>
                         <div class="einheit">
                             <label for="M_Einheit[0]">Einheit</label>
-                            <input type="text" id="M_Einheit[0]" name=Medikation[0][Einheit]> 
-                        </div> 
+                            <input type="text" id="M_Einheit[0]" name=Medikation[0][Einheit]>
+                        </div>
                     </div>
 
                     <div class=medikation>
@@ -207,7 +192,7 @@
                             <label for="M_Zeitpunkt[0]">Einnahmezeitpunkt</label>
                             <input type="time" id="M_Zeitpunkt[0]" name=Medikation[0][Zeitpunkt]>
                         </div>
-                        
+
                         <div class="seitwann">
                             <label for="M_SeitWann[0]">Begin der Medikation</label>
                             <input type="date" id="M_SeitWann[0]" name=Medikation[0][SeitWann]>
@@ -246,7 +231,7 @@
                 </div>
 
                 <div class="checkbox">
-                <label id="WirkzeitHeading" class=SectionHeading>Wirkzeit</label>
+                    <label id="WirkzeitHeading" class=SectionHeading>Wirkzeit</label>
                     <input type=checkbox class="" id=P_Wirkzeit name=Wirkzeit>
                     <label class="wirkzeit" for=P_Wirkzeit>
                         <span></span>

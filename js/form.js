@@ -362,6 +362,27 @@ for (const form of forms) {
 }
 
 
+function findMed(input) {
+    // deb(input.id, 'findMed')
+    // deb(input.value, 'findMed')
+    // deb(input.nextElementSibling, 'nextElementSibling')
+
+    // let values = input.nextElementSibling.children;
+    // deb(values)
+    // for (const li of values) {
+    //     console.log(li.textContent);
+    // }
+    // if (input.value.length < 2) {
+    // var input = document.getElementById(input.id);
+    // new Awesomplete(input, {
+    //     list: ["Attentin", "Elvanse", "Elvanse Adult", "Ritalin (unretardiert)", "Medikinet (unretardiert)", "Ritalin Retard", "Medikinet Retard", "Equasym", "Ritalin Adult", "Medikinet Adult", "Kinecteen", "Concerta", "Strattera", "Intuniv "]
+    // });
+    // deb(Awesomplete)
+    // }
+}
+
+
+
 //////////////////// PouchDB //////////////////// PouchDB //////////////////// PouchDB //////////////////// PouchDB //////////////////// PouchDB 
 //
 // PouchDB
@@ -643,6 +664,8 @@ function showMessage(messageText = "Message", messageTitle = 'Info', duration = 
 //
 // var ct = 10;
 
+var MedikationArray = ["Attentin", "Elvanse", "Elvanse Adult", "Ritalin (unretardiert)", "Medikinet (unretardiert)", "Ritalin Retard", "Medikinet Retard", "Equasym", "Ritalin Adult", "Medikinet Adult", "Kinecteen", "Concerta", "Strattera", "Intuniv "];
+
 function newMedikation() {
     var MedikationCount = document.querySelectorAll('[id^=Medikation_]').length;
 
@@ -655,7 +678,21 @@ function newMedikation() {
     document.getElementById("AnmerkungMedikation").before(new_medikation);
     document.getElementById("RemoveMedikation").style.display = 'inline';
     // ct++;
+    let input = document.getElementById('M_Medikament[' + MedikationCount + ']')
+    // deb(input)
+    new Awesomplete(input, {
+        list: MedikationArray
+    });
+
 }
+
+let input = document.getElementById('M_Medikament[0]')
+// deb(input)
+new Awesomplete(input, {
+    list: MedikationArray
+    });
+
+
 
 function delMedikation() {
     var delMedikation = document.querySelectorAll('[id^=Medikation_]');
