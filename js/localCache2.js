@@ -26,6 +26,12 @@ var requireScript = new Array()
     //     url: 'https://dev.rasal.de/kpulbrain/css/style.css'
     // })
 requireScript.push({
+    name: 'awesomplete',
+    version: 'awesomplete',
+    type: 'js',
+    url: 'https://dev.rasal.de/kpulbrain/js/awesomplete.js'
+})
+requireScript.push({
     name: 'pouchdb',
     version: 'pouchdb',
     type: 'js',
@@ -142,6 +148,7 @@ function check() {
 }
 
 function download(name, arg) {
+    // console.log(arg)
     var xmlhttp = new XMLHttpRequest(); // code for IE7+, Firefox, Chrome, Opera, Safari
     xmlhttp.onreadystatechange = function() {
         if (xmlhttp.readyState == 4) {
@@ -166,7 +173,11 @@ function runner() {
     var ready = true
     for (var pos in requireScript) {
         var tmp = JSON.parse(localStorage.getItem(requireScript[pos].name))
-        if (tmp.content == null || tmp.content === false) ready = false
+        if (tmp.content == null || tmp.content === false) {
+            // console.log(tmp)
+            ready = false
+
+        }
     }
     if (ready) location.reload()
 }
