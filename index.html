@@ -19,7 +19,7 @@
     <link rel="stylesheet" name="style" href="css/icono.css">
     <link rel="stylesheet" name="style" href="css/style.css">
 
-  
+
     <meta name="theme-color" content="#4285f4">
 
     <!-- <script src="js/formtoobj.js"></script>
@@ -60,7 +60,7 @@
             <div id="sync-error">There was a problem syncing</div>
         </div>
 
-
+        <!-- HEADER -->
         <div id="header">
             <div id=profil>
                 <a href="#profil" class=blueFont onclick="showProfil()"><i class="icono-user"></i></a>
@@ -77,6 +77,10 @@
                 <a href="#dellocal" class=redFont><i class="icono-reset"></i></a>
             </div>
         </div>
+        <!-- HEADER -->
+
+
+
         <!-- PROFIL FORM -->
         <form id=ProfilForm autocomplete="off">
             <fieldset>
@@ -145,6 +149,10 @@
                 <button type="submit" id=submitProfil>Absenden</button>
             </fieldset>
         </form>
+        <!-- PROFIL FORM -->
+
+
+
         <!-- MOOD FORM -->
         <form id=MoodForm autocomplete="off">
             <fieldset>
@@ -241,7 +249,9 @@
                 <button type="submit" id=submitMood class="pure-button pure-button-primary">absenden</button>
             </fieldset>
         </form>
+        <!-- MOOD FORM -->
 
+        <!-- CHART -->
         <div id="AuswertungsChart">
             <fieldset>
                 <legend>Auswertung</legend>
@@ -274,6 +284,10 @@
             </fieldset>
 
         </div>
+        <!-- CHART -->
+
+
+        <!-- FOOTER -->
         <div id="footer">
             Made with <svg viewBox="0 0 1792 1792" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" style="height: 0.8rem;">
                 <path  fill="#be5046" d="M896 1664q-26 0-44-18l-624-602q-10-8-27.5-26T145 952.5 77 855 23.5 734 0 596q0-220 127-344t351-124q62 0 126.5 21.5t120 58T820 276t76 68q36-36 76-68t95.5-68.5 120-58T1314 128q224 0 351 124t127 344q0 221-229 450l-623 600q-18 18-44 18z"></path>
@@ -282,10 +296,16 @@
                 <img src="https://rasal.de/img/kpulbrain-20.png" alt="kpulbrain">
             </a>
         </div>
-        <div id="pouchData"></div>
-    </div>
+        <!-- FOOTER -->
 
-    <!-- <script src="js/randomData.js"></script> -->
+        <!-- POUCH DATA -->
+        <div id="pouchData"></div>
+        <!-- POUCH DATA -->
+
+    </div>
+    <!-- div id content -->
+
+    <script src="js/randomData.js"></script>
 
     <script>
         //
@@ -313,21 +333,21 @@
         var syncDom = document.getElementById('sync-wrapper');
 
         // initial localData
-        var initObj = new Object({
-            Profil: {
-                Situations: {
-                    0: 'gerade aufgewacht',
-                    1: 'bei der Arbeit',
-                    2: 'zuhause',
-                    3: 'kann nicht schlafen',
-                },
-                Wirkung: {
-                    0: 'Unruhe___red',
-                },
-                Freigeben: "on",
-            },
-            Mood: {}
-        });
+        // var initObj = new Object({
+        //     Profil: {
+        //         Situations: {
+        //             0: 'gerade aufgewacht',
+        //             1: 'bei der Arbeit',
+        //             2: 'zuhause',
+        //             3: 'kann nicht schlafen',
+        //         },
+        //         Wirkung: {
+        //             0: 'Unruhe___red',
+        //         },
+        //         Freigeben: "on",
+        //     },
+        //     Mood: {}
+        // });
 
 
         // var localData = JSON.parse(localStorage.getItem(localDataName)) || initObj;
@@ -348,6 +368,24 @@
 </body>
 
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 <!-- 
@@ -403,6 +441,3 @@
         </a>
     </div>
 </div> -->
-
-
-

@@ -1,28 +1,47 @@
 {
     "Profil": {
+        "Wirkung": [
+            "Unruhe___red"
+        ],
+        "Freigeben": "on",
         "Situations": [
             "gerade aufgewacht",
             "bei der Arbeit",
             "zuhause",
             "kann nicht schlafen"
-        ],
-        "Wirkung": [
-            "Unruhe___red"
-        ],
-        "Freigeben": "on",
-        "Timestamp": 1628845822273,
-        "Datetime": "13.08.2021 11:10:22",
-        "Browser": "Chrome 92",
-        "OS": "Linux",
-        "Viewport": "591 x 1096"
+        ]
     },
     "Mood": {
-        "1628845829620": {
-            "Timestamp": 1628845829620,
-            "Datetime": "13.08.2021 11:10:29",
+        "1629197599303": {
+            "Timestamp": 1629197599303,
+            "Datetime": "17.08.2021 12:53:19",
             "mood": {
                 "Unruhe": "0"
             }
+        },
+        "1629197515073": {
+            "Timestamp": 1629197515073,
+            "Datetime": "17.08.2021 12:51:55",
+            "mood": {
+                "Unruhe": "0"
+            }
+        },
+        "1629197048832": {
+            "Timestamp": 1629197048832,
+            "Datetime": "17.08.2021 12:44:08",
+            "Medikation": [
+                {
+                    "Kommentar": "ed2w3d2"
+                }
+            ],
+            "situations": [
+                "gerade aufgewacht",
+                "kann nicht schlafen"
+            ],
+            "mood": {
+                "Unruhe": "0"
+            },
+            "comment": "w34343"
         }
     }
 }

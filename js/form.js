@@ -278,7 +278,7 @@ for (const form of forms) {
                 // deb(localData, 'localData nachher');
 
                 // putData(JSON.stringify(FormResultsObject),'Profil')
-                putData(FormResultsObject, 'Profil' + Timestamp)
+                // putData(FormResultsObject, 'Profil' + Timestamp)
 
             }
 
@@ -295,7 +295,7 @@ for (const form of forms) {
                     [Timestamp]: FormResultsObject
                 }, localData.Mood);
                 // putData(JSON.stringify(FormResultsObject),Timestamp)
-                putData(FormResultsObject, '"' + Timestamp + '"');
+                // putData(FormResultsObject, '"' + Timestamp + '"');
 
 
                 //
@@ -347,16 +347,16 @@ for (const form of forms) {
 //
 // PouchDB
 //
-let dbName = localDataName;
-var db = new PouchDB(dbName);
-var remoteCouch = 'http://root:root@127.0.0.1:5984/' + dbName;
-showData()
+// let dbName = localDataName;
+// var db = new PouchDB(dbName);
+// var remoteCouch = 'http://root:root@127.0.0.1:5984/' + dbName;
+// showData()
+// deb(db,'db')
 
-
-db.changes({
-    since: 'now',
-    live: true
-}).on('change', showData);
+// db.changes({
+//     since: 'now',
+//     live: true
+// }).on('change', showData);
 
 
 
@@ -372,7 +372,7 @@ function putData(text, timestamp) {
     db.put(todo, function callback(err, result) {
         if (!err) {
             deb('Successfully posted: ') // + text);
-                // sync();
+                sync();
         } else {
             deb(err, 'NOT posted: ') // + text);
         }
@@ -397,9 +397,9 @@ function syncError() {
 
 
 
-if (remoteCouch) {
-    // sync();
-}
+// if (remoteCouch) {
+//     // sync();
+// }
 
 // Initialise a sync with the remote server
 function sync() {
@@ -428,10 +428,10 @@ function deleteButtonPressed(db) {
 
 
 
-db.info(function(err, info) {
-    if (err) { return console.log(err); }
-    deb(info, 'info') // handle result
-});
+// db.info(function(err, info) {
+//     if (err) { return console.log(err); }
+//     // deb(info, 'info') 
+// });
 
 
 
@@ -441,7 +441,7 @@ function redrawTodosUI(todos) {
     let json = ''
     todos.forEach(function(todo) {
         // deb(todo.doc.JSON, 'todo.doc.JSON')
-        json += '<div style="border:1px solid green">' + syntaxHighlight(todo.doc.JSON).replace(/{/g, '').replace(/}/g, '').replace(/"/g, '').replace(/,/g, '').replace(/\n\n/g, '') + '</div>';
+        json += '<div style="border:0px solid green">' + syntaxHighlight(todo.doc.JSON).replace(/{/g, '').replace(/}/g, '').replace(/"/g, '').replace(/,/g, '').replace(/\n\n/g, '') + '</div>';
         // deb(json, 'json')
     });
     json = json.split('\n').filter(function(v) { return (/\S/.test(v)) }).join('\n');
@@ -474,6 +474,9 @@ function syntaxHighlight(json) {
         return '<span class="' + cls + '">' + match + '</span>';
     });
 }
+
+
+ 
 
 //////////////////// PouchDB //////////////////// PouchDB //////////////////// PouchDB //////////////////// PouchDB //////////////////// PouchDB 
 
