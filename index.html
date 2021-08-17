@@ -85,6 +85,7 @@
         <form id=ProfilForm autocomplete="off">
             <fieldset>
                 <legend>Profil</legend>
+
                 <div class="profil_1">
                     <div class="name">
                         <label for="P_Name">Name</label>
@@ -94,12 +95,8 @@
                         <label for="P_Password">Passwort</label>
                         <input type="password" id="P_Password" name=Passwort value=ADXS>
                     </div>
-                    <div class="freigeben">
-                        <label id="Daten freigeben">Daten</label>
-                        <input type=checkbox class=hidden id=P_Freigeben name=Freigeben checked>
-                        <label class="buttonlabel zyklus" for=P_Freigeben>freigeben</label>
-                    </div>
                 </div>
+
                 <div class="profil_1">
                     <div class="alter">
                         <label for="P_Alter">Geburtsjahr</label>
@@ -115,12 +112,8 @@
                             <option>keine Angabe</option>
                         </select>
                     </div>
-                    <div class="zyklus">
-                        <label id=Zyklus>Zyklus</label>
-                        <input type=checkbox class=hidden id=P_Zyklus name=Zyklus>
-                        <label class="buttonlabel zyklus" for=P_Zyklus>abfragen</label>
-                    </div>
                 </div>
+
                 <div class="profil_2">
                     <div class="subtyp">
                         <label for="P_Subtyp">ADHS-Subtyp</label>
@@ -138,7 +131,24 @@
                     </div>
                 </div>
 
-                <label class="" for=situation>Wirkungen abfragen: </label>
+                <div class="profil_1 checkbox">
+                    <div class="zyklus"> 
+                        <input type=checkbox class="" id=P_Zyklus name=Zyklus>
+                        <label class="blue" for=P_Zyklus>
+                            <span></span> 
+                            Zyklus abfragen</label>
+                    </div>
+
+                    <div class="freigeben">
+                        <input type=checkbox class="" id=P_Freigeben name=Freigeben checked>
+                        <label class="blue" for=P_Freigeben>
+                            <span></span> 
+                            Daten freigeben
+                        </label>
+                    </div>
+                </div>
+
+                <label id="WirkungenLabel" class= for=situation>    Wirkungen</label>
                 <div id=WirkungCheckboxes>
                 </div>
                 <div class="kommentar profil">
@@ -184,38 +194,33 @@
                         </div>
                         <div class="dosierung">
                             <label for="M_Dosierung[0]">Dosierung</label>
-                            <input type="number" id="M_Dosierung[0]" name=Medikation[0][Dosierung]>
-                            <!-- <select id="M_Dosierung[0]" name=Medikation[0][Dosierung]>
-                                <option disabled selected hidden></option>
-                                <option>2.5 mg</option>
-                                <option>5 mg</option>
-                                <option>10 mg</option>
-                                <option>20 mg</option>
-                                <option>30 mg</option>
-                                <option>40 mg</option>
-                                <option>50 mg</option>
-                                <option>60 mg</option>
-                                <option>70 mg</option>
-                                <option>80 mg</option>
-                            </select> -->
-                        </div>
-                        <div class="zeitpunkt">
-                            <label for="M_Zeitpunkt[0]">Zeit</label>
-                            <input type="time" id="M_Zeitpunkt[0]" name=Medikation[0][Zeitpunkt]>
-                        </div>
+                            <input type="number" id="M_Dosierung[0]" name=Medikation[0][Dosierung]> 
+                        </div> 
+                        <div class="einheit">
+                            <label for="M_Einheit[0]">Einheit</label>
+                            <input type="text" id="M_Einheit[0]" name=Medikation[0][Einheit]> 
+                        </div> 
                     </div>
 
                     <div class=medikation>
+                        <div class="zeitpunkt">
+                            <label for="M_Zeitpunkt[0]">Einnahmezeitpunkt</label>
+                            <input type="time" id="M_Zeitpunkt[0]" name=Medikation[0][Zeitpunkt]>
+                        </div>
+                        
                         <div class="seitwann">
-                            <label for="M_SeitWann[0]">seit wann</label>
+                            <label for="M_SeitWann[0]">Begin der Medikation</label>
                             <input type="date" id="M_SeitWann[0]" name=Medikation[0][SeitWann]>
                         </div>
+                    </div>
+
+                    <!-- <div class=medikation>
                         <div class="wirkzeit">
                             <label>&nbsp;</label>
-                            <input type=checkbox class=hidden id=P_Wirkzeit[0] name=Medikation[0][Wirkzeit]>
-                            <label class="buttonlabel wirkzeit" for=P_Wirkzeit[0]>innerhalb der Wirkzeit</label>
+                            <input type=checkbox class=hidden id=P _Wirkzeit[0] name=Medikation[0][Wirkzeit]>
+                            <label class="buttonlabel wirkzeit" for=P _Wirkzeit[0]>innerhalb der Wirkzeit</label>
                         </div>
-                    </div>
+                    </div> -->
 
 
                 </div>
@@ -238,6 +243,14 @@
 
                 <label id="WirkungHeading" class=SectionHeading>Wirkung</label>
                 <div id=MoodSlider>
+                </div>
+
+                <div class="checkbox">
+                <label id="WirkzeitHeading" class=SectionHeading>Wirkzeit</label>
+                    <input type=checkbox class="" id=P_Wirkzeit name=Wirkzeit>
+                    <label class="wirkzeit" for=P_Wirkzeit>
+                        <span></span>
+                        Die Medikation wirkt noch</label>
                 </div>
 
                 <label id="KommentarHeading" class=SectionHeading>Kommentar</label>

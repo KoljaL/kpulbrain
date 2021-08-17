@@ -73,17 +73,36 @@ const populateProfilForm = () => {
         let NameWirkung = split[0];
         let color = split[1];
 
-        WirkungCheckboxes += `<input type=checkbox class=hidden id=${NameWirkung} name=Wirkung[] value="${NameWirkung}___${color}" ${checked}>`;
-        WirkungCheckboxes += `<label class="buttonlabel wirkung ${color}" for=${NameWirkung}>${NameWirkung}</label>`;
+
+
+        // WirkungCheckboxes += `<input type=checkbox class=hidden id=${NameWirkung} name=Wirkung[] value="${NameWirkung}___${color}" ${checked}>`;
+        // WirkungCheckboxes += `<label class="buttonlabel wirkung ${color}" for=${NameWirkung}>${NameWirkung}</label>`;
+
+        WirkungCheckboxes += `<div class=checkbox>`;
+        WirkungCheckboxes += `<input type=checkbox class="" id=${NameWirkung} name=Wirkung[] value="${NameWirkung}___${color}" ${checked}>`;
+        WirkungCheckboxes += `<label class=" ${color}" for=${NameWirkung}><span></span>${NameWirkung}</label>`;
+        WirkungCheckboxes += `</div>`;
+
+
     }
-    WirkungCheckboxes += '<div id=WirkungIndividuell>';
-    WirkungCheckboxes += '<input type=text class=newSituation name=Wirkung[] placeholder="individuelle Wirkung">';
-    WirkungCheckboxes += '<select id=P_WirkungColor class=newSituation name=WirkungColor>';
-    WirkungCheckboxes += '<option disabled selected>Farbe</option><option>red</option><option>orange</option><option>yellow</option><option>green</option><option>bluegreen</option><option>blue</option><option>lachs</option><option>pink</option><option>grey</option>';
-    WirkungCheckboxes += '</select>';
-    WirkungCheckboxes += '</div>';
+    // WirkungCheckboxes += '<div id=WirkungIndividuell>';
+    // WirkungCheckboxes += '<input type=text class=newSituation name=Wirkung[] placeholder="individuelle Wirkung">';
+    // WirkungCheckboxes += '<select id=P_WirkungColor class=newSituation name=WirkungColor>';
+    // WirkungCheckboxes += '<option disabled selected>Farbe</option><option>red</option><option>orange</option><option>yellow</option><option>green</option><option>bluegreen</option><option>blue</option><option>lachs</option><option>pink</option><option>grey</option>';
+    // WirkungCheckboxes += '</select>';
+    // WirkungCheckboxes += '</div>';
+
     document.getElementById('WirkungCheckboxes').innerHTML = WirkungCheckboxes;
 }
+
+
+//   <div class="zyklus"> 
+//         <input type=checkbox class="" id=P_Zyklus name=Zyklus>
+//         <label class="" for=P_Zyklus>
+//             <span></span> 
+//             Zyklus abfragen</label>
+//     </div>
+
 
 
 //
@@ -203,7 +222,7 @@ function populateMoodForm() {
         WirkungSlider += `<div class="sliderdiv ${color}">`;
         WirkungSlider += `<label class="itemLabel ${name} sliderLabel" for="${name}Slider">${name}: </label>`;
         WirkungSlider += `<div class=sliderValue id="${name}SliderOutput">0</div>`;
-        WirkungSlider += `<input type="range" min="0" max="100" value="0" step="10" oninput="updateSlider(this)" class="slider ${color}" id="${name}Slider" name="mood[${name}]">`;
+        WirkungSlider += `<input type="range" min="-5" max="5" value="0" step="1" oninput="updateSlider(this)" class="slider ${color}" id="${name}Slider" name="mood[${name}]">`;
         WirkungSlider += `</div>`;
     }
     document.getElementById('MoodSlider').innerHTML = WirkungSlider;
@@ -372,7 +391,7 @@ function putData(text, timestamp) {
     db.put(todo, function callback(err, result) {
         if (!err) {
             deb('Successfully posted: ') // + text);
-                sync();
+            sync();
         } else {
             deb(err, 'NOT posted: ') // + text);
         }
@@ -476,7 +495,7 @@ function syntaxHighlight(json) {
 }
 
 
- 
+
 
 //////////////////// PouchDB //////////////////// PouchDB //////////////////// PouchDB //////////////////// PouchDB //////////////////// PouchDB 
 

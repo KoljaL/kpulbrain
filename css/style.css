@@ -163,13 +163,13 @@ label {
 
 /* ALL INPUTS */
 
-input,
+input:not([type='checkbox']),
 select,
 button {
     height: 40px;
 }
 
-input,
+input:not([type='checkbox']),
 select,
 textarea,
 button,
@@ -199,6 +199,45 @@ input[type=number] {
 }
 
 
+/* CHECKBOX */
+
+.checkbox label {
+    cursor: pointer;
+}
+
+.checkbox input[type=checkbox] {
+    display: none;
+    font-size: 16px;
+}
+
+.checkbox label span {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    margin-right: 5px;
+    position: relative;
+    vertical-align: top;
+}
+
+.checkbox label span:before {
+    display: block;
+    width: inherit;
+    height: inherit;
+    border-radius: 3px;
+    content: " ";
+    border: 1px solid var(--lightgrey);
+}
+
+.checkbox input[type=checkbox]:checked+label span:before {
+    display: block;
+    content: "✓";
+    line-height: .5em;
+    font-size: 1.3em;
+    font-weight: bold;
+    color: inherit;
+}
+
+
 /* SLIDER */
 
 input[type=range] {
@@ -213,7 +252,8 @@ input[type=range] {
     -webkit-transition: .2s;
     transition: opacity .2s;
     margin-top: .5em;
-    border: none
+    border: none;
+    cursor: pointer;
 }
 
 input[type=range]::-webkit-slider-thumb {
@@ -317,7 +357,7 @@ button:hover {
 }
 
 #ProfilForm fieldset {
-    color: var(--blue);
+    /* color: var(--blue); */
     border: 2px solid var(--blue);
 }
 
@@ -433,6 +473,7 @@ button:hover {
 ========================================================================== 
 */
 
+#ProfilForm legend,
 #ProfilForm input,
 #ProfilForm select {
     color: var(--blue);
@@ -443,11 +484,34 @@ button:hover {
     display: flex;
     gap: 10px;
     justify-content: space-between;
+    /* min-height: 80px; */
+}
+
+.profil_1>div {
+    width: 190px;
+}
+
+
+/* .profil_1.checkbox label,
+.profil_1.checkbox input {
+    display: inline;
+} */
+
+.profil_1.checkbox>div {
+    height: 40px;
+    margin-top: 1em;
 }
 
 .profil_1 .alter {
+    display: inline;
+}
+
+.profil_1 #P_Alter {
     width: 80px
 }
+
+
+/* 
 
 .profil_1 .geschlecht,
 .profil_1 .name,
@@ -462,7 +526,7 @@ button:hover {
     border: 1px solid var(--blue);
     cursor: pointer;
     transition: .5s;
-}
+} */
 
 .profil_2 {
     display: flex;
@@ -477,12 +541,29 @@ button:hover {
     max-width: 100%
 }
 
+#WirkungenLabel {
+    font-size: 1.2em;
+    padding: .5em 0;
+}
+
 #WirkungCheckboxes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: space-between;
+    min-height: 80px;
+}
+
+#WirkungCheckboxes>div {
+    width: 190px;
+}
+
+
+/* #WirkungCheckboxes {
     display: inline-flex;
     flex-wrap: wrap;
     gap: 5px 10px;
-}
-
+} 
 .buttonlabel.wirkung {
     width: max-content;
     color: var(--blue);
@@ -491,8 +572,7 @@ button:hover {
     cursor: pointer;
     transition: .5s;
     display: inline-block;
-    /* margin: 0; */
-}
+} */
 
 #WirkungIndividuell {
     display: flex;
@@ -598,6 +678,8 @@ button:hover {
 
 .kommentar.profil label {
     color: var(--lightgrey);
+    font-size: 1.2em;
+    padding: .5em 0;
 }
 
 
@@ -636,7 +718,8 @@ button:hover {
 }
 
 .medikation .dosierung,
-.medikation .zeitpunkt {
+.medikation .zeitpunkt,
+.einheit {
     width: 100px
 }
 
@@ -730,18 +813,18 @@ label.itemLabel.situation {
 
 .hidden:checked+label.buttonlabel.situation {
     position: relative;
-    /* background-color: var(--orange);
-    color: var(--dark); */
+    background-color: var(--orange);
+    color: var(--dark);
 }
 
-.hidden:checked+label.buttonlabel.situation::before {
+/* .hidden:checked+label.buttonlabel.situation::before {
     content: '\2713';
     position: absolute;
     right: -10px;
     bottom: 10px;
     color: green;
     font-size: 2em;
-}
+} */
 
 input.newSituation {
     color: var(--orange);
@@ -778,7 +861,7 @@ input[type=range].red::-webkit-slider-thumb {
     border-radius: 4px;
 }
 
-label.brainload,
+label.red,
 #brainloadSliderOutput {
     color: var(--red);
 }
