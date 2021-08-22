@@ -3,15 +3,36 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>KpUlBrain</title>
     <meta http-equiv="Cache-control" content="No-Cache">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
-    <!--  -->
+
+    <!-- HTML Meta Tags -->
+    <title>KpUlBrain</title>
+    <meta name="description" content="An ADXS.org project.">
+
+    <!-- Facebook Meta Tags -->
+    <meta property="og:url" content="https://dev.rasal.de/kpulbrain/sliderview.html/">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="KpUlBrain">
+    <meta property="og:description" content="An ADXS.org project.">
+    <meta property="og:image" content="https://dev.rasal.de/kpulbrain/img/OG_image.png">
+
+    <!-- Twitter Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta property="twitter:domain" content="KpUlBrain">
+    <meta property="twitter:url" content="https://dev.rasal.de/kpulbrain/sliderview.html/">
+    <meta name="twitter:title" content="KpUlBrain">
+    <meta name="twitter:description" content="An ADXS.org project.">
+    <meta name="twitter:image" content="https://dev.rasal.de/kpulbrain/img/OG_image.png">
+
+
+    <!-- Icons -->
     <!-- <link rel="icon" type="image/svg+xml"  sizes="16x16" href="https://rasal.de/img/kpulbrain_favicon_16.png">
     <link rel="icon" type="image/svg+xml"  sizes="32x32" href="https://rasal.de/img/kpulbrain_favicon_32.png">
     <link rel="icon" type="image/svg+xml"  sizes="48x48" href="https://rasal.de/img/kpulbrain_favicon_48.png">
     <link rel="icon" type="image/svg+xml"  sizes="96x96" href="https://rasal.de/img/kpulbrain_favicon_48.png"> -->
     <!-- <link rel="manifest" href="/site.webmanifest"> -->
+ 
     <link rel='icon' type="image/svg+xml" href='icon.svg'>
     <link rel='icon' sizes='192x192' href='icon.svg'>
 
@@ -350,7 +371,6 @@
             
             .slider {
                 margin: auto;
-
                 width: 98vw;
                 overflow: hidden;
             }
@@ -365,7 +385,7 @@
                 display: flex;
                 overflow-x: auto;
                 scroll-snap-type: x mandatory;
-                scroll-behavior: smooth;             
+                scroll-behavior: smooth;
             }
             
             .slide {
@@ -376,8 +396,7 @@
                 padding-top: 50px;
                 width: 420px;
                 /* width: 90vw; */
-
-                margin-right: 20px; 
+                margin-right: 20px;
             }
             
             @media screen and (min-width:80em) {
@@ -500,6 +519,8 @@
             // showMessage(showSize());
         </script>
         <script src="js/chart.js"></script>
+        <!-- <script src="js/cssdebug.js"></script> -->
+
 </body>
 
 </html>
