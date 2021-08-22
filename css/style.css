@@ -20,6 +20,40 @@
     --yellow: #e6c07b;
 }
 
+html[data-theme='dark'] {
+    --black: #1b1e23;
+    --dark: #282c34;
+    --lightgrey: #abb2bf;
+    --grey: #818896;
+    --darkgrey: #5c6370;
+    --bluegreen: #56b6c2;
+    --blue: #61aeee;
+    --pink: #c678dd;
+    --salomon: #e06c75;
+    --green: #98c379;
+    --red: #be5046;
+    --orange: #d19a66;
+    --yellow: #e6c07b;
+}
+
+html[data-theme='light'] {
+    --black: #1b1e23;
+    --dark: #f6f6f6;
+    --lightgrey: #757575;
+    --grey: #444444;
+    --darkgrey: #9e9e9e;
+    --bluegreen: #0081AB;
+    --blue: #2E5894;
+    --pink: #8D4E85;
+    --salomon: #BF4F51;
+    --green: #319177;
+    --red: #9C2542;
+    --orange: #C46210;
+    /* --yellow: #AC8B13; */
+    --yellow: #9C7C38;
+
+}
+
 :crayolaMetallic {
     --white: #FEFEFE;
     --AlloyOrange: #C46210;
@@ -61,35 +95,43 @@
 .yellow:hover{background:#e6c07b!important} */
 
 .bluegreenFont {
-    color: #56b6c2!important
+    color: var(--bluegreen)!important;
 }
 
 .blueFont {
-    color: #61aeee!important
+    color: var(--blue)!important;
 }
 
 .pinkFont {
-    color: #c678dd!important
+    color: var(--pink)!important;
 }
 
 .salomonFont {
-    color: #e06c75!important
+    color: var(--salomon)!important;
 }
 
 .greenFont {
-    color: #98c379!important
+    color: var(--green)!important;
 }
 
 .redFont {
-    color: #be5046!important
+    color: var(--red)!important;
 }
 
 .orangeFont {
-    color: #d19a66!important
+    color: var(--orange)!important;
 }
 
 .yellowFont {
-    color: #e6c07b!important
+    color: var(--yellow)!important;
+}
+
+.lightgreyFont {
+    color: var(--lightgrey)!important;
+}
+
+.darkFont {
+    color: var(--dark)!important;
 }
 
 :after,
@@ -108,6 +150,7 @@
 
 * {
     scrollbar-width: none;
+    transition: .5s;
 }
 
 body {
@@ -238,7 +281,7 @@ input[type=number] {
 }
 
 
-/* SLIDER */
+/* RANGE */
 
 input[type=range] {
     -webkit-appearance: none;
@@ -345,11 +388,12 @@ button:hover {
     text-decoration: line-through
 } */
 
-#AuswertungsChart,
+/* XXX */
+/* #AuswertungsChart,
 #ProfilForm,
 #MoodForm {
     display: none;
-}
+} */
 
 #ProfilForm,
 #MoodForm {
@@ -836,12 +880,12 @@ input.newSituation {
     color: var(--pink)
 }
 
-.sliderValue,
-.sliderLabel {
+.rangeValue,
+.rangeLabel {
     display: inline
 }
 
-.sliderdiv {
+.rangediv {
     padding-top: 1em;
     /* padding-bottom: .5em; */
 }
@@ -849,7 +893,7 @@ input.newSituation {
 
 /* SLIDER COLOR */
 
-.sliderdiv.red {
+.rangediv.red {
     color: var(--red);
 }
 
@@ -863,11 +907,11 @@ input[type=range].red::-webkit-slider-thumb {
 }
 
 label.red,
-#brainloadSliderOutput {
+#brainloadRangeOutput {
     color: var(--red);
 }
 
-.sliderdiv.green {
+.rangediv.green {
     color: var(--green);
 }
 
@@ -880,11 +924,11 @@ input[type=range].green::-webkit-slider-thumb {
 }
 
 label.green,
-#moodSliderOutput {
+#moodRangeOutput {
     color: var(--green);
 }
 
-.sliderdiv.blue {
+.rangediv.blue {
     color: var(--blue);
 }
 
@@ -897,11 +941,11 @@ input[type=range].blue::-webkit-slider-thumb {
 }
 
 label.blue,
-#motivationSliderOutput {
+#motivationRangeOutput {
     color: var(--blue);
 }
 
-.sliderdiv.orange {
+.rangediv.orange {
     color: var(--orange);
 }
 
@@ -914,11 +958,11 @@ input[type=range].orange::-webkit-slider-thumb {
 }
 
 label.orange,
-#motivationSliderOutput {
+#motivationRangeOutput {
     color: var(--orange);
 }
 
-.sliderdiv.yellow {
+.rangediv.yellow {
     color: var(--yellow);
 }
 
@@ -931,11 +975,11 @@ input[type=range].yellow::-webkit-slider-thumb {
 }
 
 label.yellow,
-#motivationSliderOutput {
+#motivationRangeOutput {
     color: var(--yellow);
 }
 
-.sliderdiv.bluegreen {
+.rangediv.bluegreen {
     color: var(--bluegreen);
 }
 
@@ -948,11 +992,11 @@ input[type=range].bluegreen::-webkit-slider-thumb {
 }
 
 label.bluegreen,
-#motivationSliderOutput {
+#motivationRangeOutput {
     color: var(--bluegreen);
 }
 
-.sliderdiv.pink {
+.rangediv.pink {
     color: var(--pink);
 }
 
@@ -965,11 +1009,11 @@ input[type=range].pink::-webkit-slider-thumb {
 }
 
 label.pink,
-#motivationSliderOutput {
+#motivationRangeOutput {
     color: var(--pink);
 }
 
-.sliderdiv.salomon {
+.rangediv.salomon {
     color: var(--salomon);
 }
 
@@ -982,7 +1026,7 @@ input[type=range].salomon::-webkit-slider-thumb {
 }
 
 label.salomon,
-#motivationSliderOutput {
+#motivationRangeOutput {
     color: var(--salomon);
 }
 
@@ -1036,6 +1080,7 @@ label.salomon,
 #ChartToolSituation {
     color: var(--orange);
     padding: .5em .5em .5em .5em;
+    max-width: 600px;
 }
 
 #ChartToolMedikation {
@@ -1140,7 +1185,15 @@ label.salomon,
     top: 5px;
     right: 5px;
 }
-
+.icono-eye {
+    border-radius: 80% 20%;
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+    border-width: 2px 1px 1px 2px;
+    height: 28px;
+    width: 28px;
+    margin: 3px;
+}
 
 /* 
 ==========================================================================
@@ -1230,6 +1283,7 @@ label.salomon,
     display: none;
 }
 
+
 /* .awesomplete>ul {
     border-radius: .3em;
     margin: .2em 0 0;
@@ -1256,6 +1310,7 @@ label.salomon,
 
 
 /* Pointer */
+
 
 /* .awesomplete>ul:before {
     content: "";
@@ -1284,7 +1339,6 @@ label.salomon,
     /* background: hsl(200, 40%, 80%);
     color: black; */
     color: var(--yellow);
-
 }
 
 .awesomplete>ul>li[aria-selected="true"] {
@@ -1298,9 +1352,11 @@ label.salomon,
     background: var(--dark);
 }
 
+
 /* .awesomplete li:hover mark {
     background: hsl(68, 100%, 41%);
 } */
+
 
 /* .awesomplete li[aria-selected="true"] mark {
     background: hsl(86, 100%, 21%);

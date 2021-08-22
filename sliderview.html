@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <title>KpUlBrain</title>
+    <meta http-equiv="Cache-control" content="No-Cache">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+    <!--  -->
+    <!-- <link rel="icon" type="image/svg+xml"  sizes="16x16" href="https://rasal.de/img/kpulbrain_favicon_16.png">
+    <link rel="icon" type="image/svg+xml"  sizes="32x32" href="https://rasal.de/img/kpulbrain_favicon_32.png">
+    <link rel="icon" type="image/svg+xml"  sizes="48x48" href="https://rasal.de/img/kpulbrain_favicon_48.png">
+    <link rel="icon" type="image/svg+xml"  sizes="96x96" href="https://rasal.de/img/kpulbrain_favicon_48.png"> -->
+    <!-- <link rel="manifest" href="/site.webmanifest"> -->
+    <link rel='icon' type="image/svg+xml" href='icon.svg'>
+    <link rel='icon' sizes='192x192' href='icon.svg'>
+
+    <link rel="stylesheet" name="reseter" href="css/reseter.css" />
+    <link rel="stylesheet" name="style" href="css/icono.css">
+    <link rel="stylesheet" name="style" href="css/style.css">
+
+
+    <meta name="theme-color" content="#4285f4">
+
+    <!-- <script src="js/formtoobj.js"></script>
+    <script src="js/md5.js"></script>
+    <script src="js/debugHelper.js"></script>
+    <script src="js/longpress.js"></script>
+    <script src="js/chartJS.js"></script> 
+    <script src="js/luxon.js"></script> 
+    <script src="js/chartjs-zoom.js"></script>
+    <script src="js/awesomplete.js"></script>
+    <script src="js/hammer.js"></script> -->
+
+    <script src="js/debugout.js"></script>
+
+</head>
+
+<!-- <script src="js/localCache.js"></script>
+<script>
+    requireScript('formtoobj', '1.11.2', 'https://dev.rasal.de/kpulbrain/js/formtoobj.js');
+    requireScript('md5', '1.11.2', 'https://dev.rasal.de/kpulbrain/js/md5.js');
+    requireScript('debugHelper', '1.11.2', 'https://dev.rasal.de/kpulbrain/js/debugHelper.js');
+    requireScript('longpress', '1.11.2', 'https://dev.rasal.de/kpulbrain/js/longpress.js');
+    requireScript('chartJS', '1.11.2', 'https://dev.rasal.de/kpulbrain/js/chartJS.js');
+    requireScript('luxon', '1.11.2', 'https://dev.rasal.de/kpulbrain/js/luxon.js');
+    requireScript('luxon', '1.11.2', 'https://dev.rasal.de/kpulbrain/js/chartjs-zoom.js');
+    requireScript('luxon', '1.11.2', 'https://dev.rasal.de/kpulbrain/js/hammer.js');
+</script> -->
+
+<script src="js/localCache2.js"></script>
+
+
+<body>
+    <div id=formcontent></div>
+    <div id=overlay></div>
+    <div id=content>
+
+
+        <div id="sync-wrapper">
+            <div id="sync-success">Currently syncing</div>
+            <div id="sync-error">There was a problem syncing</div>
+        </div>
+
+        <!-- HEADER -->
+        <div id="header">
+            <div id=profil>
+                <a href="#Profil" class=blueFont onclick="showProfil()"><i class="icono-user"></i></a>
+            </div>
+            <div id=mood>
+                <a href="#Mood" class=orangeFont onclick="showMood()"><i class="icono-sliders"></i></a>
+            </div>
+            <div id=chart>
+                <a href="#Chart" class=greenFont onclick="showChart()"><i class="icono-image"></i></a>
+            </div>
+            <div id=datalink>
+            </div>
+            <div id=dellocal>
+                <a href="#dellocal" class=redFont><i class="icono-reset"></i></a>
+            </div>
+            <div id=theme-toggle>
+                <i class="icono-eye"></i>
+            </div>
+        </div>
+        <!-- HEADER -->
+
+
+        <div id=slider class="slider">
+
+            <div class="slides">
+                <!-- PROFIL FORM -->
+                <div class=slide id="Profil">
+                    <form id=ProfilForm autocomplete="off">
+                        <fieldset>
+                            <legend>Profil</legend>
+
+                            <div class="profil_1">
+                                <div class="name">
+                                    <label for="P_Name">Name</label>
+                                    <input type="text" id="P_Name" name=Name value=ADXS>
+                                </div>
+                                <div class="password">
+                                    <label for="P_Password">Passwort</label>
+                                    <input type="password" id="P_Password" name=Passwort value=ADXS>
+                                </div>
+                            </div>
+
+                            <div class="profil_1">
+                                <div class="alter">
+                                    <label for="P_Alter">Geburtsjahr</label>
+                                    <input type="number" id="P_Alter" name=Alter placeholder=1982>
+                                </div>
+                                <div class="geschlecht">
+                                    <label for="P_Geschlecht">Geschlecht</label>
+                                    <select id="P_Geschlecht" name=Geschlecht>
+                            <option disabled selected hidden></option>
+                            <option>divers</option>
+                            <option>weiblich</option>
+                            <option>männlich</option>
+                            <option>keine Angabe</option>
+                        </select>
+                                </div>
+                            </div>
+
+                            <div class="profil_2">
+                                <div class="subtyp">
+                                    <label for="P_Subtyp">ADHS-Subtyp</label>
+                                    <select id="P_Subtyp" name=Subtyp>
+                        <option disabled selected hidden></option>
+                        <option>ADHS</option>
+                        <option>ADS</option>
+                        <option>Mischtyp</option>
+                        <option>keine Angabe</option>
+                    </select>
+                                </div>
+                                <div class="diagnosen">
+                                    <label for="P_Diagnosen">weitere Diagnosen</label>
+                                    <input type="text" id="P_Diagnosen" name=Diagnosen>
+                                </div>
+                            </div>
+
+                            <div class="profil_1 checkbox">
+                                <div class="zyklus">
+                                    <input type=checkbox class="" id=P_Zyklus name=Zyklus>
+                                    <label class="blue" for=P_Zyklus>
+                            <span></span> 
+                            Zyklus abfragen</label>
+                                </div>
+
+                                <div class="freigeben">
+                                    <input type=checkbox class="" id=P_Freigeben name=Freigeben checked>
+                                    <label class="blue" for=P_Freigeben>
+                            <span></span> 
+                            Daten freigeben
+                        </label>
+                                </div>
+                            </div>
+
+                            <label id="WirkungenLabel" class=f or=situation>    Wirkungen</label>
+                            <div id=WirkungCheckboxes>
+                            </div>
+                            <div class="kommentar profil">
+                                <label class="itemLabel comment" for=P_Kommentar>Kommentar: </label>
+                                <textarea name="P_Kommentar" id="P_Kommentar"></textarea>
+                            </div>
+                            <br>
+                            <button type="submit" id=submitProfil>Absenden</button>
+                        </fieldset>
+                    </form>
+                </div>
+                <!-- PROFIL FORM -->
+
+
+
+                <!-- MOOD FORM -->
+                <div class=slide id="Mood">
+                    <form id=MoodForm autocomplete="off">
+                        <fieldset>
+                            <legend>How do you feel?</legend>
+                            <label id="MedikationHeading" class=SectionHeading>Medikation</label>
+
+                            <div id=Medikation_0 class=medikationSet>
+
+                                <div class="medikation">
+                                    <div class="medikament">
+                                        <label for="M_Medikament[0]">Medikament <!---placeholder--></label>
+                                        <input id="M_Medikament[0]" name=Medikation[0][Medikament] />
+                                    </div>
+                                    <div class="dosierung">
+                                        <label for="M_Dosierung[0]">Dosierung</label>
+                                        <input type="number" id="M_Dosierung[0]" name=Medikation[0][Dosierung]>
+                                    </div>
+                                    <div class="einheit">
+                                        <label for="M_Einheit[0]">Einheit</label>
+                                        <input type="text" id="M_Einheit[0]" name=Medikation[0][Einheit]>
+                                    </div>
+                                </div>
+
+                                <div class=medikation>
+                                    <div class="zeitpunkt">
+                                        <label for="M_Zeitpunkt[0]">Einnahmezeitpunkt</label>
+                                        <input type="time" id="M_Zeitpunkt[0]" name=Medikation[0][Zeitpunkt]>
+                                    </div>
+
+                                    <div class="seitwann">
+                                        <label for="M_SeitWann[0]">Begin der Medikation</label>
+                                        <input type="date" id="M_SeitWann[0]" name=Medikation[0][SeitWann]>
+                                    </div>
+                                </div>
+
+                                <!-- <div class=medikation>
+                        <div class="wirkzeit">
+                            <label>&nbsp;</label>
+                            <input type=checkbox class=hidden id=P _Wirkzeit[0] name=Medikation[0][Wirkzeit]>
+                            <label class="buttonlabel wirkzeit" for=P _Wirkzeit[0]>innerhalb der Wirkzeit</label>
+                        </div>
+                    </div> -->
+
+
+                            </div>
+                            <!-- id=Medikation_0 -->
+                            <div id=AnmerkungMedikation class="kommentar medikament">
+                                <label class="itemLabel comment" for=M_Kommentar[0]>Anmerkungen zur Medikation</label>
+                                <textarea id="M_Kommentar[0]" name=Medikation[0][Kommentar]></textarea>
+                            </div>
+
+                            <div id=AddRemoveMedikation class="">
+                                <label id=AddMedikation class='plusminus plus' onclick=newMedikation()></label>
+                                <label id=RemoveMedikation class='plusminus minus' onclick=delMedikation()></label>
+                            </div>
+
+                            <!-- SITUATIONS -->
+                            <label id="SituationHeading" class=SectionHeading>Situation</label>
+
+                            <div id=SituationCheckboxes>
+                            </div>
+
+                            <label id="WirkungHeading" class=SectionHeading>Wirkung</label>
+                            <div id=MoodRange>
+                            </div>
+
+                            <div class="checkbox">
+                                <label id="WirkzeitHeading" class=SectionHeading>Wirkzeit</label>
+                                <input type=checkbox class="" id=P_Wirkzeit name=Wirkzeit>
+                                <label class="wirkzeit" for=P_Wirkzeit>
+                        <span></span>
+                        Die Medikation wirkt noch</label>
+                            </div>
+
+                            <label id="KommentarHeading" class=SectionHeading>Kommentar</label>
+                            <div class="kommentar mood">
+                                <textarea name="comment" id="comment"></textarea>
+                            </div>
+                            <br>
+                            <br>
+                            <button type="submit" id=submitMood class="pure-button pure-button-primary">absenden</button>
+                        </fieldset>
+                    </form>
+                </div>
+                <!-- MOOD FORM -->
+
+                <!-- CHART -->
+                <div class=slide id="Chart">
+                    <div id="AuswertungsChart">
+                        <fieldset>
+                            <legend>Auswertung</legend>
+                            <div id="ValueLines"></div>
+                            <div id="ChartTooltip">
+                                <table>
+                                    <tr>
+                                        <td>
+                                            <div id="ChartToolDate"></div>
+                                        </td>
+                                        <td>
+                                            <div id="ChartToolSituation"></div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div id="ChartToolWirkungen"></div>
+                                        </td>
+                                        <td>
+                                            <div id="ChartToolMedikation">für Details in das Diagramm zeigen</div>
+                                            <div id="ChartToolKommentar"></div>
+                                        </td>
+                                    </tr>
+
+                                </table>
+                            </div>
+                            <!-- width="500" height="400" -->
+                            <!-- <canvas id="ChartCanvas"></canvas> -->
+
+                            <div class="chart-container">
+                                <canvas id="ChartCanvas"></canvas>
+                            </div>
+
+
+                        </fieldset>
+                    </div>
+                </div>
+                <!-- CHART -->
+
+            </div>
+            <!-- SLIDER -->
+
+
+            <!-- FOOTER -->
+            <div id="footer">
+                Made with <svg viewBox="0 0 1792 1792" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" style="height: 0.8rem;">
+                <path  fill="#be5046" d="M896 1664q-26 0-44-18l-624-602q-10-8-27.5-26T145 952.5 77 855 23.5 734 0 596q0-220 127-344t351-124q62 0 126.5 21.5t120 58T820 276t76 68q36-36 76-68t95.5-68.5 120-58T1314 128q224 0 351 124t127 344q0 221-229 450l-623 600q-18 18-44 18z"></path>
+            </svg> by
+                <a href="https://github.com/KoljaL/kpulbrain" title="Link to Github Repository" target="_blank">
+                    <img src="https://rasal.de/img/kpulbrain-20.png" alt="kpulbrain">
+                </a>
+            </div>
+            <!-- FOOTER -->
+
+            <!-- POUCH DATA -->
+            <div id="pouchData"></div>
+            <!-- POUCH DATA -->
+
+        </div>
+        <!-- div id content -->
+
+        <style>
+            #header {
+                position: fixed;
+                right: 50%;
+                margin-right: -210px;
+                width: 420px;
+                z-index: 5;
+                background: var(--dark);
+                padding-bottom: 10px;
+            }
+            
+            #content {
+                max-width: 1600px;
+                margin: auto;
+                padding: .5em;
+                padding-top: 0.5em;
+                padding: 0;
+            }
+            
+            .chart-container {
+                position: relative;
+                margin: auto;
+                width: calc(100vw - 50px);
+                max-width: 500px;
+            }
+            
+            .slider {
+                margin: auto;
+
+                width: 98vw;
+                overflow: hidden;
+            }
+            /* @media screen and (min-width:40em) {
+                .slider {
+                    width: 1600px;
+                    overflow: hidden;
+                }
+            } */
+            
+            .slides {
+                display: flex;
+                overflow-x: auto;
+                scroll-snap-type: x mandatory;
+                scroll-behavior: smooth;             
+            }
+            
+            .slide {
+                display: flex;
+                flex-shrink: 0;
+                scroll-snap-align: start;
+                position: relative;
+                padding-top: 50px;
+                width: 420px;
+                /* width: 90vw; */
+
+                margin-right: 20px; 
+            }
+            
+            @media screen and (min-width:80em) {
+                .slide {
+                    width: max-content;
+                }
+            }
+        </style>
+
+        <script src="js/randomData.js"></script>
+
+        <script>
+            //
+            // coler the current icon
+            //
+            const profilIcon = document.getElementById('profil').children[0];
+            const moodlIcon = document.getElementById('mood').children[0];
+            const chartIcon = document.getElementById('chart').children[0];
+            const sections = [...document.querySelectorAll('.slide')]
+            const options = {
+                rootMargin: '0px',
+                threshold: 0.25
+            }
+
+            const callback = (entries) => {
+                entries.forEach((entry) => {
+                    if (entry.intersectionRatio >= 0.25) {
+                        // deb(entry.target.id)
+                        changeView(entry.target.id);
+                    }
+                })
+            }
+            const observer = new IntersectionObserver(callback, options)
+            sections.forEach((section, index) => {
+                observer.observe(section)
+            })
+
+            function changeView(view) {
+                // deb(profilIcon.children[0])
+                profilIcon.children[0].style.color = "grey";
+                moodlIcon.children[0].style.color = "grey";
+                chartIcon.children[0].style.color = "grey";
+                // deb(view,'view')
+                if ('Profil' === view) profilIcon.children[0].style.color = "";
+                if ('Mood' === view) moodlIcon.children[0].style.color = "";
+                if ('Chart' === view) chartIcon.children[0].style.color = "";
+            }
+
+
+
+            //
+            // user verification & data link 
+            //
+            var DataFreigegeben = document.getElementById('P_Freigeben').checked;
+            var localDataName = document.getElementById('P_Name').value;
+            // var localDataName = md5(localDataName);
+            var datalink = document.getElementById('datalink');
+
+            // for navigation menu
+            var ProfilLink = document.getElementById('profil');
+            var ProfilForm = document.getElementById('ProfilForm');
+            var MoodLink = document.getElementById('mood');
+            var MoodForm = document.getElementById('MoodForm');
+            var ChartLink = document.getElementById('chart');
+            var AuswertungsChart = document.getElementById('AuswertungsChart');
+            // link to delete localData
+            var DelLocalLink = document.getElementById('dellocal');
+            // all labels
+            var labels = document.getElementsByTagName('label')
+                // all form elements for populating
+            let ProfilFormElements = document.getElementById('ProfilForm').elements;
+            // for pouchdb sym message
+            var syncDom = document.getElementById('sync-wrapper');
+
+
+
+
+
+
+
+            // initial localData
+            // var initObj = new Object({
+            //     Profil: {
+            //         Situations: {
+            //             0: 'gerade aufgewacht',
+            //             1: 'bei der Arbeit',
+            //             2: 'zuhause',
+            //             3: 'kann nicht schlafen',
+            //         },
+            //         Wirkung: {
+            //             0: 'Unruhe___red',
+            //         },
+            //         Freigeben: "on",
+            //     },
+            //     Mood: {}
+            // });
+
+
+            // var localData = JSON.parse(localStorage.getItem(localDataName)) || initObj;
+            // deb(localData)
+            // deb(Object.values(localData.Mood), 'Mood values');
+            // deb(Object.entries(localData.Mood), 'Mood entries');
+            // var allMoods = Object.values(localData.Mood);
+            // for (const mood of allMoods) deb(mood,'allMoods')
+
+
+            //////////////////////////////Debugout/////////////////////////////////
+            // const bugout = new Debugout();
+            // instead of console.log
+            // var Mood = document.getElementById('Mood');
+            // bugout.info('log stuff', Mood);
+            // bugout.downloadLog()
+            //////////////////////////////Debugout/////////////////////////////////
+        </script>
+        <script src="js/form.js"></script>
+        <script>
+            populateProfilForm();
+            populateMoodForm();
+            DataFreigeben();
+            // showMessage(showSize());
+        </script>
+        <script src="js/chart.js"></script>
+</body>
+
+</html>

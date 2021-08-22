@@ -1,17 +1,18 @@
 {
     "Profil": {
         "Freigeben": "on",
-        "Timestamp": 1628116393212,
-        "Datetime": "05.08.2021 00:33:13",
+        "Timestamp": 1629235846369,
+        "Datetime": "17.08.2021 23:30:46",
         "Alter": "1722",
         "Geschlecht": "divers",
         "Subtyp": "ADS",
         "Wirkung": [
+            "Brainload___orange",
             "Unruhe___red",
             "Konzentration___blue",
             "Aufmerksamkeit___green",
             "Motivation___salomon",
-            "Brainload___orange"
+            "Auslastung___orange"
         ],
         "P_Kommentar": "bin mal gespannt",
         "Situations": [
@@ -19,7 +20,11 @@
             "bei der Arbeit",
             "zuhause",
             "kann nicht schlafen"
-        ]
+        ],
+        "Browser": "Firefox 91",
+        "OS": "Linux",
+        "Viewport": "1779 x 1082",
+        "Zyklus": "on"
     },
     "Mood": {
         "1629230268104": {

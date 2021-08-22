@@ -324,9 +324,9 @@ var myChart = new Chart(document.getElementById("ChartCanvas").getContext("2d"),
     options: {
         showLines: false,
         // events: ['click'],
-        // responsive: true,
+        responsive: true,
         // maintainAspectRatio: false,
-        aspectRatio: 2.25,
+        aspectRatio: 1.25,
         // for better performance
         animation: {
             duration: 0,
@@ -352,7 +352,7 @@ var myChart = new Chart(document.getElementById("ChartCanvas").getContext("2d"),
                 display: false,
             },
 
-            zoom: zoomOptions,
+            // zoom: zoomOptions,
             title: {
                 display: true,
                 position: 'top',

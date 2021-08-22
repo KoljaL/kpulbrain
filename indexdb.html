@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <title>IndexDB</title>
+    <meta http-equiv="Cache-control" content="No-Cache">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script>
+        function deb(value, text = " ", c = '#e6c07b') {
+            console.log("%c " + text + " ", `color:${c}; font-weight: normal; font-size:1.1em;`) //ᐁᐁᐁ
+            console.log(value)
+            console.log(" ")
+        }
+    </script>
+    <script src="js/localCache2.js"></script>
+    <link rel="stylesheet" name="style" href="css/style.css">
+
+</head>
+
+<body>
+
+    <div id="content">
+        <div id="sync-wrapper">
+            <div id="sync-success">Currently syncing</div>
+            <div id="sync-error">There was a problem syncing</div>
+        </div>
+        <div id="pouchData">
+
+        </div>
+    </div>
+
+    <script>
+        // We have to create a new todo document and enter it in the database
+        function putData(text, timestamp) {
+            var todo = {
+                _id: timestamp, //new Date().toISOString(),
+                JSON: text,
+                completed: false
+            };
+            deb(todo, 'putData')
+            db.put(todo, function callback(err, result) {
+                if (!err) {
+                    deb('Successfully posted: ') // + text);
+                    sync();
+                } else {
+                    deb(err, 'NOT posted: ') // + text);
+                }
+            });
+        }
+
+
+
+        // Show the current list of todos by reading them from the database
+        function showData(db) {
+            db.allDocs({
+                include_docs: true,
+                descending: true
+            }, function(err, doc) {
+                redrawTodosUI(doc.rows);
+                deb(doc, 'showData')
+            });
+        }
+
+
+
+
+        // There was some form or error syncing
+        function syncError() {
+            deb('There was some form or error syncing')
+            syncDom.setAttribute('data-sync-state', 'error');
+        }
+
+
+
+
+
+        // if (remoteCouch) {
+        //     // sync();
+        // }
+
+        // Initialise a sync with the remote server
+        function sync() {
+            syncDom.setAttribute('data-sync-state', 'syncing');
+            var opts = {
+                live: true
+            };
+            db.replicate.to(remoteCouch, opts, syncError);
+            db.replicate.from(remoteCouch, opts, syncError);
+        }
+
+
+
+        // User pressed the delete button for a todo, delete it
+        function deleteButtonPressed(db) {
+            db.get(db, function(err, doc) {
+                deb(db, 'deleteButton')
+                if (err) {
+                    return console.log(err);
+                }
+                db.remove(doc._id, doc._rev, function(err, response) {
+                    if (err) {
+                        return console.log(err);
+                    }
+                    // handle response
+                });
+            });
+        }
+        // deleteButtonPressed(db)
+
+        function destroyDB(db) {
+            db.destroy(function(err, response) {
+                if (err) {
+                    return console.log(err);
+                } else {
+                    // success
+                }
+            });
+        }
+        // destroyDB(db)
+
+        function infoDB(db) {
+            db.info(function(err, info) {
+                if (err) {
+                    return deb(err, 'err');
+                }
+                // deb(info, 'info')
+            });
+        }
+
+
+        function changesDB(db) {
+            db.changes({
+                since: 'now',
+                live: true
+            }).on('change', showData);
+        }
+
+        function redrawTodosUI(todos) {
+            var pouchData = document.getElementById('pouchData');
+            let json = ''
+            todos.forEach(function(todo) {
+                // deb(todo, 'todo.doc.JSON')
+                json += '<label>' + todo.doc._id + '</label><div style="border:0px solid green">' + syntaxHighlight(todo.doc.JSON).replace(/{/g, '').replace(/}/g, '').replace(/"/g, '').replace(/,/g, '').replace(/\n\n/g, '') + '</div>';
+                // deb(json, 'json')
+            });
+            json = json.split('\n').filter(function(v) {
+                return (/\S/.test(v))
+            }).join('\n');
+            // deb(json.split('\n'), 'json.split(n)')
+            pouchData.innerHTML = json;
+        }
+
+
+
+
+
+        function syntaxHighlight(json) {
+            if (typeof json != 'string') {
+                json = JSON.stringify(json, undefined, 2);
+            }
+            json = json.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+            return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function(match) {
+                var cls = 'number';
+                if (/^"/.test(match)) {
+                    if (/:$/.test(match)) {
+                        cls = 'key';
+                    } else {
+                        cls = 'string';
+                    }
+                } else if (/true|false/.test(match)) {
+                    cls = 'boolean';
+                } else if (/null/.test(match)) {
+                    cls = 'null';
+                }
+                return '<span class="' + cls + '">' + match + '</span>';
+            });
+        }
+
+
+        ///////////////////////////////////////////// RUN //////////////////////////////7
+
+        var syncDom = document.getElementById('sync-wrapper');
+
+
+        let dbName = 'test';
+        var db = new PouchDB(dbName);
+        var remoteCouch = 'http://root:root@127.0.0.1:5984/' + dbName;
+        // deb(db, 'db')
+
+
+        // destroyDB(db)
+
+        Timestamp = new Date();
+        // let Timestamp = JSON.stringify(Timestamp)
+        // putData(json, "Profil");
+
+        let json = {
+            time: Timestamp,
+            test: 'bla'
+        }
+        let json1 = {
+            test: 'blub'
+        }
+        
+
+        db.get('Profil').then(function(doc) {
+            // update their age
+            doc.JSON = json;
+            doc.age = 1;
+            // put them back
+            return db.put(doc);
+        }).then(function() {
+            // fetch mittens again
+            return db.get('Profil');
+        }).then(function(doc) {
+            console.log(doc);
+            document.getElementById('pouchData').innerHTML = 'We updated Profil: ' + syntaxHighlight(doc);
+
+        });
+
+        showData(db)
+
+
+
+        var doc = {
+            "_id": "mittens1",
+            "name": "Mittens",
+            "occupation": "kitten",
+            "age": 3,
+            "hobbies": [
+                "playing with balls of yarn",
+                "chasing laser pointers",
+                "lookin' hella cute"
+            ]
+        };
+
+
+        // var db = new PouchDB('sample')
+
+
+        // db.get('mittens').then(function(doc) {
+        //     // update their age
+        //     doc.age = 5;
+        //     // put them back
+        //     return db.put(doc);
+        // }).then(function() {
+        //     // fetch mittens again
+        //     return db.get('mittens');
+        // }).then(function(doc) {
+        //     console.log(doc);
+        //     document.getElementById('pouchData').innerHTML = 'We updated a kitten: ' + syntaxHighlight(doc);
+
+        // });
+
+
+    
+
+
+        // new PouchDB('sample').destroy().then(function() {
+        //     return new PouchDB('sample');
+        // }).then(function(db) { 
+
+        //     db.put(doc).then(function() {
+        //         return db.get('mittens');
+        //     }).then(function(doc) {
+        //         doc.age = 4;
+        //         return db.put(doc);
+        //     }).then(function() {
+        //         return db.get('mittens');
+        //     }).then(function(doc) {
+        //         // document.getElementById('pouchData').innerHTML = 'We updated a kitten: ' + syntaxHighlight(doc);
+        //     });
+
+        // });
+
+
+
+
+
+
+        ///////////////////////////////////////////// RUN //////////////////////////////7
+    </script>
+</body>

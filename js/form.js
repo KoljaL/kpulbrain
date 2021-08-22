@@ -214,28 +214,28 @@ function populateMoodForm() {
     // CREATE WIRKUNG SLIDER
     //
     // deb(localDataProfil.Wirkung)
-    let WirkungSlider = '';
+    let WirkungRange = '';
     for (const key in localDataProfil.Wirkung) {
         let value = localDataProfil.Wirkung[key].split("___")
         let name = value[0];
         let color = value[1];
-        WirkungSlider += `<div class="sliderdiv ${color}">`;
-        WirkungSlider += `<label class="itemLabel ${name} sliderLabel" for="${name}Slider">${name}: </label>`;
-        WirkungSlider += `<div class=sliderValue id="${name}SliderOutput">0</div>`;
-        WirkungSlider += `<input type="range" min="-5" max="5" value="0" step="1" oninput="updateSlider(this)" class="slider ${color}" id="${name}Slider" name="mood[${name}]">`;
-        WirkungSlider += `</div>`;
+        WirkungRange += `<div class="rangediv ${color}">`;
+        WirkungRange += `<label class="itemLabel ${name} rangeLabel" for="${name}Range">${name}: </label>`;
+        WirkungRange += `<div class=rangeValue id="${name}RangeOutput">0</div>`;
+        WirkungRange += `<input type="range" min="-5" max="5" value="0" step="1" oninput="updateRange(this)" class="range ${color}" id="${name}Range" name="mood[${name}]">`;
+        WirkungRange += `</div>`;
     }
-    document.getElementById('MoodSlider').innerHTML = WirkungSlider;
+    document.getElementById('MoodRange').innerHTML = WirkungRange;
 };
 
 
 
 //
-// get called by changing the slider and updates the value in the output div
+// get called by changing the range and updates the value in the output div
 //
-function updateSlider(slider) {
-    let value = slider.value
-    let name = slider.id
+function updateRange(range) {
+    let value = range.value
+    let name = range.id
     document.getElementById(name + 'Output').innerHTML = value;
 }
 
@@ -297,7 +297,7 @@ for (const form of forms) {
                 // deb(localData, 'localData nachher');
 
                 // putData(JSON.stringify(FormResultsObject),'Profil')
-                // putData(FormResultsObject, 'Profil' + Timestamp)
+                putData(FormResultsObject, 'Profil' + Timestamp)
 
             }
 
@@ -362,41 +362,23 @@ for (const form of forms) {
 }
 
 
-function findMed(input) {
-    // deb(input.id, 'findMed')
-    // deb(input.value, 'findMed')
-    // deb(input.nextElementSibling, 'nextElementSibling')
-
-    // let values = input.nextElementSibling.children;
-    // deb(values)
-    // for (const li of values) {
-    //     console.log(li.textContent);
-    // }
-    // if (input.value.length < 2) {
-    // var input = document.getElementById(input.id);
-    // new Awesomplete(input, {
-    //     list: ["Attentin", "Elvanse", "Elvanse Adult", "Ritalin (unretardiert)", "Medikinet (unretardiert)", "Ritalin Retard", "Medikinet Retard", "Equasym", "Ritalin Adult", "Medikinet Adult", "Kinecteen", "Concerta", "Strattera", "Intuniv "]
-    // });
-    // deb(Awesomplete)
-    // }
-}
-
+ 
 
 
 //////////////////// PouchDB //////////////////// PouchDB //////////////////// PouchDB //////////////////// PouchDB //////////////////// PouchDB 
 //
 // PouchDB
 //
-// let dbName = localDataName;
-// var db = new PouchDB(dbName);
-// var remoteCouch = 'http://root:root@127.0.0.1:5984/' + dbName;
-// showData()
+let dbName = localDataName;
+var db = new PouchDB(dbName);
+var remoteCouch = 'http://root:root@127.0.0.1:5984/' + dbName;
+showData()
 // deb(db,'db')
 
-// db.changes({
-//     since: 'now',
-//     live: true
-// }).on('change', showData);
+db.changes({
+    since: 'now',
+    live: true
+}).on('change', showData);
 
 
 
@@ -408,7 +390,7 @@ function putData(text, timestamp) {
         JSON: text,
         completed: false
     };
-    deb(todo, 'putData')
+    // deb(todo, 'putData')
     db.put(todo, function callback(err, result) {
         if (!err) {
             deb('Successfully posted: ') // + text);
@@ -423,7 +405,7 @@ function putData(text, timestamp) {
 function showData() {
     db.allDocs({ include_docs: true, descending: true }, function(err, doc) {
         redrawTodosUI(doc.rows);
-        deb(doc, 'showData')
+        // deb(doc, 'showData')
     });
 }
 
@@ -679,7 +661,7 @@ function newMedikation() {
     document.getElementById("RemoveMedikation").style.display = 'inline';
     // ct++;
     let input = document.getElementById('M_Medikament[' + MedikationCount + ']')
-    // deb(input)
+        // deb(input)
     new Awesomplete(input, {
         list: MedikationArray
     });
@@ -687,10 +669,10 @@ function newMedikation() {
 }
 
 let input = document.getElementById('M_Medikament[0]')
-// deb(input)
+    // deb(input)
 new Awesomplete(input, {
     list: MedikationArray
-    });
+});
 
 
 
@@ -710,9 +692,9 @@ function delMedikation() {
 // show profil form
 //
 function showProfil() {
-    ProfilForm.style.display = 'block';
-    MoodForm.style.display = 'none';
-    AuswertungsChart.style.display = 'none';
+    // ProfilForm.style.display = 'block';
+    // MoodForm.style.display = 'none';
+    // AuswertungsChart.style.display = 'none';
 }
 
 
@@ -720,18 +702,18 @@ function showProfil() {
 // show profil form
 //
 function showChart() {
-    AuswertungsChart.style.display = 'block';
-    ProfilForm.style.display = 'none';
-    MoodForm.style.display = 'none';
+    // AuswertungsChart.style.display = 'block';
+    // ProfilForm.style.display = 'none';
+    // MoodForm.style.display = 'none';
 }
 
 //
 // show mood form
 //
 function showMood() {
-    MoodForm.style.display = 'block';
-    ProfilForm.style.display = 'none';
-    AuswertungsChart.style.display = 'none';
+    // MoodForm.style.display = 'block';
+    // ProfilForm.style.display = 'none';
+    // AuswertungsChart.style.display = 'none';
 
 }
 
@@ -907,6 +889,23 @@ function getOS() {
 
 
 
+//
+// TOGGLE THEME
+//
+var toggle = document.getElementById("theme-toggle");
+var storedTheme = localStorage.getItem('theme') || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+if (storedTheme) {
+    document.documentElement.setAttribute('data-theme', storedTheme)
+}
+toggle.onclick = function() {
+    var currentTheme = document.documentElement.getAttribute("data-theme");
+    var targetTheme = "light";
+    if (currentTheme === "light") {
+        targetTheme = "dark";
+    }
+    document.documentElement.setAttribute('data-theme', targetTheme)
+    localStorage.setItem('theme', targetTheme);
+};
 
 
 
