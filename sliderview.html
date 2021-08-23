@@ -32,7 +32,7 @@
     <link rel="icon" type="image/svg+xml"  sizes="48x48" href="https://rasal.de/img/kpulbrain_favicon_48.png">
     <link rel="icon" type="image/svg+xml"  sizes="96x96" href="https://rasal.de/img/kpulbrain_favicon_48.png"> -->
     <!-- <link rel="manifest" href="/site.webmanifest"> -->
- 
+
     <link rel='icon' type="image/svg+xml" href='icon.svg'>
     <link rel='icon' sizes='192x192' href='icon.svg'>
 
@@ -55,9 +55,8 @@
 
     <script src="js/debugout.js"></script>
 
-</head>
 
-<!-- <script src="js/localCache.js"></script>
+    <!-- <script src="js/localCache.js"></script>
 <script>
     requireScript('formtoobj', '1.11.2', 'https://dev.rasal.de/kpulbrain/js/formtoobj.js');
     requireScript('md5', '1.11.2', 'https://dev.rasal.de/kpulbrain/js/md5.js');
@@ -69,8 +68,9 @@
     requireScript('luxon', '1.11.2', 'https://dev.rasal.de/kpulbrain/js/hammer.js');
 </script> -->
 
-<script src="js/localCache2.js"></script>
+    <script src="js/localCache2.js"></script>
 
+</head>
 
 <body>
     <div id=formcontent></div>
@@ -134,12 +134,12 @@
                                 <div class="geschlecht">
                                     <label for="P_Geschlecht">Geschlecht</label>
                                     <select id="P_Geschlecht" name=Geschlecht>
-                            <option disabled selected hidden></option>
-                            <option>divers</option>
-                            <option>weiblich</option>
-                            <option>männlich</option>
-                            <option>keine Angabe</option>
-                        </select>
+                                        <option disabled selected hidden></option>
+                                        <option>divers</option>
+                                        <option>weiblich</option>
+                                        <option>männlich</option>
+                                        <option>keine Angabe</option>
+                                    </select>
                                 </div>
                             </div>
 
@@ -147,12 +147,12 @@
                                 <div class="subtyp">
                                     <label for="P_Subtyp">ADHS-Subtyp</label>
                                     <select id="P_Subtyp" name=Subtyp>
-                        <option disabled selected hidden></option>
-                        <option>ADHS</option>
-                        <option>ADS</option>
-                        <option>Mischtyp</option>
-                        <option>keine Angabe</option>
-                    </select>
+                                    <option disabled selected hidden></option>
+                                    <option>ADHS</option>
+                                    <option>ADS</option>
+                                    <option>Mischtyp</option>
+                                    <option>keine Angabe</option>
+                                </select>
                                 </div>
                                 <div class="diagnosen">
                                     <label for="P_Diagnosen">weitere Diagnosen</label>
@@ -177,7 +177,7 @@
                                 </div>
                             </div>
 
-                            <label id="WirkungenLabel" class=f or=situation>    Wirkungen</label>
+                            <label id="WirkungenLabel" class="" for=situation>Wirkungen</label>
                             <div id=WirkungCheckboxes>
                             </div>
                             <div class="kommentar profil">
@@ -229,15 +229,6 @@
                                     </div>
                                 </div>
 
-                                <!-- <div class=medikation>
-                        <div class="wirkzeit">
-                            <label>&nbsp;</label>
-                            <input type=checkbox class=hidden id=P _Wirkzeit[0] name=Medikation[0][Wirkzeit]>
-                            <label class="buttonlabel wirkzeit" for=P _Wirkzeit[0]>innerhalb der Wirkzeit</label>
-                        </div>
-                    </div> -->
-
-
                             </div>
                             <!-- id=Medikation_0 -->
                             <div id=AnmerkungMedikation class="kommentar medikament">
@@ -263,9 +254,7 @@
                             <div class="checkbox">
                                 <label id="WirkzeitHeading" class=SectionHeading>Wirkzeit</label>
                                 <input type=checkbox class="" id=P_Wirkzeit name=Wirkzeit>
-                                <label class="wirkzeit" for=P_Wirkzeit>
-                        <span></span>
-                        Die Medikation wirkt noch</label>
+                                <label class="wirkzeit" for=P_Wirkzeit><span></span>Die Medikation wirkt noch</label>
                             </div>
 
                             <label id="KommentarHeading" class=SectionHeading>Kommentar</label>
@@ -308,8 +297,6 @@
 
                                 </table>
                             </div>
-                            <!-- width="500" height="400" -->
-                            <!-- <canvas id="ChartCanvas"></canvas> -->
 
                             <div class="chart-container">
                                 <canvas id="ChartCanvas"></canvas>
@@ -322,28 +309,103 @@
                 <!-- CHART -->
 
             </div>
-            <!-- SLIDER -->
-
-
-            <!-- FOOTER -->
-            <div id="footer">
-                Made with <svg viewBox="0 0 1792 1792" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" style="height: 0.8rem;">
-                <path  fill="#be5046" d="M896 1664q-26 0-44-18l-624-602q-10-8-27.5-26T145 952.5 77 855 23.5 734 0 596q0-220 127-344t351-124q62 0 126.5 21.5t120 58T820 276t76 68q36-36 76-68t95.5-68.5 120-58T1314 128q224 0 351 124t127 344q0 221-229 450l-623 600q-18 18-44 18z"></path>
-            </svg> by
-                <a href="https://github.com/KoljaL/kpulbrain" title="Link to Github Repository" target="_blank">
-                    <img src="https://rasal.de/img/kpulbrain-20.png" alt="kpulbrain">
-                </a>
-            </div>
-            <!-- FOOTER -->
-
-            <!-- POUCH DATA -->
-            <div id="pouchData"></div>
-            <!-- POUCH DATA -->
+            <!-- SLIDES -->
 
         </div>
-        <!-- div id content -->
+        <!-- SLIDER -->
+
+        <!-- FOOTER -->
+        <div id="footer">
+            Made with <svg viewBox="0 0 1792 1792" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" style="height: 0.8rem;">
+                <path  fill="#be5046" d="M896 1664q-26 0-44-18l-624-602q-10-8-27.5-26T145 952.5 77 855 23.5 734 0 596q0-220 127-344t351-124q62 0 126.5 21.5t120 58T820 276t76 68q36-36 76-68t95.5-68.5 120-58T1314 128q224 0 351 124t127 344q0 221-229 450l-623 600q-18 18-44 18z"></path>
+            </svg> by
+            <a href="https://github.com/KoljaL/kpulbrain" title="Link to Github Repository" target="_blank">
+                <img src="https://rasal.de/img/kpulbrain-20.png" alt="kpulbrain">
+            </a>
+        </div>
+        <!-- FOOTER -->
+
+        <!-- POUCH DATA -->
+        <div id="pouchData"></div>
+        <!-- POUCH DATA -->
+
+
+
+        <script>
+            // const media_query = window.matchMedia(`(max-width: 27em)`);
+            // function toggle_mobile(e) {
+            //     deb(e, 'toggle_mobile')
+            //     if (e.matches) {
+            //         document.body.classList.add("mobile");
+            //         // document.getElementById('sync-wrapper').innerHTML = "27";
+
+            //     } else {
+            //         document.body.classList.remove("mobile");
+            //         // document.getElementById('sync-wrapper').innerHTML = "big";
+            //     }
+            // }
+            // toggle_mobile(media_query);
+            // media_query.addEventListener("change", toggle_mobile);
+
+
+
+
+
+            function toggle_mobile() {
+
+                deb(window.matchMedia(`(max-width: 27em)`).matches, '27')
+                deb(window.matchMedia(`(max-width: 56em)`).matches, '56')
+                deb(window.matchMedia(`(min-width: 100em)`).matches, '100')
+
+
+                if (window.matchMedia(`(max-width: 26em)`).matches) {
+                    document.body.classList.add("smallView");
+                    document.body.classList.remove("mediumView");
+                    document.body.classList.remove("largeView");
+                    document.getElementById('footer').innerHTML = "27";
+
+                } else if (window.matchMedia(`(max-width: 56em)`).matches) {
+                    document.body.classList.remove("smallView");
+                    document.body.classList.add("mediumView");
+                    document.body.classList.remove("largeView");
+                    document.getElementById('footer').innerHTML = "56";
+
+                } else if (window.matchMedia(`(min-width: 100em)`).matches) {
+                    document.body.classList.remove("smallView");
+                    document.body.classList.remove("mediumView");
+                    document.body.classList.add("largeView");
+                    document.getElementById('footer').innerHTML = "100";
+                }
+            }
+
+            toggle_mobile();
+            window.addEventListener("resize", toggle_mobile);
+
+        </script>
 
         <style>
+            /* @media screen and (min-width:27em) {
+                 :root {
+                    --fullWidth: "27em";
+                    --normalField: "27em";
+                    --wideField: "27em";
+                }
+            }
+            
+            @media screen and (min-width:56em) {
+                 :root {
+                    --fullWidth: "56em";
+                    --normalField: "27em";
+                    --wideField: "34em";
+                }
+            }
+            
+             :root {
+                --fullWidth: 100;
+                --normalField: "27em";
+                --wideField: "34em";
+            } */
+            
             #header {
                 position: fixed;
                 right: 50%;
@@ -355,7 +417,7 @@
             }
             
             #content {
-                max-width: 1600px;
+                max-width: 100em;
                 margin: auto;
                 padding: .5em;
                 padding-top: 0.5em;
@@ -368,19 +430,18 @@
                 width: calc(100vw - 50px);
                 max-width: 500px;
             }
+            /* ///////////////// SLIDER /////////////////////// */
             
             .slider {
                 margin: auto;
-                width: 98vw;
-                overflow: hidden;
+                width: 1600px;
+                overflow-x: hidden;
+                /* overflow-y: scroll; */
+                /* height: calc(100vh - 75px); */
             }
-            /* @media screen and (min-width:40em) {
-                .slider {
-                    width: 1600px;
-                    overflow: hidden;
-                }
-            } */
-            
+            .smallView .slider{
+                width: 89vw;
+            }
             .slides {
                 display: flex;
                 overflow-x: auto;
@@ -394,55 +455,90 @@
                 scroll-snap-align: start;
                 position: relative;
                 padding-top: 50px;
-                width: 420px;
+                width: 27em;
+                /* max-height: max-content; */
                 /* width: 90vw; */
                 margin-right: 20px;
             }
             
-            @media screen and (min-width:80em) {
-                .slide {
-                    width: max-content;
-                }
+         
+            
+            fieldset {
+                overflow-y: scroll;
+                max-height: calc(100vh - 105px);
             }
+            
+            #footer {
+                position: fixed;
+                right: 50%;
+                margin-right: -100px;
+                width: 200px;
+                bottom: 5px;
+                padding: 0;
+            }
+            
+            #pouchData {
+                display: none;
+                position: relative;
+                bottom: -100px;
+                border-top: 2px solid var(--red);
+            }
+            /* ///////////////// SLIDER /////////////////////// */
         </style>
 
         <script src="js/randomData.js"></script>
 
         <script>
             //
-            // coler the current icon
+            // colorize the current icon
             //
-            const profilIcon = document.getElementById('profil').children[0];
-            const moodlIcon = document.getElementById('mood').children[0];
-            const chartIcon = document.getElementById('chart').children[0];
-            const sections = [...document.querySelectorAll('.slide')]
-            const options = {
-                rootMargin: '0px',
-                threshold: 0.25
-            }
 
-            const callback = (entries) => {
-                entries.forEach((entry) => {
-                    if (entry.intersectionRatio >= 0.25) {
-                        // deb(entry.target.id)
-                        changeView(entry.target.id);
-                    }
+            //
+            // get css property of :root-medView as int
+            //
+            // const medView = getComputedStyle(document.documentElement).getPropertyValue('--medView').match(/(\d+)/)[0];
+            const fullWidth = getComputedStyle(document.documentElement).getPropertyValue('--fullWidth') //.match(/(\d+)/)[0];
+                // get viewField width in em
+            const vw = document.documentElement.clientWidth / 16;
+            document.getElementById('sync-wrapper').innerHTML = vw + "em clientWidth";
+
+            // deb(vw, 'clientWidth')
+            // deb(fullWidth, 'fullWidth')
+
+            if (vw <= fullWidth) {
+
+                const profilIcon = document.getElementById('profil').children[0];
+                const moodlIcon = document.getElementById('mood').children[0];
+                const chartIcon = document.getElementById('chart').children[0];
+                const sections = [...document.querySelectorAll('.slide')]
+                const options = {
+                    rootMargin: '0px',
+                    threshold: 0.25
+                }
+
+                const callback = (entries) => {
+                    entries.forEach((entry) => {
+                        if (entry.intersectionRatio >= 0.25) {
+                            // deb(entry.target.id)
+                            changeView(entry.target.id);
+                        }
+                    })
+                }
+                const observer = new IntersectionObserver(callback, options)
+                sections.forEach((section, index) => {
+                    observer.observe(section)
                 })
-            }
-            const observer = new IntersectionObserver(callback, options)
-            sections.forEach((section, index) => {
-                observer.observe(section)
-            })
 
-            function changeView(view) {
-                // deb(profilIcon.children[0])
-                profilIcon.children[0].style.color = "grey";
-                moodlIcon.children[0].style.color = "grey";
-                chartIcon.children[0].style.color = "grey";
-                // deb(view,'view')
-                if ('Profil' === view) profilIcon.children[0].style.color = "";
-                if ('Mood' === view) moodlIcon.children[0].style.color = "";
-                if ('Chart' === view) chartIcon.children[0].style.color = "";
+                function changeView(view) {
+                    // deb(profilIcon.children[0])
+                    profilIcon.children[0].style.color = "grey";
+                    moodlIcon.children[0].style.color = "grey";
+                    chartIcon.children[0].style.color = "grey";
+                    // deb(view,'view')
+                    if ('Profil' === view) profilIcon.children[0].style.color = "";
+                    if ('Mood' === view) moodlIcon.children[0].style.color = "";
+                    if ('Chart' === view) chartIcon.children[0].style.color = "";
+                }
             }
 
 

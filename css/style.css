@@ -350,7 +350,7 @@ button:hover {
 */
 
 #content {
-    max-width: 832px;
+    /* max-width: 832px; */
     margin: auto;
     padding: .5em;
     padding-top: 0;
