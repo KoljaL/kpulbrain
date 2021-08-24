@@ -51,7 +51,6 @@ html[data-theme='light'] {
     --orange: #C46210;
     /* --yellow: #AC8B13; */
     --yellow: #9C7C38;
-
 }
 
 :crayolaMetallic {
@@ -151,6 +150,12 @@ html[data-theme='light'] {
 * {
     scrollbar-width: none;
     transition: .5s;
+}
+
+.hide-scrollbar {
+    overflow: auto;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
 }
 
 body {
@@ -372,7 +377,8 @@ button:hover {
     left: 20px
 }
 
-#header {
+
+/* #header {
     display: flex;
     justify-content: space-around;
     font-size: 1.3em;
@@ -380,25 +386,30 @@ button:hover {
 }
 
 #header div {
-    padding-top: .5em;
-}
+    padding-top: .5em; 
+} */
 
 
 /* #chart {
     text-decoration: line-through
 } */
 
+
 /* XXX */
+
+
 /* #AuswertungsChart,
 #ProfilForm,
 #MoodForm {
     display: none;
 } */
 
+
+/* 
 #ProfilForm,
 #MoodForm {
     width: 425px;
-}
+} */
 
 #ProfilForm fieldset {
     /* color: var(--blue); */
@@ -516,7 +527,7 @@ button:hover {
                         PROFIL
 ========================================================================== 
 */
-
+textarea#P_Diagnosen,
 #ProfilForm legend,
 #ProfilForm input,
 #ProfilForm select {
@@ -531,8 +542,14 @@ button:hover {
     /* min-height: 80px; */
 }
 
+@media screen and (max-width:56em) {
+    .profil_1 {
+        flex-wrap: wrap;
+    }
+}
+
 .profil_1>div {
-    width: 190px;
+    max-width: 150px;
 }
 
 
@@ -551,7 +568,7 @@ button:hover {
 }
 
 .profil_1 #P_Alter {
-    width: 80px
+    max-width: 80px
 }
 
 
@@ -578,11 +595,11 @@ button:hover {
 }
 
 .profil_2 .subtyp {
-    width: 150px
+    max-width: 150px
 }
 
 .profil_2 .diagnosen {
-    max-width: 100%
+    max-width: 150px;
 }
 
 #WirkungenLabel {
@@ -599,7 +616,13 @@ button:hover {
 }
 
 #WirkungCheckboxes>div {
-    width: 190px;
+    max-width: 150px;
+}
+
+@media screen and (max-width:56em) {
+    #WirkungCheckboxes {
+        display: block;
+    }
 }
 
 
@@ -758,13 +781,13 @@ button:hover {
 }
 
 .medikation .medikament {
-    width: 170px
+    max-width: 170px
 }
 
 .medikation .dosierung,
 .medikation .zeitpunkt,
 .einheit {
-    width: 100px
+    max-width: 100px
 }
 
 .kommentar.medikament textarea {
@@ -1054,7 +1077,8 @@ label.salomon,
 */
 
 #ChartCanvas {
-    width: 600px;
+    font-size: inherit;
+    /* width: 600px; */
     /* height: 400px; */
 }
 
@@ -1185,6 +1209,7 @@ label.salomon,
     top: 5px;
     right: 5px;
 }
+
 .icono-eye {
     border-radius: 80% 20%;
     -webkit-transform: rotate(45deg);
@@ -1194,6 +1219,7 @@ label.salomon,
     width: 28px;
     margin: 3px;
 }
+
 
 /* 
 ==========================================================================

@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <title>KpUlBrain</title>
+    <meta http-equiv="Cache-control" content="No-Cache">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- , maximum-scale=1.0, user-scalable=no -->
+    <!-- <link rel="icon" type="image/svg+xml"  sizes="16x16" href="https://rasal.de/img/kpulbrain_favicon_16.png">
+    <link rel="icon" type="image/svg+xml"  sizes="32x32" href="https://rasal.de/img/kpulbrain_favicon_32.png">
+    <link rel="icon" type="image/svg+xml"  sizes="48x48" href="https://rasal.de/img/kpulbrain_favicon_48.png">
+    <link rel="icon" type="image/svg+xml"  sizes="96x96" href="https://rasal.de/img/kpulbrain_favicon_48.png"> -->
+    <!-- <link rel="manifest" href="/site.webmanifest"> -->
+    <link rel='icon' type="image/svg+xml" href='icon.svg'>
+    <link rel='icon' sizes='192x192' href='icon.svg'>
+
+    <link rel="stylesheet" name="reseter" href="css/reseter.css" />
+    <link rel="stylesheet" name="style" href="css/icono.css">
+    <link rel="stylesheet" name="style" href="css/style.css">
+
+
+    <meta name="theme-color" content="#4285f4">
+
+    <!-- <script src="js/formtoobj.js"></script>
+    <script src="js/md5.js"></script>
+    <script src="js/debugHelper.js"></script>
+    <script src="js/longpress.js"></script>
+    <script src="js/chartJS.js"></script> 
+    <script src="js/luxon.js"></script> 
+    <script src="js/chartjs-zoom.js"></script>
+    <script src="js/awesomplete.js"></script>
+    <script src="js/hammer.js"></script> -->
+
+
+</head>
+
+<!-- <script src="js/localCache.js"></script>
+<script>
+    requireScript('formtoobj', '1.11.2', 'https://dev.rasal.de/kpulbrain/js/formtoobj.js');
+    requireScript('md5', '1.11.2', 'https://dev.rasal.de/kpulbrain/js/md5.js');
+    requireScript('debugHelper', '1.11.2', 'https://dev.rasal.de/kpulbrain/js/debugHelper.js');
+    requireScript('longpress', '1.11.2', 'https://dev.rasal.de/kpulbrain/js/longpress.js');
+    requireScript('chartJS', '1.11.2', 'https://dev.rasal.de/kpulbrain/js/chartJS.js');
+    requireScript('luxon', '1.11.2', 'https://dev.rasal.de/kpulbrain/js/luxon.js');
+    requireScript('luxon', '1.11.2', 'https://dev.rasal.de/kpulbrain/js/chartjs-zoom.js');
+    requireScript('luxon', '1.11.2', 'https://dev.rasal.de/kpulbrain/js/hammer.js');
+</script> -->
+
+<script src="js/localCache2.js"></script>
+
+
+<body>
+    <div id=formcontent></div>
+    <div id=overlay></div>
+    <div id=content>
+
+
+        <div id="sync-wrapper">
+            <div id="sync-success">Currently syncing</div>
+            <div id="sync-error">There was a problem syncing</div>
+        </div>
+
+        <!-- HEADER -->
+        <div id="header">
+            <div id=profil>
+                <a href="#profil" class=blueFont onclick="showProfil()"><i class="icono-user"></i></a>
+            </div>
+            <div id=mood>
+                <a href="#mood" class=orangeFont onclick="showMood()"><i class="icono-sliders"></i></a>
+            </div>
+            <div id=chart>
+                <a href="#chart" class=greenFont onclick="showChart()"><i class="icono-image"></i></a>
+            </div>
+            <div id=datalink>
+            </div>
+            <div id=dellocal>
+                <a href="#dellocal" class=redFont><i class="icono-reset"></i></a>
+            </div>
+            <div id=theme-toggle>
+                <i class="icono-eye"></i>
+            </div>
+        </div>
+        <!-- HEADER -->
+
+
+
+        <!-- PROFIL FORM -->
+        <form id=ProfilForm autocomplete="off">
+            <fieldset>
+                <legend>Profil</legend>
+
+                <div class="profil_1">
+                    <div class="name">
+                        <label for="P_Name">Name</label>
+                        <input type="text" id="P_Name" name=Name value=ADXS>
+                    </div>
+                    <div class="password">
+                        <label for="P_Password">Passwort</label>
+                        <input type="password" id="P_Password" name=Passwort value=ADXS>
+                    </div>
+                </div>
+
+                <div class="profil_1">
+                    <div class="alter">
+                        <label for="P_Alter">Geburtsjahr</label>
+                        <input type="number" id="P_Alter" name=Alter placeholder=1982>
+                    </div>
+                    <div class="geschlecht">
+                        <label for="P_Geschlecht">Geschlecht</label>
+                        <select id="P_Geschlecht" name=Geschlecht>
+                            <option disabled selected hidden></option>
+                            <option>divers</option>
+                            <option>weiblich</option>
+                            <option>männlich</option>
+                            <option>keine Angabe</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="profil_2">
+                    <div class="subtyp">
+                        <label for="P_Subtyp">ADHS-Subtyp</label>
+                        <select id="P_Subtyp" name=Subtyp>
+                        <option disabled selected hidden></option>
+                        <option>ADHS</option>
+                        <option>ADS</option>
+                        <option>Mischtyp</option>
+                        <option>keine Angabe</option>
+                    </select>
+                    </div>
+                    <div class="diagnosen">
+                        <label for="P_Diagnosen">weitere Diagnosen</label>
+                        <input type="text" id="P_Diagnosen" name=Diagnosen>
+                    </div>
+                </div>
+
+                <div class="profil_1 checkbox">
+                    <div class="zyklus">
+                        <input type=checkbox class="" id=P_Zyklus name=Zyklus>
+                        <label class="blue" for=P_Zyklus>
+                            <span></span> 
+                            Zyklus abfragen</label>
+                    </div>
+
+                    <div class="freigeben">
+                        <input type=checkbox class="" id=P_Freigeben name=Freigeben checked>
+                        <label class="blue" for=P_Freigeben>
+                            <span></span> 
+                            Daten freigeben
+                        </label>
+                    </div>
+                </div>
+
+                <label id="WirkungenLabel" class=f or=situation>    Wirkungen</label>
+                <div id=WirkungCheckboxes>
+                </div>
+                <div class="kommentar profil">
+                    <label class="itemLabel comment" for=P_Kommentar>Kommentar: </label>
+                    <textarea name="P_Kommentar" id="P_Kommentar"></textarea>
+                </div>
+                <br>
+                <button type="submit" id=submitProfil>Absenden</button>
+            </fieldset>
+        </form>
+        <!-- PROFIL FORM -->
+
+
+
+        <!-- MOOD FORM -->
+        <form id=MoodForm autocomplete="off">
+            <fieldset>
+                <legend>How do you feel?</legend>
+                <label id="MedikationHeading" class=SectionHeading>Medikation</label>
+
+                <div id=Medikation_0 class=medikationSet>
+
+                    <div class="medikation">
+                        <div class="medikament">
+                            <label for="M_Medikament[0]">Medikament <!---placeholder--></label>
+                           <input  id="M_Medikament[0]" name=Medikation[0][Medikament] />
+                        </div>
+                        <div class="dosierung">
+                            <label for="M_Dosierung[0]">Dosierung</label>
+                            <input type="number" id="M_Dosierung[0]" name=Medikation[0][Dosierung]>
+                        </div>
+                        <div class="einheit">
+                            <label for="M_Einheit[0]">Einheit</label>
+                            <input type="text" id="M_Einheit[0]" name=Medikation[0][Einheit]>
+                        </div>
+                    </div>
+
+                    <div class=medikation>
+                        <div class="zeitpunkt">
+                            <label for="M_Zeitpunkt[0]">Einnahmezeitpunkt</label>
+                            <input type="time" id="M_Zeitpunkt[0]" name=Medikation[0][Zeitpunkt]>
+                        </div>
+
+                        <div class="seitwann">
+                            <label for="M_SeitWann[0]">Begin der Medikation</label>
+                            <input type="date" id="M_SeitWann[0]" name=Medikation[0][SeitWann]>
+                        </div>
+                    </div>
+
+                    <!-- <div class=medikation>
+                        <div class="wirkzeit">
+                            <label>&nbsp;</label>
+                            <input type=checkbox class=hidden id=P _Wirkzeit[0] name=Medikation[0][Wirkzeit]>
+                            <label class="buttonlabel wirkzeit" for=P _Wirkzeit[0]>innerhalb der Wirkzeit</label>
+                        </div>
+                    </div> -->
+
+
+                </div>
+                <!-- id=Medikation_0 -->
+                <div id=AnmerkungMedikation class="kommentar medikament">
+                    <label class="itemLabel comment" for=M_Kommentar[0]>Anmerkungen zur Medikation</label>
+                    <textarea id="M_Kommentar[0]" name=Medikation[0][Kommentar]></textarea>
+                </div>
+
+                <div id=AddRemoveMedikation class="">
+                    <label id=AddMedikation class='plusminus plus' onclick=newMedikation()></label>
+                    <label id=RemoveMedikation class='plusminus minus' onclick=delMedikation()></label>
+                </div>
+
+                <!-- SITUATIONS -->
+                <label id="SituationHeading" class=SectionHeading>Situation</label>
+
+                <div id=SituationCheckboxes>
+                </div>
+
+                <label id="WirkungHeading" class=SectionHeading>Wirkung</label>
+                <div id=MoodSlider>
+                </div>
+
+                <div class="checkbox">
+                    <label id="WirkzeitHeading" class=SectionHeading>Wirkzeit</label>
+                    <input type=checkbox class="" id=P_Wirkzeit name=Wirkzeit>
+                    <label class="wirkzeit" for=P_Wirkzeit>
+                        <span></span>
+                        Die Medikation wirkt noch</label>
+                </div>
+
+                <label id="KommentarHeading" class=SectionHeading>Kommentar</label>
+                <div class="kommentar mood">
+                    <textarea name="comment" id="comment"></textarea>
+                </div>
+                <br>
+                <br>
+                <button type="submit" id=submitMood class="pure-button pure-button-primary">absenden</button>
+            </fieldset>
+        </form>
+        <!-- MOOD FORM -->
+
+        <!-- CHART -->
+        <div id="AuswertungsChart">
+            <fieldset>
+                <legend>Auswertung</legend>
+                <div id="ValueLines"></div>
+                <div id="ChartTooltip">
+                    <table>
+                        <tr>
+                            <td>
+                                <div id="ChartToolDate"></div>
+                            </td>
+                            <td>
+                                <div id="ChartToolSituation"></div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div id="ChartToolWirkungen"></div>
+                            </td>
+                            <td>
+                                <div id="ChartToolMedikation">für Details in das Diagramm zeigen</div>
+                                <div id="ChartToolKommentar"></div>
+                            </td>
+                        </tr>
+
+                    </table>
+                </div>
+                <div id="ChartLegend"></div>
+                <!-- width="500" height="400" -->
+                <canvas id="ChartCanvas"></canvas>
+            </fieldset>
+
+        </div>
+        <!-- CHART -->
+
+
+        <!-- FOOTER -->
+        <div id="footer">
+            Made with <svg viewBox="0 0 1792 1792" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" style="height: 0.8rem;">
+                <path  fill="#be5046" d="M896 1664q-26 0-44-18l-624-602q-10-8-27.5-26T145 952.5 77 855 23.5 734 0 596q0-220 127-344t351-124q62 0 126.5 21.5t120 58T820 276t76 68q36-36 76-68t95.5-68.5 120-58T1314 128q224 0 351 124t127 344q0 221-229 450l-623 600q-18 18-44 18z"></path>
+            </svg> by
+            <a href="https://github.com/KoljaL/kpulbrain" title="Link to Github Repository" target="_blank">
+                <img src="https://rasal.de/img/kpulbrain-20.png" alt="kpulbrain">
+            </a>
+        </div>
+        <!-- FOOTER -->
+
+        <!-- POUCH DATA -->
+        <div id="pouchData"></div>
+        <!-- POUCH DATA -->
+
+    </div>
+    <!-- div id content -->
+
+    <script src="js/randomData.js"></script>
+
+    <script>
+        //
+        // user verification & data link 
+        //
+        var DataFreigegeben = document.getElementById('P_Freigeben').checked;
+        var localDataName = document.getElementById('P_Name').value;
+        // var localDataName = md5(localDataName);
+        var datalink = document.getElementById('datalink');
+
+        // for navigation menu
+        var ProfilLink = document.getElementById('profil');
+        var ProfilForm = document.getElementById('ProfilForm');
+        var MoodLink = document.getElementById('mood');
+        var MoodForm = document.getElementById('MoodForm');
+        var ChartLink = document.getElementById('chart');
+        var AuswertungsChart = document.getElementById('AuswertungsChart');
+        // link to delete localData
+        var DelLocalLink = document.getElementById('dellocal');
+        // all labels
+        var labels = document.getElementsByTagName('label')
+            // all form elements for populating
+        let ProfilFormElements = document.getElementById('ProfilForm').elements;
+        // for pouchdb sym message
+        var syncDom = document.getElementById('sync-wrapper');
+
+        // initial localData
+        // var initObj = new Object({
+        //     Profil: {
+        //         Situations: {
+        //             0: 'gerade aufgewacht',
+        //             1: 'bei der Arbeit',
+        //             2: 'zuhause',
+        //             3: 'kann nicht schlafen',
+        //         },
+        //         Wirkung: {
+        //             0: 'Unruhe___red',
+        //         },
+        //         Freigeben: "on",
+        //     },
+        //     Mood: {}
+        // });
+
+
+        // var localData = JSON.parse(localStorage.getItem(localDataName)) || initObj;
+        // deb(localData)
+        // deb(Object.values(localData.Mood), 'Mood values');
+        // deb(Object.entries(localData.Mood), 'Mood entries');
+        // var allMoods = Object.values(localData.Mood);
+        // for (const mood of allMoods) deb(mood,'allMoods')
+    </script>
+    <script src="js/form.js"></script>
+    <script>
+        populateProfilForm();
+        populateMoodForm();
+        DataFreigeben();
+        // showMessage(showSize());
+    </script>
+    <script src="js/chart.js"></script>
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 
+<div id="header">
+    <div id=profil>
+        <a href="#profil" class=blueFont>
+            <svg id="svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="34.2px" height="40px" viewBox="0, 0, 342,400">
+                 <g>
+                     <path stroke="none" fill="#61aeee" fill-rule="evenodd" d="m 152.7 1.2 c -37.9 6.4 -62.2 33.2 -68.1 75 c -6 42.6 4.2 89.5 24.8 113.7 c 27.3 32.3 84.3 34.9 115.6 5.3 c 25.1 -23.8 36.6 -70.8 29.6 -120.9 c -7.2 -51.8 -49.3 -82.1 -101.9 -73.1 m 24.1 22.2 c 39.3 4.5 56.3 28.6 56.4 79.5 c 0 57.7 -22.4 89.5 -63.3 89.5 c -40.9 0 -63.5 -31.6 -63.5 -88.9 c -0.1 -39.9 9.9 -62.7 32.3 -73.6 c 12 -5.9 24.7 -8 38.1 -6.5 m -66.3 191.4 c -1 0.3 -6.4 3.3 -11.9 6.6 c -18.6 11.1 -35.2 18.5 -56.8 25.3 c -31.1 9.8 -41.8 28.9 -41.8 74 c 0.1 35.4 0.9 37.1 22 47.6 c 31.2 15.5 65.3 24.9 110 30.3 c 24.5 2.9 73.8 1.1 102.4 -3.8 c 46.7 -8 99.1 -29.1 102.6 -41.3 c 3.4 -11.8 4.2 -44.6 1.4 -59.6 c -4.9 -26.1 -17.2 -40.3 -41 -47.4 c -20.9 -6.2 -42.3 -16.1 -63.2 -29.3 c -11.3 -7.1 -24.3 3.7 -17.7 14.8 c 4.5 7.6 45.2 28.1 71.3 35.9 c 18 5.4 23.8 11.6 27.6 29.6 c 1.7 8.2 2.2 28.6 1.1 40.1 l -0.6 5.9 l -9.1 4.4 c -81.3 38.9 -190.8 39.1 -272.9 0.3 c -11 -5.1 -10 -3.5 -10.9 -17.5 c -2.7 -39.3 4.7 -55.7 28.1 -62.7 c 25.4 -7.5 63.4 -26.1 71.1 -34.8 c 7.1 -8.1 -1.4 -21.5 -11.7 -18.4 " />
+                 </g>
+             </svg>
+                <rect width="100%" height="100%" fill="red" />
+            </a>
+    </div>
+    <div id=mood>
+        <a href="#mood" class=orangeFont>
+            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="30.5px" height="40px" viewBox="0 0 305 400" version="1.1">
+                <rect width="100%" height="100%" fill="red" />
+                 <g>
+                     <path stroke="none" fill="#d19a66"  d="m 30.5 1.8 c -13.7 4.7 -23.9 15 -28.1 28.6 C 0 38.2 0 361.9 2.4 369.7 c 4.2 13.5 14.4 23.9 28.1 28.6 l 5.1 1.7 l 117.6 0 l 117.6 0 l 5.1 -1.7 c 13.8 -4.7 24 -15.1 28.1 -28.7 c 1.5 -5 1.5 -7.5 1.3 -135.5 l -0.2 -130.5 l -1.8 -4.5 c -3.7 -9.2 -6.8 -12.6 -47.3 -50.9 c -42.5 -40.2 -43.5 -41.1 -49.1 -43.9 c -8.5 -4.3 -6.1 -4.2 -92 -4.2 l -79.3 0 l -5.1 1.7 m 153.3 59 l 0.2 37.3 l 1.9 3.9 c 2.5 5 7.9 10.5 12.9 12.9 l 3.9 1.9 l 39.7 0.2 l 39.7 0.2 l -0.2 122 l -0.2 122 l -2.3 4.2 c -2.3 4.2 -4.8 6.5 -9.8 9.2 c -2.6 1.4 -6.9 1.5 -116.4 1.5 l -113.7 0 l -3.9 -2.1 c -4.6 -2.4 -6.6 -4.5 -9.1 -9.3 l -1.8 -3.5 l 0 -161.3 l 0 -161.3 l 1.8 -3.5 c 6.3 -12 2.2 -11.5 87.4 -11.6 l 69.7 -0.1 l 0.2 37.3 m 58.7 8.3 l 25.7 24.3 l -27.2 0.2 c -30.7 0.3 -32 0.1 -33.1 -2.7 c -0.4 -1.1 -0.7 -13.6 -0.7 -28.6 l 0 -26.6 l 4.9 4.5 c 2.7 2.5 16.4 15.4 30.5 28.8 m -184.1 88.6 c -3.6 2.4 -5.2 5.4 -5.2 10.2 c 0 4.8 1.5 7.8 5.2 10.2 c 3.5 2.3 181.4 2.3 184.9 0 c 7.1 -4.7 7.1 -15.8 0 -20.5 c -3.5 -2.3 -181.4 -2.3 -184.9 0 m 0 62.5 c -3.6 2.4 -5.2 5.4 -5.2 10.2 c 0 4.8 1.5 7.8 5.2 10.2 c 2.2 1.4 5.4 1.5 92.5 1.5 c 87.1 0 90.3 -0.1 92.5 -1.5 c 7.1 -4.7 7.1 -15.8 0 -20.5 c -3.5 -2.3 -181.4 -2.3 -184.9 0 m 0 62.5 c -3.6 2.4 -5.2 5.4 -5.2 10.2 c 0 4.8 1.5 7.8 5.2 10.2 c 2.1 1.4 4.2 1.5 34.7 1.5 c 36.2 0 35.6 0.1 39.1 -5.6 c 3.3 -5.3 1.3 -12.9 -4.1 -16.2 c -3.8 -2.3 -66.1 -2.4 -69.6 -0.1 "/>
+                 </g>
+             </svg>
+        </a>
+    </div>
+    <div id=chart>
+        <a href="#chart" class=greenFont>
+            <svg id="svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="50px" height="45px" viewBox="0, 0, 430,310">
+                <rect width="100%" height="100%" fill="red" />  
+                 <g>
+                     <path  stroke="none" fill="#98c379" fill-rule="evenodd" d="m 1.3 8.5 c -1.1 1.2 -1.3 3.7 -1.3 18.6 c 0 20.1 -0.1 19.8 7.8 20.4 l 4.7 0.3 l 0 124.1 c 0 68.2 0.2 124.6 0.5 125.3 c 1.4 3.7 -0.7 3.6 92 3.6 l 87.2 0 l 14.1 0 l 87.1 0 c 92.7 0 90.7 0.1 92.1 -3.6 c 0.2 -0.7 0.4 -57.1 0.4 -125.3 l 0 -124.1 l 4.7 -0.3 c 3.6 -0.2 5.2 -0.8 6.7 -2.2 l 1.9 -1.8 l 0 -16.5 c 0 -16.3 0 -16.6 -1.8 -18.3 l -1.8 -1.7 l -196.5 0 c -189.4 0 -196.6 0.1 -197.8 1.5 m 383.9 18.8 l 0 6.3 l -186 0 l -185.9 0 l 0 -6.3 l 0 -6.2 l 185.9 0 l 186 0 l 0 6.2 m -13.3 139.9 l 0 119.5 l -172.7 0 l -172.6 0 l 0 -119.5 l 0 -119.5 l 172.6 0 l 172.7 0 l 0 119.5 m -317.5 -91.7 c -4.1 4.1 -2 10.6 3.6 11.6 c 1.4 0.3 15 0.4 30.2 0.2 l 27.6 -0.2 l 1.8 -2.2 c 2.1 -2.4 2.4 -5.1 1 -7.8 c -1.9 -3.6 -1.8 -3.6 -32.8 -3.6 l -29.3 -0.1 l -2.1 2.1 m 1.5 25.4 c -4.9 2.8 -4.8 9.6 0.1 12.3 c 2.3 1.2 57.2 1.2 59.9 0 c 4.7 -2.2 4.7 -10.2 0 -12.3 c -2.7 -1.3 -57.9 -1.2 -60 0 m 255.8 0.2 c -15.2 4.4 -23.4 21.6 -17.5 36.4 l 1.3 3.3 l -21.4 21.5 l -21.5 21.5 l -2.6 -1.4 c -8.2 -4.2 -22.7 -1.9 -29 4.8 l -1.7 1.8 l -16.6 -8.3 l -16.6 -8.3 l -0.3 -6.7 c -0.8 -15.3 -11.3 -25.4 -26.4 -25.4 c -18 -0.1 -30.7 15.9 -26.2 33.2 c 0.6 2.7 0.9 5.1 0.6 5.4 c -8.5 7.4 -38.7 32 -39.2 32 c -0.4 0 -2.3 -0.8 -4.1 -1.7 c -20.4 -10.7 -44.9 12 -36.6 34 c 11.7 31.1 59.5 16.4 51.3 -15.8 c -0.8 -2.8 -1.1 -5.3 -0.7 -5.5 c 6.3 -5.5 38.1 -31.5 38.8 -31.8 c 0.6 -0.2 2.6 0.4 4.5 1.4 c 8.1 4.2 21.4 2.5 28.6 -3.6 l 3.2 -2.8 l 16.4 8.2 l 16.3 8.2 l 0.4 6.9 c 1.6 31.8 46.5 35.2 52.9 3.9 c 1 -5 0.6 -9.1 -1.4 -14.9 l -1.2 -3.7 l 21.4 -21.4 l 21.5 -21.4 l 4.6 1.6 c 26.7 9.1 47.6 -24.7 27.7 -44.6 c -6.5 -6.5 -17.6 -9.4 -26.5 -6.8 m 13.1 14.6 c 9.1 4.4 9.5 17.3 0.6 22.4 c -12.6 7.1 -25.3 -9.1 -15.4 -19.6 c 4.2 -4.6 9.2 -5.5 14.8 -2.8 m -268.5 11.7 c -4.4 1.8 -5.4 7.6 -1.9 11.2 l 2.1 2 l 29.3 0 c 31 0 30.9 0 32.8 -3.6 c 1.4 -2.7 1.1 -5.5 -1 -7.9 l -1.8 -2.1 l -28.8 -0.2 c -17.4 -0.1 -29.5 0.1 -30.7 0.6 m 109.9 29 c 10.2 6.3 5.4 23.3 -6.6 23.3 c -8.5 0 -14.8 -7.8 -12.7 -15.6 c 2.3 -8.7 11.6 -12.5 19.3 -7.7 m 80.6 40.3 c 7.1 5.3 6.7 16.1 -0.7 20.9 c -8.2 5.5 -19.5 -0.7 -19.5 -10.6 c 0 -10.2 12.1 -16.3 20.2 -10.3 m -162.1 25.5 c 1.4 0.6 3.3 2 4.2 3.2 c 10.2 12.9 -7.1 28.4 -18.7 16.9 c -9.9 -10 1.3 -25.6 14.5 -20.1 "/>
+                 </g>
+             </svg>
+        </a>
+    </div>
+    <div id=datalink>
+        <a class=pinkFont target='_blank' href='save.php?n=" + localDataName + "'>
+            <svg id="svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="40px" height="40px" viewBox="0, 0, 240,245">
+                <rect width="100%" height="100%" fill="red" />
+                <g>
+                    <path  stroke="none" fill="#c678dd" fill-rule="evenodd" d="m 6.2 1.1 c -2.7 1.2 -5.5 4.6 -6 7.3 c -0.2 1.1 -0.3 52.9 -0.2 114.9 c 0.2 126.6 -0.3 114 4.8 117.8 l 1.8 1.4 l 112.6 0 l 112.6 0 l 1.8 -1.4 c 1 -0.7 2.5 -2.2 3.2 -3.2 l 1.4 -1.8 l 0 -114.6 l 0 -114.6 l -1.4 -1.8 c -3.8 -5.1 8.7 -4.6 -116.8 -4.7 c -91.9 -0.2 -112.2 0 -113.8 0.7 m 31 64.6 l 0 58.2 l 1.5 1.4 c 3.2 2.9 1.1 2.9 80.8 2.9 c 82.3 0 79.5 0.1 81.9 -3.4 c 1 -1.5 1.1 -7 1.1 -59.4 l 0 -57.9 l 14 0 c 13.1 0 14 0.1 14.7 1.3 c 0.9 1.8 0.9 223.6 0 225.4 c -0.7 1.3 -1.7 1.3 -29.7 1.3 l -29 0 l 0 -31.6 l 0 -31.6 l -1.9 -1.6 c -3.1 -2.6 -101.9 -3.9 -108.1 -1.5 c -4.7 2 -4.6 1.2 -4.6 35.6 l 0 30.7 l -25 0 c -24 0 -25 -0.1 -25.7 -1.3 c -0.9 -1.8 -0.9 -223.6 0 -225.4 c 0.7 -1.2 1.6 -1.3 15.4 -1.3 l 14.6 0 l 0 58.2 m 158.7 -0.9 l 0 56.7 l -76.4 0 l -76.3 0 l 0 -56.7 l 0 -56.6 l 76.3 0 l 76.4 0 l 0 56.6 m -56.7 140 l 0 30 l -37.3 0 l -37.4 0 l 0 -30 l 0 -30 l 37.4 0 l 37.3 0 l 0 30 m 27.2 0.2 l 0.1 29.8 l -10.3 0 l -10.3 0 l 0 -30 l 0 -30 l 10.1 0.2 l 10.2 0.2 l 0.2 29.8 m -93.9 -0.8 l 0 22 l 10.7 0 l 10.7 0 l 0 -22 l 0 -22 l -10.7 0 l -10.7 0 l 0 22"/>
+                </g>
+            </svg>
+        </a>
+    </div>
+    <div id=dellocal>
+        <a href="#dellocal" class=redFont>
+            <svg id="svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="35px" height="35px" viewBox="0, 0, 350,350">
+                <rect width="100%" height="100%" fill="red" />
+                 <g>
+                     <path  stroke="none" fill="#be5046" fill-rule="evenodd" d="m 156.7 47 l 0 47 l 12.6 0 l 12.7 0 l 0 -47 l 0 -47 l -12.7 0 l -12.6 0 l 0 47 m -30.4 -21.4 c -102.8 26.7 -154.3 139.7 -106.4 233.5 c 47.9 93.8 173.3 119.4 256.4 52.4 c 107.5 -86.6 64.7 -257.8 -71.8 -287.8 l -1.8 -0.4 l 0 16.2 l 0 16.1 l 8.5 3 c 104.4 36.9 121.9 176.1 29.9 237.7 c -22.6 15 -42 20.6 -71.8 20.6 c -30.5 0.1 -48 -5.1 -72.7 -21.4 c -91.3 -60.2 -72.1 -202.3 32.1 -237.6 l 6.6 -2.3 l 0 -16.1 c 0 -8.9 0 -16.2 -0.1 -16.2 c -0.1 0 -4.1 1.1 -8.9 2.3 m -43.6 114.8 c 0 31.5 0.1 39.6 0.8 39.4 c 0.5 -0.2 19.2 -3.6 41.7 -7.5 c 22.4 -4 40.8 -7.5 40.8 -7.8 c 0 -0.2 -6.2 -5.2 -13.7 -10.9 c -7.5 -5.8 -13.6 -10.8 -13.6 -11.1 c 0 -0.2 2.1 -1.5 4.8 -2.8 c 52 -24.8 103.2 35.4 68.2 80.1 c -23.4 29.9 -74.8 26.1 -91.8 -6.8 c -1.2 -2.4 -2.6 -4.4 -3.1 -4.4 c -1.7 0 -30.5 6.9 -31 7.4 c -1 0.9 5.9 13.8 10.5 20.1 c 32.5 43.2 98.5 47.3 136.2 8.3 c 28.7 -29.6 31.4 -73.5 6.5 -106.5 c -28.4 -37.8 -83.5 -46 -122.9 -18.4 l -4.3 3 l -5.4 -4.1 c -13.7 -10.7 -23.1 -17.8 -23.4 -17.8 c -0.2 0 -0.3 17.9 -0.3 39.8 "/>
+                 </g>
+             </svg>
+        </a>
+    </div>
+</div> -->
